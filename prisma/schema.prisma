@@ -14,55 +14,45 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
-}
-
 // Necessary for Next auth
-model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String? // @db.Text
-    session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
-
-    @@unique([provider, providerAccountId])
-}
-
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
+// Authentication
 model User {
     id            String    @id @default(cuid())
     name          String?
+    // College email will allow for verification
     email         String?   @unique
     emailVerified DateTime?
     image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
+
+    // Manually Added
+    password String
+    phone    String @db.VarChar(10)
+    bio      String
+    year     String @db.VarChar(4)
+
+    role     Role
+    position String
+
+    branchId String
+    Branch   Branch @relation(fields: [branchId], references: [id])
+
+    UserLink UserLink[]
+
+    totalActivityPoints Int
+    ActivityPoint       ActivityPoint[]
+
+    Organiser Organiser[]
+
+    Team Team[]
+
+    Attendence Attendence[]
+
+    joiningYearId String?
+    JoiningYear   AcademicYear? @relation(fields: [joiningYearId], references: [id])
+
+    Certificate  Certificate[]
+    Answer       Answer[]
+    UserFeedback UserFeedback[]
 }
 
 model VerificationToken {
@@ -71,4 +61,254 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+// model RefreshToken {
+//     token   String
+//     expires DateTime
+// }
+
+// End of NextAuth
+
+// Models
+model ServerSettings {
+    id String @id @default(cuid())
+
+    currentAcademicYearId String       @unique
+    CurrentAcademicYear   AcademicYear @relation(fields: [currentAcademicYearId], references: [id])
+}
+
+model AcademicYear {
+    id   String @id @default(cuid())
+    year String
+
+    User  User[]
+    Event Event[]
+
+    ServerSettings ServerSettings?
+}
+
+// User related models
+model UserLink {
+    id       String @id @default(cuid())
+    linkName String
+    url      String
+
+    userId String?
+    User   User?   @relation(fields: [userId], references: [id])
+}
+
+model Branch {
+    id   String @id @default(cuid())
+    name String
+
+    User User[]
+}
+
+model ActivityPoint {
+    id    String  @id @default(cuid())
+    point Int
+    name  String? @default("Event")
+
+    eventId String?
+    Event   Event?  @relation(fields: [eventId], references: [id])
+
+    User User[]
+}
+
+// Event management
+
+model Event {
+    id          String         @id @default(cuid())
+    name        String
+    imgSrc      String?
+    deadline    DateTime?
+    fromDate    DateTime
+    toDate      DateTime
+    description String?
+    venue       String?
+    type        EVENT_TYPE
+    minTeamSize Int            @default(1)
+    maxTeamSize Int
+    maxTeams    Int            @default(0) // 0 means infinity
+    category    EVENT_CATEGORY
+    amount      Int            @default(0)
+    state       EVENT_STATE    @default(DRAFT)
+    isLegacy    Boolean        @default(false)
+
+    ActivityPoint ActivityPoint[]
+    Team          Team[]
+
+    Organiser Organiser[]
+
+    Attendence Attendence[]
+    Winner     Winner[]
+
+    academicYearId String
+    AcademicYear   AcademicYear @relation(fields: [academicYearId], references: [id])
+
+    Certificate Certificate[]
+
+    // Needed?
+    FeedbackTemplate FeedbackTemplate[]
+}
+
+model Organiser {
+    id String @id @default(cuid())
+
+    eventId String
+    Event   Event  @relation(fields: [eventId], references: [id])
+
+    userId String
+    User   User   @relation(fields: [userId], references: [id])
+
+    @@unique([userId, eventId])
+}
+
+model Team {
+    id          String  @id @default(cuid())
+    name        String
+    isConfirmed Boolean @default(false)
+    hasAttended Boolean @default(false)
+
+    Members User[]
+
+    eventId String
+    Event   Event  @relation(fields: [eventId], references: [id])
+
+    Winner Winner?
+}
+
+model Attendence {
+    id          String  @id @default(cuid())
+    hasAttended Boolean @default(false)
+
+    userId String
+    User   User   @relation(fields: [userId], references: [id])
+
+    eventId String
+    Event   Event  @relation(fields: [eventId], references: [id])
+}
+
+model Winner {
+    id         String      @id @default(cuid())
+    winnerType WINNER_TYPE
+
+    eventId String
+    Event   Event  @relation(fields: [eventId], references: [id])
+
+    teamId String @unique
+    Team   Team   @relation(fields: [teamId], references: [id])
+
+    @@unique([eventId, teamId])
+}
+
+model Certificate {
+    id              String           @id @default(cuid())
+    issuedOn        DateTime
+    certificateType CERTIFICATE_TYPE
+
+    userId String
+    User   User   @relation(fields: [userId], references: [id])
+
+    eventId String
+    Event   Event  @relation(fields: [eventId], references: [id])
+
+    @@unique([eventId, userId])
+}
+
+model Question {
+    id         String      @id @default(cuid())
+    qs         String
+    answerType ANSWER_TYPE
+
+    Answer Answer[]
+
+    feedbackTemplateId String
+    FeedbackTemplate   FeedbackTemplate @relation(fields: [feedbackTemplateId], references: [id])
+}
+
+model Answer {
+    id  String @id @default(cuid())
+    ans String
+
+    questionId String
+    Question   Question @relation(fields: [questionId], references: [id])
+
+    userId String
+    User   User   @relation(fields: [userId], references: [id])
+
+    userFeedbackUserId             String?
+    userFeedbackFeedbackTemplateId String?
+    UserFeedback                   UserFeedback? @relation(fields: [userFeedbackUserId, userFeedbackFeedbackTemplateId], references: [userId, feedbackTemplateId])
+}
+
+model FeedbackTemplate {
+    id String @id @default(cuid())
+
+    eventId String
+    Event   Event  @relation(fields: [eventId], references: [id])
+
+    Questions    Question[]
+    UserFeedback UserFeedback[]
+}
+
+model UserFeedback {
+    userId String
+    User   User   @relation(fields: [userId], references: [id])
+
+    feedbackTemplateId String
+    FeedbackTemplate   FeedbackTemplate @relation(fields: [feedbackTemplateId], references: [id])
+
+    Answers Answer[]
+
+    @@id([userId, feedbackTemplateId])
+    @@unique([userId, feedbackTemplateId])
+    @@index([userId, feedbackTemplateId])
+}
+
+// Enumerations
+enum Role {
+    USER
+    MEMBER
+    CORE
+    ADMIN
+}
+
+enum EVENT_TYPE {
+    SOLO
+    TEAM
+}
+
+enum EVENT_CATEGORY {
+    // TODO: add more
+    WORKSHOP
+    COMPETITION
+    HACKATHON
+    SPECIAL
+}
+
+enum EVENT_STATE {
+    DRAFT
+    PUBLISHED
+    COMPLETED
+}
+
+enum WINNER_TYPE {
+    WINNER
+    RUNNER_UP
+    SECOND_RUNNER_UP
+}
+
+enum CERTIFICATE_TYPE {
+    WINNER
+    RUNNER_UP
+    SECOND_RUNNER_UP
+    PARTICIPATION
+}
+
+enum ANSWER_TYPE {
+    BOOLEAN
+    RATING
+    COMMENT
 }
