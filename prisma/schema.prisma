@@ -277,7 +277,8 @@ model Answer {
 }
 
 model FeedbackTemplate {
-  id String @id @default(cuid())
+  id            String                   @id @default(cuid())
+  templateState FEEEDBACK_TEMPLATE_STATE @default(DRAFT)
 
   eventId String
   Event   Event  @relation(fields: [eventId], references: [id])
@@ -308,16 +309,16 @@ model UserFeedback {
 }
 
 model Payment {
-  id     String @id @default(cuid())
-  userId String
-  User   User   @relation(fields: [userId], references: [id])
-  paymentName String
+  id                String   @id @default(cuid())
+  userId            String
+  User              User     @relation(fields: [userId], references: [id])
+  paymentName       String
   razorpayPaymentId String
-  razorpayOrderId  String
+  razorpayOrderId   String
   razorpaySignature String
-  createdAt DateTime @default(now())
+  createdAt         DateTime @default(now())
 
-  @@unique([userId,razorpayPaymentId])
+  @@unique([userId, razorpayPaymentId])
 }
 
 // Enumerations
@@ -366,7 +367,7 @@ enum AnswerType {
   COMMENT
 }
 
-enum VerificationType {
-  PASSWORD_RESET
-  EMAIL_VERIFICATION
+enum FEEEDBACK_TEMPLATE_STATE {
+  DRAFT
+  PUBLISHED
 }
