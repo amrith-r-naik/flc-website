@@ -153,6 +153,16 @@ cron.schedule("*/3 * * * *", async () => {
       },
     },
   });
+
+  await db.verificationToken.deleteMany({
+    where: {
+      revoked: false,
+      createdAt: {
+        lte: expiryTime,
+      },
+    },
+  });
+
   console.log("cron job running: deleted revoked tokens");
 });
 
