@@ -1,5 +1,11 @@
-import { z } from 'zod';
-import { EVENT_TYPE, EVENT_CATEGORY, EVENT_STATE, ANSWER_TYPE, FEEEDBACK_TEMPLATE_STATE } from "@prisma/client";
+import { z } from "zod";
+import {
+  EVENT_TYPE,
+  EVENT_CATEGORY,
+  EVENT_STATE,
+  ANSWER_TYPE,
+  FEEEDBACK_TEMPLATE_STATE,
+} from "@prisma/client";
 //Event management
 const createEventSchema = z.object({
   name: z.string(),
@@ -48,7 +54,6 @@ const getEventByStateSchema = z.object({
   state: z.nativeEnum(EVENT_STATE).optional(),
 });
 
-
 //FeedbackTemplete
 const createFeedbackTemplateSchema = z.object({
   eventId: z.string(),
@@ -74,8 +79,8 @@ const createAnswerSchema = z.object({
 
 const publishFeedbackTempleteSchema = z.object({
   id: z.string(),
-  templateState: z.nativeEnum(FEEEDBACK_TEMPLATE_STATE)
-})
+  templateState: z.nativeEnum(FEEEDBACK_TEMPLATE_STATE),
+});
 const getQuestionsByFeedbackTemplateIdSchema = z.object({
   feedbackTemplateId: z.string(),
 });
@@ -83,7 +88,7 @@ const getQuestionsByFeedbackTemplateIdSchema = z.object({
 const markTeamAttendanceSchema = z.object({
   teamId: z.string(),
   eventId: z.string(),
-})
+});
 
 // team
 const createTeamZ = z.object({
@@ -208,16 +213,23 @@ const RefreshTokenSchema = z.object({
 const createWinnerZ = z.object({
   eventId: z.string(),
   teamId: z.string(),
-  winnerType: z.enum(['WINNER', 'RUNNER_UP', 'SECOND_RUNNER_UP']),
+  winnerType: z.enum(["WINNER", "RUNNER_UP", "SECOND_RUNNER_UP"]),
 });
-const getWinnersByEventIdZ = z.string()
+const getWinnersByEventIdZ = z.string();
 const editWinnerTypeZ = z.object({
   winnerId: z.string(),
-  winnerType: z.enum(['WINNER', 'RUNNER_UP', 'SECOND_RUNNER_UP']),
+  winnerType: z.enum(["WINNER", "RUNNER_UP", "SECOND_RUNNER_UP"]),
 });
 //certificate
 const issueCertificateByEventIdZ = z.object({
   eventId: z.string(),
+});
+const getCertificationDetailsByIdZ = z.object({
+  certificateId: z.string(),
+});
+
+const getAllCertificationsByUserIdZ = z.object({
+  userId: z.string(),
 });
 
 export {
@@ -246,5 +258,7 @@ export {
   createWinnerZ,
   getWinnersByEventIdZ,
   editWinnerTypeZ,
-  issueCertificateByEventIdZ
-}
+  issueCertificateByEventIdZ,
+  getCertificationDetailsByIdZ,
+  getAllCertificationsByUserIdZ,
+};
