@@ -1,17 +1,10 @@
-'use client'
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
-
-
 function Card() {
-
-
   return (
     <>
-      <Link href={`/event/${1555}`} >
       <div className="card">
-        <div className="relative mb-4 h-80 ">
+        <div className="relative mb-4 h-80">
           <Image
             src="/assets/sample.png"
             alt="Example Image"
@@ -34,7 +27,6 @@ function Card() {
           </div>
         </div>
       </div>
-      </Link>
     </>
   );
 }
