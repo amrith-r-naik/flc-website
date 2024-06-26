@@ -1,27 +1,7 @@
 import React from "react";
-import Card from "~/components/card";
-import RadioButtons from "~/components/radioButtons";
-function page() {
-  return (
-    <>
-      <div className="flex justify-center">
-        <h1 className="text-gradient mt-8 text-7xl font-bold">Events</h1>
-      </div>
 
-      <div className="flex justify-center py-8 md:py-16">
-        <RadioButtons />
-      </div>
+const index = () => {
+  return <div className="h-screen bg-black">Event</div>;
+};
 
-      <div className=" mx-2 mt-8 flex flex-wrap justify-center gap-20 md:mx-8">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </div>
-    </>
-  );
-}
-
-export default page;
+export default index;
