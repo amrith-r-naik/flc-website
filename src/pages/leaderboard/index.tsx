@@ -39,7 +39,7 @@ const index = () => {
         </div>
       </div>
 
-      <main className="mx-auto h-[30rem] w-[95%] space-y-2  border-border sm:w-4/5 md:w-4/5 ">
+      <main className="mx-auto h-[30rem] w-[95%]  space-y-2 border-border lg:w-4/5 ">
         {/*below div Grid banner */}
         <div className="flex w-full rounded-lg border-2 border-border bg-accent">
           <div className="flex-1  py-4">
