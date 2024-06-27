@@ -3,7 +3,14 @@
 import React from "react";
 import * as Avatar from "@radix-ui/react-avatar";
 
-const RankBars = ({ size, rank }: { size: number; rank: number }) => {
+const RankBars = ({
+  className,
+  rank,
+}: {
+  className: string;
+  size: number;
+  rank: number;
+}) => {
   const bgColor =
     rank == 1
       ? "#f6c388" /* gold */
@@ -12,11 +19,11 @@ const RankBars = ({ size, rank }: { size: number; rank: number }) => {
         : "#846262 "; /* bronze */
   return (
     <div
-      className="relative  w-12 overflow-visible"
-      style={{ height: `${size}px`, backgroundColor: `${bgColor}` }}
+      className={`relative  w-12 overflow-visible ${className}`}
+      style={{ /*  height: `${size}px`, */ backgroundColor: `${bgColor}` }}
     >
       <div className="absolute -top-12 left-1/2 -translate-x-1/2 transform ">
-        <Avatar.Root className="bg-blackA1 inline-flex h-[70px] w-[70px] select-none items-center justify-center overflow-hidden rounded-full align-middle">
+        <Avatar.Root className="bg-blackA1 inline-flex h-[75px] w-[75px] select-none items-center justify-center overflow-hidden rounded-full align-middle">
           <Avatar.Image
             className="h-full w-full rounded-[inherit] object-cover"
             src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
