@@ -34,8 +34,8 @@ function Home() {
         <button type="submit">Update</button>
       </form> */}
       <button
-        onClick={() => {
-          signOut({ callbackUrl: "/" });
+        onClick={async () => {
+          await signOut({ callbackUrl: "/" });
           router.push("/");
         }}
       >
