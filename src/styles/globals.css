@@ -1,3 +1,8 @@
+body {
+    overflow: visible !important;
+    margin-right: 0 !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,6 +21,8 @@
         --card: 0 0% 13%;
         --card-foreground: 0 0% 39%;
         --border: 0 0% 19%;
+        --accent: 0 0% 14.9%;
+        --accent-foreground: 0 0% 98%;
         background-color: hsl(0 0% 8%);
         color: white;
     }
