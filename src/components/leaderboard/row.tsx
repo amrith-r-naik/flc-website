@@ -15,25 +15,25 @@ const Row = ({ name, usn, eventsAttended, xp }: rowProps) => {
         <div className="hidden md:block">
           <AvatarCustom height={40} width={40} />
         </div>
-        <p className="sm:text-md font-semibol text-center text-xs md:text-lg">
+        <p className="font-semibol text-center text-xs sm:text-base md:text-lg">
           {name}
         </p>
       </div>
 
       <div className="flex flex-1 items-center justify-center border-orange-700 py-4">
-        <p className="sm:text-md font-semibol text-center text-xs md:text-lg">
+        <p className="font-semibol text-center text-xs sm:text-base md:text-lg">
           {usn}
         </p>
       </div>
 
       <div className="flex flex-1 items-center justify-center border-orange-700 py-4">
-        <p className="sm:text-md font-semibol text-center text-xs md:text-lg">
+        <p className="font-semibol text-center text-xs sm:text-base md:text-lg">
           {eventsAttended}
         </p>
       </div>
 
       <div className="flex flex-1 items-center justify-center border-orange-700 py-4">
-        <p className="sm:text-md font-semibol text-center text-xs md:text-lg">
+        <p className="font-semibol text-center text-xs sm:text-base md:text-lg">
           {xp}xp
         </p>
       </div>
