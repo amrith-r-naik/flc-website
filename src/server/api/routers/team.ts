@@ -1,212 +1,236 @@
-import { z } from 'zod';
-import { createTRPCRouter, publicProcedure } from '../trpc';
-import { TRPCError } from '@trpc/server';
-import { findEventIfExistById } from '~/utils/findEventById';
-import { createTeamZ, joinTeamZ, leaveTeamSchema } from '~/server/schema/zod-schema';
-
-
-
-
+import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { TRPCError } from "@trpc/server";
+import {
+  confirmTeamZ,
+  createTeamZ,
+  deleteTeamZ,
+  getTeamById,
+  joinTeamZ,
+  leaveTeamZ,
+} from "~/zod/teamZ";
 
 export const teamRouter = createTRPCRouter({
+  createTeam: protectedProcedure
+    .input(createTeamZ)
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.db.user.findUnique({
+        where: { id: ctx.session.user.id },
+        include: {
+          Team: true,
+        },
+      });
 
-    // Create a team for a specific event
-    createTeam: publicProcedure
-        .input(createTeamZ)
-        .mutation(async ({ input, ctx }) => {
-            const { eventId, teamName, userId } = input;
+      const alreadyInTeam = user?.Team.find(
+        (team) => team.eventId === input.eventId,
+      );
 
-            await findEventIfExistById(eventId) //checking if event exits
+      if (alreadyInTeam) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "You are already in a team for this event",
+        });
+        return;
+      }
 
-            const existingTeam = await ctx.db.team.findFirst({
-                where: { eventId, name: teamName },
-            });
+      await ctx.db.attendance.create({
+        data: {
+          eventId: input.eventId,
+          userId: ctx.session.user.id,
+        },
+      });
 
-            if (existingTeam) {
-                throw new TRPCError({
-                    code: 'BAD_REQUEST',
-                    message: 'Team already exists for this event',
-                });
-            }
+      return await ctx.db.team.create({
+        data: {
+          name: input.teamName,
+          eventId: input.eventId,
+          Members: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
+        },
+      });
+    }),
 
-            const team = await ctx.db.team.create({
-                data: {
-                    name: teamName,
-                    eventId,
-                    Members: {
-                        connect: [{ id: userId }],
-                    },
-                },
-            });
+  jointeam: protectedProcedure
+    .input(joinTeamZ)
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.db.user.findUnique({
+        where: { id: ctx.session.user.id },
+        include: {
+          Team: true,
+        },
+      });
 
-            return { success: true, team };
-        }),
-    //join team
-    joinTeam: publicProcedure
-        .input(joinTeamZ)
-        .mutation(async ({ input, ctx }) => {
-            const { teamId, userId } = input;
+      const alreadyInTeam = user?.Team.find(
+        (team) => team.eventId === input.eventId,
+      );
 
-            const team = await ctx.db.team.findUnique({
-                where: { id: teamId },
-                include: { Members: true, Event: true },
-            });
+      if (alreadyInTeam) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "You are already in this team for this event",
+        });
+        return;
+      }
 
-            if (!team) {
-                throw new TRPCError({
-                    code: 'NOT_FOUND',
-                    message: 'Team not found',
-                });
-            }
+      const team = await ctx.db.team.findUnique({
+        where: {
+          id: input.teamId,
+        },
+        include: {
+          Event: true,
+          Members: true,
+        },
+      });
 
-            if (team.Members.some(member => member.id === userId)) {
-                throw new TRPCError({
-                    code: 'BAD_REQUEST',
-                    message: 'User already in the team',
-                });
-            }
+      if ((team?.Members.length ?? 0) >= (team?.Event.maxTeamSize ?? 0)) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Team is full",
+        });
+        return;
+      }
 
-            if (team.Event.type === 'SOLO' && team.Members.length === 1) {
-                throw new TRPCError({
-                    code: 'BAD_REQUEST',
-                    message: 'Solo events can only have one member',
-                });
-            }
+      await ctx.db.attendance.create({
+        data: {
+          eventId: input.eventId,
+          userId: ctx.session.user.id,
+        },
+      });
 
-            if (team.Event.type === 'TEAM' && team.Members.length === team.Event.maxTeamSize) {
-                throw new TRPCError({
-                    code: 'BAD_REQUEST',
-                    message: `Team is full. Maximum team size is ${team.Event.maxTeamSize}`,
-                });
-            }
+      return await ctx.db.team.update({
+        where: {
+          id: input.teamId,
+        },
+        data: {
+          Members: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
+        },
+      });
+    }),
 
-            // Add user to the team
-            await ctx.db.team.update({
-                where: { id: teamId },
-                data: {
-                    Members: {
-                        connect: { id: userId },
-                    },
-                },
-            });
+  leaveTeam: protectedProcedure
+    .input(leaveTeamZ)
+    .mutation(async ({ ctx, input }) => {
+      const team = await ctx.db.team.findUnique({
+        where: {
+          id: input.teamId,
+        },
+        include: {
+          Event: true,
+        },
+      });
 
-            // Fetch updated team members count
-            const updatedTeam = await ctx.db.team.findUnique({
-                where: { id: teamId },
-                include: { Members: true },
-            });
+      if (team?.isConfirmed ?? team?.Event.isLegacy) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "You cannot leave this team anymore!",
+        });
+      }
 
-            if (!updatedTeam) {
-                throw new TRPCError({
-                    code: 'NOT_FOUND',
-                    message: 'Team not found after joining',
-                });
-            }
+      await ctx.db.attendance.delete({
+        where: {
+          userId_eventId: {
+            userId: ctx.session.user.id,
+            eventId: team?.Event.id ?? "",
+          },
+        },
+      });
 
-            // Confirm the team if conditions are met
-            let isConfirmed = false;
-            if (team.Event.type === 'SOLO' && updatedTeam.Members.length === 1) {
-                isConfirmed = true;
-            } else if (team.Event.type === 'TEAM' && updatedTeam.Members.length >= team.Event.minTeamSize) {
-                isConfirmed = true;
-            }
+      return await ctx.db.team.update({
+        where: {
+          id: input.teamId,
+        },
+        data: {
+          Members: {
+            disconnect: {
+              id: ctx.session.user.id,
+            },
+          },
+        },
+      });
+    }),
 
-            if (isConfirmed) {
-                await ctx.db.team.update({
-                    where: { id: teamId },
-                    data: { isConfirmed: true },
-                });
-            }
+  deleteTeam: protectedProcedure
+    .input(deleteTeamZ)
+    .mutation(async ({ ctx, input }) => {
+      const team = await ctx.db.team.findUnique({
+        where: {
+          id: input.teamId,
+        },
+        include: {
+          Event: true,
+        },
+      });
+      if (team?.isConfirmed ?? team?.Event.isLegacy) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "You cannot leave this team anymore!",
+        });
+      }
 
-            return { success: true, team: updatedTeam };
-        }),
+      await ctx.db.attendance.delete({
+        where: {
+          userId_eventId: {
+            userId: ctx.session.user.id,
+            eventId: team?.Event.id ?? "",
+          },
+        },
+      });
 
+      return await ctx.db.team.delete({
+        where: {
+          id: input.teamId,
+        },
+      });
+    }),
 
-    // Leave a team for a specific event
-    leaveTeam: publicProcedure
-        .input(leaveTeamSchema)
-        .mutation(async ({ input, ctx }) => {
-            const { teamId, userId } = input;
+  confirmTeam: protectedProcedure
+    .input(confirmTeamZ)
+    .mutation(async ({ ctx, input }) => {
+      const team = await ctx.db.team.findUnique({
+        where: {
+          id: input.teamId,
+        },
+        include: {
+          Members: true,
+          Event: true,
+        },
+      });
 
-            const team = await ctx.db.team.findUnique({
-                where: { id: teamId },
-                include: { Members: true, Event: true },
-            });
+      if ((team?.Members.length ?? 0) < (team?.Event.minTeamSize ?? 0)) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `You need a minimum of ${team?.Event.minTeamSize} members to confirm the team`,
+        });
+      }
 
-            if (!team) {
-                throw new TRPCError({
-                    code: 'NOT_FOUND',
-                    message: 'Team not found',
-                });
-            }
+      return await ctx.db.team.update({
+        where: {
+          id: input.teamId,
+        },
+        data: {
+          isConfirmed: true,
+        },
+      });
+    }),
 
-            if (team.Members.length <= team.Event.minTeamSize) {
-                throw new TRPCError({
-                    code: 'BAD_REQUEST',
-                    message: 'Cannot leave the team, it will fall below the minimum team size',
-                });
-            }
+  // Retrieve
 
-            await ctx.db.team.update({
-                where: { id: teamId },
-                data: {
-                    Members: {
-                        disconnect: [{ id: userId }],
-                    },
-                },
-            });
-
-            return { success: true };
-        }),
-    //delete team by team id
-    deleteTeam: publicProcedure
-        .input(z.object({
-            teamId: z.string(),
-        }))
-        .mutation(async ({ input, ctx }) => {
-            const { teamId } = input;
-
-            // Check if the team exists
-            const team = await ctx.db.team.findUnique({
-                where: { id: teamId },
-            });
-
-            if (!team) {
-                throw new TRPCError({
-                    code: 'NOT_FOUND',
-                    message: 'Team not found',
-                });
-            }
-
-            // Delete the team
-            await ctx.db.team.delete({
-                where: { id: teamId },
-            });
-
-            return { success: true, message: 'Team deleted successfully' };
-        }),
-    // get all team with team details of perticular user
-    getTeamsByUserId: publicProcedure
-        .input(z.string())
-        .query(async ({ input, ctx }) => {
-            const teams = await ctx.db.team.findMany({
-                where: {
-                    Members: { some: { id: input } },
-                },
-                include: { Members: true, Event: true },
-            });
-
-            return { success: true, teams };
-        }),
-    //get all team list with info of perticular event
-    getTeamsByEventIdForAdmin: publicProcedure
-        .input(z.string())
-        .query(async ({ input, ctx }) => {
-            const teams = await ctx.db.team.findMany({
-                where: { eventId: input },
-                include: { Members: true, Event: true },
-            });
-
-            return { success: true, teams };
-        }),
+  getTeamById: protectedProcedure
+    .input(getTeamById)
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.team.findUnique({
+        where: {
+          id: input.teamId,
+        },
+        include: {
+          Members: true,
+        },
+      });
+    }),
 });
