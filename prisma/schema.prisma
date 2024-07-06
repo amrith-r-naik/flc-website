@@ -6,8 +6,11 @@ generator client {
 }
 
 datasource db {
+  //Prod
   // provider = "cockroachdb"
-  provider = "postgresql" // local docker db
+
+  //Local
+  provider = "postgres"
   // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
   // Further reading:
   // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -46,10 +49,9 @@ model User {
 
   Team Team[]
 
-  Attendence Attendence[]
+  Attendance Attendance[]
 
   Certificate  Certificate[]
-  Answer       Answer[]
   UserFeedback UserFeedback[]
 
   updatedAt         DateTime            @updatedAt()
@@ -155,7 +157,7 @@ model Event {
 
   Organiser Organiser[]
 
-  Attendence Attendence[]
+  Attendance Attendance[]
   Winner     Winner[]
 
   Certificate Certificate[]
@@ -198,7 +200,7 @@ model Team {
   createdAt DateTime @default(now())
 }
 
-model Attendence {
+model Attendance {
   id          String  @id @default(cuid())
   hasAttended Boolean @default(false)
 
@@ -213,6 +215,7 @@ model Attendence {
 }
 
 model Winner {
+  id         String     @id @default(cuid())
   id         String     @id @default(cuid())
   winnerType WinnerType
 
@@ -230,6 +233,7 @@ model Winner {
 
 model Certificate {
   id              String          @id @default(cuid())
+  id              String          @id @default(cuid())
   issuedOn        DateTime
   certificateType CertificateType
 
@@ -245,46 +249,15 @@ model Certificate {
   @@unique([eventId, userId])
 }
 
-model Question {
-  id         String     @id @default(cuid())
-  qs         String
-  answerType AnswerType
-
-  Answer Answer[]
-
-  feedbackTemplateId String
-  FeedbackTemplate   FeedbackTemplate @relation(fields: [feedbackTemplateId], references: [id])
-
-  updatedAt DateTime @updatedAt()
-  createdAt DateTime @default(now())
-}
-
-model Answer {
-  id  String @id @default(cuid())
-  ans String
-
-  questionId String
-  Question   Question @relation(fields: [questionId], references: [id])
-
-  userId String
-  User   User   @relation(fields: [userId], references: [id])
-
-  userFeedbackUserId             String?
-  userFeedbackFeedbackTemplateId String?
-  UserFeedback                   UserFeedback? @relation(fields: [userFeedbackUserId, userFeedbackFeedbackTemplateId], references: [userId, feedbackTemplateId])
-
-  updatedAt DateTime @updatedAt()
-  createdAt DateTime @default(now())
-}
-
 model FeedbackTemplate {
-  id            String                   @id @default(cuid())
-  templateState FEEEDBACK_TEMPLATE_STATE @default(DRAFT)
+  id            String                @id @default(cuid())
+  templateState FeedbackTemplateState @default(DRAFT)
 
   eventId String
   Event   Event  @relation(fields: [eventId], references: [id])
 
-  Questions Question[]
+  Questions   String[]
+  AnswersType AnswerType[]
 
   UserFeedback UserFeedback[]
 
@@ -299,7 +272,7 @@ model UserFeedback {
   feedbackTemplateId String
   FeedbackTemplate   FeedbackTemplate @relation(fields: [feedbackTemplateId], references: [id])
 
-  Answers Answer[]
+  Answers String[]
 
   updatedAt DateTime @updatedAt()
   createdAt DateTime @default(now())
