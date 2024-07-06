@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const RegisterSchema = z
+const RegisterZ = z
   .object({
     name: z.string().min(1, {
       message: "Name is required",
@@ -30,6 +30,9 @@ const RegisterSchema = z
     password: z.string().min(8, {
       message: "password should consist of minimum 6 characters",
     }),
+    password: z.string().min(8, {
+      message: "password should consist of minimum 6 characters",
+    }),
 
     confirmPassword: z.string(),
   })
@@ -45,8 +48,22 @@ const RegisterSchema = z
       message: "passwords dont match",
     },
   );
+    confirmPassword: z.string(),
+  })
+  .refine(
+    (data) => {
+      if (data.password === data.confirmPassword) {
+        return true;
+      }
+      return false;
+    },
+    {
+      path: ["confirmPassword"],
+      message: "passwords dont match",
+    },
+  );
 
-const LoginSchema = z.object({
+const LoginZ = z.object({
   email: z
     .string()
     .email({
@@ -66,7 +83,7 @@ const LoginSchema = z.object({
   password: z.string().min(1, { message: "Password is required" }),
 });
 
-const SendVerifyEmailSchema = z.object({
+const SendVerifyEmailZ = z.object({
   email: z
     .string()
     .email({
@@ -84,8 +101,7 @@ const SendVerifyEmailSchema = z.object({
       },
     ),
 });
-
-const SendPasswordResetSchema = z.object({
+const SendPasswordResetZ = z.object({
   email: z
     .string()
     .email({
@@ -102,27 +118,30 @@ const SendPasswordResetSchema = z.object({
         message: "Email must be from NMAMIT",
       },
     ),
+});
+const ResetPasswordZ = z.object({
+  token: z.string(),
+  newPassword: z.string(),
 });
 
 const VerifyEmailSchema = z.object({
   token: z.string(),
 });
 
-const ResetPasswordSchema = z.object({
+const VerifyEmailZ = z.object({
   token: z.string(),
-  newPassword: z.string(),
 });
 
-const RefreshTokenSchema = z.object({
+const RefreshTokenZ = z.object({
   refreshToken: z.string(),
 });
 
 export {
-  LoginSchema,
-  RegisterSchema,
-  SendVerifyEmailSchema,
-  VerifyEmailSchema,
-  RefreshTokenSchema,
-  SendPasswordResetSchema,
-  ResetPasswordSchema,
+  LoginZ,
+  RegisterZ,
+  SendPasswordResetZ,
+  ResetPasswordZ,
+  SendVerifyEmailZ,
+  VerifyEmailZ,
+  RefreshTokenZ,
 };
