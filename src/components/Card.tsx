@@ -1,23 +1,21 @@
-'use client'
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { type Event } from "@prisma/client";
 
 interface EventCardProps {
-  event: Event
+  event: Event;
 }
 
 function Card({ event }: EventCardProps) {
-
   return (
     <>
-      <Link href={`/event/${event.id}`} >
+      <Link href={`/event/${event.id}`}>
         <div className="card">
           <div className="relative mb-4 h-80 ">
-
             <Image
-              src={event.imgSrc || '/assets/image.png'}
+              src={event.imgSrc ?? "/assets/image.png"}
               alt="Example Image"
               layout="fill"
               objectFit="cover"

@@ -30,24 +30,7 @@ const RegisterZ = z
     password: z.string().min(8, {
       message: "password should consist of minimum 6 characters",
     }),
-    password: z.string().min(8, {
-      message: "password should consist of minimum 6 characters",
-    }),
 
-    confirmPassword: z.string(),
-  })
-  .refine(
-    (data) => {
-      if (data.password === data.confirmPassword) {
-        return true;
-      }
-      return false;
-    },
-    {
-      path: ["confirmPassword"],
-      message: "passwords dont match",
-    },
-  );
     confirmPassword: z.string(),
   })
   .refine(
@@ -122,10 +105,6 @@ const SendPasswordResetZ = z.object({
 const ResetPasswordZ = z.object({
   token: z.string(),
   newPassword: z.string(),
-});
-
-const VerifyEmailSchema = z.object({
-  token: z.string(),
 });
 
 const VerifyEmailZ = z.object({

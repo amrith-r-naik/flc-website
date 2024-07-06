@@ -17,7 +17,6 @@ import {
 import { findEventIfExistById } from "~/utils/helper";
 
 export const eventRouter = createTRPCRouter({
-  //Create New Event(Admin)--->
   createEvent: adminProcedure
     .input(createEventZ)
     .mutation(async ({ ctx, input }) => {

@@ -36,7 +36,7 @@ const EventSlug = () => {
         <div className="flex    shrink justify-start overflow-hidden">
           <Image
             className="w-full rounded-t-3xl sm:w-[300px] sm:rounded-s-3xl sm:rounded-tr-none lg:w-[400px] "
-            src={event.imgSrc || "/assets/image.png"}
+            src={event.imgSrc ?? "/assets/image.png"}
             alt="event"
             width={300}
             height={5}

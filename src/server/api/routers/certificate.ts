@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 import {
@@ -5,9 +6,7 @@ import {
   getCertificationDetailsByIdZ,
   issueCertificateByEventIdZ,
 } from "~/server/schema/zod-schema";
-import { sendCertificate } from "~/utils/certificationEmail/email";
-import { findEventIfExistById } from "~/utils/helper/findEventById";
-import { checkOrganiser } from "~/utils/helper/organiserCheck";
+import { checkOrganiser, findEventIfExistById } from "~/utils/helper";
 import { sendCertificationIsuueForEmail } from "~/utils/nodemailer/nodemailer";
 
 export const certificateRouter = createTRPCRouter({
@@ -19,7 +18,7 @@ export const certificateRouter = createTRPCRouter({
       const { eventId } = input;
       const userId = ctx.session.user.id;
 
-      await checkOrganiser(userId, input.eventId);
+      await checkOrganiser(userId, input.eventId, ctx.session.user.role);
       try {
         // Check if the event exists
         const event = await findEventIfExistById(eventId);

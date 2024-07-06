@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-// const markTeamAttendanceSchema = z.object({
-//     teamId: z.string(),
-//     eventId: z.string(),
-// })
-
-const markAttendanceZ = z.object({
+const toggleAttendanceZ = z.object({
   eventId: z.string(),
   userId: z.string(),
 });
 
-export { markAttendanceZ };
+const toggleTeamAttendanceZ = z.object({
+  teamId: z.string(),
+  eventId: z.string(),
+});
+
+export { toggleTeamAttendanceZ, toggleAttendanceZ };

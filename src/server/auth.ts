@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type GetServerSidePropsContext } from "next";
 import bcrypt from "bcryptjs";
@@ -18,8 +19,9 @@ import {
   rotateTokens,
 } from "~/utils/auth/jwt";
 import { login } from "~/services/auth.service";
-import { LoginSchema } from "~/zod/authZ";
-import { User } from "@prisma/client";
+
+import { User, Role } from "@prisma/client";
+import { LoginZ } from "~/zod/authZ";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -35,7 +37,7 @@ declare module "next-auth" {
     name?: string | null;
     email?: string | null;
     image?: string | null;
-    role?: string | null;
+    role: Role;
   }
 
   interface AdapterUser {
@@ -45,14 +47,14 @@ declare module "next-auth" {
     name?: string | null;
     email?: string | null;
     image?: string | null;
-    role?: string | null;
+    role: Role;
   }
 
   interface Session extends DefaultSession {
     user: DefaultSession["user"] & {
       id: string;
       // ...other properties
-      role: string;
+      role: Role;
     };
     accessToken: string;
   }
@@ -69,7 +71,7 @@ declare module "next-auth/jwt" {
   interface JWT {
     iat: number;
     exp: number;
-    role: string; 
+    role: Role;
     accessToken: string;
     refreshToken: string;
   }
@@ -161,7 +163,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.sub;
         session.user.name = token.name;
         session.user.email = token.email!;
-        session.user.role = token.role!;
+        session.user.role = token.role;
         session.accessToken = token.accessToken;
       }
 
@@ -178,7 +180,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       credentials: {},
       async authorize(credentials: any, req: any): Promise<any> {
-        const validateFields = LoginSchema.safeParse(credentials);
+        const validateFields = LoginZ.safeParse(credentials);
         if (!validateFields.success) {
           console.log("Invalid fields", validateFields.error);
           return null;

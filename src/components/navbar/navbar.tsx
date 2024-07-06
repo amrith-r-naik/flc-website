@@ -1,51 +1,67 @@
-import React from 'react'
-import Logo from '../logo'
-import Link from 'next/link'
-import NavBarMenu from './dropdownMenu'
-import { Button } from '@radix-ui/themes'
-import { LogIn } from 'lucide-react'
-import { useRouter } from 'next/router'
+import React from "react";
+import Logo from "../logo";
+import Link from "next/link";
+import NavBarMenu from "./dropdownMenu";
+import { Button } from "@radix-ui/themes";
+import { LogIn } from "lucide-react";
+import { useRouter } from "next/router";
 
 const links = [
-    { label: 'Home', url: '/' },
-    { label: 'Events', url: '/events' },
-    { label: 'Team', url: '/team' },
+  { label: "Home", url: "/" },
+  { label: "Events", url: "/events" },
+  { label: "Team", url: "/team" },
 ];
 
 const Navbar = () => {
+  const router = useRouter();
 
-    const router = useRouter();
+  const activePath = links.find((link) => link.url === router.pathname);
 
-    const activePath = links.find((link) => link.url === router.pathname);
-
-    return (
-        <nav className='sticky top-0 left-0 w-full min-h-8  border px-[8%] sm:px-[12%] py-3 sm:py-5  border-border  bg-primary-foreground/5 bg-clip-padding backdrop-blur-lg backdrop-filter flex items-center z-40 '>
-            <Link href="/" className='flex items-center'>
-                <Logo />
-                <p className='text-sm md:text-lg font-bold text-white ml-3'>Finite-Loop-Club</p>
+  return (
+    <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-primary-foreground/5  bg-clip-padding px-[8%] py-3 backdrop-blur-lg backdrop-filter sm:px-[12%] sm:py-5 ">
+      <Link href="/" className="flex items-center">
+        <Logo />
+        <p className="ml-3 text-sm font-bold text-white md:text-lg">
+          Finite-Loop-Club
+        </p>
+      </Link>
+      <div className="ml-auto flex items-center gap-10 ">
+        <div className="hidden gap-8 sm:flex">
+          {links.map((link) => (
+            <Link
+              key={link.url}
+              className="group space-y-0.5 text-foreground"
+              href={link.url}
+            >
+              <p className="px-0.5 text-sm font-bold md:text-base">
+                {link.label}
+              </p>
+              <span
+                className={`${
+                  activePath?.label === link.label ? "max-w-full" : "max-w-0"
+                } block h-0.5 bg-white transition-all duration-500 group-hover:max-w-full`}
+              ></span>
             </Link>
-            <div className='flex gap-10 ml-auto items-center '>
+          ))}
+        </div>
 
-                <div className='hidden sm:flex gap-8'>
-                    {links.map((link) => (
-                        <Link key={link.url} className='group text-foreground space-y-0.5' href={link.url}>
-                            <p className='px-0.5 font-bold text-sm md:text-base'>{link.label}</p>
-                            <span
-                                className={`${activePath?.label === link.label ? 'max-w-full' : 'max-w-0'
-                                    } block group-hover:max-w-full transition-all duration-500 h-0.5 bg-white`}
-                            ></span>
-                        </Link>
-                    ))}
-                </div>
+        <Button
+          asChild
+          className="rounded border border-border bg-white  px-3 py-2 font-bold hover:bg-white/5"
+        >
+          <Link
+            href="/"
+            className="flex gap-3  text-sm font-light text-black no-underline"
+          >
+            <LogIn size={18} />
+            Login
+          </Link>
+        </Button>
 
-                <Button asChild className="border border-border bg-white hover:bg-white/5  font-bold py-2 px-3 rounded">
-                    <Link href="/" className="text-black no-underline  text-sm font-light flex gap-3">
-                        <LogIn size={18} />
-                        Login
-                    </Link>
-                </Button>
-
-                <NavBarMenu />
-            </div>
+        <NavBarMenu />
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;

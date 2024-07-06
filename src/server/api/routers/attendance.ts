@@ -1,10 +1,10 @@
-import { markAttendanceZ } from "~/zod/attendanceZ";
+import { toggleTeamAttendanceZ, toggleAttendanceZ } from "~/zod/attendanceZ";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { checkOrganiser } from "~/utils/helper";
 
 export const attendanceRouter = createTRPCRouter({
   toggleAttendance: protectedProcedure
-    .input(markAttendanceZ)
+    .input(toggleAttendanceZ)
     .mutation(async ({ ctx, input }) => {
       await checkOrganiser(
         ctx.session.user.id,
@@ -70,5 +70,25 @@ export const attendanceRouter = createTRPCRouter({
       }
 
       return updatedAttendance;
+    }),
+
+  toggleTeamAttendance: protectedProcedure
+    .input(toggleTeamAttendanceZ)
+    .mutation(async ({ ctx, input }) => {
+      const team = await ctx.db.team.findUnique({
+        where: {
+          id: input.teamId,
+          eventId: input.eventId,
+        },
+      });
+      return await ctx.db.team.update({
+        where: {
+          id: input.teamId,
+          eventId: input.eventId,
+        },
+        data: {
+          hasAttended: !team?.hasAttended,
+        },
+      });
     }),
 });
