@@ -4,10 +4,10 @@ import React, { useRef, useEffect } from 'react';
 type Props = {
     text: string,
     maxIteration?: number,
-    triggerType?: "hover" | "appear" | "appearAndHover"
+    trigger?: "hover" | "appear" | "appearAndHover"
 };
 
-function BinarizedTextEffect({ text, maxIteration = 40, triggerType = "appear" }: Props) {
+function BinarizedTextEffect({ text, maxIteration = Math.min(40, text.length), trigger: triggerType = "appear" }: Props) {
     const ref = useRef<HTMLSpanElement>(null);
     const interval = useRef<NodeJS.Timeout | undefined>(undefined)
 
@@ -22,8 +22,7 @@ function BinarizedTextEffect({ text, maxIteration = 40, triggerType = "appear" }
                 }).join("")
             }
             iterations += text.length / maxIteration
-            console.log(iterations, text.length, text.length / maxIteration)
-            if (iterations >= text.length) clearInterval(interval.current)
+            if (iterations > text.length) clearInterval(interval.current)
         }, 30)
     }
 

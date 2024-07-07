@@ -1,16 +1,12 @@
 "use client"
-
 import { MoveUpRight, Play } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
-
 
 export enum ContentType {
     CardLink = "card-link",
     Video = "video",
     None = "none"
 }
-
-
 
 function getContentType(value: string | null | undefined): ContentType {
     if (value && Object.values(ContentType).includes(value as ContentType)) {
@@ -52,7 +48,7 @@ export const MouseTrailer= () => {
             trailerRef.current.animate(
                 [keyFrames],
                 {
-                    duration: intersecting ? 0 : 800,
+                    duration: intersecting ? 300 : 800,
                     fill: "forwards",
                 }
             )
