@@ -8,7 +8,7 @@ import BinarizedTextEffect from "../BinarizedTextEffect/BinarizedTectEffect";
 function NewNavBar() {
     const { data: session, status } = useSession()
     return (
-        <header className=" px-[8%] py-3 flex justify-between items-center">
+        <header className="fixed top-0 w-full left-0 px-[8%] py-3 flex justify-between items-center z-10">
             <Logo />
             <MenuBar />
 
