@@ -55,7 +55,7 @@ model RefreshToken {
   updatedAt   DateTime @updatedAt
   User        User     @relation(fields: [userId], references: [id])
 
-  @@index([userId])
+  @@unique([id, hashedToken])
 }
 
 model UserLink {

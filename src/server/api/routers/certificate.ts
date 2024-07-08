@@ -5,7 +5,7 @@ import {
   getAllCertificationsByUserIdZ,
   getCertificationDetailsByIdZ,
   issueCertificateByEventIdZ,
-} from "~/server/schema/zod-schema";
+} from "~/zod/certificate";
 import { checkOrganiser, findEventIfExistById } from "~/utils/helper";
 import { sendCertificationIsuueForEmail } from "~/utils/nodemailer/nodemailer";
 
