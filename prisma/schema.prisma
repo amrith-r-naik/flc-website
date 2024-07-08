@@ -55,7 +55,7 @@ model RefreshToken {
   updatedAt   DateTime @updatedAt
   User        User     @relation(fields: [userId], references: [id])
 
-  @@unique([identifier, token])
+  @@unique([id, hashedToken])
 }
 
 model UserLink {
@@ -226,7 +226,7 @@ enum Role {
   ADMIN
 }
 
-enum EVENT_TYPE {
+enum EventType {
   SOLO
   TEAM
 }
@@ -238,26 +238,26 @@ enum EventCategory {
   SPECIAL
 }
 
-enum EVENT_STATE {
+enum EventState {
   DRAFT
   PUBLISHED
   COMPLETED
 }
 
-enum WINNER_TYPE {
+enum WinnerType {
   WINNER
   RUNNER_UP
   SECOND_RUNNER_UP
 }
 
-enum CERTIFICATE_TYPE {
+enum CertificateType {
   WINNER
   RUNNER_UP
   SECOND_RUNNER_UP
   PARTICIPATION
 }
 
-enum ANSWER_TYPE {
+enum AnswerType {
   BOOLEAN
   RATING
   COMMENT
