@@ -1,6 +1,7 @@
 "use client";
 
 import { signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { api } from "~/utils/api";
 
@@ -18,6 +19,8 @@ export default function Home() {
   return (
     <main className=" flex h-screen w-full flex-col items-center justify-center gap-10">
       <h1>hello this is titile</h1>
+
+      <Link href="/landing">Landing</Link>
 
       <button
         onClick={() => {
