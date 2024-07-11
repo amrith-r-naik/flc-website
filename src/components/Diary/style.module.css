@@ -1,0 +1,9 @@
+.marquee{
+    animation:marquee-scroll 10s linear infinite forwards;
+}
+
+@keyframes marquee-scroll {
+    to{
+        transform: translateX(-50%);
+    }
+}
