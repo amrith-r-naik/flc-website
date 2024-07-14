@@ -4,6 +4,7 @@ import Footer from "~/components/Footer/Footer";
 import DiaryContainer from "~/components/Diary/DiaryContainer";
 import Image from "next/image";
 import sampleImage from "~/assets/icons/python.svg"
+import Wave from "~/components/Wave/Wave";
 
 
 const benifits = [
@@ -69,7 +70,9 @@ export default function Home() {
               </div>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */}
+
+      <Wave/>
     </main>
   );
 }
