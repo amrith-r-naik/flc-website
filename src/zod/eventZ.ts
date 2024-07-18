@@ -20,7 +20,7 @@ const createEventZ = z.object({
 });
 
 const updateEventZ = z.object({
-  eventId: z.string(),
+  id: z.string(),  //changed this to avoid issues with "...input" at line 57 "routers/event.ts"
   name: z.string().optional(),
   imgSrc: z.string().optional(),
   deadline: z.date().optional(),
