@@ -5,7 +5,7 @@ type Props = HTMLAttributes<HTMLButtonElement>;
 
 function Button(props: Props) {
   return (
-    <button  {...props} className={cn("rounded-full p-4 py-2 border", props.className)}>
+    <button  {...props} className={cn("rounded-full p-4 py-2 border cursor-pointer", props.className)}>
       {props.children}
     </button>
   )
