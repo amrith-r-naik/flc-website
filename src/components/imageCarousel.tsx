@@ -1,6 +1,8 @@
 import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 interface ImageCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   images: string[];
@@ -8,6 +10,15 @@ interface ImageCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, ...rest }) => {
   const [emblaRef] = useEmblaCarousel();
+
+  gsap.registerPlugin(useGSAP);
+
+  useGSAP(() => {
+    gsap.from(".rowOfImages", {
+      x: -500,
+      duration: 2,
+    });
+  });
 
   const imageItems = images.map((img: string, index: number) => (
     <Image
@@ -23,7 +34,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, ...rest }) => {
   ));
   return (
     <div className={`${rest.className} h-full overflow-hidden`} ref={emblaRef}>
-      <div className="flex h-full gap-2">{imageItems}</div>
+      <div className="rowOfImages flex h-full gap-2">{imageItems}</div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const RegisterSchema = z
+const RegisterZ = z
   .object({
     name: z.string().min(1, {
       message: "Name is required",
@@ -46,7 +46,7 @@ const RegisterSchema = z
     },
   );
 
-const LoginSchema = z.object({
+const LoginZ = z.object({
   email: z
     .string()
     .email({
@@ -66,7 +66,7 @@ const LoginSchema = z.object({
   password: z.string().min(1, { message: "Password is required" }),
 });
 
-const SendVerifyEmailSchema = z.object({
+const SendVerifyEmailZ = z.object({
   email: z
     .string()
     .email({
@@ -84,8 +84,7 @@ const SendVerifyEmailSchema = z.object({
       },
     ),
 });
-
-const SendPasswordResetSchema = z.object({
+const SendPasswordResetZ = z.object({
   email: z
     .string()
     .email({
@@ -103,26 +102,25 @@ const SendPasswordResetSchema = z.object({
       },
     ),
 });
-
-const VerifyEmailSchema = z.object({
-  token: z.string(),
-});
-
-const ResetPasswordSchema = z.object({
+const ResetPasswordZ = z.object({
   token: z.string(),
   newPassword: z.string(),
 });
 
-const RefreshTokenSchema = z.object({
+const VerifyEmailZ = z.object({
+  token: z.string(),
+});
+
+const RefreshTokenZ = z.object({
   refreshToken: z.string(),
 });
 
 export {
-  LoginSchema,
-  RegisterSchema,
-  SendVerifyEmailSchema,
-  VerifyEmailSchema,
-  RefreshTokenSchema,
-  SendPasswordResetSchema,
-  ResetPasswordSchema,
+  LoginZ,
+  RegisterZ,
+  SendPasswordResetZ,
+  ResetPasswordZ,
+  SendVerifyEmailZ,
+  VerifyEmailZ,
+  RefreshTokenZ,
 };

@@ -3,7 +3,7 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   content: ["./src/**/*.tsx"],
-  darkMode: "selector", // To make the website dark mode only the dark class has been added to the main component in the _app.tsx file.
+  /* darkMode: "selector", */ // To make the website dark mode only the dark class has been added to the main component in the _app.tsx file.
   theme: {
     extend: {
       fontFamily: {
@@ -24,10 +24,7 @@ export default {
         border: "hsl(var(--border))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+        card: "hsl(var(--card))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

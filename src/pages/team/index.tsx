@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Team = () => {
-  return (
-    <div className='bg-black h-screen'>Team</div>
-  )
-}
+  return <div className=" h-screen">Team</div>;
+};
 
-export default Team
+export default Team;

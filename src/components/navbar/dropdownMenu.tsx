@@ -1,68 +1,49 @@
-"use client"
+"use client";
 
-import React from 'react'
+import React from "react";
 
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { inter } from '~/pages/_app';
-import { Roboto } from 'next/font/google'
- 
-const roboto = Roboto({
-  weight: '400',
-  subsets: ['latin'],
-})
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
-import {  Menu } from 'lucide-react';
-import Link from 'next/link';
-
+import { Menu } from "lucide-react";
+import Link from "next/link";
 
 const NavBarMenu = () => {
   return (
     <>
-    <DropdownMenu.Root modal={false}>
-    <DropdownMenu.Trigger asChild className='sm:hidden'>
-    <button className="p-2"><Menu color='white' /></button>
-    </DropdownMenu.Trigger>
+      <DropdownMenu.Root modal={false}>
+        <DropdownMenu.Trigger asChild className="sm:hidden">
+          <button className="p-2">
+            <Menu color="white" />
+          </button>
+        </DropdownMenu.Trigger>
 
-    <DropdownMenu.Portal>
-      <DropdownMenu.Content side='bottom' className={`${inter.className} border border-border min-w-[130px] bg-primary-foreground rounded-md   shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade overflow-hidden p-2 mr-4`}
-          sideOffset={5}>
-        {/* <DropdownMenu.Label /> */}
-        <DropdownMenu.Item asChild className=" text-sm font-semibold group text-[13px] leading-none text-violet11 rounded-[5px] flex items-center h-[30px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-violet1 text-foreground py-2 ">
-          <Link href="/events"><p className='text-foreground'>Events</p></Link>
-        </DropdownMenu.Item>
-
-        <DropdownMenu.Item asChild className=" text-sm font-semibold group text-[13px] leading-none text-violet11 rounded-[5px] flex items-center h-[30px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-violet1 py-2">
-        <Link href="/team"><p className='text-foreground'>Team</p></Link>
-        </DropdownMenu.Item>
-{/* 
-        <DropdownMenu.Group>
-          <DropdownMenu.Item />
-        </DropdownMenu.Group>
-
-        <DropdownMenu.CheckboxItem>
-          <DropdownMenu.ItemIndicator />
-        </DropdownMenu.CheckboxItem>
-
-        <DropdownMenu.RadioGroup>
-          <DropdownMenu.RadioItem>
-            <DropdownMenu.ItemIndicator />
-          </DropdownMenu.RadioItem>
-        </DropdownMenu.RadioGroup>
-
-        <DropdownMenu.Sub>
-          <DropdownMenu.SubTrigger />
-          <DropdownMenu.Portal>
-            <DropdownMenu.SubContent />
-          </DropdownMenu.Portal>
-        </DropdownMenu.Sub>
-
-        <DropdownMenu.Separator />
-        <DropdownMenu.Arrow /> */}
-      </DropdownMenu.Content>
-    </DropdownMenu.Portal>
-  </DropdownMenu.Root>
+        <DropdownMenu.Portal>
+          <DropdownMenu.Content
+            side="bottom"
+            className={`data-[side=top]:animate-slideDownAndFade  data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-50 mr-4   min-w-[130px] overflow-hidden rounded-md border border-border bg-primary-foreground p-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]`}
+            sideOffset={5}
+          >
+            <DropdownMenu.Item
+              asChild
+              className=" text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 group relative flex h-[30px] select-none items-center rounded-[5px] px-[5px] py-2 pl-[25px] text-[13px] text-sm font-semibold leading-none text-foreground outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-accent "
+            >
+              <Link href="/events">
+                <p className="text-foreground">Events</p>
+              </Link>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item
+              asChild
+              className=" text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 group relative flex h-[30px] select-none items-center rounded-[5px] px-[5px] py-2 pl-[25px] text-[13px] text-sm font-semibold leading-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-accent"
+            >
+              <Link href="/team">
+                <p className="text-foreground">Team</p>
+              </Link>
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Portal>
+      </DropdownMenu.Root>
     </>
-  )
-}
+  );
+};
 
-export default NavBarMenu
+export default NavBarMenu;
