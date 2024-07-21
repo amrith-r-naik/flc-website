@@ -130,7 +130,8 @@ const login = async (input: { email: string; password: string }) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
-cron.schedule("*/3 * * * *", async () => {
+cron.schedule("0 */12 * * *", async () => {
+  //every 12 hours
   await db.refreshToken.deleteMany({
     where: {
       revoked: true,
@@ -144,16 +145,7 @@ cron.schedule("*/3 * * * *", async () => {
 
   //deleting non-revoked tokens after their expiry time
   const expiryTime = new Date();
-  expiryTime.setHours(expiryTime.getHours() - 5);
-
-  await db.refreshToken.deleteMany({
-    where: {
-      revoked: false,
-      createdAt: {
-        lte: expiryTime,
-      },
-    },
-  });
+  expiryTime.setHours(expiryTime.getHours() - 25);
 
   await db.verificationToken.deleteMany({
     where: {
