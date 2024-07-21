@@ -53,7 +53,7 @@ export const sendPasswordResetEmail = async (
 };
 export const sendCertificationIsuueForEmail = async (
   email: string,
-  certificationType:string,
+  certificationType: string,
   eventName: string,
   name: string,
 ) => {
