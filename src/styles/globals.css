@@ -375,4 +375,25 @@ body:hover>#trailer {
   filter: url(#turbulenceFilter);
 }
 
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
 /*********************************************/
