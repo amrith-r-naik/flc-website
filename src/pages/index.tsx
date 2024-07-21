@@ -25,12 +25,12 @@ export default function Home() {
       <button
         onClick={() => {
           signUp.mutate({
-            branchId: "clxo9upud000161ci3havtfke",
-            email: "sathwikhh@gmail.com",
-            name: "sathwik",
+            branchId: "clyfv1ol300008d7efi7xly2b",
+            email: "nnm22is083@nmamit.in",
+            name: "sayeem ",
             password: "password",
             confirmPassword: "password",
-            phone: "9448846524",
+            phone: "8660241724",
             year: "2023",
           });
         }}
@@ -41,7 +41,7 @@ export default function Home() {
       <button
         onClick={() => {
           sendVerificationEmail.mutate({
-            email: "sathwikhh@gmail.com",
+            email: "nnm22is083@nmamit.in",
           });
         }}
       >
@@ -62,7 +62,7 @@ export default function Home() {
       <button
         onClick={async () => {
           const res = signIn("credentials", {
-            email: "sathwikhh@gmail.com",
+            email: "nnm22is083@nmamit.in",
             password: "password",
             redirect: false,
           });

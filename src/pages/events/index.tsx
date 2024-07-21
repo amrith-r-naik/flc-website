@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import Card from "~/components/Card";
@@ -8,13 +8,14 @@ import { api } from "~/utils/api";
 import { uploadTypeEnum } from "~/components/cloudinary/cloudinaryUpload";
 import EventCard from "~/components/eventCard";
 function page() {
-
   const { data: events, isLoading, error } = api.event.getAllEvents.useQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
+  if (events) {
+    console.log(events);
+  }
   if (error) {
     return <div>Error loading events</div>;
   }
@@ -28,7 +29,12 @@ function page() {
       <div className="flex justify-center py-8 md:py-16">
         <RadioButtons />
       </div>
-      <CloudinaryUpload linkName="Deletion test" type={uploadTypeEnum.eventPicture} />
+      <CloudinaryUpload
+        uploadName="upload Event Image"
+        eventId="cly4g5jlv000246ht681op1lc"
+        type={uploadTypeEnum.eventPicture}
+      />
+      
 
       <div className="grid  grid-cols-1 mx-auto gap-10 md:grid-cols-2 max-w-7xl xl:grid-cols-3 px-5">
           
@@ -47,8 +53,6 @@ function page() {
           <div>No events available</div>
         )}
       </div>
-
-      
     </>
   );
 }
