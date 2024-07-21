@@ -2,7 +2,7 @@ import { type RefreshToken, type VerificationToken } from "@prisma/client";
 import { error } from "console";
 import jwt from "jsonwebtoken";
 import { db } from "~/server/db";
-import { RefreshTokenSchema } from "~/zod/authZ";
+import { RefreshTokenZ } from "~/zod/authZ";
 import { hashToken } from "./hashToken";
 import { getUserById } from "./auth";
 import { v4 as uuidv4 } from "uuid";
@@ -19,7 +19,7 @@ const secrets = {
 
 const generateAccessToken = (user: { id: string }) => {
   return jwt.sign({ userId: user.id }, secrets.JWT_ACCESS_SECRET, {
-    expiresIn: "25s",
+    expiresIn: "1d",
   });
 };
 
@@ -31,7 +31,7 @@ export function generateRefreshToken(user: { id: string }, jti: string) {
     },
     secrets.JWT_REFRESH_SECRET,
     {
-      expiresIn: "5h",
+      expiresIn: "1096 days",
     },
   );
 }
@@ -163,7 +163,7 @@ const rotateTokens = async (token: string) => {
 
 const refreshToken = async (token: string) => {
   try {
-    const validateFields = RefreshTokenSchema.safeParse({
+    const validateFields = RefreshTokenZ.safeParse({
       refreshToken: token,
     });
     if (!validateFields.success) {

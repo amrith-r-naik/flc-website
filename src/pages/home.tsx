@@ -1,7 +1,9 @@
 import { signOut, useSession } from "next-auth/react";
 import { getServerAuthSession } from "../server/auth";
-import { InferGetServerSidePropsType, type GetServerSideProps } from "next";
+import type { GetServerSideProps } from "next";
 import { useRouter } from "next/navigation";
+import { db } from "~/server/db";
+import { api } from "~/utils/api";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
@@ -11,6 +13,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 function Home() {
+  const revokeTokens = api.auth.revokeTokenOnSignout.useMutation();
   const router = useRouter();
   console.log("WORKS");
   const session = useSession();
@@ -36,13 +39,13 @@ function Home() {
       </form> */}
       <button
         onClick={() => {
+          revokeTokens.mutate();
           void signOut({ callbackUrl: "/" });
           router.push("/");
         }}
       >
         Sign Out
       </button>
-      <Test />
     </main>
   );
 }

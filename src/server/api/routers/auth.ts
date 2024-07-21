@@ -5,7 +5,7 @@ import {
   SendVerifyEmailZ,
   VerifyEmailZ,
 } from "~/zod/authZ";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 import jwt, {
   JsonWebTokenError,
@@ -298,4 +298,25 @@ export const authRouter = createTRPCRouter({
         throw error;
       }
     }),
+  revokeTokenOnSignout: protectedProcedure.mutation(async ({ ctx }) => {
+    const { user } = ctx.session;
+
+    try {
+      await ctx.db.refreshToken.updateMany({
+        where: {
+          userId: user.id,
+          revoked: false,
+        },
+        data: {
+          revoked: true,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Something went wrong",
+      });
+    }
+  }),
 });
