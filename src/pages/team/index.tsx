@@ -4,11 +4,13 @@ import MemberCard from "~/components/teamPageComponents/memberCard";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 const Team = () => {
-  const [toggleState, setToggleState] = useState(5);
+  const [toggleState, setToggleState] = useState(5); //Default year is 2024-25
 
   gsap.registerPlugin(useGSAP, ScrollTrigger);
   useGSAP(() => {
+    // Title animation when screen width > 1024px
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
     if (mediaQuery.matches) {
       gsap.from([".meet", ".the", ".team"], {
@@ -34,15 +36,17 @@ const Team = () => {
     }
   });
 
-  const cardsContainer = useRef();
+  // Animating the cards when year is changed
+  const cardsContainer = useRef<HTMLDivElement | null>(null);
   const { contextSafe } = useGSAP({ scope: cardsContainer });
   const onYearChange = contextSafe(() => {
     gsap.from(".mainCard", {
-      scale: 0.5,
+      delay: 0.2,
+      scale: 0.8,
       y: 50,
-      opacity: 0,
-      duration: 0.5,
-      stagger: 0.2,
+      stagger: 0.1,
+      duration: 0.1,
+      display: "none",
     });
   });
 
@@ -65,6 +69,7 @@ const Team = () => {
         </p>
       </div>
 
+      {/* The horizontal list of years (when widow width > md) */}
       <ul className="hidden flex-wrap justify-center md:flex">
         {teamTabs.map((tab, index) => (
           <li key={index}>
@@ -88,6 +93,8 @@ const Team = () => {
         ))}
       </ul>
 
+      {/* A dropdown(select) of year for smaller screens */}
+      {/* UI needs to corrected */}
       <div className="flex w-full items-center justify-center md:hidden">
         <select
           className="rounded-md border-2 border-border bg-card px-3 py-1 text-white"
@@ -109,9 +116,13 @@ const Team = () => {
         </select>
       </div>
 
-      {/* Cards Div */}
-      <div className="cardDiv mt-8 flex w-full justify-center pb-24">
+      {/* Member Cards Container */}
+      <div
+        ref={cardsContainer}
+        className="mt-8 flex w-full justify-center pb-24"
+      >
         <div className="grid gap-4 gap-y-24 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {/* Iterate and display the cards here */}
           <MemberCard
             src="/images/GalaxyTexture.jpg"
             name="Amrith R Naik"
