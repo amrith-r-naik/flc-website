@@ -47,7 +47,7 @@ const Team = () => {
   });
 
   return (
-    <div className="absolute top-0 flex h-screen w-screen flex-col items-center overflow-y-scroll bg-background pt-24 font-mono">
+    <div className="absolute top-0 flex h-screen w-screen flex-col items-center overflow-y-scroll bg-background pt-24">
       <div className="my-10 flex w-full flex-col items-center md:my-20">
         <div className="titleContainer flex items-center justify-center gap-4">
           <h1 className="meet mb-3 text-2xl font-bold text-primary md:text-4xl">
