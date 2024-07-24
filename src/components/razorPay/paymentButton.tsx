@@ -40,7 +40,7 @@ export default function Payment({ amount, userId, name }: PropType) {
     }
 
     // creating order in server
-    const response = await fetch("http://localhost:3000/api/payment/create", {
+    const response = await fetch("/api/payment/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export default function Payment({ amount, userId, name }: PropType) {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={displayRazorpay}>Pay now</button>
+        <button onClick={displayRazorpay} className="p-2 rounded-md bg-white text-black">Pay now</button>
       </header>
     </div>
   );
