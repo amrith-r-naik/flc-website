@@ -1,15 +1,17 @@
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, {  useEffect, useState } from "react";
 import { ChevronDown, ChevronUp, Pencil, X } from "lucide-react";
 import ImageCarousel from "~/components/imageCarousel";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { getServerAuthSession } from "~/server/auth";
 import { GetServerSideProps } from "next";
 import { api } from "~/utils/api";
+import { toast, Toaster } from "sonner";
+import { revalidatePath } from "next/cache";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
@@ -18,26 +20,41 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 }; 
 const Profile = () => {
-
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+  const [phone, setPhone] = useState("");
   const { data: session, status } = useSession()
   const router = useRouter()
- /*  useEffect(() => {
+  useEffect(() => {
     if (status !== "authenticated" && typeof window !== 'undefined') {
       router.push('/');
     }
-  }, [status, router]); */
 
-  const { data: events, isLoading, error } = api.user.getUser.useQuery({})
+  }, [status]); 
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if(!session){
+    return <></>
   }
-  if (events) {
-    console.log(events);
-  }
-  if (error) {
-    return <div>Error loading events</div>;
-  }
+
+  const { data:user, isLoading, error } = api.user.getUser.useQuery({id : session.user.id})
+  const editUser = api.user.editUser.useMutation({
+    onSuccess: async (data) => {
+      router.refresh()
+      toast.dismiss();
+      toast.success("Profile changed successfully");
+    },
+    onError: ({ message }) => {
+      toast.dismiss();
+      toast.error(message);
+    },
+  });
+  useEffect(() => {
+    if (user?.userProfile) {
+      setName(user.userProfile.name);
+      setPhone(user.userProfile.phone);
+      setBio(user.userProfile.bio || "");
+    }
+  }, [user]);
   let seeMoreTimeline: gsap.core.Timeline;
   gsap.registerPlugin(useGSAP);
 
@@ -132,7 +149,15 @@ const Profile = () => {
     "/poster5.webp",
   ];
 
-  
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (!user) {
+    return <p>User not found</p>
+  }
+  if (error) {
+    return <div>Error loading user</div>;
+  }
 
   return (
     <main className="absolute top-0 -z-10 h-screen w-screen overflow-x-hidden bg-background ">
@@ -145,7 +170,7 @@ const Profile = () => {
           height="100%"
         ></iframe>
       </div> */}
-
+  <Toaster position="bottom-center" />
       {/* Mobile Version */}
       <div className="CardsContainer absolute bottom-0 flex w-full flex-col gap-2 p-4 sm:hidden">
         {/* Top card */}
@@ -207,9 +232,11 @@ const Profile = () => {
                       Name
                     </label>
                     <input
-                      className="inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
+                      className=" inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                       id="name"
-                      defaultValue=""
+                      value={name}
+                      onChange={(e) => {setName(e.target.value)}}
+                      defaultValue={user?.userProfile.name}
                     />
                   </fieldset>
                   <fieldset className="mb-[15px] flex items-center gap-5">
@@ -217,27 +244,31 @@ const Profile = () => {
                       className="w-[90px] text-right text-[15px] text-primary"
                       htmlFor="name"
                     >
-                      Year
+                      Phone
                     </label>
                     <input
                       className="shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-                      id="year"
-                      defaultValue=""
+                      id="phone"
+                      value={phone}
+                      onChange={(e) => {setPhone(e.target.value)}}
+                      defaultValue={user?.userProfile.phone}
                     />
                   </fieldset>
-                  <fieldset className="mb-[15px] flex items-center gap-5">
+                 {/*  <fieldset className="mb-[15px] flex items-center gap-5">
                     <label
                       className="w-[90px] text-right text-[15px] text-primary"
                       htmlFor="name"
                     >
-                      Branch
+                      Bio
                     </label>
                     <input
                       className="shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-                      id="branch"
-                      defaultValue=""
+                      id="bio"
+                      defaultValue={user?.userProfile.bio || ""}
+                      value={bio}
+                      onChange={(e) => {setBio(e.target.value)}}
                     />
-                  </fieldset>
+                  </fieldset> */}
                   <fieldset className="mb-[15px] flex items-center gap-5">
                     <label
                       className="w-[90px] text-right text-[15px] text-primary"
@@ -248,11 +279,18 @@ const Profile = () => {
                     <textarea
                       className="shadow-violet7 focus:shadow-violet8 inline-flex h-[70px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                       id="bio"
-                      defaultValue=""
+                      defaultValue={user?.userProfile.bio || ""}
+                      value={bio}
+                      onChange={(e) => {setBio(e.target.value)}}
                     />
                   </fieldset>
                   <Dialog.Close asChild>
-                    <button className="inline-flex h-[35px] max-w-[200px] items-center justify-center self-end rounded-[4px] bg-green-600 bg-opacity-90 px-[15px] font-medium leading-none text-white hover:bg-green-500 focus:shadow-[0_0_0_2px] focus:shadow-green-700 focus:outline-none">
+                    <button onClick={async () => { await editUser.mutate({
+                            id: user.userProfile.id,
+                            name,
+                            phone,
+                            bio
+                          })}} className="inline-flex h-[35px] max-w-[200px] items-center justify-center self-end rounded-[4px] bg-green-600 bg-opacity-90 px-[15px] font-medium leading-none text-white hover:bg-green-500 focus:shadow-[0_0_0_2px] focus:shadow-green-700 focus:outline-none">
                       Save changes
                     </button>
                   </Dialog.Close>
@@ -268,7 +306,7 @@ const Profile = () => {
           <div className="mt-16 flex w-full flex-col gap-3 overflow-scroll px-4 pb-2">
             {/* Name and Position Div */}
             <div className="flex w-full flex-col items-center">
-              <p className="text-2xl font-bold text-white">Jackie Chan</p>
+              <p className="text-2xl font-bold text-white">{user?.userProfile.name}</p>
               <p className="text-sm text-primary contrast-[0.55]">Member</p>
             </div>
 
@@ -299,11 +337,7 @@ const Profile = () => {
             <div className="BioSection hidden  flex-col">
               <p className="text-sm text-white-200">Bio</p>
               <p className=" text-white">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
-                provident perferendis dolorem libero dignissimos similique,
-                obcaecati laborum ratione cumque quaerat, voluptatum voluptas
-                ipsam unde, repudiandae aperiam quod voluptate? Recusandae,
-                ratione?
+                {user?.userProfile.bio}
               </p>
             </div>
 
@@ -371,8 +405,8 @@ const Profile = () => {
               </div>
               {/* Name Position & QR Div */}
               <div className="flex w-full flex-col items-center gap-2">
-                <p className="text-2xl font-bold text-white">Jackie Chan</p>
-                <p className="text-sm text-primary contrast-[0.55]">Member</p>
+                <p className="text-2xl font-bold text-white"> {user?.userProfile.name}</p>
+                <p className="text-sm text-primary contrast-[0.55]">{user?.userProfile.role}</p>
                 <div className="flex gap-2">
                   <Dialog.Root>
                     <Dialog.Trigger className="rounded-sm border border-white border-opacity-10 bg-white bg-opacity-5 px-2 text-xs">
@@ -423,7 +457,9 @@ const Profile = () => {
                           <input
                             className="inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                             id="name"
-                            defaultValue=""
+                            value={name}
+                            onChange={(e) => {setName(e.target.value)}}
+                            defaultValue={user?.userProfile.name}
                           />
                         </fieldset>
                         <fieldset className="mb-[15px] flex items-center gap-5">
@@ -431,15 +467,17 @@ const Profile = () => {
                             className="w-[90px] text-right text-[15px] text-primary"
                             htmlFor="name"
                           >
-                            Year
+                            Phone
                           </label>
                           <input
                             className="shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-                            id="year"
-                            defaultValue=""
+                            id="phone"
+                            value={phone}
+                            onChange={(e) => {setPhone(e.target.value)}}
+                            defaultValue={user?.userProfile.phone}
                           />
                         </fieldset>
-                        <fieldset className="mb-[15px] flex items-center gap-5">
+                       {/*  <fieldset className="mb-[15px] flex items-center gap-5">
                           <label
                             className="w-[90px] text-right text-[15px] text-primary"
                             htmlFor="name"
@@ -451,7 +489,7 @@ const Profile = () => {
                             id="branch"
                             defaultValue=""
                           />
-                        </fieldset>
+                        </fieldset> */}
                         <fieldset className="mb-[15px] flex items-center gap-5">
                           <label
                             className="w-[90px] text-right text-[15px] text-primary"
@@ -462,11 +500,18 @@ const Profile = () => {
                           <textarea
                             className="shadow-violet7 focus:shadow-violet8 inline-flex h-[70px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                             id="bio"
-                            defaultValue=""
+                            defaultValue={user?.userProfile.bio || ""}
+                            value={bio}
+                            onChange={(e) => {setBio(e.target.value)}}
                           />
                         </fieldset>
                         <Dialog.Close asChild>
-                          <button className="inline-flex h-[35px] max-w-[200px] items-center justify-center self-end rounded-[4px] bg-green-600 bg-opacity-90 px-[15px] font-medium leading-none text-white hover:bg-green-500 focus:shadow-[0_0_0_2px] focus:shadow-green-700 focus:outline-none">
+                          <button onClick={async () => { await editUser.mutate({
+                            id: user.userProfile.id,
+                            name,
+                            phone,
+                            bio
+                          })}} className="inline-flex h-[35px] max-w-[200px] items-center justify-center self-end rounded-[4px] bg-green-600 bg-opacity-90 px-[15px] font-medium leading-none text-white hover:bg-green-500 focus:shadow-[0_0_0_2px] focus:shadow-green-700 focus:outline-none">
                             Save changes
                           </button>
                         </Dialog.Close>
@@ -487,11 +532,11 @@ const Profile = () => {
             <div className="flex flex-col gap-3">
               <div className="flex flex-col">
                 <p className="text-sm text-white-200">Phone</p>
-                <p className="text-white">9876543210</p>
+                <p className="text-white">{user?.userProfile.phone}</p>
               </div>
               <div>
                 <p className="text-sm text-white-200">Email</p>
-                <p className="text-white">nnm22gg070@nmamit.in</p>
+                <p className="text-white">{user?.userProfile.email}</p>
               </div>
             </div>
           </div>
@@ -510,29 +555,20 @@ const Profile = () => {
           <div className="BioSection flex flex-col">
             <p className="text-sm text-white">Bio</p>
             <p className=" min-h-24 text-white-200">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore.Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-              ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-              voluptate velit esse cillum dolore.
+              {user?.userProfile.bio}
             </p>
           </div>
 
           {/* Year & Branch */}
           <div className="YearBranchSection flex flex-col">
             <p className="text-sm text-white">Year & Branch</p>
-            <p className="text-white-200">3rd - Computer Science</p>
+            <p className="text-white-200">{`${user?.userProfile.year} - ${user?.userProfile.Branch.name}`}</p>
           </div>
 
           {/* Activity Point */}
           <div className="ActivityPoint Section flex flex-col">
             <p className="text-sm text-white">Activity Point</p>
-            <p className="text-white-200">70</p>
+            <p className="text-white-200">{user?.userProfile.totalActivityPoints}</p>
           </div>
 
           {/* Attendance */}

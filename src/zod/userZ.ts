@@ -7,7 +7,7 @@ const EditProfileZ = z.object({
   phone: z.string().optional(),
   year: z.string().optional(),
   position: z.string().optional(),
-  profilePicture: z.string(),
+  profilePicture: z.string().optional(),
 });
 
 const GetProfileIdZ = z.object({
