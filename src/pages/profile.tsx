@@ -1,11 +1,43 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { ChevronDown, ChevronUp, Pencil, X } from "lucide-react";
 import ImageCarousel from "~/components/imageCarousel";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { getServerAuthSession } from "~/server/auth";
+import { GetServerSideProps } from "next";
+import { api } from "~/utils/api";
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getServerAuthSession(ctx);
+  return {
+    props: { session },
+  };
+}; 
 const Profile = () => {
+
+  const { data: session, status } = useSession()
+  const router = useRouter()
+ /*  useEffect(() => {
+    if (status !== "authenticated" && typeof window !== 'undefined') {
+      router.push('/');
+    }
+  }, [status, router]); */
+
+  const { data: events, isLoading, error } = api.user.getUser.useQuery({})
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (events) {
+    console.log(events);
+  }
+  if (error) {
+    return <div>Error loading events</div>;
+  }
   let seeMoreTimeline: gsap.core.Timeline;
   gsap.registerPlugin(useGSAP);
 
@@ -99,6 +131,8 @@ const Profile = () => {
     "/poster4.webp",
     "/poster5.webp",
   ];
+
+  
 
   return (
     <main className="absolute top-0 -z-10 h-screen w-screen overflow-x-hidden bg-background ">
