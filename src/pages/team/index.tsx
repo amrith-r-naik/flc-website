@@ -12,6 +12,10 @@ const Team = () => {
   useGSAP(() => {
     // Title animation when screen width > 1024px
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
+    const vw = window.innerWidth * 0.01;
+    const fontSize = `${vw + 5}vmin`;
+
     if (mediaQuery.matches) {
       gsap.from([".meet", ".the", ".team"], {
         opacity: 0,
@@ -21,7 +25,7 @@ const Team = () => {
         duration: 0.05,
       });
       gsap.from([".meet", ".the", ".team"], {
-        fontSize: 200,
+        fontSize: fontSize,
         ease: "power1.out",
         delay: 1.5,
       });

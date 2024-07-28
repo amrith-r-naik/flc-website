@@ -29,7 +29,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
       glareEnable={true}
     >
       <div
-        className={`${styles.rised} cardContent  absolute left-3 top-3 rounded-md bg-background/80 p-2 px-4 text-xs font-semibold text-primary`}
+        className={`${styles.rised} cardContent  absolute left-3 top-3 rounded-md bg-black/60 p-2 px-4 text-xs font-semibold text-primary`}
       >
         {role}
       </div>
