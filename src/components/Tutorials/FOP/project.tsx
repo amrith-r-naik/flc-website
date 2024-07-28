@@ -18,49 +18,143 @@ export default function Project() {
         <div className="List text m-3 rounded-md bg-slate-300 p-2 p-3 ">
           <div>
             <ul className="ml-3 list-disc">
-              <li>VS Code *</li>
-              <li>Git Bash (optional)</li>
+              <li>Page Skeleton -HTML</li>
+              <li>Page Styling - CSS</li>
+              <li>Audio player logic - JS</li>
             </ul>
           </div>
         </div>
-        <div className="VScode text m-3 rounded-md bg-slate-300 p-2 p-3 ">
-          <div>VS Code (~200 mbs)</div>
+        {/* html */}
+        <div className="html text m-3 rounded-md bg-slate-300 p-2 p-3 ">
+          <div>1. Page skeleton</div>
 
-          <div>
-            Download :{" "}
-            <a
-              href="http://https://code.visualstudio.com/download"
-              className="underline"
-            >
-              https://code.visualstudio.com/download
-            </a>{" "}
+          <div className="ml-12 flex-col gap-y-4">
+            <p>
+              Create an index.html page in new folder
+              <div className="Image"></div>
+            </p>
+
+            <p>
+              write boilerplate html in the file
+              <div className="inline">
+                <button className="ml-12 inline">copy</button> or{" "}
+                <div className="inline">shift+! and enter</div>{" "}
+              </div>
+              <div className="Image"></div>
+            </p>
+
+            <p>
+              Open the file in browser - drag and drop the html file in ur
+              browser
+              <div className="Image"></div>
+            </p>
             <br />
-            Installation:{" "}
-            <a
-              href="https://youtu.be/bN6DE-4uFNo?si=dUCQyvgTXiuBMBUJ"
-              className="underline"
-            >
-              https://youtu.be/bN6DE-4uFNo?si=dUCQyvgTXiuBMBUJ
-            </a>{" "}
+            <br />
+
+            <p>
+              Writing content for our empty page
+              <div className="Image">
+                {" "}
+                <img
+                  className=" w-[90%]"
+                  src="/images/tutorial/skeleton.png"
+                  alt=""
+                />
+              </div>
+              <br />
+              Repeat the no of cards with your liking
+            </p>
+
+            <p>
+              Creating Player
+              <div className="Image">
+                <img
+                  className=" w-[90%]"
+                  src="/images/tutorial/audioTag.png"
+                  alt=""
+                />
+              </div>
+            </p>
+          </div>
+        </div>
+        {/* css */}
+        <div className="css text m-3 rounded-md bg-slate-300 p-2 p-3 ">
+          <div>2.Styling</div>
+
+          <div className="ml-12">
+            Lets use{" "}
+            <b>
+              {" "}
+              {"<"}style{">"}
+              {"</"}style{">"}
+            </b>{" "}
+            tag to give some styling to our music player
+            <p>
+              set width,height and background color to each music cards
+              <div className="Image h-[400px] w-[100%] bg-green-300">
+                {/* styling image here */}
+                styling image with comment
+              </div>{" "}
+            </p>
+            <p>
+              set a background image to the page, font colors
+              <div className="Image h-[400px] w-[100%] bg-green-300">
+                {/* styling image here */}
+                styling image with comment
+              </div>{" "}
+            </p>
+            <p>
+              Make the page responsive, i.e suitable both for laptop screens and
+              mobile screens as well
+              <div className="Image h-[400px] w-[100%] bg-green-300">
+                {/* styling image here */}
+                styling image with comment
+              </div>{" "}
+            </p>
             <br />
           </div>
         </div>
-        <div className="GitBash text m-3 rounded-md bg-slate-300 p-2 p-3 ">
-          <div>Git-Bash (~70 mbs)</div>
-
+        {/* JS */}
+        <div className="css text m-3 rounded-md bg-slate-300 p-2 p-3 ">
           <div>
-            Download :{" "}
-            <a href="https://git-scm.com/downloads" className="underline">
-              https://git-scm.com/downloads
-            </a>{" "}
-            <br />
-            Installation:{" "}
-            <a
-              href="https://youtu.be/qkbK31dMNfM?si=tukcZHQd6u_kLB4Z"
-              className="underline"
-            >
-              https://youtu.be/qkbK31dMNfM?si=tukcZHQd6u_kLB4Z
-            </a>{" "}
+            3.Logic with javascript{" "}
+            <p>
+              thers always more than 1 way to build any feature, hovever lets go
+              with logic of changing the source of audio on clicking respective
+              cards to play prefered music
+            </p>
+          </div>
+
+          <div className="ml-12">
+            Lets use{" "}
+            <b>
+              {" "}
+              {"<"}script {">"}
+              {"</"}script{">"}
+            </b>{" "}
+            tag to establish our logic
+            <p>
+              lets listen to clicking on our cards
+              <div className="Image h-[400px] w-[100%] bg-green-300">
+                {/* styling image here */}
+                relavent image
+              </div>{" "}
+            </p>
+            <p>
+              using id,col to identify tags
+              <div className="Image h-[400px] w-[100%] bg-green-300">
+                {/* styling image here */}
+                relavent image
+              </div>{" "}
+            </p>
+            <p>
+              accesing and manipulating html element&apos;s property and
+              behaviour
+              <div className="Image h-[400px] w-[100%] bg-green-300">
+                {/* styling image here */}
+                relavent image
+              </div>{" "}
+            </p>
             <br />
           </div>
         </div>
@@ -68,26 +162,17 @@ export default function Project() {
           <div className="text-red-800  ">Note</div>
 
           <div className="text ml-3 rounded-md bg-slate-300 p-2 ">
-            When it comes to installing softwares in general, Keep these points
-            in mind <br />
-            1. Download the softwares from official source. <br />
-            2. Try reading & understanding the installation steps.
+            1. When it comes to styling it is possible to write styling in
+            external file and import in our html page, lookup{" "}
+            <i> external css</i> <br />
+            2. Same is true with JS
             <br />
-            3. after installation put the installation-path in{" "}
-            <i>
-              {" "}
-              <a
-                href="https://youtu.be/KjZ3IakXzFA?si=LdEahbf6m5f2DEM1"
-                className="underline"
-              >
-                {" "}
-                *environment variables of system*
-              </a>
-            </i>
-            <div className="m-3 text-center text-sm">
+            {/* 3. after installation put the installation-path in{" "} */}
+          
+            {/* <div className="m-3 text-center text-sm">
               Will come in handy if u want to practice C/C++, Java Or Python in
               future :){" "}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

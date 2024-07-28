@@ -7,23 +7,25 @@ export default function Git() {
       {" "}
       <h2 className="mb-3 flex justify-between">
         <div>3. Git</div>{" "}
-
         <div
           onClick={() => setGuiMode((prev) => !prev)}
-          className={`p-2 text-white ${guiMode ? "bg-green-300" : "bg-black"}`}
+          className={`h-fit cursor-pointer rounded-md p-2 text-sm text-white ${guiMode ? "bg-green-500" : "bg-black"}`}
         >
           {guiMode ? "use GUI" : "use CLI (from terminal)"}
         </div>
-
         <div className="right-0 inline  w-fit text-sm">
           {" "}
           <div>time:30-40 mins</div>
           <div>data: 300mbs </div>
         </div>
-
       </h2>
-
-      
+      {!guiMode&&(<iframe
+        src="https://scribehow.com/embed/Search_for_potato_image_on_Google___aqFBaY9TZClvyVasLOv1g"
+        width="100%"
+        height="640"
+        allowFullScreen
+        // frameBorder="0"
+      ></iframe>)}
       <div className="h-fit w-full bg-slate-200">
         In this section we will be seting up Tools which will come in handy to
         finish the Projects.

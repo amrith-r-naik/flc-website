@@ -65,6 +65,14 @@ export default function Setup() {
             <br />
           </div>
         </div>
+        <iframe
+          src="https://scribehow.com/embed/Sign_Up_for_GitHub_Account__nFlgZK-fQTCGVFkdpkXZ6w"
+          width="70%"
+          height="640"
+          className='m-auto'
+        //   allowfullscreen
+        //   frameborder="0"
+        ></iframe>
         <div className="Note p-3">
           <div className="text-red-800  ">Note</div>
 
