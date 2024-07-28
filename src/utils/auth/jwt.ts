@@ -19,7 +19,7 @@ const secrets = {
 
 const generateAccessToken = (user: { id: string }) => {
   return jwt.sign({ userId: user.id }, secrets.JWT_ACCESS_SECRET, {
-    expiresIn: "25s",
+    expiresIn: "1d",
   });
 };
 
@@ -31,7 +31,7 @@ export function generateRefreshToken(user: { id: string }, jti: string) {
     },
     secrets.JWT_REFRESH_SECRET,
     {
-      expiresIn: "5h",
+      expiresIn: "1096 days",
     },
   );
 }
