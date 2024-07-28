@@ -258,3 +258,76 @@ body {
   left: 81%;
   line-height: 6.2px;
 }
+
+/************************** landing *********************************/
+
+.menu-bar {
+  --o: 15px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  clip-path: polygon(0 0, 0 calc(100% - var(--o)), var(--o) 100%, calc(100% - var(--o)) 100%, 100% calc(100% - var(--o)), 100% 0%);
+  z-index: 50;
+}
+
+.social-bar {
+  --o: 15px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  clip-path: polygon(0 100%, 0 var(--o), var(--o) 0, calc(100% - var(--o)) 0, 100% var(--o), 100% 100%);
+  z-index: 50;
+}
+
+.menu-dialog {
+  z-index: 2;
+}
+
+.menu-dialog[open] {
+  animation: slidedown 200ms ease-in forwards;
+}
+
+@keyframes slidedown {
+  0% {
+    transform: translateY(-500px);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }
+
+  100% {
+    transform: translateY(0);
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+  }
+}
+
+.social-link:hover {
+  filter: url(#turbulenceFilter);
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/*********************************************/
