@@ -98,7 +98,7 @@ export default function Project() {
                 {"</"}head{">"}
               </b>{" "}
               tag ends
-              <div className="Image h-[400px] w-[100%] bg-green-300">
+              <div className="Image h-[400px] w-[90%] bg-green-300">
                 <img className="" src="/images/tutorial/style1.png" alt="" />
                 styling image with comment
               </div>{" "}
@@ -106,14 +106,14 @@ export default function Project() {
             <p>
               set a background image to the page, font colors, and card layot as
               flex
-              <div className="Image h-[400px] w-[100%] bg-green-300">
+              <div className="Image h-[400px] w-[90%] bg-green-300">
                 <img className="" src="/images/tutorial/style2.png" alt="" />
               </div>{" "}
             </p>
             <p>
               Make the page responsive, i.e suitable both for laptop screens and
               mobile screens as well
-              <div className="Image h-[400px] w-[100%] bg-green-300">
+              <div className="Image h-[400px] w-[90%] bg-green-300">
                 <img className="" src="/images/tutorial/style3.png" alt="" />
               </div>{" "}
             </p>
@@ -121,7 +121,7 @@ export default function Project() {
             <p>
               Make the page responsive, i.e suitable both for laptop screens and
               mobile screens as well
-              <div className="Image h-[400px] w-[100%] bg-green-300">
+              <div className="Image h-[400px] w-[90%] bg-green-300">
                 <img className="" src="/images/tutorial/style4.png" alt="" />
               </div>{" "}
             </p>
@@ -149,14 +149,14 @@ export default function Project() {
             tag to establish our logic
             <p>
               lets listen to clicking on our cards
-              <div className="Image h-[400px] w-[100%] bg-green-300">
+              <div className="Image h-[400px] w-[90%] bg-green-300">
                 {/* styling image here */}
                 relavent image
               </div>{" "}
             </p>
             <p>
               using id,col to identify tags
-              <div className="Image h-[400px] w-[100%] bg-green-300">
+              <div className="Image h-[400px] w-[90%] bg-green-300">
                 {/* styling image here */}
                 relavent image
               </div>{" "}
@@ -164,7 +164,7 @@ export default function Project() {
             <p>
               accesing and manipulating html element&apos;s property and
               behaviour
-              <div className="Image h-[400px] w-[100%] bg-green-300">
+              <div className="Image h-[400px] w-[90%] bg-green-300">
                 {/* styling image here */}
                 relavent image
               </div>{" "}
