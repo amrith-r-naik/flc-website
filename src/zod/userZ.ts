@@ -14,4 +14,7 @@ const GetProfileIdZ = z.object({
   id: z.string(),
 });
 
-export { EditProfileZ, GetProfileIdZ };
+const getUserEventsZ = z.object({
+  id: z.string(),
+});
+export { EditProfileZ, GetProfileIdZ ,getUserEventsZ};

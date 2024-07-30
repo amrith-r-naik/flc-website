@@ -35,8 +35,11 @@ const Profile = () => {
   if(!session){
     return <></>
   }
-  const { data:attendance } = api.attendance.getAttendanceByUserId.useQuery({id : session.user.id})
   const { data:user, isLoading, error } = api.user.getUser.useQuery({id : session.user.id})
+  const { data:attendance } = api.attendance.getAttendanceByUserId.useQuery({id : session.user.id})
+  const { data:userEvents } = api.user.getUserEvents.useQuery({id : session.user.id})
+  console.log("events: " , userEvents)
+  
   const editUser = api.user.editUser.useMutation({
     onSuccess: async (data) => {
       router.refresh()
