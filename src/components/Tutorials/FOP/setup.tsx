@@ -69,9 +69,9 @@ export default function Setup() {
           src="https://scribehow.com/embed/Sign_Up_for_GitHub_Account__nFlgZK-fQTCGVFkdpkXZ6w"
           width="70%"
           height="640"
-          className='m-auto'
-        //   allowfullscreen
-        //   frameborder="0"
+          className="m-auto"
+          //   allowfullscreen
+          //   frameborder="0"
         ></iframe>
         <div className="Note p-3">
           <div className="text-red-800  ">Note</div>
@@ -79,21 +79,23 @@ export default function Setup() {
           <div className="text ml-3 rounded-md bg-slate-300 p-2 ">
             When it comes to installing softwares in general, Keep these points
             in mind <br />
-            1. Download the softwares from official source. <br />
-            2. Try reading & understanding the installation steps.
-            <br />
-            3. after installation put the installation-path in{" "}
-            <i>
-              {" "}
-              <a
-                href="https://youtu.be/KjZ3IakXzFA?si=LdEahbf6m5f2DEM1"
-                className="underline"
-              >
+            <div className='ml-6'>
+              1. Download the softwares from official source. <br />
+              2. Try reading & understanding the installation steps.
+              <br />
+              3. after installation put the installation-path in{" "}
+              <i>
                 {" "}
-                *environment variables of system*
-              </a>
-            </i>
-            <div className="m-3 text-center text-sm">
+                <a
+                  href="https://youtu.be/KjZ3IakXzFA?si=LdEahbf6m5f2DEM1"
+                  className="underline"
+                >
+                  {" "}
+                  *environment variables of system*
+                </a>
+              </i>
+            </div>
+            <div className="m-3 mt-6 text-center text-sm">
               Will come in handy if u want to practice C/C++, Java Or Python in
               future :){" "}
             </div>

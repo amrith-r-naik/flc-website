@@ -90,25 +90,39 @@ export default function Project() {
             </b>{" "}
             tag to give some styling to our music player
             <p>
-              set width,height and background color to each music cards
+              set width,height and background color to each music cards we write
+              the style tag inside the{" "}
+              <b>
+                {" "}
+                {"<"}head{">"}
+                {"</"}head{">"}
+              </b>{" "}
+              tag ends
               <div className="Image h-[400px] w-[100%] bg-green-300">
-                {/* styling image here */}
+                <img className="" src="/images/tutorial/style1.png" alt="" />
                 styling image with comment
               </div>{" "}
             </p>
             <p>
-              set a background image to the page, font colors
+              set a background image to the page, font colors, and card layot as
+              flex
               <div className="Image h-[400px] w-[100%] bg-green-300">
-                {/* styling image here */}
-                styling image with comment
+                <img className="" src="/images/tutorial/style2.png" alt="" />
               </div>{" "}
             </p>
             <p>
               Make the page responsive, i.e suitable both for laptop screens and
               mobile screens as well
               <div className="Image h-[400px] w-[100%] bg-green-300">
-                {/* styling image here */}
-                styling image with comment
+                <img className="" src="/images/tutorial/style3.png" alt="" />
+              </div>{" "}
+            </p>
+
+            <p>
+              Make the page responsive, i.e suitable both for laptop screens and
+              mobile screens as well
+              <div className="Image h-[400px] w-[100%] bg-green-300">
+                <img className="" src="/images/tutorial/style4.png" alt="" />
               </div>{" "}
             </p>
             <br />
@@ -168,7 +182,6 @@ export default function Project() {
             2. Same is true with JS
             <br />
             {/* 3. after installation put the installation-path in{" "} */}
-          
             {/* <div className="m-3 text-center text-sm">
               Will come in handy if u want to practice C/C++, Java Or Python in
               future :){" "}
