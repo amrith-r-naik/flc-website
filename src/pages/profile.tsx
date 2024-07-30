@@ -35,7 +35,7 @@ const Profile = () => {
   if(!session){
     return <></>
   }
-
+  const { data:attendance } = api.attendance.getAttendanceByUserId.useQuery({id : session.user.id})
   const { data:user, isLoading, error } = api.user.getUser.useQuery({id : session.user.id})
   const editUser = api.user.editUser.useMutation({
     onSuccess: async (data) => {
@@ -356,7 +356,7 @@ const Profile = () => {
             {/* Attendance */}
             <div className="Attendance Section order-2 hidden flex-col">
               <p className="text-sm text-white-200">Attendance</p>
-              <p className="text-white">100%</p>
+              <p className="text-white">{attendance}%</p>
             </div>
           </div>
         </div>
@@ -574,7 +574,7 @@ const Profile = () => {
           {/* Attendance */}
           <div className="Attendance Section order-2 flex flex-col">
             <p className="text-sm text-white">Attendance</p>
-            <p className="text-white-200">100%</p>
+            <p className="text-white-200">{attendance}%</p>
           </div>
 
           {/* Certificates */}
