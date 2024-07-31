@@ -1,24 +1,15 @@
-import { GeistSans } from "geist/font/sans";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
-import { Theme } from "@radix-ui/themes";
-import { Inter } from "next/font/google";
 import { api } from "~/utils/api";
+import { Inter } from 'next/font/google'
 
 import "~/styles/globals.css";
 import Layout from "~/components/layout";
-import { Roboto } from "next/font/google";
+import { Theme } from "@radix-ui/themes";
 
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
-export const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
+// If loading a variable font, you don't need to specify the font weight
+const inter = Inter({ subsets: ['latin'], display: "swap" })
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -26,15 +17,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <main className={`${roboto.className} `}>
-        <Theme>
+      <Theme>
+        <div className={inter.className}>
           <Layout>
-            <Component className="" {...pageProps} />
+            <Component {...pageProps} />
           </Layout>
-        </Theme>
-      </main>
+        </div>
+      </Theme>
     </SessionProvider>
-  );
+  )
 };
 
 export default api.withTRPC(MyApp);

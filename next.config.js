@@ -17,7 +17,7 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  transpilePackages: ["geist"],
+  transpilePackages: ["geist", "gsap"],
   images: {
     remotePatterns: [
       {
