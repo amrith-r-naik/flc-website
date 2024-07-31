@@ -10,4 +10,6 @@ const toggleTeamAttendanceZ = z.object({
   eventId: z.string(),
 });
 
-export { toggleTeamAttendanceZ, toggleAttendanceZ };
+const getAttendanceByUserIdZ  = z.object({id : z.string()})
+
+export { toggleTeamAttendanceZ, toggleAttendanceZ ,getAttendanceByUserIdZ};
