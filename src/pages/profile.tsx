@@ -8,10 +8,10 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { getServerAuthSession } from "~/server/auth";
-import { GetServerSideProps } from "next";
+import { type GetServerSideProps } from "next";
 import { api } from "~/utils/api";
 import { toast, Toaster } from "sonner"
-import { CldUploadWidget } from "next-cloudinary";
+import { CldUploadWidget, CloudinaryUploadWidgetInfo, CloudinaryUploadWidgetResults } from "next-cloudinary";
 import { deleteFromCloudinary } from "~/components/cloudinary/cloudinaryDelete";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -37,6 +37,7 @@ const Profile = () => {
     return <></>
   }
   const { data: user, isLoading, error } = api.user.getUser.useQuery({ id: session.user.id })
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   const { data: attendance } = api.attendance.getAttendanceByUserId.useQuery({ id: session.user.id })
   const { data: userEvents } = api.user.getUserEvents.useQuery({ id: session.user.id })
   const updateProfile = api.user.editUser.useMutation()
@@ -338,30 +339,36 @@ const Profile = () => {
             <fieldset className="flex items-center text-white">
               <CldUploadWidget
                 signatureEndpoint="/api/cloudinary/sign"
-                onSuccess={(result) => {
-                  const imageUrl = result?.info?.url as string;
+                onSuccess={(result: CloudinaryUploadWidgetResults) => {
+                  const { info } = result;
+                  const { secure_url: imageUrl } =
+                    info as CloudinaryUploadWidgetInfo;
+
                   console.log(imageUrl);
-                  alert(imageUrl);
+                  imageUrl ? alert(imageUrl) : alert("couldnt upload");
 
                   //deleting from cloudinary server
                   void deleteFromCloudinary(
                     user?.userProfile as unknown as string,
                   );
 
-                  // update our db with result
-                  void updateProfile.mutateAsync({
-                    id: session.user.id,
-                    profilePicture: imageUrl,
-                  });
+                  if (imageUrl) {
+                    // update our db with result
+                    void updateProfile.mutateAsync({
+                      id: session.user.id,
+                      image: imageUrl,
+                    });
+                  }
                 }}
               >
                 {({ open }) => <button onClick={() => open()}>Edit Pic</button>}
               </CldUploadWidget>
               <Image
-                src={user?.userProfile as unknown as string}
+                src={user.userProfile.image as unknown as string}
                 alt={"ur profile picture"}
-                width={12}
-                height={12}
+                width={50}
+                height={50}
+                className="rounded-full"
               ></Image>
             </fieldset>
           </div>
@@ -461,7 +468,7 @@ const Profile = () => {
               {/* Profile Photo holder */}
               <div className="profileImage h-32 w-48 rounded-full border-4 border-white drop-shadow-md  ">
                 <Image
-                  src="/My_photo_suit.jpg"
+                  src={user.userProfile.image as unknown as string}
                   alt="Profile Image"
                   fill
                   className="rounded-full object-cover"
@@ -610,8 +617,11 @@ const Profile = () => {
                   <fieldset className="flex items-center text-white">
                     <CldUploadWidget
                       signatureEndpoint="/api/cloudinary/sign"
-                      onSuccess={(result) => {
-                        const imageUrl = result?.info?.url as string;
+                      onSuccess={(result: CloudinaryUploadWidgetResults) => {
+                        const { info } = result;
+                        const { secure_url: imageUrl } =
+                          info as CloudinaryUploadWidgetInfo;
+
                         console.log(imageUrl);
                         alert(imageUrl);
 
@@ -620,11 +630,13 @@ const Profile = () => {
                           user?.userProfile as unknown as string,
                         );
 
-                        // update our db with result
-                        void updateProfile.mutateAsync({
-                          id: session.user.id,
-                          profilePicture: imageUrl,
-                        });
+                        if (imageUrl) {
+                          // update our db with result
+                          void updateProfile.mutateAsync({
+                            id: session.user.id,
+                            image: imageUrl,
+                          });
+                        }
                       }}
                     >
                       {({ open }) => (
@@ -632,10 +644,11 @@ const Profile = () => {
                       )}
                     </CldUploadWidget>
                     <Image
-                      src={user?.userProfile as unknown as string}
+                      src={user.userProfile.image as unknown as string}
                       alt={"ur profile picture"}
-                      width={12}
-                      height={12}
+                      width={50}
+                      height={50}
+                      className="rounded-full"
                     ></Image>
                   </fieldset>
                 </div>

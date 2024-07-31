@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 /* import { PublishedEventsQuery } from "../../generated/generated"; */
 import Link from "next/link";
@@ -7,6 +8,7 @@ import {
   IoPeopleOutline,
   IoPersonOutline,
 } from "react-icons/io5";
+
 /* import { generateEventUrl } from "../../utils/url"; */
 import Image from "next/image";
 import styles from "./styles.module.css";
@@ -22,7 +24,7 @@ const EventCard = ({
   const router = useRouter();
     const getEventAttributes = () => {
     let teamSizeText = ""
-    let  eventTypeText = data.type;
+    const  eventTypeText = data.type;
     if (data.minTeamSize === data.maxTeamSize) {
       if (data.minTeamSize === 1)
         teamSizeText += `${data.minTeamSize} member per team`;
