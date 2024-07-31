@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronDown, ChevronUp, Pencil, X } from "lucide-react";
 import ImageCarousel from "~/components/imageCarousel";
 import gsap from "gsap";
@@ -10,15 +10,15 @@ import { useRouter } from "next/navigation";
 import { getServerAuthSession } from "~/server/auth";
 import { GetServerSideProps } from "next";
 import { api } from "~/utils/api";
-import { toast, Toaster } from "sonner";
-import { revalidatePath } from "next/cache";
+import { toast, Toaster } from "sonner"
+import { CldUploadWidget } from "next-cloudinary";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
   return {
     props: { session },
   };
-}; 
+};
 const Profile = () => {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
@@ -30,16 +30,16 @@ const Profile = () => {
       router.push('/');
     }
 
-  }, [status]); 
+  }, [status]);
 
-  if(!session){
+  if (!session) {
     return <></>
   }
-  const { data:user, isLoading, error } = api.user.getUser.useQuery({id : session.user.id})
-  const { data:attendance } = api.attendance.getAttendanceByUserId.useQuery({id : session.user.id})
-  const { data:userEvents } = api.user.getUserEvents.useQuery({id : session.user.id})
-  console.log("events: " , userEvents)
-  
+  const { data: user, isLoading, error } = api.user.getUser.useQuery({ id: session.user.id })
+  const { data: attendance } = api.attendance.getAttendanceByUserId.useQuery({ id: session.user.id })
+  const { data: userEvents } = api.user.getUserEvents.useQuery({ id: session.user.id })
+  console.log("events: ", userEvents)
+
   const editUser = api.user.editUser.useMutation({
     onSuccess: async (data) => {
       router.refresh()
@@ -173,7 +173,7 @@ const Profile = () => {
           height="100%"
         ></iframe>
       </div> */}
-  <Toaster position="bottom-center" />
+      <Toaster position="bottom-center" />
       {/* Mobile Version */}
       <div className="CardsContainer absolute bottom-0 flex w-full flex-col gap-2 p-4 sm:hidden">
         {/* Top card */}
@@ -238,7 +238,7 @@ const Profile = () => {
                       className=" inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                       id="name"
                       value={name}
-                      onChange={(e) => {setName(e.target.value)}}
+                      onChange={(e) => { setName(e.target.value) }}
                       defaultValue={user?.userProfile.name}
                     />
                   </fieldset>
@@ -253,11 +253,11 @@ const Profile = () => {
                       className="shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                       id="phone"
                       value={phone}
-                      onChange={(e) => {setPhone(e.target.value)}}
+                      onChange={(e) => { setPhone(e.target.value) }}
                       defaultValue={user?.userProfile.phone}
                     />
                   </fieldset>
-                 {/*  <fieldset className="mb-[15px] flex items-center gap-5">
+                  {/*  <fieldset className="mb-[15px] flex items-center gap-5">
                     <label
                       className="w-[90px] text-right text-[15px] text-primary"
                       htmlFor="name"
@@ -284,16 +284,45 @@ const Profile = () => {
                       id="bio"
                       defaultValue={user?.userProfile.bio || ""}
                       value={bio}
-                      onChange={(e) => {setBio(e.target.value)}}
+                      onChange={(e) => { setBio(e.target.value) }}
                     />
                   </fieldset>
+                  <fieldset className="mb-[15px] flex items-center gap-5">
+                    <label
+                      className="w-[90px] text-right text-[15px] text-primary"
+                      htmlFor="name"
+                    >
+                      Profile picture
+                    </label>
+                    <div className="p-3 border border-white">
+                    <CldUploadWidget
+                      signatureEndpoint="/api/cloudinary/sign"
+                      onSuccess={(result) => {
+                        console.log(result)
+                      }}
+                    >
+                      {({ open }) => {
+                        return <button onClick={() => open()}>{"upload image"}</button>;
+                      }}
+                    </CldUploadWidget>
+                    </div>
+                    {/* <textarea
+                      className="shadow-violet7 focus:shadow-violet8 inline-flex h-[70px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
+                      id="bio"
+                      defaultValue={user?.userProfile.bio || ""}
+                      value={bio}
+                      onChange={(e) => {setBio(e.target.value)}}
+                    /> */}
+                  </fieldset>
                   <Dialog.Close asChild>
-                    <button onClick={async () => { await editUser.mutate({
-                            id: user.userProfile.id,
-                            name,
-                            phone,
-                            bio
-                          })}} className="inline-flex h-[35px] max-w-[200px] items-center justify-center self-end rounded-[4px] bg-green-600 bg-opacity-90 px-[15px] font-medium leading-none text-white hover:bg-green-500 focus:shadow-[0_0_0_2px] focus:shadow-green-700 focus:outline-none">
+                    <button onClick={async () => {
+                      await editUser.mutate({
+                        id: user.userProfile.id,
+                        name,
+                        phone,
+                        bio
+                      })
+                    }} className="inline-flex h-[35px] max-w-[200px] items-center justify-center self-end rounded-[4px] bg-green-600 bg-opacity-90 px-[15px] font-medium leading-none text-white hover:bg-green-500 focus:shadow-[0_0_0_2px] focus:shadow-green-700 focus:outline-none">
                       Save changes
                     </button>
                   </Dialog.Close>
@@ -461,7 +490,7 @@ const Profile = () => {
                             className="inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                             id="name"
                             value={name}
-                            onChange={(e) => {setName(e.target.value)}}
+                            onChange={(e) => { setName(e.target.value) }}
                             defaultValue={user?.userProfile.name}
                           />
                         </fieldset>
@@ -476,11 +505,11 @@ const Profile = () => {
                             className="shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                             id="phone"
                             value={phone}
-                            onChange={(e) => {setPhone(e.target.value)}}
+                            onChange={(e) => { setPhone(e.target.value) }}
                             defaultValue={user?.userProfile.phone}
                           />
                         </fieldset>
-                       {/*  <fieldset className="mb-[15px] flex items-center gap-5">
+                        {/*  <fieldset className="mb-[15px] flex items-center gap-5">
                           <label
                             className="w-[90px] text-right text-[15px] text-primary"
                             htmlFor="name"
@@ -505,16 +534,18 @@ const Profile = () => {
                             id="bio"
                             defaultValue={user?.userProfile.bio || ""}
                             value={bio}
-                            onChange={(e) => {setBio(e.target.value)}}
+                            onChange={(e) => { setBio(e.target.value) }}
                           />
                         </fieldset>
                         <Dialog.Close asChild>
-                          <button onClick={async () => { await editUser.mutate({
-                            id: user.userProfile.id,
-                            name,
-                            phone,
-                            bio
-                          })}} className="inline-flex h-[35px] max-w-[200px] items-center justify-center self-end rounded-[4px] bg-green-600 bg-opacity-90 px-[15px] font-medium leading-none text-white hover:bg-green-500 focus:shadow-[0_0_0_2px] focus:shadow-green-700 focus:outline-none">
+                          <button onClick={async () => {
+                            await editUser.mutate({
+                              id: user.userProfile.id,
+                              name,
+                              phone,
+                              bio
+                            })
+                          }} className="inline-flex h-[35px] max-w-[200px] items-center justify-center self-end rounded-[4px] bg-green-600 bg-opacity-90 px-[15px] font-medium leading-none text-white hover:bg-green-500 focus:shadow-[0_0_0_2px] focus:shadow-green-700 focus:outline-none">
                             Save changes
                           </button>
                         </Dialog.Close>
