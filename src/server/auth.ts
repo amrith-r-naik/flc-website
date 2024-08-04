@@ -1,7 +1,8 @@
 /* eslint-disable */
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { type GetServerSidePropsContext } from "next";
+import { User, Role } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
   type DefaultSession,
@@ -12,15 +13,13 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 import { db } from "~/server/db";
 
+import { login } from "~/services/auth.service";
 import { getUserByEmail } from "~/utils/auth/auth";
 import {
   getRefreshTokenExpiry,
   isJwtExpired,
   rotateTokens,
 } from "~/utils/auth/jwt";
-import { login } from "~/services/auth.service";
-
-import { User, Role } from "@prisma/client";
 import { LoginZ } from "~/zod/authZ";
 
 /**
@@ -87,7 +86,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user, trigger, session }): Promise<any> {
       if (!token.sub) return token;
 
-      console.log("TOKEN FROM CLIENT COOKIES", token.accessToken);
+      // console.log("TOKEN FROM CLIENT COOKIES", token.accessToken);
 
       if (user && trigger === "signIn") {
         token = {
@@ -101,11 +100,11 @@ export const authOptions: NextAuthOptions = {
           iat: Math.floor(Date.now() / 1000),
           exp: getRefreshTokenExpiry(user.refreshToken),
         };
-        console.log("Token from user", token);
+        // console.log("Token from user", token);
         return token;
       } else if (trigger === "update" && session) {
-        console.log("SESSIONN", session);
-        console.log("SESSION ACCESSTOKEN", session.accessToken);
+        // console.log("SESSIONN", session);
+        // console.log("SESSION ACCESSTOKEN", session.accessToken);
         token = {
           ...token,
           accessToken: session.accessToken,
@@ -114,19 +113,19 @@ export const authOptions: NextAuthOptions = {
         return token;
       } else if (isJwtExpired(String(token.accessToken))) {
         // user signed in before and to check if the token is expired
-        console.log("expired, refreshing token");
-        console.log("Refresh tokennnnnn", token.refreshToken);
+        // console.log("expired, refreshing token");
+        // console.log("Refresh tokennnnnn", token.refreshToken);
 
         const [newAccessToken, newRefreshToken] = await rotateTokens(
           String(token.refreshToken),
         );
-        console.log(
-          "newAccessToken",
-          newAccessToken,
-          "newRefreshToken",
-          newRefreshToken,
-        );
-        console.log("old token", token);
+        // console.log(
+        //   "newAccessToken",
+        //   newAccessToken,
+        //   "newRefreshToken",
+        //   newRefreshToken,
+        // );
+        // console.log("old token", token);
         if (newAccessToken && newRefreshToken) {
           token = {
             ...token,
@@ -134,32 +133,32 @@ export const authOptions: NextAuthOptions = {
             refreshToken: newRefreshToken,
             exp: getRefreshTokenExpiry(newRefreshToken),
           };
-          console.log("token.accessToken", token.accessToken);
-          console.log("token.refreshToken", token.refreshToken);
-          console.log("token.exp", token.exp);
+          // console.log("token.accessToken", token.accessToken);
+          // console.log("token.refreshToken", token.refreshToken);
+          // console.log("token.exp", token.exp);
 
-          console.log("token-new-token-attached", token);
+          // console.log("token-new-token-attached", token);
           if (token.accessToken === newAccessToken) {
             return token;
           } else {
             return null;
           }
         } else {
-          console.log("unable to refresh token");
+          // console.log("unable to refresh token");
 
           return null;
         }
       }
-      console.log("RETURNING TOKEN");
-      console.log(token);
+      // console.log("RETURNING TOKEN");
+      // console.log(token);
 
       return token;
     },
     async session({ session, token, trigger }) {
-      console.log("Hi from session");
+      // console.log("Hi from session");
 
       if (token.sub && session.user) {
-        console.log("TOKEN FROM CALLBACK EXISTS");
+        // console.log("TOKEN FROM CALLBACK EXISTS");
         session.user.id = token.sub;
         session.user.name = token.name;
         session.user.email = token.email!;
@@ -167,7 +166,7 @@ export const authOptions: NextAuthOptions = {
         session.accessToken = token.accessToken;
       }
 
-      console.log("Session", session);
+      // console.log("Session", session);
       return session;
     },
   },
@@ -182,7 +181,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials: any, req: any): Promise<any> {
         const validateFields = LoginZ.safeParse(credentials);
         if (!validateFields.success) {
-          console.log("Invalid fields", validateFields.error);
+          // console.log("Invalid fields", validateFields.error);
           return null;
         }
         if (validateFields.success) {
@@ -203,7 +202,7 @@ export const authOptions: NextAuthOptions = {
             refreshToken: refreshToken,
             accessToken: accessToken,
           };
-          console.log("User", user);
+          // console.log("User", user);
 
           return user;
         }

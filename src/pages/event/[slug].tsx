@@ -1,17 +1,15 @@
 "use client";
+
 import { Button } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 import React from "react";
+
 import AvatarCustom from "~/components/avatar";
 import CopyBtn from "~/components/copyBtn";
 import { api } from "~/utils/api";
-import { type createEventZ } from "~/zod/eventZ";
-import {type z} from "zod"
-
-type EventType = z.infer<typeof createEventZ>;
 
 const EventSlug = () => {
   const router = useRouter();
@@ -22,14 +20,15 @@ const EventSlug = () => {
   const path = usePathname();
   const url = `http://localhost:3000/${path}`;
   console.log(path);
+  console.log(id);
 
   if (!id) {
     return <h1>Error fetching id</h1>;
   }
 
-const { data: event } = api.event.getEventById.useQuery({
-  eventId: id,
-}) as { data: EventType };
+  const { data: event } = api.event.getEventById.useQuery({
+    eventId: id,
+  });
 
   if (!event) {
     return <h1>error fetching event</h1>;

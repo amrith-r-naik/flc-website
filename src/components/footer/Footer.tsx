@@ -46,7 +46,7 @@ export const footLinks = [
 function Footer() {
     return (
         <footer className="mt-60  bg-[#FCAF3C] text-black relative">
-            <Image width={800} height={200} priority={false} className="w-full object-cover absolute bottom-[70%] -z-10" src={footerWave} alt="footer wave" />
+            <Image width={800} height={200} priority={false} className="w-full object-cover absolute bottom-[70%] -z-10" src={footerWave as string} alt="footer wave" />
             <div className="content-container space-y-8">
                 <h1 className="text-4xl font-bold text-center">FiniteLoop</h1>
 

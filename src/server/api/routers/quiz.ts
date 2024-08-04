@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { type QuizState, type Prisma } from "@prisma/client";
 import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 import {
@@ -29,7 +29,7 @@ export const quizRouter = createTRPCRouter({
         where: { id: input.quizId },
       });
 
-      ensureQuizInDraftState(quiz);
+      ensureQuizInDraftState<typeof quiz>(quiz);
 
       return await ctx.db.quiz.update({
         where: { id: input.quizId },
@@ -46,8 +46,8 @@ export const quizRouter = createTRPCRouter({
         where: { id: input.quizId },
       });
 
-      ensureQuizExists(quiz);
-      ensureQuizInDraftState(quiz);
+      ensureQuizExists<typeof quiz>(quiz);
+      ensureQuizInDraftState<typeof quiz>(quiz);
 
       const questions = quiz!.questions as Prisma.JsonObject[];
       const updatedQuestions = questions.filter(
@@ -183,7 +183,7 @@ export const quizRouter = createTRPCRouter({
 });
 
 // Helper functions
-function ensureQuizExists(quiz: any) {
+function ensureQuizExists<T>(quiz: T) {
   if (!quiz) {
     throw new TRPCError({
       code: "NOT_FOUND",
@@ -192,8 +192,10 @@ function ensureQuizExists(quiz: any) {
   }
 }
 
-function ensureQuizInDraftState(quiz: any) {
-  if (quiz.state !== "DRAFT") {
+function ensureQuizInDraftState<T extends { state: QuizState } | null>(
+  quiz: T,
+) {
+  if (quiz && quiz.state !== "DRAFT") {
     throw new TRPCError({
       code: "BAD_REQUEST",
       message: "Cannot update quiz unless it's in draft",

@@ -1,6 +1,8 @@
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
-import { EditProfileZ, GetProfileIdZ, getUserEventsZ } from "~/zod/userZ";
+
+import { EditProfileZ, getUserEventsZ } from "~/zod/userZ";
+
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
   editUser: protectedProcedure
@@ -21,42 +23,40 @@ export const userRouter = createTRPCRouter({
       return { status: "success", user };
     }),
 
-  getUser: publicProcedure
-    .input(GetProfileIdZ)
-    .query(async ({ ctx, input }) => {
-      const userProfile = await ctx.db.user.findUnique({
-        where: { id: input.id },
-        include: {
-          Attendance: true,
-          Certificate: true,
-          Organiser: true,
-          Branch: true,
-          UserFeedback: true,
-          UserLink: true,
-          ActivityPoint: true,
-          Team: true,
-          QuizResponse: true,
-        },
+  getUser: protectedProcedure.query(async ({ ctx }) => {
+    const userProfile = await ctx.db.user.findUnique({
+      where: { id: ctx.session.user.id },
+      include: {
+        Attendance: true,
+        Certificate: true,
+        Organiser: true,
+        Branch: true,
+        UserFeedback: true,
+        UserLink: true,
+        ActivityPoint: true,
+        Team: true,
+        QuizResponse: true,
+      },
+    });
+
+    if (!userProfile) {
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: "User not found",
       });
+    }
 
-      if (!userProfile) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "User not found",
-        });
-      }
-
-      return { status: "success", userProfile };
-    }),
-    getUserEvents: protectedProcedure
+    return { status: "success", userProfile };
+  }),
+  getUserEvents: protectedProcedure
     .input(getUserEventsZ)
-    .query(async ({ctx, input})=>{
+    .query(async ({ ctx, input }) => {
       const user = await ctx.db.user.findUnique({
         where: { id: input.id },
         include: {
           Team: true,
         },
-      })
+      });
 
       if (!user) {
         throw new TRPCError({
@@ -64,8 +64,8 @@ export const userRouter = createTRPCRouter({
           message: "User not found",
         });
       }
-      const userEvents = user.Team.map((team)=>team.eventId)
-      console.log("userEvents : ",userEvents)
-      return userEvents
-    }  )
+      const userEvents = user.Team.map((team) => team.eventId);
+      console.log("userEvents : ", userEvents);
+      return userEvents;
+    }),
 });
