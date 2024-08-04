@@ -5,6 +5,7 @@ import NavBarMenu from "./dropdownMenu";
 import { Button } from "@radix-ui/themes";
 import { LogIn } from "lucide-react";
 import { useRouter } from "next/router";
+import ThemeToggleSwitch from "../themeToggleSwitch/themeToggleSwitch";
 
 const links = [
   { label: "Home", url: "/" },
@@ -44,7 +45,9 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-
+        <div>
+          <ThemeToggleSwitch />
+        </div>
         <Button
           asChild
           className="rounded border border-border bg-white  px-3 py-2 font-bold hover:bg-white/5"
