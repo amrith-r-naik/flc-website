@@ -20,7 +20,7 @@ const NavBarMenu = () => {
         <DropdownMenu.Portal>
           <DropdownMenu.Content
             side="bottom"
-            className={`z-50  data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade mr-4   min-w-[130px] overflow-hidden rounded-md border border-border bg-primary-foreground p-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]`}
+            className={`data-[side=top]:animate-slideDownAndFade  data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-50 mr-4   min-w-[130px] overflow-hidden rounded-md border border-border bg-primary-foreground p-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]`}
             sideOffset={5}
           >
             <DropdownMenu.Item

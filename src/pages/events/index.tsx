@@ -6,6 +6,7 @@ import CloudinaryUpload from "~/components/cloudinary/cloudinaryUpload";
 import RadioButtons from "~/components/RadioButtons";
 import { api } from "~/utils/api";
 import { uploadTypeEnum } from "~/components/cloudinary/cloudinaryUpload";
+import EventCard from "~/components/eventCard";
 function page() {
   const { data: events, isLoading, error } = api.event.getAllEvents.useQuery();
 
@@ -33,6 +34,14 @@ function page() {
         eventId="cly4g5jlv000246ht681op1lc"
         type={uploadTypeEnum.eventPicture}
       />
+      
+
+      <div className="grid  grid-cols-1 mx-auto gap-10 md:grid-cols-2 max-w-7xl xl:grid-cols-3 px-5">
+          
+            <EventCard  data={{}} />
+     
+      </div>
+
       <div className="mx-2 mt-8 flex flex-wrap justify-center gap-20 md:mx-8">
         {events && events.length > 0 ? (
           <>

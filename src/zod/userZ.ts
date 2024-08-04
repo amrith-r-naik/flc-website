@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { z } from "zod";
 
 const EditProfileZ = z.object({
@@ -7,11 +8,14 @@ const EditProfileZ = z.object({
   phone: z.string().optional(),
   year: z.string().optional(),
   position: z.string().optional(),
-  profilePicture: z.string(),
+  image: z.string().optional(),
 });
 
 const GetProfileIdZ = z.object({
   id: z.string(),
 });
 
-export { EditProfileZ, GetProfileIdZ };
+const getUserEventsZ = z.object({
+  id: z.string(),
+});
+export { EditProfileZ, GetProfileIdZ ,getUserEventsZ};
