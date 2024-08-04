@@ -3,7 +3,7 @@ import React from 'react'
 const AdminSidebar = () => {
   return (
     <div className='w-[20%] border border-white h-[100%]'>
-        <Accordion type="single" collapsible className="w-full space-y-1">
+        {/* <Accordion type="single" collapsible className="w-full space-y-1">
         <AccordionItem
           value="item-1"
           className={`px-2 hover:bg-slate-100 rounded-lg ${
@@ -180,7 +180,7 @@ const AdminSidebar = () => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-
+ */}
 
     </div>
   )

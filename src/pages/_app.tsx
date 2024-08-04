@@ -34,7 +34,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <Theme>
-        <div className={inter.className}>
+        <div className={`${inter.className} dark`}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
