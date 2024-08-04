@@ -1,9 +1,10 @@
 import React from "react";
-
+import Snippet from "./snippet";
+import { start } from "./constants";
 export default function Project() {
   return (
     <div className="w-full bg-green-200 p-2 text-black">
-      {" "}
+      <Snippet code={start}></Snippet>
       <h2 className="mb-3 flex justify-between">
         <div>2. Project</div>{" "}
         <div className="right-0 inline  w-fit text-sm">
@@ -42,6 +43,7 @@ export default function Project() {
               </div>
               <div className="Image"></div>
             </p>
+            <Snippet code={``}></Snippet>
 
             <p>
               Open the file in browser - drag and drop the html file in ur
@@ -64,6 +66,7 @@ export default function Project() {
               <br />
               Repeat the no of cards with your liking
             </p>
+            <Snippet code={``}></Snippet>
 
             <p>
               Creating Player
@@ -75,6 +78,7 @@ export default function Project() {
                 />
               </div>
             </p>
+            <Snippet code={``}></Snippet>
           </div>
         </div>
         {/* css */}
@@ -103,6 +107,7 @@ export default function Project() {
                 styling image with comment
               </div>{" "}
             </p>
+            <Snippet code={``}></Snippet>
             <p>
               set a background image to the page, font colors, and card layot as
               flex
@@ -110,6 +115,7 @@ export default function Project() {
                 <img className="" src="/images/tutorial/style2.png" alt="" />
               </div>{" "}
             </p>
+            <Snippet code={``}></Snippet>
             <p>
               Make the page responsive, i.e suitable both for laptop screens and
               mobile screens as well
@@ -117,7 +123,7 @@ export default function Project() {
                 <img className="" src="/images/tutorial/style3.png" alt="" />
               </div>{" "}
             </p>
-
+            <Snippet code={``}></Snippet>
             <p>
               Make the page responsive, i.e suitable both for laptop screens and
               mobile screens as well
@@ -125,6 +131,7 @@ export default function Project() {
                 <img className="" src="/images/tutorial/style4.png" alt="" />
               </div>{" "}
             </p>
+            <Snippet code={``}></Snippet>
             <br />
           </div>
         </div>
@@ -154,6 +161,7 @@ export default function Project() {
                 relavent image
               </div>{" "}
             </p>
+            <Snippet code={``}></Snippet>
             <p>
               using id,col to identify tags
               <div className="Image h-[400px] w-[90%] bg-green-300">
@@ -161,6 +169,7 @@ export default function Project() {
                 relavent image
               </div>{" "}
             </p>
+            <Snippet code={``}></Snippet>
             <p>
               accesing and manipulating html element&apos;s property and
               behaviour
@@ -169,6 +178,7 @@ export default function Project() {
                 relavent image
               </div>{" "}
             </p>
+            <Snippet code={``}></Snippet>
             <br />
           </div>
         </div>
