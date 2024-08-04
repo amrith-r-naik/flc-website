@@ -1,24 +1,7 @@
-import React, { useState, ChangeEvent } from "react";
+import React from "react";
 import Image from "next/image";
 import Background from "./backgorund";
-import { api } from "~/utils/api";
 function index() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    branch: "",
-    year: "",
-    password: "",
-    confirmPassword: ""
-  });
-
-  const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const signUp = api.auth.signUp.useMutation();
   return (
     <>
       <div className="z-0 ">
@@ -203,17 +186,7 @@ function index() {
                   </div>
                 </div>
               </div>
-              <button  onClick={() => {
-          signUp.mutate({
-            branchId: "cly1kesbp00004bj8a2twttca",
-            email: "len@nmamit.in",
-            name: "len",
-            password: "password",
-            confirmPassword: "password",
-            phone: "8660241724",
-            year: "2023",
-          });
-        }}  className="mt-4 w-full rounded bg-yellow-300 p-2 font-bold text-gray-900 sm:mt-6">
+              <button className="mt-4 w-full rounded bg-yellow-300 p-2 font-bold text-gray-900 sm:mt-6">
                 Sign Up
               </button>
             </form>
