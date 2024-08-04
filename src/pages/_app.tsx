@@ -4,8 +4,8 @@ import { type AppType } from "next/app";
 import { api } from "~/utils/api";
 import { Inter } from 'next/font/google'
 
-import "~/styles/globals.css";
-import Layout from "~/components/layout";
+import "~/styles/globals.css";/* 
+import Layout from "~/components/layout"; */
 import { Theme } from "@radix-ui/themes";
 import { useRouter } from "next/router";
 import AdminLayout from "~/components/Layout/adminLayout";
@@ -30,6 +30,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     }
     return MainLayout;
   };
+  const Layout = getLayout();
   return (
     <SessionProvider session={session}>
       <Theme>
