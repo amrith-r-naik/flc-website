@@ -1,10 +1,10 @@
 import React from "react";
 import Snippet from "./snippet";
-import { start } from "./constants";
+import { start, card, cards, player, style1, style2, responsive, responsive2 } from "./constants";
+
 export default function Project() {
   return (
     <div className="w-full bg-green-200 p-2 text-black">
-      <Snippet code={start}></Snippet>
       <h2 className="mb-3 flex justify-between">
         <div>2. Project</div>{" "}
         <div className="right-0 inline  w-fit text-sm">
@@ -43,7 +43,7 @@ export default function Project() {
               </div>
               <div className="Image"></div>
             </p>
-            <Snippet code={``}></Snippet>
+            <Snippet code={start}></Snippet>
 
             <p>
               Open the file in browser - drag and drop the html file in ur
@@ -57,28 +57,19 @@ export default function Project() {
               Writing content for our empty page
               <div className="Image">
                 {" "}
-                <img
-                  className=" w-[90%]"
-                  src="/images/tutorial/skeleton.png"
-                  alt=""
-                />
+                <Snippet code={card}></Snippet>
               </div>
               <br />
               Repeat the no of cards with your liking
             </p>
-            <Snippet code={``}></Snippet>
+            <Snippet code={cards}></Snippet>
 
             <p>
               Creating Player
               <div className="Image">
-                <img
-                  className=" w-[90%]"
-                  src="/images/tutorial/audioTag.png"
-                  alt=""
-                />
+                <Snippet code={player}></Snippet>
               </div>
             </p>
-            <Snippet code={``}></Snippet>
           </div>
         </div>
         {/* css */}
@@ -102,36 +93,23 @@ export default function Project() {
                 {"</"}head{">"}
               </b>{" "}
               tag ends
-              <div className="Image h-[400px] w-[90%] bg-green-300">
-                <img className="" src="/images/tutorial/style1.png" alt="" />
-                styling image with comment
-              </div>{" "}
+              <Snippet code={style1}></Snippet>
             </p>
-            <Snippet code={``}></Snippet>
             <p>
               set a background image to the page, font colors, and card layot as
               flex
-              <div className="Image h-[400px] w-[90%] bg-green-300">
-                <img className="" src="/images/tutorial/style2.png" alt="" />
-              </div>{" "}
+              <Snippet code={style2}></Snippet>
             </p>
-            <Snippet code={``}></Snippet>
             <p>
               Make the page responsive, i.e suitable both for laptop screens and
               mobile screens as well
-              <div className="Image h-[400px] w-[90%] bg-green-300">
-                <img className="" src="/images/tutorial/style3.png" alt="" />
-              </div>{" "}
+              <Snippet code={responsive}></Snippet>
             </p>
-            <Snippet code={``}></Snippet>
             <p>
               Make the page responsive, i.e suitable both for laptop screens and
               mobile screens as well
-              <div className="Image h-[400px] w-[90%] bg-green-300">
-                <img className="" src="/images/tutorial/style4.png" alt="" />
-              </div>{" "}
+              <Snippet code={responsive2}></Snippet>
             </p>
-            <Snippet code={``}></Snippet>
             <br />
           </div>
         </div>

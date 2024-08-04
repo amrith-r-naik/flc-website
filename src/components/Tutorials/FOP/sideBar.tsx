@@ -46,19 +46,32 @@ export default function SideBar({
      }
 
   return (
-    <div className="p-2 p-3 sm:w-[0px] md:w-fit  ">
-      <button onClick={close}>close</button>
-      <div className="eh w-[200px] cursor-pointer px-2 pt-6" onClick={openSetup}>
-        Setup
-      </div>
-      <div className="he w-[200px] cursor-pointer  px-2 " onClick={openProject}>
-        Project
-      </div>
-      <div className="ws w-[200px] cursor-pointer px-2" onClick={openGit}>
-        Git-Github
-      </div>
-      <div className="sdf w-[200px] cursor-pointer px-2" onClick={OpenHosting}>
-        Hosting
+    <div className=" sticky p-2 p-3 sm:w-[0px] md:w-fit ">
+      <div className=''>
+        <button onClick={close} className="text-white">
+          close
+        </button>
+        <div
+          className="eh w-[200px] cursor-pointer px-2 pt-6"
+          onClick={openSetup}
+        >
+          Setup
+        </div>
+        <div
+          className="he w-[200px] cursor-pointer  px-2 "
+          onClick={openProject}
+        >
+          Project
+        </div>
+        <div className="ws w-[200px] cursor-pointer px-2" onClick={openGit}>
+          Git-Github
+        </div>
+        <div
+          className="sdf w-[200px] cursor-pointer px-2"
+          onClick={OpenHosting}
+        >
+          Hosting
+        </div>
       </div>
     </div>
   );

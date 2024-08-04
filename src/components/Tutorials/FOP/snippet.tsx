@@ -21,14 +21,14 @@ export default function Snippet({code}:{code?:string}) {
   return (
     <div className="">
       {codeToggle && (
-        <div className="m-auto block ">
+        <div className="m-auto  ">
           <Editor
             height="50vh"
-            className="rounded-md"
+            className="rounded-md align-center "
             onChange={handleEditorChange}
             defaultLanguage="html"
             defaultValue={content ?? "// some comment"}
-            width="100%"
+            width="90%"
             theme="vs-dark"
           />
         </div>
@@ -38,7 +38,7 @@ export default function Snippet({code}:{code?:string}) {
         <div
           dangerouslySetInnerHTML={{ __html: content }}
           id="display"
-          className=" p-12  m-auto  h-[50vh] resize  overflow-auto rounded-sm border border-4 bg-white "
+          className="p-6  w-[90%]  h-[50vh] resize  overflow-auto rounded-sm border border-4 bg-white "
         ></div>
       )}
 

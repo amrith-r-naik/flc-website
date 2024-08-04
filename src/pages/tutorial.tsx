@@ -17,19 +17,25 @@ export default function Tutorials() {
     setSideBarVisiblity((prev)=> !prev);
   }
   return (
-    <div>
-      <div className="flex w-full justify-evenly gap-16 ">
-        {!sideBarVisiblity && <button onClick={close}>open</button>}
+    <div className={sideBarVisiblity ? `p-4` : `px-6 `}>
+      {!sideBarVisiblity && (
+        <button onClick={close} className="text-white">
+          open
+        </button>
+      )}
+      <div className="flex w-full justify-evenly gap-64 ">
         {sideBarVisiblity && (
           <div>
             {sideBarVisiblity && (
-              <SideBar
-                visibility={setSideBarVisiblity}
-                setupVisiblity={setSetupVisiblity}
-                projectVisiblity={setProjectVisiblity}
-                gitVisiblity={setgitVisiblity}
-                hostingVisibility={setHostingVisibility}
-              ></SideBar>
+              <div className="fixed left-0 top-12 h-full w-64 bg-gray-800 p-4">
+                <SideBar
+                  visibility={setSideBarVisiblity}
+                  setupVisiblity={setSetupVisiblity}
+                  projectVisiblity={setProjectVisiblity}
+                  gitVisiblity={setgitVisiblity}
+                  hostingVisibility={setHostingVisibility}
+                />
+              </div>
             )}
           </div>
         )}
