@@ -8,9 +8,14 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div className="w-screen h-screen">
       <Navbar />
-      <main><AdminSidebar/>{children}</main>
-    </>
+      <main className="flex h-full w-full">
+        <AdminSidebar />
+        <div className="w-full h-full">
+          {children}
+        </div>
+      </main>
+    </div>
   );
 }
