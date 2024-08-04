@@ -3,7 +3,7 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   content: ["./src/**/*.tsx"],
-  /* darkMode: "selector", */ // To make the website dark mode only the dark class has been added to the main component in the _app.tsx file.
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
