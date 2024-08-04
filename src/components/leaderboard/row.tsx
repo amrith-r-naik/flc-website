@@ -6,11 +6,14 @@ interface rowProps {
   usn: string;
   eventsAttended: number;
   xp: number;
+  className?: string;
 }
 
-const Row = ({ name, usn, eventsAttended, xp }: rowProps) => {
+const Row = ({ name, usn, eventsAttended, xp, className }: rowProps) => {
   return (
-    <div className="flex w-full rounded-lg border-2 border-border">
+    <div
+      className={`flex w-full rounded-lg border-2 border-border ${className}`}
+    >
       <div className="flex flex-1 items-center justify-center gap-2  border-orange-700 py-4">
         <div className="hidden md:block">
           <AvatarCustom height={40} width={40} />
