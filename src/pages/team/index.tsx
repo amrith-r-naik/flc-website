@@ -68,9 +68,7 @@ const Team = () => {
             TEAM
           </h1>
         </div>
-        <p className="text-lg text-black dark:text-gray-200">
-          Dynamic and Agile
-        </p>
+        <p className="text-lg text-foreground">Dynamic and Agile</p>
       </div>
 
       {/* The horizontal list of years (when widow width > md) */}
@@ -88,7 +86,7 @@ const Team = () => {
                 <span className="absolute inset-x-0 -bottom-px h-px w-full bg-primary"></span>
               ) : null}
               <div className="flex items-center justify-center">
-                <span className="ml-3 text-xs font-light text-black lg:text-sm lg:font-medium dark:text-gray-200">
+                <span className="ml-3 text-xs font-light text-foreground lg:text-sm lg:font-medium">
                   {tab.replace("Year", "").replace("to", " - ")}
                 </span>
               </div>
