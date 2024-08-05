@@ -1,30 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React from "react";
-/* import { PublishedEventsQuery } from "../../generated/generated"; */
+import { type Event } from "@prisma/client";
+
+/* import { generateEventUrl } from "../../utils/url"; */
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import { IoIosPlayCircle } from "react-icons/io";
+
+/* import { PublishedEventsQuery } from "../../generated/generated"; */
 import {
-  IoCalendarOutline,
   IoLocationOutline,
   IoPeopleOutline,
   IoPersonOutline,
 } from "react-icons/io5";
 
-/* import { generateEventUrl } from "../../utils/url"; */
-import Image from "next/image";
 import styles from "./styles.module.css";
-import { useRouter } from "next/router";
-import { IoIosPlayCircle } from "react-icons/io";
-import { Event } from "@prisma/client";
 
-const EventCard = ({
-  data,
-}: {
-  data: Partial<Event>;
-}) => {
+const EventCard = ({ data }: { data: Partial<Event> }) => {
   const router = useRouter();
-    const getEventAttributes = () => {
-    let teamSizeText = ""
-    const  eventTypeText = data.type;
+  const getEventAttributes = () => {
+    let teamSizeText = "";
+    const eventTypeText = data.type;
     if (data.minTeamSize === data.maxTeamSize) {
       if (data.minTeamSize === 1)
         teamSizeText += `${data.minTeamSize} member per team`;
@@ -33,7 +30,7 @@ const EventCard = ({
     } else {
       teamSizeText = `${data.minTeamSize} - ${data.maxTeamSize} members per team`;
     }
-/* 
+    /*
     if (data.type?.includes("MULTIPLE")) {
       eventTypeText =
         data.type?.split("_")[0][0] +
@@ -75,34 +72,34 @@ const EventCard = ({
         Icon: IoPeopleOutline,
       },
     ];
-  };  
+  };
 
   return (
     <div
       onClick={() => router.push(`/event/${data.id}`)}
       data-scroll
-      className={`${styles.card} rounded-2xl p-2 py-3 bg-[#dc9c42] border     
-         border-[#a26b1e]/80 cursor-pointer w-full h-full`}
+      className={`${styles.card} h-full w-full cursor-pointer rounded-2xl border
+         border-[#a26b1e]/80 bg-[#dc9c42] p-2 py-3`}
     >
       <div
-        className={`${styles.top_section} bg-gradient-to-tr from-[#f4cd7f] to-[#ebc16e] flex flex-col`}
+        className={`${styles.top_section} flex flex-col bg-gradient-to-tr from-[#f4cd7f] to-[#ebc16e]`}
       >
         <div>
           <div className={styles.borderCard}></div>
           <div className={styles.icons}>
-            <div className="pl-2 pb-1">
+            <div className="pb-1 pl-2">
               <Image
-                src='/favicon.ico'  /* replace it with flc logo */
+                src="/favicon.ico" /* replace it with flc logo */
                 alt={"Incridea Logo"}
                 width={550}
                 height={550}
-                className="object-fill h-full w-full z-0 text-white"
+                className="z-0 h-full w-full object-fill text-white"
               />
             </div>
             <div
               className={`${
                 styles.social_media
-              } uppercase font-bold items-center text-center text-[#6B003E] ${
+              } items-center text-center font-bold uppercase text-[#6B003E] ${
                 data.category?.toLowerCase() === "non_technical"
                   ? "text-[0.9rem]"
                   : "text-[1.05rem]"
@@ -114,47 +111,47 @@ const EventCard = ({
         </div>
         <div className="py-2">
           <div className={`rounded-xl object-fill px-2`}>
-            {/* data.imgSrc && */ (
-              <Image
-                src='/assets/sample.png'
+            {
+              /* data.imgSrc && */ <Image
+                src="/assets/sample.png"
                 //src={data.image}
                 alt={"Image"}
                 width={250}
                 height={250}
-                className="object-fill rounded-xl h-full w-full z-0 text-white"
+                className="z-0 h-full w-full rounded-xl object-fill text-white"
               />
-            )}
+            }
           </div>
         </div>
       </div>
       <div
-        className={`pt-3 flex flex-col justify-center gap-3 items-center w-full`}
+        className={`flex w-full flex-col items-center justify-center gap-3 pt-3`}
       >
         <span
-          className={`font-bold text-white flex justify-center items-center text-center text-xl w-fit px-2`}
+          className={`flex w-fit items-center justify-center px-2 text-center text-xl font-bold text-white`}
         >
-          {'DSA WORKSHOP'}
+          {"DSA WORKSHOP"}
         </span>
-        <div className="flex flex-col w-full gap-2 text-white px-1 py-2 justify-center items-start md:w-full h-[6rem]">
-          {  getEventAttributes().map((attr, i) =>
+        <div className="flex h-[6rem] w-full flex-col items-start justify-center gap-2 px-1 py-2 text-white md:w-full">
+          {getEventAttributes().map((attr, i) =>
             attr.name ? (
               <div
-                className="w-full flex items-center border border-[#FF94D2]/40 gap-2 text-left bg-[#A46EE3]/30 p-1 rounded-full px-2"
+                className="flex w-full items-center gap-2 rounded-full border border-[#FF94D2]/40 bg-[#A46EE3]/30 p-1 px-2 text-left"
                 key={i}
               >
                 <attr.Icon />
-                { /*  hyd warning due to toLocaleString()
+                {/*  hyd warning due to toLocaleString()
                 safe to ignore - https://nextjs.org/docs/messages/react-hydration-error#solution-3-using-suppresshydrationwarning   */}
-                <span suppressHydrationWarning className="text-sm truncate">
+                <span suppressHydrationWarning className="truncate text-sm">
                   {attr.text}
                 </span>
               </div>
-            ) : null
-          )  }
+            ) : null,
+          )}
         </div>
         <div className="w-full">
           <Link href={`/event/${data.id}`}>
-            <button className="text-lg text-white capitalize shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-[#dbab68] to-[#d3ab74] hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
+            <button className="mt-0 flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-[#dbab68] to-[#d3ab74] py-2 text-lg capitalize text-white transition-all duration-300 hover:scale-[1.02] hover:brightness-125">
               <IoIosPlayCircle />
               Register
             </button>

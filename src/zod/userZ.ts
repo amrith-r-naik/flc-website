@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { z } from "zod";
 
 const EditProfileZ = z.object({
@@ -11,11 +10,7 @@ const EditProfileZ = z.object({
   image: z.string().optional(),
 });
 
-const GetProfileIdZ = z.object({
-  id: z.string(),
-});
-
 const getUserEventsZ = z.object({
   id: z.string(),
 });
-export { EditProfileZ, GetProfileIdZ ,getUserEventsZ};
+export { EditProfileZ, getUserEventsZ };

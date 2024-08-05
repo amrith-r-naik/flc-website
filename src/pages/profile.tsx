@@ -1,18 +1,24 @@
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { ChevronDown, ChevronUp, Pencil, UserRoundIcon, X } from "lucide-react";
-import ImageCarousel from "~/components/imageCarousel";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { getServerAuthSession } from "~/server/auth";
+import gsap from "gsap";
+import { ChevronDown, ChevronUp, Pencil, X } from "lucide-react";
 import { type GetServerSideProps } from "next";
-import { api } from "~/utils/api";
-import { toast, Toaster } from "sonner"
-import { CldUploadWidget, CloudinaryUploadWidgetInfo, CloudinaryUploadWidgetResults } from "next-cloudinary";
+import { useSession } from "next-auth/react";
+import {
+  CldUploadWidget,
+  type CloudinaryUploadWidgetInfo,
+  type CloudinaryUploadWidgetResults,
+} from "next-cloudinary";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { toast, Toaster } from "sonner";
+
+import { getServerAuthSession } from "~/server/auth";
+
 import { deleteFromCloudinary } from "~/components/cloudinary/cloudinaryDelete";
+import ImageCarousel from "~/components/imageCarousel";
+import { api } from "~/utils/api";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
@@ -24,45 +30,13 @@ const Profile = () => {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [phone, setPhone] = useState("");
-  const { data: session, status } = useSession()
-  const router = useRouter()
+  const { data: session, status } = useSession();
+  const router = useRouter();
   useEffect(() => {
-    if (status !== "authenticated" && typeof window !== 'undefined') {
-      router.push('/');
+    if (status !== "authenticated" && typeof window !== "undefined") {
+      router.push("/");
     }
-
   }, [status]);
-
-  if (!session) {
-    return <></>
-  }
-  const { data: user, isLoading, error } = api.user.getUser.useQuery({ id: session.user.id })
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-  const { data: attendance } = api.attendance.getAttendanceByUserId.useQuery({ id: session.user.id })
-  const { data: userEvents } = api.user.getUserEvents.useQuery({ id: session.user.id })
-  const updateProfile = api.user.editUser.useMutation()
-  console.log("events: ", userEvents)
-
-  const editUser = api.user.editUser.useMutation({
-    onSuccess: async (data) => {
-      router.refresh()
-      toast.dismiss();
-      toast.success("Profile changed successfully");
-    },
-    onError: ({ message }) => {
-      toast.dismiss();
-      toast.error(message);
-    },
-  });
-  useEffect(() => {
-    if (user?.userProfile) {
-      setName(user.userProfile.name);
-      setPhone(user.userProfile.phone);
-      setBio(user.userProfile.bio ?? "");
-    }
-  }, [user]);
-  let seeMoreTimeline: gsap.core.Timeline;
-  gsap.registerPlugin(useGSAP);
 
   useGSAP(() => {
     gsap.from([".TopCard", ".BottomCard2"], {
@@ -147,6 +121,40 @@ const Profile = () => {
       );
   });
 
+  const { data: user, isLoading, error } = api.user.getUser.useQuery();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+  const { data: attendance } = api.attendance.getAttendanceByUserId.useQuery();
+
+  const { data: userEvents } = api.user.getUserEvents.useQuery({
+    id: session.user.id,
+  });
+
+  const updateProfile = api.user.editUser.useMutation();
+  console.log("events: ", userEvents);
+
+  const editUser = api.user.editUser.useMutation({
+    onSuccess: async (data) => {
+      router.refresh();
+      toast.dismiss();
+      toast.success("Profile changed successfully");
+    },
+    onError: ({ message }) => {
+      toast.dismiss();
+      toast.error(message);
+    },
+  });
+
+  useEffect(() => {
+    if (user?.userProfile) {
+      setName(user.userProfile.name);
+      setPhone(user.userProfile.phone);
+      setBio(user.userProfile.bio ?? "");
+    }
+  }, [user]);
+
+  let seeMoreTimeline: gsap.core.Timeline;
+  gsap.registerPlugin(useGSAP);
+
   const images: string[] = [
     "/poster1.webp",
     "/poster2.webp",
@@ -155,15 +163,11 @@ const Profile = () => {
     "/poster5.webp",
   ];
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (!user) {
-    return <p>User not found</p>
-  }
-  if (error) {
-    return <div>Error loading user</div>;
-  }
+  if (isLoading) return <div>Loading...</div>;
+
+  if (!user) return <p>User not found</p>;
+
+  if (error) return <div>Error loading user</div>;
 
   return (
     <main className="absolute top-0 -z-10 h-screen w-screen overflow-x-hidden bg-background ">
@@ -181,7 +185,7 @@ const Profile = () => {
       {/* Mobile Version */}
       <div className="CardsContainer absolute bottom-0 flex w-full flex-col gap-2 p-4 sm:hidden">
         {/* Top card */}
-        <div className="TopCard rounded-lg border-2 border-border bg-card text-white-200">
+        <div className="TopCard text-white-200 rounded-lg border-2 border-border bg-card">
           {/* Profile Photo holder */}
           <div className="profileImage absolute left-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-border drop-shadow-md  ">
             <Image
@@ -386,18 +390,18 @@ const Profile = () => {
             {/* Phone & Email div */}
             <div className="flex flex-col gap-3">
               <div className="flex flex-col">
-                <p className="text-sm text-white-200">Phone</p>
+                <p className="text-white-200 text-sm">Phone</p>
                 <p className="text-white">9876543210</p>
               </div>
               <div>
-                <p className="text-sm text-white-200">Email</p>
+                <p className="text-white-200 text-sm">Email</p>
                 <p className="text-white">nnm22gg070@nmamit.in</p>
               </div>
             </div>
 
             {/* See more */}
             <div
-              className="SeeMoreOption text-card-foreground flex items-center justify-center gap-1 text-sm"
+              className="SeeMoreOption flex items-center justify-center gap-1 text-sm text-card-foreground"
               onClick={() => {
                 seeMoreTimeline.play();
               }}
@@ -408,47 +412,47 @@ const Profile = () => {
 
             {/* Bio */}
             <div className="BioSection hidden  flex-col">
-              <p className="text-sm text-white-200">Bio</p>
+              <p className="text-white-200 text-sm">Bio</p>
               <p className=" text-white">{user?.userProfile.bio}</p>
             </div>
 
             {/* Year & Branch */}
             <div className="YearBranchSection hidden flex-col">
-              <p className="text-sm text-white-200">Year & Branch</p>
+              <p className="text-white-200 text-sm">Year & Branch</p>
               <p className="text-white">3rd - Computer Science</p>
             </div>
 
             {/* Activity Point */}
             <div className="ActivityPoint Section hidden flex-col">
-              <p className="text-sm text-white-200">Activity Point</p>
+              <p className="text-white-200 text-sm">Activity Point</p>
               <p className="text-white">70</p>
             </div>
 
             {/* Attendance */}
             <div className="Attendance Section order-2 hidden flex-col">
-              <p className="text-sm text-white-200">Attendance</p>
+              <p className="text-white-200 text-sm">Attendance</p>
               <p className="text-white">{attendance}%</p>
             </div>
           </div>
         </div>
 
         {/* Certificates */}
-        <p className="CertificatesHeading ml-2 hidden text-sm font-medium text-white-200">
+        <p className="CertificatesHeading text-white-200 ml-2 hidden text-sm font-medium">
           Certificates
         </p>
-        <div className="CertificatesCard hidden h-[25vh] w-full overflow-hidden rounded-lg border-2 border-border border-opacity-50 bg-card p-2 pr-0 text-white-200 backdrop-blur-[32px] backdrop-filter">
+        <div className="CertificatesCard text-white-200 hidden h-[25vh] w-full overflow-hidden rounded-lg border-2 border-border border-opacity-50 bg-card p-2 pr-0 backdrop-blur-[32px] backdrop-filter">
           <ImageCarousel images={images} />
         </div>
 
         {/* Bottom Events Card */}
-        <p className="EventsHeading BottomCard -mb-1 ml-2 text-sm font-medium text-white-200">
+        <p className="EventsHeading BottomCard text-white-200 -mb-1 ml-2 text-sm font-medium">
           My Events
         </p>
-        <div className="BottomCard flex h-[25vh] w-full overflow-hidden rounded-lg border-2 border-border border-opacity-50 bg-card p-2 pr-0 text-white-200 backdrop-blur-[32px] backdrop-filter">
+        <div className="BottomCard text-white-200 flex h-[25vh] w-full overflow-hidden rounded-lg border-2 border-border border-opacity-50 bg-card p-2 pr-0 backdrop-blur-[32px] backdrop-filter">
           <ImageCarousel images={images} />
         </div>
         <div
-          className="SeeLessOption text-card-foreground mt-2 hidden items-center justify-center gap-1 text-sm"
+          className="SeeLessOption mt-2 hidden items-center justify-center gap-1 text-sm text-card-foreground"
           onClick={() => {
             seeMoreTimeline.reverse();
           }}
@@ -463,7 +467,7 @@ const Profile = () => {
         {/* Left Divs */}
         <div className="min-w-1/2 flex flex-col gap-2">
           {/* Top card */}
-          <div className="TopCard flex h-2/3 flex-col justify-evenly gap-3 rounded-lg border-2 border-border bg-card px-4 text-white-200">
+          <div className="TopCard text-white-200 flex h-2/3 flex-col justify-evenly gap-3 rounded-lg border-2 border-border bg-card px-4">
             <div className="flex items-center justify-center self-center">
               {/* Profile Photo holder */}
               <div className="profileImage h-32 w-48 rounded-full border-4 border-white drop-shadow-md  ">
@@ -658,18 +662,18 @@ const Profile = () => {
             {/* Phone & Email div */}
             <div className="flex flex-col gap-3">
               <div className="flex flex-col">
-                <p className="text-sm text-white-200">Phone</p>
+                <p className="text-white-200 text-sm">Phone</p>
                 <p className="text-white">{user?.userProfile.phone}</p>
               </div>
               <div>
-                <p className="text-sm text-white-200">Email</p>
+                <p className="text-white-200 text-sm">Email</p>
                 <p className="text-white">{user?.userProfile.email}</p>
               </div>
             </div>
           </div>
 
           {/* Bottom Events Card */}
-          <div className="BottomCard2 flex h-1/3 flex-col gap-2 overflow-hidden rounded-lg border-2 border-border border-opacity-50 bg-card p-2 pr-0 text-white-200 backdrop-blur-[32px] backdrop-filter">
+          <div className="BottomCard2 text-white-200 flex h-1/3 flex-col gap-2 overflow-hidden rounded-lg border-2 border-border border-opacity-50 bg-card p-2 pr-0 backdrop-blur-[32px] backdrop-filter">
             <p className="EventsHeading text-md self-center font-bold text-white">
               My Events
             </p>
@@ -681,7 +685,7 @@ const Profile = () => {
         <div className="RightDiv flex h-full w-full flex-col justify-between gap-2 overflow-auto rounded-lg border-2 border-border bg-card p-4">
           <div className="BioSection flex flex-col">
             <p className="text-sm text-white">Bio</p>
-            <p className=" min-h-24 text-white-200">{user?.userProfile.bio}</p>
+            <p className=" text-white-200 min-h-24">{user?.userProfile.bio}</p>
           </div>
 
           {/* Year & Branch */}
@@ -707,7 +711,7 @@ const Profile = () => {
           {/* Certificates */}
           <div className="Attendance Section order-2 flex flex-col gap-2">
             <p className="text-sm text-white">Certificates</p>
-            <div className="CertificatesCard h-[25vh] w-full overflow-hidden pr-0 text-white-200 backdrop-blur-[32px] backdrop-filter">
+            <div className="CertificatesCard text-white-200 h-[25vh] w-full overflow-hidden pr-0 backdrop-blur-[32px] backdrop-filter">
               <ImageCarousel images={images} />
             </div>
           </div>
