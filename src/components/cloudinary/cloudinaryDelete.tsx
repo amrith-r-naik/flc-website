@@ -1,7 +1,7 @@
-import React from "react";
-import { api } from "~/utils/api";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import React from "react";
+import { toast } from "sonner";
 
 export enum uploadTypeEnum {
   userLink = "userLink",
@@ -11,34 +11,30 @@ export enum uploadTypeEnum {
 
 export type CloudinaryProp = {
   imageUrl: string;
- 
 };
 
-export async function deleteFromCloudinary(imageUrl:string){
-  try{
-    if(imageUrl){
-  await fetch("/api/cloudinary/delete", {
+export async function deleteFromCloudinary(imageUrl: string) {
+  try {
+    if (imageUrl) {
+      const res = await fetch("/api/cloudinary/delete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          url:
-            imageUrl
+          url: imageUrl,
         }),
       });
+
+      if (res.ok) toast.success("Image deleted successfully");
+      else toast.error("Image deletion failed");
     }
-      
-    } catch (error) {
-      console.error("Delete failed:", error);
-    }
+  } catch (e) {
+    toast.error("Something went wrong");
   }
+}
 
-
-
-export default function CloudinaryDelete({
-  imageUrl,
-}: CloudinaryProp) {
+export default function CloudinaryDelete({ imageUrl }: CloudinaryProp) {
   const router = useRouter();
 
   const handleDelete = async () => {
@@ -54,21 +50,30 @@ export default function CloudinaryDelete({
             "https://res.cloudinary.com/dh0sqelog/image/upload/v1718884775/ln9uaziq0lnkzrzxiqqx.jpg",
         }),
       });
-      console.log("Delete successful:", res);
+
+      if (res.ok) toast.success("Image deleted successfully");
+      else toast.error("Image deletion failed");
       router.refresh();
-    } catch (error) {
-      console.error("Delete failed:", error);
+    } catch (e) {
+      toast.error("Something went wrong");
     }
   };
 
   return (
-    <div  className="m-auto text-center">
-      
+    <div className="m-auto text-center">
       <br />
-      <p className="text-center">Pass image Link and delete image from cloudinary </p>
+      <p className="text-center">
+        Pass image Link and delete image from cloudinary{" "}
+      </p>
       <br />
-       
-       <Image src={imageUrl} alt={"this image was deleted"} width={200} height={200} className="m-auto"></Image>
+
+      <Image
+        src={imageUrl}
+        alt={"this image was deleted"}
+        width={200}
+        height={200}
+        className="m-auto"
+      ></Image>
       <button
         onClick={handleDelete}
         className="mt-4 rounded-md bg-slate-200 p-2 text-black"

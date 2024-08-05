@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import pythonIcon from "~/assets/icons/python.svg"
 import footerWave from "~/assets/images/footerwave.svg"
 
 

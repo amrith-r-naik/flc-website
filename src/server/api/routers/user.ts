@@ -1,15 +1,15 @@
 import { TRPCError } from "@trpc/server";
 
-import { EditProfileZ } from "~/zod/userZ";
+import { editProfileZ } from "~/zod/userZ";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
   editUser: protectedProcedure
-    .input(EditProfileZ)
+    .input(editProfileZ)
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.db.user.update({
-        where: { id: input.id },
+        where: { id: ctx.session.user.id },
         data: { ...input },
       });
 
@@ -67,7 +67,6 @@ export const userRouter = createTRPCRouter({
       });
     }
     const userEvents = user.Team.map((team) => team.Event);
-    console.log("userEvents : ", userEvents);
     return userEvents;
   }),
 });

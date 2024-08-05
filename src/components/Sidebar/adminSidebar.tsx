@@ -6,10 +6,7 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import {
-  Building,
   DiamondIcon,
-  FilePlus,
-  Layers,
   ShoppingCart,
 } from "lucide-react";
 import Link from "next/link";
