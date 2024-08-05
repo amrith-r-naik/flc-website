@@ -10,7 +10,4 @@ const EditProfileZ = z.object({
   image: z.string().optional(),
 });
 
-const getUserEventsZ = z.object({
-  id: z.string(),
-});
-export { EditProfileZ, getUserEventsZ };
+export { EditProfileZ };
