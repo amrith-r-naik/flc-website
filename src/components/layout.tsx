@@ -1,9 +1,9 @@
 import Navbar from "./navbar/navbar";
 import React from "react";
-import gsap from "gsap"
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -11,5 +11,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Navbar />
       <main>{children}</main>
     </>
-  )
+  );
 }

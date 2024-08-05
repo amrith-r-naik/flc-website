@@ -1,6 +1,6 @@
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
-import { EditProfileZ, GetProfileIdZ } from "~/zod/userZ";
+import { EditProfileZ, GetProfileIdZ, getUserEventsZ } from "~/zod/userZ";
 
 export const userRouter = createTRPCRouter({
   editUser: protectedProcedure
@@ -48,4 +48,24 @@ export const userRouter = createTRPCRouter({
 
       return { status: "success", userProfile };
     }),
+    getUserEvents: protectedProcedure
+    .input(getUserEventsZ)
+    .query(async ({ctx, input})=>{
+      const user = await ctx.db.user.findUnique({
+        where: { id: input.id },
+        include: {
+          Team: true,
+        },
+      })
+
+      if (!user) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "User not found",
+        });
+      }
+      const userEvents = user.Team.map((team)=>team.eventId)
+      console.log("userEvents : ",userEvents)
+      return userEvents
+    }  )
 });

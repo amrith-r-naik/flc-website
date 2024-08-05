@@ -5,7 +5,7 @@ import Projects from "~/components/landing/Projects"
 import Events from "~/components/landing/Events"
 import Hackfest from "~/components/landing/Hackfest"
 import AboutFLC from "~/components/landing/AboutFLC"
-import Footer from "~/components/footer/Footer"
+import Footer from "~/components/Footer/Footer"
 
 export default function Home() {
   return (
