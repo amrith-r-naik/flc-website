@@ -75,11 +75,11 @@ function Benifits() {
         <section className="w-full content-container space-y-8 min-h-[80vh]" ref={ref}>
             <h3 className='text-4xl font-semibold text-center'>Why To join us</h3>
 
-            <div className="grid grid-cols-3 grid-flow-row gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-4">
                 {
                     benifits.map((benifit) => (
                         <div className="rounded-lg bg-gradient border border-yellow-700 p-4 space-y-4 benifit" key={benifit.title}>
-                            <Image width={50} height={50} src={benifit.icon} alt="icon" />
+                            <Image width={50} height={50} src={benifit.icon} alt="icon" className="rounded" />
                             <strong className="text-lg font-semibold">{benifit.title}</strong>
                             <p className="text-sm">{benifit.content}</p>
                         </div>

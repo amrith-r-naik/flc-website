@@ -9,16 +9,18 @@ import Footer from "~/components/footer/Footer"
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-20 items-stretch">
+    <>
       <video src="line-waves.webm" autoPlay muted loop className="absolute top-[30%] w-full -z-10 brightness-75"></video>
-      <Hero />
-      <AboutFLC />
-      <Hackfest />
-      <Events />
-      <TechStack />
-      <Projects />
-      <Benifits />
+      <main className="flex flex-col gap-20 items-stretch p-4">
+        <Hero />
+        <AboutFLC />
+        <Hackfest />
+        <Events />
+        <TechStack />
+        <Projects />
+        <Benifits />
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }
