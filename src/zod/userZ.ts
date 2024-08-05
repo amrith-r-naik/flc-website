@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-const EditProfileZ = z.object({
-  id: z.string(),
+const editProfileZ = z.object({
   name: z.string().optional(),
   bio: z.string().optional(),
   phone: z.string().optional(),
@@ -10,7 +9,4 @@ const EditProfileZ = z.object({
   image: z.string().optional(),
 });
 
-const getUserEventsZ = z.object({
-  id: z.string(),
-});
-export { EditProfileZ, getUserEventsZ };
+export { editProfileZ };

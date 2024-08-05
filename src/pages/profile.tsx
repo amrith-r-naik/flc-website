@@ -3,7 +3,6 @@ import * as Dialog from "@radix-ui/react-dialog";
 import gsap from "gsap";
 import { ChevronDown, ChevronUp, Pencil, X } from "lucide-react";
 import { type GetServerSideProps } from "next";
-import { useSession } from "next-auth/react";
 import {
   CldUploadWidget,
   type CloudinaryUploadWidgetInfo,
@@ -27,16 +26,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 const Profile = () => {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [phone, setPhone] = useState("");
-  const { data: session, status } = useSession();
-  const router = useRouter();
-  useEffect(() => {
-    if (status !== "authenticated" && typeof window !== "undefined") {
-      router.push("/");
-    }
-  }, [status]);
 
   useGSAP(() => {
     gsap.from([".TopCard", ".BottomCard2"], {
@@ -122,15 +116,10 @@ const Profile = () => {
   });
 
   const { data: user, isLoading, error } = api.user.getUser.useQuery();
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   const { data: attendance } = api.attendance.getAttendanceByUserId.useQuery();
-
-  const { data: userEvents } = api.user.getUserEvents.useQuery({
-    id: session.user.id,
-  });
+  const { data: userEvents } = api.user.getUserEvents.useQuery();
 
   const updateProfile = api.user.editUser.useMutation();
-  console.log("events: ", userEvents);
 
   const editUser = api.user.editUser.useMutation({
     onSuccess: async (data) => {
@@ -321,7 +310,6 @@ const Profile = () => {
                     <button
                       onClick={async () => {
                         editUser.mutate({
-                          id: user.userProfile.id,
                           name,
                           phone,
                           bio,
@@ -356,13 +344,11 @@ const Profile = () => {
                     user?.userProfile as unknown as string,
                   );
 
-                  if (imageUrl) {
-                    // update our db with result
+                  // update our db with result
+                  if (imageUrl)
                     void updateProfile.mutateAsync({
-                      id: session.user.id,
                       image: imageUrl,
                     });
-                  }
                 }}
               >
                 {({ open }) => <button onClick={() => open()}>Edit Pic</button>}
@@ -596,7 +582,6 @@ const Profile = () => {
                           <button
                             onClick={async () => {
                               editUser.mutate({
-                                id: user.userProfile.id,
                                 name,
                                 phone,
                                 bio,
@@ -637,7 +622,6 @@ const Profile = () => {
                         if (imageUrl) {
                           // update our db with result
                           void updateProfile.mutateAsync({
-                            id: session.user.id,
                             image: imageUrl,
                           });
                         }

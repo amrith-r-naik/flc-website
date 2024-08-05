@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, type ChangeEvent } from "react";
 import Image from "next/image";
 import Background from "./backgorund";
 import { api } from "~/utils/api";
