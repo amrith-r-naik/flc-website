@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 const editProfileZ = z.object({
+  id: z.string(),
   name: z.string().optional(),
   bio: z.string().optional(),
   phone: z.string().optional(),

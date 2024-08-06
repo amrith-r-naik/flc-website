@@ -48,12 +48,15 @@ export const userRouter = createTRPCRouter({
 
     return { status: "success", userProfile };
   }),
-
   getUserEvents: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.db.user.findUnique({
       where: { id: ctx.session.user.id },
       include: {
-        Team: true,
+        Team: {
+          include: {
+            Event: true,
+          },
+        },
       },
     });
 
@@ -63,6 +66,7 @@ export const userRouter = createTRPCRouter({
         message: "User not found",
       });
     }
-    return user.Team.map((team) => team.eventId);
+    const userEvents = user.Team.map((team) => team.Event);
+    return userEvents;
   }),
 });
