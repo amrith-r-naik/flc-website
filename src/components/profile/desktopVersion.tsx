@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import { api } from "~/utils/api";
+import { useGSAP } from "@gsap/react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { format } from "date-fns";
+import gsap from "gsap";
 import { Pencil, X } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import {
   CldUploadWidget,
   type CloudinaryUploadWidgetInfo,
   type CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { toast } from "sonner";
+
 import { deleteFromCloudinary } from "~/components/cloudinary/cloudinaryDelete";
 import ImageCarousel from "~/components/imageCarousel";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import QRCode from "~/components/profile/qrcode";
+import { api } from "~/utils/api";
 
 const DesktopVersion = ({ className }: { className?: string }) => {
   const [name, setName] = useState("");
@@ -83,21 +86,18 @@ const DesktopVersion = ({ className }: { className?: string }) => {
             <div className="flex items-center justify-center self-center">
               {/* Profile Photo holder */}
               <div className="profileImage h-32 w-48 rounded-full border-4 border-white drop-shadow-md  ">
-                <Image
-                  src={user?.userProfile.image as unknown as string}
+                {/* <Image
+                  src={user?.image as unknown as string}
                   alt="Profile Image"
                   fill
                   className="rounded-full object-cover"
-                />
+                /> */}
               </div>
               {/* Name Position & QR Div */}
               <div className="flex w-full flex-col items-center gap-2">
-                <p className="text-2xl font-bold text-white">
-                  {" "}
-                  {user?.userProfile.name}
-                </p>
+                <p className="text-2xl font-bold text-white"> {user?.name}</p>
                 <p className="text-sm text-primary contrast-[0.55]">
-                  {user?.userProfile.role}
+                  {user?.role}
                 </p>
                 <div className="flex gap-2">
                   <Dialog.Root>
@@ -108,15 +108,11 @@ const DesktopVersion = ({ className }: { className?: string }) => {
                       <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 bg-black bg-opacity-90" />
                       <Dialog.Content className="fixed left-[50%] top-[50%] flex h-fit max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] flex-col gap-2 rounded-[6px] border-2 border-border bg-background p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px]">
                         <Dialog.Title className="text-center text-white">
-                          Your QR
+                          PID
                         </Dialog.Title>
-                        <Image
-                          src={"/poster1.webp"}
-                          alt="QR Image"
-                          height={450}
-                          width={450}
-                          objectFit="cover"
-                        />
+                        {user.memberSince && (
+                          <QRCode pid={user.id} year={user.memberSince} />
+                        )}
                         <Dialog.Close className="absolute right-2 top-2">
                           <X className="text-white opacity-30" />
                         </Dialog.Close>
@@ -154,13 +150,13 @@ const DesktopVersion = ({ className }: { className?: string }) => {
 
                               //deleting from cloudinary server
                               void deleteFromCloudinary(
-                                user.userProfile.image as unknown as string,
+                                user.image as unknown as string,
                               );
 
                               if (imageUrl) {
                                 // update our db with result
                                 void updateProfile.mutateAsync({
-                                  id: user.userProfile.id,
+                                  id: user.id,
                                   image: imageUrl,
                                 });
                               }
@@ -169,9 +165,7 @@ const DesktopVersion = ({ className }: { className?: string }) => {
                             {({ open }) => (
                               <>
                                 <Image
-                                  src={
-                                    user.userProfile.image as unknown as string
-                                  }
+                                  src={user.image as unknown as string}
                                   alt={"ur profile picture"}
                                   width={100}
                                   height={100}
@@ -204,7 +198,7 @@ const DesktopVersion = ({ className }: { className?: string }) => {
                             onChange={(e) => {
                               setName(e.target.value);
                             }}
-                            defaultValue={user?.userProfile.name}
+                            defaultValue={user?.name}
                           />
                         </fieldset>
                         <fieldset className="mb-[15px] flex items-center gap-5">
@@ -221,7 +215,7 @@ const DesktopVersion = ({ className }: { className?: string }) => {
                             onChange={(e) => {
                               setPhone(e.target.value);
                             }}
-                            defaultValue={user?.userProfile.phone}
+                            defaultValue={user?.phone}
                           />
                         </fieldset>
                         {/*  <fieldset className="mb-[15px] flex items-center gap-5">
@@ -247,7 +241,7 @@ const DesktopVersion = ({ className }: { className?: string }) => {
                           <textarea
                             className="shadow-violet7 focus:shadow-violet8 inline-flex h-[70px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                             id="bio"
-                            defaultValue={user?.userProfile.bio ?? ""}
+                            defaultValue={user?.bio ?? ""}
                             value={bio}
                             onChange={(e) => {
                               setBio(e.target.value);
@@ -259,7 +253,7 @@ const DesktopVersion = ({ className }: { className?: string }) => {
                           <button
                             onClick={async () => {
                               editUser.mutate({
-                                id: user.userProfile.id,
+                                id: user.id,
                                 name,
                                 phone,
                                 bio,
@@ -287,11 +281,11 @@ const DesktopVersion = ({ className }: { className?: string }) => {
             <div className="flex flex-col gap-3">
               <div className="flex flex-col">
                 <p className="text-white-200 text-sm">Phone</p>
-                <p className="text-white">{user?.userProfile.phone}</p>
+                <p className="text-white">{user?.phone}</p>
               </div>
               <div>
                 <p className="text-white-200 text-sm">Email</p>
-                <p className="text-white">{user?.userProfile.email}</p>
+                <p className="text-white">{user?.email}</p>
               </div>
             </div>
           </div>
@@ -309,21 +303,19 @@ const DesktopVersion = ({ className }: { className?: string }) => {
         <div className="RightDiv flex h-full w-full flex-col justify-between gap-2 overflow-auto rounded-lg border-2 border-border bg-card p-4">
           <div className="BioSection flex flex-col">
             <p className="text-sm text-white">Bio</p>
-            <p className=" text-white-200 min-h-24">{user?.userProfile.bio}</p>
+            <p className=" text-white-200 min-h-24">{user?.bio}</p>
           </div>
 
           {/* Year & Branch */}
           <div className="YearBranchSection flex flex-col">
             <p className="text-sm text-white">Year & Branch</p>
-            <p className="text-white-200">{`${user?.userProfile.year} - ${user?.userProfile.Branch.name}`}</p>
+            <p className="text-white-200">{`${user?.year} - ${user?.Branch.name}`}</p>
           </div>
 
           {/* Activity Point */}
           <div className="ActivityPoint Section flex flex-col">
             <p className="text-sm text-white">Activity Point</p>
-            <p className="text-white-200">
-              {user?.userProfile.totalActivityPoints}
-            </p>
+            <p className="text-white-200">{user?.totalActivityPoints}</p>
           </div>
 
           {/* Attendance */}

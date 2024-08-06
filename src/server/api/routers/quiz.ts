@@ -1,6 +1,6 @@
 import { type QuizState, type Prisma } from "@prisma/client";
-import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
+
 import {
   createQuizZ,
   updateQuizZ,
@@ -10,6 +10,8 @@ import {
   createQuizResponseZ,
   getQuizResponseByIdZ,
 } from "~/zod/quizZ";
+
+import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const quizRouter = createTRPCRouter({
   createQuiz: adminProcedure

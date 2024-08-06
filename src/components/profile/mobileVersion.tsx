@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import { api } from "~/utils/api";
+import { useGSAP } from "@gsap/react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { format } from "date-fns";
+import gsap from "gsap";
 import { ChevronDown, ChevronUp, Pencil, X } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import {
   CldUploadWidget,
   type CloudinaryUploadWidgetInfo,
   type CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { toast } from "sonner";
+
 import { deleteFromCloudinary } from "~/components/cloudinary/cloudinaryDelete";
 import ImageCarousel from "~/components/imageCarousel";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import QRCode from "~/components/profile/qrcode";
+import { api } from "~/utils/api";
 
 const MobileVersion = ({ className }: { className?: string }) => {
   const [name, setName] = useState("");
@@ -124,12 +127,12 @@ const MobileVersion = ({ className }: { className?: string }) => {
         <div className="TopCard text-white-200 rounded-lg border-2 border-border bg-card">
           {/* Profile Photo holder */}
           <div className="profileImage absolute left-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-border drop-shadow-md  ">
-            <Image
+            {/* <Image
               src="/My_photo_suit.jpg"
               alt="Profile Image"
               fill
               className="rounded-full object-cover"
-            />
+            /> */}
           </div>
 
           {/* QR and Edit Options */}
@@ -141,14 +144,10 @@ const MobileVersion = ({ className }: { className?: string }) => {
               <Dialog.Portal>
                 <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 bg-black bg-opacity-90" />
                 <Dialog.Content className="fixed left-[50%] top-[50%] flex h-fit max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] flex-col gap-2 rounded-[6px] border-2 border-border bg-background p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px]">
-                  <Dialog.Title className="text-center">Your QR</Dialog.Title>
-                  <Image
-                    src={"/poster1.webp"}
-                    alt="QR Image"
-                    height={450}
-                    width={450}
-                    objectFit="cover"
-                  />
+                  <Dialog.Title className="text-center">PID</Dialog.Title>
+                  {user.memberSince && (
+                    <QRCode pid={user.id} year={user.memberSince} />
+                  )}
                   <Dialog.Close className="absolute right-2 top-2">
                     <X className="text-white opacity-30" />
                   </Dialog.Close>
@@ -184,13 +183,13 @@ const MobileVersion = ({ className }: { className?: string }) => {
 
                         //deleting from cloudinary server
                         void deleteFromCloudinary(
-                          user.userProfile.image as unknown as string,
+                          user.image as unknown as string,
                         );
 
                         if (imageUrl) {
                           // update our db with result
                           void updateProfile.mutateAsync({
-                            id: user.userProfile.id,
+                            id: user.id,
                             image: imageUrl,
                           });
                         }
@@ -199,7 +198,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
                       {({ open }) => (
                         <>
                           <Image
-                            src={user.userProfile.image as unknown as string}
+                            src={user.image as unknown as string}
                             alt={"ur profile picture"}
                             width={100}
                             height={100}
@@ -232,7 +231,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
                       onChange={(e) => {
                         setName(e.target.value);
                       }}
-                      defaultValue={user?.userProfile.name}
+                      defaultValue={user?.name}
                     />
                   </fieldset>
                   <fieldset className="mb-[15px] flex items-center gap-5">
@@ -249,7 +248,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
                       onChange={(e) => {
                         setPhone(e.target.value);
                       }}
-                      defaultValue={user?.userProfile.phone}
+                      defaultValue={user?.phone}
                     />
                   </fieldset>
                   {/*  <fieldset className="mb-[15px] flex items-center gap-5">
@@ -262,7 +261,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
                     <input
                       className="shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                       id="bio"
-                      defaultValue={user?.userProfile.bio || ""}
+                      defaultValue={user?.bio || ""}
                       value={bio}
                       onChange={(e) => {setBio(e.target.value)}}
                     />
@@ -277,7 +276,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
                     <textarea
                       className="shadow-violet7 focus:shadow-violet8 inline-flex h-[70px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                       id="bio"
-                      defaultValue={user?.userProfile.bio ?? ""}
+                      defaultValue={user?.bio ?? ""}
                       value={bio}
                       onChange={(e) => {
                         setBio(e.target.value);
@@ -288,7 +287,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
                     <button
                       onClick={async () => {
                         editUser.mutate({
-                          id: user.userProfile.id,
+                          id: user.id,
                           name,
                           phone,
                           bio,
@@ -311,9 +310,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
           <div className="mt-16 flex w-full flex-col gap-3 overflow-scroll px-4 pb-2">
             {/* Name and Position Div */}
             <div className="flex w-full flex-col items-center">
-              <p className="text-2xl font-bold text-white">
-                {user?.userProfile.name}
-              </p>
+              <p className="text-2xl font-bold text-white">{user?.name}</p>
               <p className="text-sm text-primary contrast-[0.55]">Member</p>
             </div>
 
@@ -343,7 +340,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
             {/* Bio */}
             <div className="BioSection hidden  flex-col">
               <p className="text-white-200 text-sm">Bio</p>
-              <p className=" text-white">{user?.userProfile.bio}</p>
+              <p className=" text-white">{user?.bio}</p>
             </div>
 
             {/* Year & Branch */}

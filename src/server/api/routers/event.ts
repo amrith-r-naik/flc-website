@@ -22,14 +22,14 @@ export const eventRouter = createTRPCRouter({
     .input(createEventZ)
     .mutation(async ({ ctx, input }) => {
       try {
-        const data = {
-          ...input,
-          deadline: input.deadline ? new Date(input.deadline) : undefined,
-          fromDate: new Date(input.fromDate),
-          toDate: new Date(input.toDate),
-        };
-
-        return await ctx.db.event.create({ data });
+        return await ctx.db.event.create({
+          data: {
+            ...input,
+            deadline: input.deadline ? new Date(input.deadline) : undefined,
+            fromDate: new Date(input.fromDate),
+            toDate: new Date(input.toDate),
+          },
+        });
       } catch (error) {
         console.error("Create Event Error:", error);
         throw new TRPCError({

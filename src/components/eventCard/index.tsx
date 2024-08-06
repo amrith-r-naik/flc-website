@@ -21,7 +21,7 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
   const router = useRouter();
   const getEventAttributes = () => {
     let teamSizeText = "";
-    const eventTypeText = data.type;
+    const eventTypeText = data.eventType;
     if (data.minTeamSize === data.maxTeamSize) {
       if (data.minTeamSize === 1)
         teamSizeText += `${data.minTeamSize} member per team`;

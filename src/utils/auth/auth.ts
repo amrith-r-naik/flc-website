@@ -1,7 +1,8 @@
 import { type User } from "@prisma/client";
-import { db } from "~/server/db";
-import bcrypt from "bcryptjs";
 import { TRPCError } from "@trpc/server";
+import bcrypt from "bcryptjs";
+
+import { db } from "~/server/db";
 
 const getUserByEmail = async (email: string): Promise<User | null> => {
   try {
@@ -18,7 +19,7 @@ const getUserByEmail = async (email: string): Promise<User | null> => {
   }
 };
 
-const getUserById = async (id: string): Promise<User | null> => {
+const getUserById = async (id: number): Promise<User | null> => {
   try {
     const user = await db.user.findUnique({
       where: {

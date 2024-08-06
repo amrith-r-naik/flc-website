@@ -1,4 +1,3 @@
-import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { checkOrganiser } from "~/utils/helper";
 // import { findEventIfExistById, checkOrganiser } from "~/utils/helper";
 import {
@@ -6,6 +5,8 @@ import {
   makeTeamWinnerZ,
   removeWinnerZ,
 } from "~/zod/winnerZ";
+
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const winnerRouter = createTRPCRouter({
   //Mutations
