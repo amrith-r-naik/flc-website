@@ -3,9 +3,33 @@ import Image from "next/image";
 import Background from "./backgorund";
 import { api } from "~/utils/api";
 import { RegisterZ } from "~/zod/authZ";
+import { toast, Toaster } from "sonner";
 
 function Index() {
-  const signUp = api.auth.signUp.useMutation();
+  const signUp = api.auth.signUp.useMutation({
+    onSuccess: async (data) => {
+      sendVerifyEmail.mutate({email:data.email})
+      
+      
+    },
+    onError: ({ message }) => {
+      toast.dismiss();
+      toast.error(message);
+    }, 
+  });
+  const sendVerifyEmail = api.auth.sendVerifyEmail.useMutation({
+    onSuccess: async (data) => {
+      console.log("toast")
+      toast.success("Verification link sent to email",{
+        position: "bottom-center",
+      })
+      
+    },
+    onError: ({ message }) => {
+      toast.dismiss();
+      toast.error(message);
+    }, 
+});
   const [formData, setFormData] = useState({
     branchId: "cly1kesbp00004bj8a2twttca",
     name: "",
@@ -24,6 +48,7 @@ function Index() {
 
   return (
     <>
+    <Toaster position="bottom-center" />
       <div className="z-0">
         <Background />
       </div>
@@ -223,9 +248,10 @@ function Index() {
                   console.log(formData);
                   const parsed = RegisterZ.parse(formData);
                   console.log("parsed", parsed)
-                   signUp.mutate({
+                   const res= signUp.mutate({
                     ...parsed
                   }); 
+                 
                 }}
                 className="mt-4 w-full rounded bg-yellow-300 p-2 font-bold text-gray-900 sm:mt-6">
                 Sign Up

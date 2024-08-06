@@ -128,7 +128,7 @@ export const authRouter = createTRPCRouter({
           existingUser,
           token,
         );
-        const url = `${process.env.AUTH_URL}/auth/verify-email?token=${verificationToken}`;
+        const url = `${process.env.NEXTAUTH_URL}/auth/verify-email?token=${verificationToken}`;
 
         await sendVerificationEmail(existingUser.email, url, existingUser.name);
 
