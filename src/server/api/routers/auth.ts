@@ -1,23 +1,16 @@
-import {
-  RegisterZ,
-  ResetPasswordZ,
-  SendPasswordResetZ,
-  SendVerifyEmailZ,
-  VerifyEmailZ,
-} from "~/zod/authZ";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 import jwt, {
   JsonWebTokenError,
   NotBeforeError,
   TokenExpiredError,
 } from "jsonwebtoken";
-import { getUserByEmail, getUserById, hashPassword } from "~/utils/auth/auth";
+
 import {
   addPasswordResetTokenToWhitelist,
   addVerificationTokenToWhitelist,
   revokeVerificationToken,
 } from "~/services/auth.service";
+import { getUserByEmail, getUserById, hashPassword } from "~/utils/auth/auth";
 import {
   findVerificationTokenById,
   generatePasswordResetToken,
@@ -28,6 +21,15 @@ import {
   sendPasswordResetEmail,
   sendVerificationEmail,
 } from "~/utils/nodemailer/nodemailer";
+import {
+  RegisterZ,
+  ResetPasswordZ,
+  SendPasswordResetZ,
+  SendVerifyEmailZ,
+  VerifyEmailZ,
+} from "~/zod/authZ";
+
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const authRouter = createTRPCRouter({
   signUp: publicProcedure.input(RegisterZ).mutation(async ({ ctx, input }) => {
@@ -164,7 +166,7 @@ export const authRouter = createTRPCRouter({
             message: "Invalid token",
           });
         }
-        const user = await getUserById(payload.userId! as string);
+        const user = await getUserById(payload.userId as number);
         if (!user) {
           throw new TRPCError({
             code: "BAD_REQUEST",
@@ -264,7 +266,7 @@ export const authRouter = createTRPCRouter({
             message: "Invalid token",
           });
         }
-        const user = await getUserById(payload.userId! as string);
+        const user = await getUserById(payload.userId as number);
         if (!user) {
           throw new TRPCError({
             code: "BAD_REQUEST",

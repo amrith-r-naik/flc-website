@@ -1,3 +1,4 @@
+import { checkOrganiser } from "~/utils/helper";
 import {
   createFeedbackTemplateZ,
   deleteFeedbackTemplateZ,
@@ -7,8 +8,8 @@ import {
   submitFeedbackZ,
   toggleTemplateStateZ,
 } from "~/zod/feedbackZ";
+
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { checkOrganiser } from "~/utils/helper";
 
 export const feedbackRouter = createTRPCRouter({
   createFeedbackTemplate: protectedProcedure

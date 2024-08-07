@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import pythonIcon from "~/assets/icons/python.svg"
 import footerWave from "~/assets/images/footerwave.svg"
 
 
@@ -70,7 +69,7 @@ function Footer() {
                     </ul>
                 </nav>
 
-                <hr className="border-current"/>
+                <hr className="border-current" />
                 <p className="text-center">copyright @2024</p>
             </div>
         </footer>

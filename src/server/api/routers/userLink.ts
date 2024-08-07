@@ -1,10 +1,12 @@
+import { TRPCError } from "@trpc/server";
+
 import {
   createUserLinkZ,
   deleteUserLinkZ,
   getUserLinksZ,
 } from "~/zod/userLinkZ";
+
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { TRPCError } from "@trpc/server";
 
 export const userLinkRouter = createTRPCRouter({
   createUserLink: protectedProcedure

@@ -1,10 +1,12 @@
-import React from "react";
-import CloudinaryUpload from "~/components/cloudinary/cloudinaryUpload";
-import CloudinaryDelete from "~/components/cloudinary/cloudinaryDelete";
-import { uploadTypeEnum } from "~/components/cloudinary/cloudinaryUpload";
-import { getServerAuthSession } from "~/server/auth";
 import type { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
+import React from "react";
+
+import { getServerAuthSession } from "~/server/auth";
+
+import CloudinaryDelete from "~/components/cloudinary/cloudinaryDelete";
+import CloudinaryUpload from "~/components/cloudinary/cloudinaryUpload";
+import { uploadTypeEnum } from "~/components/cloudinary/cloudinaryUpload";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
@@ -16,8 +18,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 export default function Index() {
   const session = useSession();
 
-  const userId = session?.data?.user.id ?? undefined;
-  console.log(session?.data?.user.id);
+  const userId = session?.data?.user.id;
+
+  if (!userId) return null;
+
   const imageYouWantToDelete =
     "https://res.cloudinary.com/dh0sqelog/image/upload/v1718884775/ln9uaziq0lnkzrzxiqqx.jpg";
   return (
@@ -39,7 +43,7 @@ export default function Index() {
 
       <CloudinaryUpload
         uploadName="upload image to an Event "
-        eventId={"cly4g5jlv000246ht681op1lc"}
+        eventId={1234}
         type={uploadTypeEnum.eventPicture}
       />
 

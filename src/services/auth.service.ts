@@ -1,16 +1,18 @@
 import { error } from "console";
+import * as cron from "node-cron";
+import { v4 as uuidv4 } from "uuid";
+
 import { db } from "~/server/db";
+
 import { compareHashedPassword, getUserByEmail } from "~/utils/auth/auth";
 import { hashToken } from "~/utils/auth/hashToken";
-import { LoginZ } from "~/zod/authZ";
-import { v4 as uuidv4 } from "uuid";
 import { generateTokens } from "~/utils/auth/jwt";
-import * as cron from "node-cron";
+import { LoginZ } from "~/zod/authZ";
 
 const addVerificationTokenToWhitelist = async ({
   userId,
 }: {
-  userId: string;
+  userId: number;
 }) => {
   try {
     const token = await db.verificationToken.create({
@@ -28,7 +30,7 @@ const addVerificationTokenToWhitelist = async ({
 const addPasswordResetTokenToWhitelist = async ({
   userId,
 }: {
-  userId: string;
+  userId: number;
 }) => {
   try {
     const token = await db.verificationToken.create({
@@ -67,7 +69,7 @@ const addRefreshTokenToWhitelist = async ({
 }: {
   jti: string;
   refreshToken: string;
-  userId: string;
+  userId: number;
 }) => {
   try {
     return await db.refreshToken.create({

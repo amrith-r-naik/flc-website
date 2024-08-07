@@ -1,5 +1,6 @@
-import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { createBranchZ, deleteBranchZ } from "~/zod/branchZ";
+
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 
 //switch to protectedProcedure after auth is done
 export const branchRouter = createTRPCRouter({
@@ -13,6 +14,7 @@ export const branchRouter = createTRPCRouter({
       return await ctx.db.branch.create({
         data: {
           name: input.branchName,
+          nickName: input.branchNickName,
         },
       });
     }),

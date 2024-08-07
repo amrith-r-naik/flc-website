@@ -52,13 +52,13 @@ const deleteQuizZ = z.object({
 
 const createQuizResponseZ = z.object({
   quizId: z.string(),
-  userId: z.string(),
+  userId: z.number(),
   answers: z.array(answerSchema),
 });
 
 const getQuizResponseByIdZ = z.object({
   responseId: z.string(),
-  userId: z.string(),
+  userId: z.number(),
 });
 
 export {
