@@ -20,7 +20,7 @@ const AdminSidebar = () => {
 
   return (
 
-    <div className="h-screen w-[20%]  px-4 py-6 space-y-3 bg-[#686D76] text-black shadow-md">
+    <div className=" w-[20%]  px-4 py-6 space-y-3 bg-[#686D76] text-black shadow-md">
 
       <h1 className="font-extrabold text-lg tracking-wide text-[#EEEEEE]">
         Admin Dashboard
