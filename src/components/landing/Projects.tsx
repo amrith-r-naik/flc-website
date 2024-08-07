@@ -29,7 +29,7 @@ function Projects() {
       <section className="content-container min-h-[80vh] flex flex-col gap-4 items-center" ref={ref}>
         <h3 className='text-4xl font-semibold text-center'>Projects</h3>
         <p>Get oppurtunity to Work on numerous real world projects</p>
-        <div className='w-full h-full grid grid-cols-1 md:grid-cols-3 gap-4 flex-grow justify-between items-center'>
+        <div className='w-full h-full grid grid-cols-1 md:grid-cols-3 gap-4 flex-grow justify-between place-items-center items-center'>
           <Image width={400} height={400} alt='flc' src={sampleImage} className="project rounded" />
           <Image width={400} height={400} alt='flc' src={sampleImage} className="project rounded" />
           <Image width={400} height={400} alt='flc' src={sampleImage} className="project rounded" />
