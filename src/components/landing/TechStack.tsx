@@ -5,6 +5,13 @@ import { useGSAP } from '@gsap/react';
 import { useRef } from "react";
 
 import pythonIcon from "~/assets/icons/python.svg"
+import nextJsIcon from "~/assets/icons/nextjs-icon-svgrepo-com.svg"
+import reactIcon from "~/assets/icons/react-svgrepo-com.svg"
+import trpcIcon from "~/assets/icons/trpc.svg"
+import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg"
+import tailwindIcon from "~/assets/icons/tailwind-svgrepo-com.svg"
+import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg"
+import tsIcon from "~/assets/icons/typescript-svgrepo-com.svg"
 
 const techs = [
     {
@@ -13,33 +20,28 @@ const techs = [
     },
     {
         name: "javascript",
-        icon: pythonIcon
+        icon: jsIcon
+    },
+    {
+        name: "typescript",
+        icon: tsIcon
     },
     {
         name: "react",
-        icon: pythonIcon
+        icon: reactIcon
     },
     {
         name: "nextjs",
-        icon: pythonIcon
+        icon: nextJsIcon
     }, {
-        name: "svelte",
-        icon: pythonIcon
+        name: "trpc",
+        icon: trpcIcon
     }, {
-        name: "1",
-        icon: pythonIcon
-    }, {
-        name: "2",
-        icon: pythonIcon
+        name: "graphql",
+        icon: graphqlIcon
     }, {
         name: "3",
-        icon: pythonIcon
-    }, {
-        name: "4",
-        icon: pythonIcon
-    }, {
-        name: "5",
-        icon: pythonIcon
+        icon: tailwindIcon
     }
 ]
 
