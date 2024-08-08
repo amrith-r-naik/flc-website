@@ -11,11 +11,11 @@ export default function Home() {
   return (
     <main className="flex flex-col items-stretch gap-20">
       <video
-        src="line-waves.webm"
+        src="waves.webm"
         autoPlay
         muted
         loop
-        className="absolute top-[30%] -z-10 w-full brightness-75"
+        className="absolute top-[30%] -z-10 w-full brightness-75 "
       ></video>
       <Hero />
       <AboutFLC />
