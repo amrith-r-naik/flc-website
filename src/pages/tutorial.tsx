@@ -27,7 +27,7 @@ export default function Tutorials() {
         {sideBarVisiblity && (
           <div>
             {sideBarVisiblity && (
-              <div className="fixed left-0 top-12 h-full w-64 bg-gray-800 p-4">
+              <div className="fixed left-0 top-12  h-full w-64 bg-gray-800 p-4">
                 <SideBar
                   visibility={setSideBarVisiblity}
                   setupVisiblity={setSetupVisiblity}

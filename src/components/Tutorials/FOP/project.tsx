@@ -134,29 +134,18 @@ export default function Project() {
             tag to establish our logic
             <p>
               lets listen to clicking on our cards
-              <div className="Image h-[400px] w-[90%] bg-green-300">
-                {/* styling image here */}
-                relavent image
-              </div>{" "}
+              <Snippet code={``}></Snippet>
             </p>
-            <Snippet code={``}></Snippet>
             <p>
               using id,col to identify tags
-              <div className="Image h-[400px] w-[90%] bg-green-300">
-                {/* styling image here */}
-                relavent image
-              </div>{" "}
+              <Snippet code={``}></Snippet>
             </p>
-            <Snippet code={``}></Snippet>
             <p>
               accesing and manipulating html element&apos;s property and
               behaviour
-              <div className="Image h-[400px] w-[90%] bg-green-300">
-                {/* styling image here */}
-                relavent image
-              </div>{" "}
+              <Snippet code={``}></Snippet>
             </p>
-            <Snippet code={``}></Snippet>
+        
             <br />
           </div>
         </div>
