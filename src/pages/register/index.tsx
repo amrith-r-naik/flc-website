@@ -1,10 +1,11 @@
 import React from "react";
 import Image from "next/image";
+
 function index() {
   return (
     <>
-      <div className="flex justify-center">
-        <div className="mx-8 mt-16 flex w-4/5 flex-col  rounded-lg bg-white/15  sm:w-2/3 lg:w-1/2">
+      <div className="radialgradient flex justify-center">
+        <div className="mx-8 mt-28 flex w-4/5 flex-col  rounded-lg bg-white/15  sm:w-2/3 lg:w-1/2">
           <h2 className="mt-8 flex justify-center text-2xl sm:m-4 sm:mt-10 sm:text-3xl md:text-4xl">
             Register Now
           </h2>
