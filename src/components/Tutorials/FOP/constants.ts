@@ -426,3 +426,209 @@ export const responsive2 = `<!DOCTYPE html>
 </body>
 </html>
 `;
+
+
+export const semiFinal1Card = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <style>
+    /*selecting all the html elements with song as class and adding style to them  */
+    .song{ 
+        height: 100px;
+        width: 200px;
+        background-color: aqua;
+        padding:6px;
+        text-align: center;
+    }
+
+    .container{
+        background-image: url("./images/background.png");
+        background-size: contain;
+            
+    }
+
+    .songContainer{
+        display: flex; 
+        gap: 20px;
+        justify-content: center;
+        
+    }
+    .controller{
+        text-align: center;
+        padding: 24px;
+    }
+    
+</style>
+</head>
+
+<body>
+
+    <div id="heading"> result in thid</div>
+    
+    <div class="container"><!--We use classes to identify html tags(just like human names)  -->
+        <div class="songContainer">
+
+            <div id="1" class="song" >
+                <p class="key">1</p>
+                <p class="detail">Official</p>
+            </div>
+
+            <div id="2" class="song">
+                <p class="key">2</p>
+                <p class="detail">A Cappella Cover</p>
+            </div>
+
+            <div id="3" class="song">
+                <p class="key">3</p>
+                <p class="detail">Female Version Cover</p>
+            </div>
+            
+        </div>
+
+        <!-- create a new div for containing AUDIO controls -->
+         <div class="controller">
+            
+            <audio controls autoplay muted id="player"> <!-- inbult support for playing audio in html -->
+                <source src="https://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg" type="audio/ogg">
+                Your browser does not support the audio element.<!-- this gets printed only if the above audio could not be played -->
+            </audio>
+         </div>
+
+
+         <script>
+          const player = document.getElementById("player");
+          const card1 = document.getElementById("1");
+          const heading = document.getElementById("heading");
+
+          card1.addEventListener("click",()=>{
+            alert("you clicked on card 1")
+
+            heading.textContent = "Now playing: "+ card1.textContent+"...";
+
+          })
+
+
+
+                     
+         </script>
+
+</body>
+</html>`;
+
+export const final = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <style>
+    /*selecting all the html elements with song as class and adding style to them  */
+    .song{ 
+        height: 100px;
+        width: 200px;
+        background-color: aqua;
+        padding:6px;
+        text-align: center;
+    }
+
+    .container{
+        background-image: url("./images/background.png");
+        background-size: contain;
+            
+    }
+
+    .songContainer{
+        display: flex; 
+        gap: 20px;
+        justify-content: center;
+        
+    }
+    .controller{
+        text-align: center;
+        padding: 24px;
+    }
+    
+</style>
+</head>
+
+<body>
+
+    <div id="heading"> result in thid</div>
+    
+    <div class="container"><!--We use classes to identify html tags(just like human names)  -->
+        <div class="songContainer">
+
+            <div id="1" class="song" >
+                <p class="key">1</p>
+                <p class="detail">Official</p>
+            </div>
+
+            <div id="2" class="song">
+                <p class="key">2</p>
+                <p class="detail">A Cappella Cover</p>
+            </div>
+
+            <div id="3" class="song">
+                <p class="key">3</p>
+                <p class="detail">Female Version Cover</p>
+            </div>
+            
+        </div>
+
+        <!-- create a new div for containing AUDIO controls -->
+         <div class="controller">
+            
+            <audio controls autoplay  id="player"> <!-- inbult support for playing audio in html -->
+                <source src="https://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg" type="audio/ogg">
+                Your browser does not support the audio element.<!-- this gets printed only if the above audio could not be played -->
+            </audio>
+         </div>
+
+
+         <script>
+          const player = document.getElementById("player");
+          const musicLink ="";
+
+          link1="https://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg"
+          link2="https://commondatastorage.googleapis.com/codeskulptor-assets/jump.ogg"
+          link3 ="https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg"
+
+          const card1 = document.getElementById("1");
+          const card2 = document.getElementById("2");
+          const card3 = document.getElementById("3");
+
+          const heading = document.getElementById("heading");
+
+          card1.addEventListener("click",()=>{
+            alert("you clicked on card 1")
+            heading.textContent = "Now playing: "+ card2.textContent+"...";
+            player.src =link1
+
+          })
+
+          card2.addEventListener("click",()=>{
+            alert("you clicked on card 2")
+            heading.textContent = "Now playing: "+ card2.textContent+"...";
+            player.src =link2;
+
+          })
+
+          card3.addEventListener("click",()=>{
+            alert("you clicked on card 3")
+            heading.textContent = "Now playing: "+ card3.textContent+"...";
+            player.src =link3;
+
+          })
+
+
+
+                     
+         </script>
+
+</body>
+</html>`;

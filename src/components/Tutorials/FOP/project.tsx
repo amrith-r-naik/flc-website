@@ -1,6 +1,6 @@
 import React from "react";
 import Snippet from "./snippet";
-import { start, card, cards, player, style1, style2, responsive, responsive2 } from "./constants";
+import { start, card, cards, player, style1, style2, responsive, responsive2, final, semiFinal1Card } from "./constants";
 
 export default function Project() {
   return (
@@ -132,20 +132,20 @@ export default function Project() {
               {"</"}script{">"}
             </b>{" "}
             tag to establish our logic
-            <p>
-              lets listen to clicking on our cards
-              <Snippet code={``}></Snippet>
-            </p>
+            <p>lets listen to clicking on our cards</p>
+
             <p>
               using id,col to identify tags
-              <Snippet code={``}></Snippet>
+              
+              <Snippet
+                code={semiFinal1Card}
+              ></Snippet>
             </p>
             <p>
               accesing and manipulating html element&apos;s property and
               behaviour
-              <Snippet code={``}></Snippet>
+              <Snippet code={final}></Snippet>
             </p>
-        
             <br />
           </div>
         </div>
