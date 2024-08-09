@@ -1,5 +1,4 @@
 import { useTheme } from "next-themes";
-import { useTheme } from "next-themes";
 import React from "react";
 
 import styles from "./themeToggleSwitch.module.css";

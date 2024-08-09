@@ -49,7 +49,7 @@ const Navbar = () => {
         <div className="flex w-fit items-center ">
           <ThemeToggleSwitch />
 
-          <AuthButton />
+          <AuthButton className="ml-8" />
 
           <NavBarMenu />
         </div>
