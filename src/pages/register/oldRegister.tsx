@@ -5,10 +5,9 @@ import { api } from "~/utils/api";
 import { RegisterZ } from "~/zod/authZ";
 import { toast, Toaster } from "sonner";
 
-function index() {
+function Index() {
   const signUp = api.auth.signUp.useMutation({
     onSuccess: async (data) => {
-      console.log(data)
       sendVerifyEmail.mutate({email:data.email})
       
       
@@ -28,7 +27,7 @@ function index() {
     },
     onError: ({ message }) => {
       toast.dismiss();
-      toast.success("couldnt send email")
+      toast.error(message);
     }, 
 });
   const [formData, setFormData] = useState({
@@ -46,26 +45,18 @@ function index() {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-  const handleSelectChange = (id: string, value: string) => {
-    setFormData({
-      ...formData,
-      [id]: value,
-    });
-  };
 
   return (
     <>
     <Toaster position="bottom-center" />
-      <div className="z-0 ">
+      <div className="z-0">
         <Background />
       </div>
-      <div className="radialgradient flex min-h-screen gap-10 ">
-        <div className="my-10 flex w-full flex-col items-center gap-8 sm:my-20 sm:gap-16 lg:mx-24  lg:flex-row">
-          <div className="order-2 w-full flex-col  md:w-4/5 lg:order-1 lg:w-1/2">
-            <div className=" px-6 sm:px-10">
-              <h1 className="flex justify-start text-2xl sm:text-4xl">
-                Finite Loop Club
-              </h1>
+      <div className="radialgradient flex min-h-screen gap-10">
+        <div className="my-10 flex w-full flex-col items-center gap-8 sm:my-20 sm:gap-16 lg:mx-24 lg:flex-row">
+          <div className="order-2 w-full flex-col md:w-4/5 lg:order-1 lg:w-1/2">
+            <div className="px-6 sm:px-10">
+              <h1 className="flex justify-start text-2xl sm:text-4xl">Finite Loop Club</h1>
 
               <div className="mt-6 lg:mt-12">
                 <Image
@@ -77,10 +68,7 @@ function index() {
                 />
                 <h1 className="pt-2 text-lg font-bold text-cyan-50">Github</h1>
                 <p className="text-gray-300">
-                  Join Finiteloop Club on GitHub for collaborative coding and
-                  innovative projects. Explore repositories, contribute to open
-                  source, and enhance your programming skills with our
-                  community.
+                  Join Finiteloop Club on GitHub for collaborative coding and innovative projects. Explore repositories, contribute to open source, and enhance your programming skills with our community.
                 </p>
               </div>
               <div className="mt-6 lg:mt-12">
@@ -93,20 +81,16 @@ function index() {
                 />
                 <h1 className="pt-1 text-lg font-bold text-cyan-50">Discord</h1>
                 <p className="text-gray-300">
-                  Connect with Finiteloop Club on Discord to engage in lively
-                  tech discussions, receive coding support, and participate in
-                  exclusive events. Join our community to grow and network with
-                  fellow developers.
+                  Connect with Finiteloop Club on Discord to engage in lively tech discussions, receive coding support, and participate in exclusive events. Join our community to grow and network with fellow developers.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="order-1 mx-8 w-4/5 flex-col justify-center rounded-lg bg-white/15  sm:w-2/3 lg:order-2 lg:w-1/2">
-            <h2 className="mt-4 flex justify-center text-2xl sm:m-8 sm:mt-8 sm:text-3xl md:text-4xl">
-              Signup Now
-            </h2>
-            <form className="mx-4 mb-6 mt-2 sm:mx-10 sm:mb-16 sm:mt-8 ">
+          <div className="order-1 mx-8 w-4/5 flex-col justify-center rounded-lg bg-white/15 sm:w-2/3 lg:order-2 lg:w-1/2">
+            <h2 className="mt-4 flex justify-center text-2xl sm:m-8 sm:mt-8 sm:text-3xl md:text-4xl">Register Now</h2>
+            <div 
+                className="mx-4 mb-6 mt-2 sm:mx-10 sm:mb-16 sm:mt-8">
               <div className="mb-2 sm:mb-4">
                 <label className="block sm:mb-1">Name</label>
                 <div className="relative">
@@ -176,37 +160,14 @@ function index() {
                 <div className="mb-2 sm:mb-0 sm:w-1/2 sm:pr-2">
                   <label className="block sm:mb-1">Branch</label>
                   <div className="relative">
-                    <select className="w-full  rounded bg-white/5 p-2 pl-10" 
+                    <input
+                      type="text"
+                      name="branch"
+                      className="w-full rounded bg-white/5 p-2 pl-10"
+                      placeholder="Branch"
                       value={formData.branch}
-                      onChange={(e) => handleSelectChange('branch', e.target.value)}>
-                      <option value="CS" className="bg-black">
-                        Computer Science
-                      </option>
-                      <option value="IT" className="bg-black">
-                        Information Technology
-                      </option>
-                      <option value="EC" className="bg-black">
-                        Electronics and Communication
-                      </option>
-                      <option value="ME" className="bg-black">
-                        Mechanical Engineering
-                      </option>
-                      <option value="CE" className="bg-black">
-                        AI&ML
-                      </option>
-                      <option value="CE" className="bg-black">
-                        AI&DS
-                      </option>
-                      <option value="CE" className="bg-black">
-                        Computer And Communication Engineering
-                      </option>
-                      <option value="CE" className="bg-black">
-                        Civil Engineering
-                      </option>
-                      <option value="CE" className="bg-black">
-                        RI
-                      </option>
-                    </select>
+                      onChange={handleChange}
+                    />
                     <div className="absolute inset-y-0 left-0 flex items-center pl-2">
                       <Image
                         src="/assets/branch.png"
@@ -221,7 +182,7 @@ function index() {
                   <label className="block sm:mb-1">Year</label>
                   <div className="relative">
                     <input
-                      type="date"
+                      type="text"
                       name="year"
                       className="w-full rounded bg-white/5 p-2 pl-10"
                       placeholder="Year"
@@ -295,8 +256,7 @@ function index() {
                 className="mt-4 w-full rounded bg-yellow-300 p-2 font-bold text-gray-900 sm:mt-6">
                 Sign Up
               </button>
-            </form>
-            <div></div>
+            </div>
           </div>
         </div>
       </div>
@@ -304,4 +264,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
