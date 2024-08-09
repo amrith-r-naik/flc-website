@@ -11,15 +11,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "./ui/popover";
-import { Card, CardContent } from "./ui/card";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { SelectSingleEventHandler } from "react-day-picker";
 
-export  const DatePicker = ({ date, setDate, placeholder }) => (
+interface DatePickerProps {
+    date: Date | undefined;
+    setDate: (date: Date | null) => void;
+    placeholder: string;
+  }
+
+export  const DatePicker: React.FC<DatePickerProps> = ({ date, setDate, placeholder }) => (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild className="bg-white hover:bg-slate-50 hover:text-black">
         <Button
           variant={"outline"}
           className={cn(
@@ -32,7 +34,12 @@ export  const DatePicker = ({ date, setDate, placeholder }) => (
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
-        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate as SelectSingleEventHandler} 
+          initialFocus
+        />
       </PopoverContent>
     </Popover>
   );
