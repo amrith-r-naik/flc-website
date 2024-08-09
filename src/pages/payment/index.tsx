@@ -2,7 +2,7 @@
 import { type GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 
-import React, { useState } from "react";
+import React from "react";
 import Payment from "~/components/razorPay/paymentButton";
 import { getServerAuthSession } from "~/server/auth";
 

@@ -1,14 +1,17 @@
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
+
 import { api } from "~/utils/api";
+
 import { modules, devices } from "./constants";
-import Head from "next/head";
+
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
 });
 
-export default function Editor({ eventId }: { eventId?: string }) {
+export default function Editor({ eventId }: { eventId: number }) {
   const [text, setText] = useState("");
   const [displayWidth, setDisplayWidth] = useState(0);
   const [displayHeight, setDisplayHeight] = useState(0);
@@ -25,7 +28,7 @@ export default function Editor({ eventId }: { eventId?: string }) {
   const onConfirmEdit = async () => {
     try {
       await addEventDescription.mutateAsync({
-        id: eventId ?? "cly4g5jlv000246ht681op1lc",
+        id: eventId,
         description: text,
       });
       console.log("Event description updated successfully!");
@@ -99,15 +102,14 @@ export default function Editor({ eventId }: { eventId?: string }) {
               className="m-2 bg-slate-600"
             />
           </form>
-          
-            <button
-              onClick={onConfirmEdit}
-              className="m-3 mr-0 flex-1 content-center rounded-md bg-slate-700 p-3 text-white"
-            >
-              Confirm Edit
-            </button>
-          </div>
-        
+
+          <button
+            onClick={onConfirmEdit}
+            className="m-3 mr-0 flex-1 content-center rounded-md bg-slate-700 p-3 text-white"
+          >
+            Confirm Edit
+          </button>
+        </div>
       </div>
 
       {/* Choose device for preview */}

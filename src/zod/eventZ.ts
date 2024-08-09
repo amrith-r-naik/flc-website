@@ -9,7 +9,7 @@ const createEventZ = z.object({
   toDate: z.date(),
   description: z.string().optional(),
   venue: z.string().optional(),
-  type: z.nativeEnum(EventType),
+  eventType: z.nativeEnum(EventType),
   minTeamSize: z.number(),
   maxTeamSize: z.number(),
   maxTeams: z.number(),
@@ -20,7 +20,7 @@ const createEventZ = z.object({
 });
 
 const updateEventZ = z.object({
-  id: z.string(),  //changed this to avoid issues with "...input" at line 57 "routers/event.ts"
+  id: z.number(), //changed this to avoid issues with "...input" at line 57 "routers/event.ts"
   name: z.string().optional(),
   imgSrc: z.string().optional(),
   deadline: z.date().optional(),
@@ -28,7 +28,7 @@ const updateEventZ = z.object({
   toDate: z.date().optional(),
   description: z.string().optional(),
   venue: z.string().optional(),
-  type: z.nativeEnum(EventType).optional(),
+  eventType: z.nativeEnum(EventType).optional(),
   minTeamSize: z.number().optional(),
   maxTeamSize: z.number().optional(),
   maxTeams: z.number().optional(),
@@ -38,20 +38,21 @@ const updateEventZ = z.object({
   isLegacy: z.boolean().optional(),
 });
 
-const deleteEventZ = z.object({ eventId: z.string() });
+const deleteEventZ = z.object({ eventId: z.number() });
 
 const setEventStateZ = z.object({
-  eventId: z.string(),
+  eventId: z.number(),
   state: z.nativeEnum(EventState),
 });
 
 const toggleEventLegacyZ = z.object({
-  eventId: z.string(),
+  eventId: z.number(),
 });
 
 const getEventByIdZ = z.object({
-  eventId: z.string(),
+  eventId: z.number(),
 });
+
 export {
   updateEventZ,
   createEventZ,
