@@ -46,10 +46,24 @@ export default function SideBar({
      }
 
   return (
-    <div className=" sticky p-2 p-3 sm:w-[0px] md:w-fit ">
-      <div className=''>
-        <button onClick={close} className="text-white">
-          close
+    <div className="sticky  px-4 w-fit">
+      <div className="leading-8">
+        <button onClick={close} className="text-right text-white">
+          <svg
+            className="text-white-800 h-6 w-6 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 8 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"
+            />
+          </svg>
         </button>
         <div
           className="eh w-[200px] cursor-pointer px-2 pt-6"

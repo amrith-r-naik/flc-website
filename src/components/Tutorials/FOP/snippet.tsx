@@ -7,7 +7,7 @@ export default function Snippet({ code }: { code?: string }) {
 
   // Set initial content from the prop
   useEffect(() => {
-    setContent(code ?? "");
+    setContent(code??"refresh the page");
   }, [code]);
 
   // Function to toggle between code and output view
@@ -86,35 +86,35 @@ export default function Snippet({ code }: { code?: string }) {
 
      
 
-  return (
-    <div className="">
-      {codeToggle && (
-        <div className="m-auto">
-          <Editor
-            height="50vh"
-            className="align-center rounded-md"
-            onChange={handleEditorChange}
-            defaultLanguage="html"
-            defaultValue={content ?? "// some comment"}
-            width="90%"
-            theme="vs-dark"
-          />
-        </div>
-      )}
+return (
+  <div className="relative">
+    {codeToggle && (
+      <div className="relative z-10">
+        <Editor
+          height="50vh"
+          className="align-center rounded-md sm:w-full md:w-[90%]"
+          onChange={handleEditorChange}
+          defaultLanguage="html"
+          value={content ?? "// codebase is empty"}
+          theme="vs-dark"
+        />
+      </div>
+    )}
 
-      {!codeToggle && (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: content ?? "write code in the editor to see output",
-          }}
-          id="display"
-          className="h-[50vh] w-[90%] resize overflow-auto rounded-sm border border-4 bg-white p-6"
-        ></div>
-      )}
+    {!codeToggle && (
+      <div
+        dangerouslySetInnerHTML={{
+          __html: content ?? "write code in the editor to see output",
+        }}
+        id="display"
+        className="h-[50vh] w-[90%] resize overflow-auto rounded-sm border border-4 bg-white p-6"
+      ></div>
+    )}
 
-      <button className="rounded-md bg-slate-200 p-2" onClick={setContentFun}>
-        see {!codeToggle ? "code" : "output"}
-      </button>
-    </div>
-  );
+    <button className="rounded-md bg-slate-200 p-2" onClick={setContentFun}>
+      see {!codeToggle ? "code" : "output"}
+    </button>
+  </div>
+);
+
 }

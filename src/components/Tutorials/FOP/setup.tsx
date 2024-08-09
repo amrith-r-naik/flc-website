@@ -4,7 +4,7 @@ import React from 'react'
 export default function Setup() {
   return (
     <div className="w-full bg-green-200 p-2 text-black">
-      {" "}
+      <br /> <br />{" "}
       <h2 className="mb-3 flex justify-between">
         <div>1. Setup</div>{" "}
         <div className="right-0 inline  w-fit text-sm">
@@ -79,7 +79,7 @@ export default function Setup() {
           <div className="text ml-3 rounded-md bg-slate-300 p-2 ">
             When it comes to installing softwares in general, Keep these points
             in mind <br />
-            <div className='ml-6'>
+            <div className="ml-6">
               1. Download the softwares from official source. <br />
               2. Try reading & understanding the installation steps.
               <br />

@@ -4,13 +4,14 @@ import { start, card, cards, player, style1, style2, responsive, responsive2, fi
 
 export default function Project() {
   return (
-    <div className="w-full bg-green-200 p-2 text-black">
+    <div className="w-full bg-green-200 p-2 text-black ">
+      <br /> <br />
       <h2 className="mb-3 flex justify-between">
         <div>2. Project</div>{" "}
         <div className="right-0 inline  w-fit text-sm">
           {" "}
           <div>time:30-40 mins</div>
-          <div>data: 300mbs </div>
+          {/* <div>data: 300mbs </div> */}
         </div>
       </h2>
       <div className="h-fit w-full bg-slate-200">

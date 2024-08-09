@@ -4,7 +4,7 @@ export default function Git() {
     const [guiMode,setGuiMode]=useState<boolean>(true)
   return (
     <div className="w-full bg-green-200 p-2 text-black">
-      {" "}
+      <br /> <br />{" "}
       <h2 className="mb-3 flex justify-between">
         <div>3. Git</div>{" "}
         <div
@@ -15,17 +15,19 @@ export default function Git() {
         </div>
         <div className="right-0 inline  w-fit text-sm">
           {" "}
-          <div>time:30-40 mins</div>
-          <div>data: 300mbs </div>
+          <div>time:5-10 mins</div>
+          <div>data: few mbs </div>
         </div>
       </h2>
-      {!guiMode&&(<iframe
-        src="https://scribehow.com/embed/Search_for_potato_image_on_Google___aqFBaY9TZClvyVasLOv1g"
-        width="100%"
-        height="640"
-        allowFullScreen
-        // frameBorder="0"
-      ></iframe>)}
+      {!guiMode && (
+        <iframe
+          src="https://scribehow.com/embed/Search_for_potato_image_on_Google___aqFBaY9TZClvyVasLOv1g"
+          width="100%"
+          height="640"
+          allowFullScreen
+          // frameBorder="0"
+        ></iframe>
+      )}
       <div className="h-fit w-full bg-slate-200">
         In this section we will be seting up Tools which will come in handy to
         finish the Projects.

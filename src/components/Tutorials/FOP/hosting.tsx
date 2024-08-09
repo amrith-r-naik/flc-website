@@ -3,13 +3,13 @@ import React from "react";
 export default function Hosting() {
   return (
     <div className="w-full bg-green-200 p-2 text-black">
-      {" "}
+      <br /> <br />{" "}
       <h2 className="mb-3 flex justify-between">
         <div>4. Hosting</div>{" "}
         <div className="right-0 inline  w-fit text-sm">
           {" "}
-          <div>time:30-40 mins</div>
-          <div>data: 300mbs </div>
+          <div>time:10-15 mins</div>
+          <div>data:few mbs </div>
         </div>
       </h2>
       <div className="h-fit w-full bg-slate-200">
