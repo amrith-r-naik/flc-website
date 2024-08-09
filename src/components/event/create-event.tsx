@@ -2,12 +2,13 @@
 
 import { EventCategory, EventState, EventType } from "@prisma/client";
 import React, { useState } from "react";
-import { z } from "zod";
+import { type z } from "zod";
+
+import { DatePicker } from "~/components/ui/date-picker";
 
 import { api } from "~/utils/api";
-import { createEventZ } from "~/zod/eventZ";
+import { type createEventZ } from "~/zod/eventZ";
 
-import { DatePicker } from "../datepicker";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";

@@ -15,14 +15,16 @@ import {
 import { cn } from "~/lib/utils";
 
 interface Props {
-  date: Date;
+  date: Date | undefined;
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  placeholder?: string;
   className?: string;
 }
 
 const DatePicker: React.FunctionComponent<Props> = ({
   date,
   setDate,
+  placeholder,
   className,
 }) => {
   return (
@@ -37,7 +39,11 @@ const DatePicker: React.FunctionComponent<Props> = ({
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? (
+            format(date, "PPP")
+          ) : (
+            <span>{placeholder ?? "Pick a date"}</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
