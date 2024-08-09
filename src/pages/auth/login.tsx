@@ -1,12 +1,14 @@
+import { type NextPage } from "next";
 import Image from "next/image";
 import React from "react";
 
-import Background from "./backgorund";
+import Background from "~/components/background";
+import LoginForm from "~/components/forms/login";
 
-function Login() {
+const Login: NextPage = () => {
   return (
     <>
-      <div className="z-0 ">
+      <div className="z-0">
         <Background />
       </div>
       <div className="radialgradient flex min-h-screen gap-10 ">
@@ -52,57 +54,11 @@ function Login() {
             </div>
           </div>
 
-          <div className="order-1 mx-8 w-4/5 flex-col justify-center rounded-lg bg-white/15  sm:w-2/3 lg:order-2 lg:w-1/2">
-            <h2 className="mt-4 flex justify-center text-2xl sm:m-8 sm:mt-8 sm:text-3xl md:text-4xl">
-              Login
-            </h2>
-            <form className="mx-4 mb-6 mt-2 sm:mx-10 sm:mb-16 sm:mt-8 ">
-              <div className="mb-2 sm:mb-4">
-                <label className="block sm:mb-1">Email</label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    className="w-full rounded bg-white/5 p-2 pl-10"
-                    placeholder="Email"
-                  />
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-2">
-                    <Image
-                      src="/assets/email.png"
-                      alt="Icon"
-                      width={18}
-                      height={18}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="mb-2 sm:mb-4">
-                <label className="block sm:mb-1">Password</label>
-                <div className="relative">
-                  <input
-                    type="password"
-                    className="w-full rounded bg-white/5 p-2 pl-10"
-                    placeholder="Password"
-                  />
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-2">
-                    <Image
-                      src="/assets/password.png"
-                      alt="Icon"
-                      width={18}
-                      height={18}
-                    />
-                  </div>
-                </div>
-              </div>
-              <button className="mt-4 w-full rounded bg-yellow-300 p-2 font-bold text-gray-900 sm:mt-6">
-                Login
-              </button>
-            </form>
-            <div></div>
-          </div>
+          <LoginForm />
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Login;

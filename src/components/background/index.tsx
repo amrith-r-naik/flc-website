@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import React, { useEffect, type FunctionComponent } from "react";
 
-export default function Background() {
+const Background: FunctionComponent = () => {
   useEffect(() => {
     const script = document.createElement("script");
 
@@ -14,5 +14,7 @@ export default function Background() {
     };
   }, []);
 
-  return <canvas className="bg-transparent"></canvas>;
-}
+  return <canvas className="bg-transparent" />;
+};
+
+export default Background;

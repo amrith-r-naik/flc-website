@@ -31,9 +31,8 @@ const Profile = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (status !== "authenticated" && typeof window !== "undefined") {
+    if (status !== "authenticated" && typeof window !== "undefined")
       router.push("/");
-    }
   }, [status, router]);
 
   return (

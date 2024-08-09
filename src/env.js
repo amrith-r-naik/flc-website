@@ -22,6 +22,8 @@ export const env = createEnv({
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
       process.env.VERCEL ? z.string() : z.string().url(),
     ),
+    SMTP_GMAIL: z.string(),
+    SMTP_PASSWORD: z.string(),
   },
 
   /**
@@ -30,7 +32,12 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_CLOUDINARY_API_KEY: z.string(),
+    NEXT_PUBLIC_CLOUDINARY_API_SECRET: z.string(),
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: z.string(),
+    NEXT_PUBLIC_PRODUCT_INSTANCE_ID: z.string(),
+    NEXT_PUBLIC_SCHEME_ID: z.string(),
+    NEXT_PUBLIC_SECRET: z.string(),
   },
 
   /**
@@ -42,6 +49,18 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    SMTP_GMAIL: process.env.SMTP_GMAIL,
+    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
+    NEXT_PUBLIC_CLOUDINARY_API_KEY:
+      process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
+    NEXT_PUBLIC_CLOUDINARY_API_SECRET:
+      process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME:
+      process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    NEXT_PUBLIC_PRODUCT_INSTANCE_ID:
+      process.env.NEXT_PUBLIC_PRODUCT_INSTANCE_ID,
+    NEXT_PUBLIC_SCHEME_ID: process.env.NEXT_PUBLIC_SCHEME_ID,
+    NEXT_PUBLIC_SECRET: process.env.NEXT_PUBLIC_SECRET,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
