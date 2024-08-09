@@ -1,11 +1,12 @@
-import React from "react";
-import Logo from "../logo";
-import Link from "next/link";
-import NavBarMenu from "./dropdownMenu";
 import { Button } from "@radix-ui/themes";
 import { LogIn } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import React from "react";
+
+import Logo from "../logo";
 import ThemeToggleSwitch from "../themeToggleSwitch/themeToggleSwitch";
+import NavBarMenu from "./dropdownMenu";
 
 const links = [
   { label: "Home", url: "/" },
@@ -26,12 +27,12 @@ const Navbar = () => {
           Finite-Loop-Club
         </p>
       </Link>
-      <div className="ml-auto flex items-center gap-10 ">
-        <div className="hidden gap-8 sm:flex">
+      <div className="ml-auto flex gap-10 ">
+        <div className="flex items-center  gap-8 ">
           {links.map((link) => (
             <Link
               key={link.url}
-              className="group space-y-0.5 text-foreground"
+              className="group hidden space-y-0.5 text-foreground sm:flex"
               href={link.url}
             >
               <p className="px-0.5 text-sm font-bold md:text-base">
@@ -45,23 +46,23 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <div>
+        <div className="flex w-fit items-center ">
           <ThemeToggleSwitch />
-        </div>
-        <Button
-          asChild
-          className="rounded border border-border bg-white  px-3 py-2 font-bold hover:bg-white/5"
-        >
-          <Link
-            href="/"
-            className="flex gap-3  text-sm font-light text-black no-underline"
-          >
-            <LogIn size={18} />
-            Login
-          </Link>
-        </Button>
 
-        <NavBarMenu />
+          <Button
+            asChild
+            className="ml-8 hidden rounded border border-border bg-white px-3 py-2 font-bold hover:bg-white/5 sm:flex"
+          >
+            <Link
+              href="/"
+              className="flex gap-3  text-sm font-light text-black no-underline"
+            >
+              <LogIn size={18} />
+              Login
+            </Link>
+          </Button>
+          <NavBarMenu />
+        </div>
       </div>
     </nav>
   );

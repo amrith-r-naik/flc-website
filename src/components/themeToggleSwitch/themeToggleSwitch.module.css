@@ -1,6 +1,6 @@
 
 .themecheckbox {
-  --toggle-size: 8px;
+  --toggle-size: 0.4rem;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

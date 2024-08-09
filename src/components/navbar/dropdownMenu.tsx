@@ -1,11 +1,10 @@
-"use client";
-
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { Button } from "@radix-ui/themes";
+import { LogIn, Menu } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-
-import { Menu } from "lucide-react";
-import Link from "next/link";
+import ThemeToggleSwitch from "../themeToggleSwitch/themeToggleSwitch";
 
 const NavBarMenu = () => {
   return (
@@ -39,6 +38,18 @@ const NavBarMenu = () => {
                 <p className="text-foreground">Team</p>
               </Link>
             </DropdownMenu.Item>
+            <Button
+              asChild
+              className="mx-2 my-1 rounded-md border border-border  bg-white px-3 py-2 font-bold hover:bg-white/5"
+            >
+              <Link
+                href="/"
+                className="flex gap-3 text-xs font-medium text-black no-underline"
+              >
+                <LogIn size={16} />
+                Login
+              </Link>
+            </Button>
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
