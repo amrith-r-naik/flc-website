@@ -1,9 +1,12 @@
-import { createTRPCRouter, protectedProcedure, publicProcedure, } from "../trpc"
 import { sendCertificate } from "~/utils/certificationEmail/email";
 import { checkOrganiser, findEventIfExistById } from "~/utils/helper";
-import { getAllCertificationsByUserIdZ, getCertificationDetailsByIdZ, issueCertificateByEventIdZ } from "~/zod/certificate";
+import {
+  getAllCertificationsByUserIdZ,
+  getCertificationDetailsByIdZ,
+  issueCertificateByEventIdZ,
+} from "~/zod/certificate";
 
-
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const certificateRouter = createTRPCRouter({
   issueCertificatesForWinnersAndParticipants: protectedProcedure
@@ -19,7 +22,9 @@ export const certificateRouter = createTRPCRouter({
         where: { eventId },
         include: {
           Team: {
-            include: { Members: { select: { id: true, name: true, email: true } } }, // include email
+            include: {
+              Members: { select: { id: true, name: true, email: true } },
+            }, // include email
           },
         },
       });
@@ -41,12 +46,12 @@ export const certificateRouter = createTRPCRouter({
                 member.email,
                 "Topperformer",
                 winner.winnerType,
-              )
-            )
+              ),
+            ),
           );
 
           return certificates;
-        })
+        }),
       );
       // Issue for Participents
       const teams = await ctx.db.team.findMany({
@@ -54,11 +59,12 @@ export const certificateRouter = createTRPCRouter({
         include: { Members: { select: { id: true, name: true, email: true } } },
       });
 
-
       const existingCertificates = await ctx.db.certificate.findMany({
         where: { eventId },
       });
-      const existingUserEventIds = existingCertificates.map(cert => cert.userId);
+      const existingUserEventIds = existingCertificates.map(
+        (cert) => cert.userId,
+      );
       const certificates = [];
 
       for (const team of teams) {
@@ -67,7 +73,7 @@ export const certificateRouter = createTRPCRouter({
             const certificate = await ctx.db.certificate.create({
               data: {
                 issuedOn: new Date(),
-                certificateType: 'PARTICIPATION',
+                certificateType: "PARTICIPATION",
                 userId: member.id,
                 eventId: event.id,
               },
@@ -78,15 +84,12 @@ export const certificateRouter = createTRPCRouter({
               event.name,
               member.email,
               "Participation",
-
-            )
+            );
           }
         }
       }
 
-
       return { success: true };
-
     }),
 
   getCertificationDetailsById: publicProcedure
@@ -95,7 +98,7 @@ export const certificateRouter = createTRPCRouter({
       const { certificateId } = input;
       const certificate = await ctx.db.certificate.findUnique({
         where: { id: certificateId },
-        include: { Event: true, User: true }
+        include: { Event: true, User: true },
       });
       return certificate;
     }),
@@ -106,9 +109,8 @@ export const certificateRouter = createTRPCRouter({
       const { userId } = input;
       const certificates = await ctx.db.certificate.findMany({
         where: { userId },
-        include: { Event: true }
+        include: { Event: true },
       });
       return certificates;
     }),
 });
-

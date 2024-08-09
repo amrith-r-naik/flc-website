@@ -1,12 +1,14 @@
 "use client";
 
 import React from "react";
+
 import Card from "~/components/Card";
 import CloudinaryUpload from "~/components/cloudinary/cloudinaryUpload";
-import RadioButtons from "~/components/RadioButtons";
-import { api } from "~/utils/api";
 import { uploadTypeEnum } from "~/components/cloudinary/cloudinaryUpload";
 import EventCard from "~/components/eventCard";
+import RadioButtons from "~/components/RadioButtons";
+import { api } from "~/utils/api";
+
 function page() {
   const { data: events, isLoading, error } = api.event.getAllEvents.useQuery();
 
@@ -31,7 +33,7 @@ function page() {
       </div>
       <CloudinaryUpload
         uploadName="upload Event Image"
-        eventId="cly4g5jlv000246ht681op1lc"
+        eventId={1234}
         type={uploadTypeEnum.eventPicture}
       />
 

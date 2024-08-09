@@ -2,17 +2,17 @@ import { WinnerType } from "@prisma/client";
 import { z } from "zod";
 
 const makeTeamWinnerZ = z.object({
-  eventId: z.string(),
-  teamId: z.string(),
+  eventId: z.number(),
+  teamId: z.number(),
   winnerType: z.nativeEnum(WinnerType),
 });
 
 const removeWinnerZ = z.object({
-  eventId: z.string(),
+  eventId: z.number(),
   winnerId: z.string(),
 });
 
 const getWinnersByEventIdZ = z.object({
-  eventId: z.string(),
+  eventId: z.number(),
 });
 export { makeTeamWinnerZ, removeWinnerZ, getWinnersByEventIdZ };

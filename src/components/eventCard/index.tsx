@@ -1,26 +1,31 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React from "react";
-/* import { PublishedEventsQuery } from "../../generated/generated"; */
+import { type Event } from "@prisma/client";
+
+/* import { generateEventUrl } from "../../utils/url"; */
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import { IoIosPlayCircle } from "react-icons/io";
+
+/* import { PublishedEventsQuery } from "../../generated/generated"; */
 import {
-  IoCalendarOutline,
   IoLocationOutline,
   IoPeopleOutline,
   IoPersonOutline,
 } from "react-icons/io5";
 
-/* import { generateEventUrl } from "../../utils/url"; */
-import Image from "next/image";
 import styles from "./styles.module.css";
-import { useRouter } from "next/router";
-import { IoIosPlayCircle } from "react-icons/io";
-import { Event } from "@prisma/client";
 
 const EventCard = ({ data }: { data: Partial<Event> }) => {
   const router = useRouter();
   const getEventAttributes = () => {
     let teamSizeText = "";
+<<<<<<< HEAD
     const eventTypeText = data.type;
+=======
+    const eventTypeText = data.eventType;
+>>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
     if (data.minTeamSize === data.maxTeamSize) {
       if (data.minTeamSize === 1)
         teamSizeText += `${data.minTeamSize} member per team`;
@@ -29,7 +34,11 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
     } else {
       teamSizeText = `${data.minTeamSize} - ${data.maxTeamSize} members per team`;
     }
+<<<<<<< HEAD
     /* 
+=======
+    /*
+>>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
     if (data.type?.includes("MULTIPLE")) {
       eventTypeText =
         data.type?.split("_")[0][0] +
@@ -77,7 +86,11 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
     <div
       onClick={() => router.push(`/event/${data.id}`)}
       data-scroll
+<<<<<<< HEAD
       className={`${styles.card} h-full w-full cursor-pointer rounded-2xl border     
+=======
+      className={`${styles.card} h-full w-full cursor-pointer rounded-2xl border
+>>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
          border-[#a26b1e]/80 bg-[#dc9c42] p-2 py-3`}
     >
       <div

@@ -1,13 +1,25 @@
+<<<<<<< HEAD
 import type { Config } from "tailwindcss";
+=======
+import type { Config } from "tailwindcss"
+>>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
 
 const config = {
   darkMode: "class",
   content: [
+<<<<<<< HEAD
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
+=======
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+	],
+>>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
   prefix: "",
   theme: {
     container: {
@@ -71,13 +83,22 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+<<<<<<< HEAD
       },
       flexGrow: {
         "2": "2",
+=======
+>>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
+<<<<<<< HEAD
 } satisfies Config;
 
 export default config;
+=======
+} satisfies Config
+
+export default config
+>>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
