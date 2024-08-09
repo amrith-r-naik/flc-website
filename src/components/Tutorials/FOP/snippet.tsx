@@ -22,67 +22,69 @@ export default function Snippet({ code }: { code?: string }) {
 
   // Attach event listeners after content is rendered
   useEffect(() => {
+  
+      
+
+
     if (!codeToggle) {
       const player = document.getElementById("player") as HTMLAudioElement;
-      const card1 = document.getElementById("1");
-      const card2 = document.getElementById("2");
-      const card3 = document.getElementById("3");
       const heading = document.getElementById("heading");
 
-      const link1 =
-        "https://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg";
-      const link2 =
-        "https://commondatastorage.googleapis.com/codeskulptor-assets/jump.ogg";
-      const link3 =
-        "https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg";
+      const links: Record<string, string> = {
+        1: "https://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg",
+        2: "https://commondatastorage.googleapis.com/codeskulptor-assets/jump.ogg",
+        3: "https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg",
+      };
 
-      if (card1 && heading && player) {
-        const handleClick1 = () => {
-          alert("you clicked on card 1");
-          heading.textContent = "Now playing: " + card1.textContent + "...";
-          player.src = link1;
-      
-        };
+      const cards = Array.from(document.querySelectorAll(".songCard"));
 
-        card1.addEventListener("click", handleClick1);
+  
+          
+          const card1 = document.getElementById("1");
+          
 
-        // Clean up event listeners on component unmount
-        return () => {
-          card1.removeEventListener("click", handleClick1);
-        };
-      }
+          if (card1 && heading) {
+            const handleClick = () => {
+              alert("you clicked on card 1");
+              heading.textContent = "Now playing: " + card1.textContent + "...";
+            };
 
-      if (card2 && heading && player) {
-        const handleClick2 = () => {
-          alert("you clicked on card 2");
-          heading.textContent = "Now playing: " + card2.textContent + "...";
-          player.src = link2;
-         
-        };
-
-        card2.addEventListener("click", handleClick2);
-
-        return () => {
-          card2.removeEventListener("click", handleClick2);
-        };
-      }
-
-      if (card3 && heading && player) {
-        const handleClick3 = () => {
-          alert("you clicked on card 3");
-          heading.textContent = "Now playing: " + card3.textContent + "...";
-          player.src = link3;
+            card1.addEventListener("click", handleClick);
+          }
         
-        };
 
-        card3.addEventListener("click", handleClick3);
 
-        return () => {
-          card3.removeEventListener("click", handleClick3);
-        };
+      if (player && heading) {
+        cards.forEach((card) => {
+          const cardId = card.id;
+          const detail = card.querySelector(".detail")?.textContent;
+
+          const handleClick = () => {
+            alert(`you clicked on card ${cardId}`);
+            heading.textContent = `Now playing: ${detail}...`;
+            player.src = links[cardId]!;
+          
+          };
+
+          card.addEventListener("click", handleClick);
+
+          // Clean up event listeners on component unmount
+          return () => {
+            card.removeEventListener("click", handleClick);
+          };
+        });
       }
     }
-  }, [codeToggle]); // Re-run the effect when codeToggle changes
+  }, [codeToggle]);
+  
+  
+  
+  // Re-run the effect when codeToggle changes
+
+  
+
+
+     
 
   return (
     <div className="">

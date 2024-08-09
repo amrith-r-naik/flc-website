@@ -436,38 +436,68 @@ export const semiFinal1Card = `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
     <style>
-    /*selecting all the html elements with song as class and adding style to them  */
-    .song{ 
+    /* Selecting all the HTML elements with song as class and adding style to them */
+    .song { 
         height: 100px;
         width: 200px;
         background-color: aqua;
-        padding:6px;
+        padding: 6px;
         text-align: center;
+        flex: 1; /* Make songs flexible */
+        min-width: 150px; /* Ensure minimum width */
     }
 
-    .container{
+    .container {
         background-image: url("./images/background.png");
-        background-size: contain;
-            
+        background-size: cover; /* Changed to cover for better background display */
+        background-repeat: no-repeat;
+        min-height: 100vh; /* Ensures the container takes full viewport height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px; /* Add padding to container */
     }
 
-    .songContainer{
+    .songContainer {
         display: flex; 
-        gap: 20px;
+        gap: 10px; /* Reduced gap between songs */
         justify-content: center;
-        
+        flex-wrap: wrap; /* Allow wrapping of items */
+        margin-bottom: 10px; /* Reduced space between songs and controller */
     }
-    .controller{
+
+    .controller {
         text-align: center;
-        padding: 24px;
+        padding: 20px; /* Adjusted padding for the controller */
+        width: 100%; /* Ensure it takes full width */
+        max-width: 600px; /* Limit the maximum width */
     }
-    
-</style>
+
+    audio {
+        width: 100%; /* Make audio element responsive */
+    }
+
+    /* Responsive styling */
+    @media (max-width: 600px) {
+        .song {
+            width: 100%; /* Make songs full width on small screens */
+        }
+
+        .songContainer {
+            gap: 5px; /* Further reduce gap on small screens */
+        }
+
+        .controller {
+            padding: 16px; /* Reduce padding on small screens */
+        }
+    }
+    </style>
 </head>
 
 <body>
 
-    <div id="heading"> result in thid</div>
+   
     
     <div class="container"><!--We use classes to identify html tags(just like human names)  -->
         <div class="songContainer">
@@ -490,6 +520,7 @@ export const semiFinal1Card = `<!DOCTYPE html>
         </div>
 
         <!-- create a new div for containing AUDIO controls -->
+           <div id="heading">No music selected yet</div>
          <div class="controller">
             
             <audio controls autoplay muted id="player"> <!-- inbult support for playing audio in html -->
@@ -527,53 +558,83 @@ export const final = `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
     <style>
-    /*selecting all the html elements with song as class and adding style to them  */
-    .song{ 
+    /* Selecting all the HTML elements with song as class and adding style to them */
+    .song { 
         height: 100px;
         width: 200px;
         background-color: aqua;
-        padding:6px;
+        padding: 6px;
         text-align: center;
+        flex: 1; /* Make songs flexible */
+        min-width: 150px; /* Ensure minimum width */
     }
 
-    .container{
+    .container {
         background-image: url("./images/background.png");
-        background-size: contain;
-            
+        background-size: cover; /* Changed to cover for better background display */
+        background-repeat: no-repeat;
+        min-height: 100vh; /* Ensures the container takes full viewport height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px; /* Add padding to container */
     }
 
-    .songContainer{
+    .songContainer {
         display: flex; 
-        gap: 20px;
+        gap: 10px; /* Reduced gap between songs */
         justify-content: center;
-        
+        flex-wrap: wrap; /* Allow wrapping of items */
+        margin-bottom: 10px; /* Reduced space between songs and controller */
     }
-    .controller{
+
+    .controller {
         text-align: center;
-        padding: 24px;
+        padding: 20px; /* Adjusted padding for the controller */
+        width: 100%; /* Ensure it takes full width */
+        max-width: 600px; /* Limit the maximum width */
     }
-    
-</style>
+
+    audio {
+        width: 100%; /* Make audio element responsive */
+    }
+
+    /* Responsive styling */
+    @media (max-width: 600px) {
+        .song {
+            width: 100%; /* Make songs full width on small screens */
+        }
+
+        .songContainer {
+            gap: 5px; /* Further reduce gap on small screens */
+        }
+
+        .controller {
+            padding: 16px; /* Reduce padding on small screens */
+        }
+    }
+    </style>
 </head>
 
 <body>
 
-    <div id="heading"> result in thid</div>
+    
     
     <div class="container"><!--We use classes to identify html tags(just like human names)  -->
         <div class="songContainer">
 
-            <div id="1" class="song" >
+            <div id="1" class="songCard song " >
                 <p class="key">1</p>
                 <p class="detail">Official</p>
             </div>
 
-            <div id="2" class="song">
+            <div id="2" class="songCard song">
                 <p class="key">2</p>
                 <p class="detail">A Cappella Cover</p>
             </div>
 
-            <div id="3" class="song">
+            <div id="3" class="songCard song">
                 <p class="key">3</p>
                 <p class="detail">Female Version Cover</p>
             </div>
@@ -581,9 +642,10 @@ export const final = `<!DOCTYPE html>
         </div>
 
         <!-- create a new div for containing AUDIO controls -->
+        <div id="heading">No music selected yet</div>
          <div class="controller">
             
-            <audio controls autoplay  id="player"> <!-- inbult support for playing audio in html -->
+            <audio controls autoplay muted  id="player"> <!-- inbult support for playing audio in html -->
                 <source src="https://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg" type="audio/ogg">
                 Your browser does not support the audio element.<!-- this gets printed only if the above audio could not be played -->
             </audio>
@@ -606,7 +668,7 @@ export const final = `<!DOCTYPE html>
 
           card1.addEventListener("click",()=>{
             alert("you clicked on card 1")
-            heading.textContent = "Now playing: "+ card2.textContent+"...";
+            heading.textContent = "Now playing: "+ card.textContent+"...";
             player.src =link1
 
           })
