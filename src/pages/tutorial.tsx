@@ -21,7 +21,7 @@ export default function Tutorials() {
       {!sideBarVisiblity && (
         <button
           onClick={close}
-          className="fixed  bg-slate-800 p-3 text-white sm:w-[0px] md:w-fit"
+          className="fixed z-40  bg-slate-800 p-3 text-white sm:w-[0px] md:w-fit"
         >
           <svg
             className="text-white-800 h-6 w-6 dark:text-white"

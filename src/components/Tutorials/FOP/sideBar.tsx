@@ -46,7 +46,7 @@ export default function SideBar({
      }
 
   return (
-    <div className="sticky  px-4 w-fit">
+    <div className="sticky z-40  px-4 w-fit">
       <div className="leading-8">
         <button onClick={close} className="text-right text-white">
           <svg

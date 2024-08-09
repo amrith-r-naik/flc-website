@@ -17,7 +17,7 @@ export default function Project() {
       <div className="h-fit w-full bg-slate-200">
         In this section we will be seting up Tools which will come in handy to
         finish the Projects.
-        <div className="List text m-3 rounded-md bg-slate-300 p-2 p-3 ">
+        <div className="List text m-3 rounded-md bg-slate-300  p-3 ">
           <div>
             <ul className="ml-3 list-disc">
               <li>Page Skeleton -HTML</li>
@@ -27,24 +27,25 @@ export default function Project() {
           </div>
         </div>
         {/* html */}
-        <div className="html text m-3 rounded-md bg-slate-300 p-2 p-3 ">
+        <div className="html text m-3 rounded-md bg-slate-300 p-3 ">
           <div>1. Page skeleton</div>
 
-          <div className="ml-12 flex-col gap-y-4">
+          <div className="flex-col gap-y-4 md:ml-12">
             <p>
               Create an index.html page in new folder
               <div className="Image"></div>
             </p>
 
-            <p>
-              write boilerplate html in the file
+            <div>
+              <p> write boilerplate html in the file</p>
               <div className="inline">
                 <button className="ml-12 inline">copy</button> or{" "}
                 <div className="inline">shift+! and enter</div>{" "}
               </div>
-              <div className="Image"></div>
-            </p>
-            <Snippet code={start}></Snippet>
+              <div className="m-auto sm:w-[100%] md:w-[80%]">
+                <Snippet code={start}></Snippet>
+              </div>
+            </div>
 
             <p>
               Open the file in browser - drag and drop the html file in ur
@@ -58,17 +59,22 @@ export default function Project() {
               Writing content for our empty page
               <div className="Image">
                 {" "}
-                <Snippet code={card}></Snippet>
+                <div className="m-auto sm:w-[100%] md:w-[80%]">
+                  <Snippet code={card}></Snippet>
+                </div>
               </div>
               <br />
               Repeat the no of cards with your liking
             </p>
-            <Snippet code={cards}></Snippet>
-
+            <div className="m-auto sm:w-[100%] md:w-[80%]">
+              <Snippet code={cards}></Snippet>
+            </div>
             <p>
               Creating Player
               <div className="Image">
-                <Snippet code={player}></Snippet>
+                <div className="m-auto sm:w-[100%] md:w-[80%]">
+                  <Snippet code={player}></Snippet>
+                </div>
               </div>
             </p>
           </div>
@@ -77,7 +83,7 @@ export default function Project() {
         <div className="css text m-3 rounded-md bg-slate-300 p-2 p-3 ">
           <div>2.Styling</div>
 
-          <div className="ml-12">
+          <div className="md:ml-12">
             Lets use{" "}
             <b>
               {" "}
@@ -94,22 +100,30 @@ export default function Project() {
                 {"</"}head{">"}
               </b>{" "}
               tag ends
-              <Snippet code={style1}></Snippet>
+              <div className="m-auto sm:w-[100%] md:w-[80%]">
+                <Snippet code={style1}></Snippet>
+              </div>
             </p>
             <p>
               set a background image to the page, font colors, and card layot as
               flex
-              <Snippet code={style2}></Snippet>
+              <div className="m-auto sm:w-[100%] md:w-[80%]">
+                <Snippet code={style2}></Snippet>
+              </div>
             </p>
             <p>
               Make the page responsive, i.e suitable both for laptop screens and
               mobile screens as well
-              <Snippet code={responsive}></Snippet>
+              <div className="m-auto sm:w-[100%] md:w-[80%]">
+                <Snippet code={responsive}></Snippet>
+              </div>
             </p>
             <p>
               Make the page responsive, i.e suitable both for laptop screens and
               mobile screens as well
-              <Snippet code={responsive2}></Snippet>
+              <div className="m-auto sm:w-[100%] md:w-[80%]">
+                <Snippet code={responsive2}></Snippet>
+              </div>
             </p>
             <br />
           </div>
@@ -125,7 +139,7 @@ export default function Project() {
             </p>
           </div>
 
-          <div className="ml-12">
+          <div className="md:ml-12">
             Lets use{" "}
             <b>
               {" "}
@@ -134,18 +148,18 @@ export default function Project() {
             </b>{" "}
             tag to establish our logic
             <p>lets listen to clicking on our cards</p>
-
             <p>
               using id,col to identify tags
-              
-              <Snippet
-                code={semiFinal1Card}
-              ></Snippet>
+              <div className="m-auto sm:w-[100%] md:w-[80%]">
+                <Snippet code={semiFinal1Card}></Snippet>
+              </div>
             </p>
             <p>
               accesing and manipulating html element&apos;s property and
               behaviour
-              <Snippet code={final}></Snippet>
+              <div className="m-auto sm:w-[100%] md:w-[80%]">
+                <Snippet code={final}></Snippet>
+              </div>
             </p>
             <br />
           </div>
