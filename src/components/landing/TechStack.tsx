@@ -5,50 +5,46 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useRef } from "react";
 
-import pythonIcon from "~/assets/icons/python.svg";
+import pythonIcon from "~/assets/icons/python.svg"
+import nextJsIcon from "~/assets/icons/nextjs-icon-svgrepo-com.svg"
+import reactIcon from "~/assets/icons/react-svgrepo-com.svg"
+import trpcIcon from "~/assets/icons/trpc.svg"
+import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg"
+import tailwindIcon from "~/assets/icons/tailwind-svgrepo-com.svg"
+import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg"
+import tsIcon from "~/assets/icons/typescript-svgrepo-com.svg"
 
 const techs = [
-  {
-    name: "python",
-    icon: pythonIcon as string,
-  },
-  {
-    name: "javascript",
-    icon: pythonIcon as string,
-  },
-  {
-    name: "react",
-    icon: pythonIcon as string,
-  },
-  {
-    name: "nextjs",
-    icon: pythonIcon as string,
-  },
-  {
-    name: "svelte",
-    icon: pythonIcon as string,
-  },
-  {
-    name: "1",
-    icon: pythonIcon as string,
-  },
-  {
-    name: "2",
-    icon: pythonIcon as string,
-  },
-  {
-    name: "3",
-    icon: pythonIcon as string,
-  },
-  {
-    name: "4",
-    icon: pythonIcon as string,
-  },
-  {
-    name: "5",
-    icon: pythonIcon as string,
-  },
-];
+    {
+        name: "python",
+        icon: pythonIcon
+    },
+    {
+        name: "javascript",
+        icon: jsIcon
+    },
+    {
+        name: "typescript",
+        icon: tsIcon
+    },
+    {
+        name: "react",
+        icon: reactIcon
+    },
+    {
+        name: "nextjs",
+        icon: nextJsIcon
+    }, {
+        name: "trpc",
+        icon: trpcIcon
+    }, {
+        name: "graphql",
+        icon: graphqlIcon
+    }, {
+        name: "3",
+        icon: tailwindIcon
+    }
+]
 
 export default function TechStack() {
   const ref = useRef<HTMLElement>(null);

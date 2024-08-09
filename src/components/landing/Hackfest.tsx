@@ -26,7 +26,7 @@ function Hackfest() {
     }, { scope: ref });
 
     return (
-        <section className="w-full content-container grid grid-cols-2 justify-items-stretch gap-4 min-h-[80vh] rounded-3xl bg-gradient content-around border border-yellow-700" ref={ref}>
+        <section className="w-full content-container grid grid-cols-1 md:grid-cols-2 justify-items-center md:justify-items-stretch gap-4 min-h-[80vh] rounded-3xl bg-gradient content-around border border-yellow-700" ref={ref}>
             <Image width={400} height={400} alt='flc' src={sampleImage} />
             <div className='space-y-4'>
                 <h3 className='text-4xl font-semibold'>HackFest</h3>
