@@ -1,11 +1,13 @@
 import { useState } from "react";
+
 import { type RazorpayOrderResponse } from "~/pages/api/payment/create";
+
 import { api } from "~/utils/api";
 import { checkoutOptions } from "~/utils/razorPay";
 
 type PropType = {
   amount: number;
-  userId: string;
+  userId: number;
   name: string;
 };
 
@@ -57,7 +59,7 @@ export default function Payment({ amount, userId, name }: PropType) {
 
     // creating checkout Option
     const paymentObject = new window.Razorpay(
-      checkoutOptions(order, savePayment, name, userId) 
+      checkoutOptions(order, savePayment, name, userId),
     );
     paymentObject.open();
   }
@@ -65,7 +67,12 @@ export default function Payment({ amount, userId, name }: PropType) {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={displayRazorpay} className="p-2 rounded-md bg-white text-black">Pay now</button>
+        <button
+          onClick={displayRazorpay}
+          className="rounded-md bg-white p-2 text-black"
+        >
+          Pay now
+        </button>
       </header>
     </div>
   );

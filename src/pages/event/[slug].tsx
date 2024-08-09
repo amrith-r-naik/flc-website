@@ -27,7 +27,7 @@ const EventSlug = () => {
   }
 
   const { data: event } = api.event.getEventById.useQuery({
-    eventId: id,
+    eventId: parseInt(id),
   });
 
   if (!event) {

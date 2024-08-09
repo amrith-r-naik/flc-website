@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
-import { teamTabs } from "~/components/constants";
-import MemberCard from "~/components/teamPageComponents/memberCard";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useRef, useState } from "react";
+
+import MemberCard from "~/components/teamPageComponents/memberCard";
+import { teamTabs } from "~/constants";
 
 const Team = () => {
   const [toggleState, setToggleState] = useState(5); //Default year is 2024-25

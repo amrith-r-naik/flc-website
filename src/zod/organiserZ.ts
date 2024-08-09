@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 const addOrganiserZ = z.object({
-  userId: z.string(),
-  eventId: z.string(),
+  userId: z.number(),
+  eventId: z.number(),
 });
 
 const removeOrganiserZ = z.object({

@@ -6,7 +6,6 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-
 import { initTRPC, TRPCError } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { type Session } from "next-auth";
@@ -123,9 +122,9 @@ export const publicProcedure = t.procedure;
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user) {
+  if (!ctx.session || !ctx.session.user)
     throw new TRPCError({ code: "UNAUTHORIZED" });
-  }
+
   return next({
     ctx: {
       // infers the `session` as non-nullable
@@ -135,20 +134,18 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
 });
 
 export const adminProcedure = t.procedure.use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user) {
+  if (!ctx.session || !ctx.session.user)
     throw new TRPCError({ code: "UNAUTHORIZED" });
-  }
 
-  if (ctx.session.user.role !== "ADMIN") {
+  if (ctx.session.user.role !== "ADMIN")
     throw new TRPCError({
       code: "FORBIDDEN",
-      message: "You do not have sufficient privileges to access this resource.",
+      message: "Only admins can perform this action",
     });
-  }
 
   return next({
     ctx: {
-      // infers the `session` as non-nullable and ensures user is an admin
+      // infers the `session` as non-nullable and ensures `user` is an ADMIN
       session: { ...ctx.session, user: ctx.session.user },
     },
   });

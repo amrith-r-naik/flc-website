@@ -1,8 +1,8 @@
-import { Button } from "@radix-ui/themes";
-import { LogIn } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+
+import AuthButton from "~/components/navbar/authButton";
 
 import Logo from "../logo";
 import ThemeToggleSwitch from "../themeToggleSwitch/themeToggleSwitch";
@@ -49,18 +49,8 @@ const Navbar = () => {
         <div className="flex w-fit items-center ">
           <ThemeToggleSwitch />
 
-          <Button
-            asChild
-            className="ml-8 hidden rounded border border-border bg-white px-3 py-2 font-bold hover:bg-white/5 sm:flex"
-          >
-            <Link
-              href="/"
-              className="flex gap-3  text-sm font-light text-black no-underline"
-            >
-              <LogIn size={18} />
-              Login
-            </Link>
-          </Button>
+          <AuthButton />
+
           <NavBarMenu />
         </div>
       </div>

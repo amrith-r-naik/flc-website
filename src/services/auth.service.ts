@@ -1,24 +1,24 @@
-import { error } from "console";
+import * as cron from "node-cron";
+import { v4 as uuidv4 } from "uuid";
+
 import { db } from "~/server/db";
+
 import { compareHashedPassword, getUserByEmail } from "~/utils/auth/auth";
 import { hashToken } from "~/utils/auth/hashToken";
-import { LoginZ } from "~/zod/authZ";
-import { v4 as uuidv4 } from "uuid";
 import { generateTokens } from "~/utils/auth/jwt";
-import * as cron from "node-cron";
+import { LoginZ } from "~/zod/authZ";
 
 const addVerificationTokenToWhitelist = async ({
   userId,
 }: {
-  userId: string;
+  userId: number;
 }) => {
   try {
-    const token = await db.verificationToken.create({
+    return await db.verificationToken.create({
       data: {
         userId,
       },
     });
-    return token;
   } catch (error) {
     console.error(error);
     throw error;
@@ -28,7 +28,7 @@ const addVerificationTokenToWhitelist = async ({
 const addPasswordResetTokenToWhitelist = async ({
   userId,
 }: {
-  userId: string;
+  userId: number;
 }) => {
   try {
     const token = await db.verificationToken.create({
@@ -67,7 +67,7 @@ const addRefreshTokenToWhitelist = async ({
 }: {
   jti: string;
   refreshToken: string;
-  userId: string;
+  userId: number;
 }) => {
   try {
     return await db.refreshToken.create({
@@ -85,29 +85,22 @@ const addRefreshTokenToWhitelist = async ({
 
 const login = async (input: { email: string; password: string }) => {
   try {
-    const validateFields = LoginZ.safeParse(input);
-    if (!validateFields.success) {
-      console.error(validateFields.error);
-      throw validateFields.error;
-    }
-    const { email, password } = validateFields.data;
-    const existingUser = await getUserByEmail(email);
+    const existingUser = await getUserByEmail(input.email);
     if (!existingUser) {
       console.error("User not found");
-      throw error("User not found");
+      throw new Error("User not found");
     }
     const validPassword = await compareHashedPassword(
-      password,
+      input.password,
       existingUser.password,
     );
-
     if (!validPassword) {
       console.error("Invalid password");
-      throw error("Invalid password");
+      throw new Error("Invalid password");
     }
     if (!existingUser.emailVerified) {
       console.error("Email not verified");
-      throw error("Email not verified");
+      throw new Error("Email not verified");
     }
 
     const jti = uuidv4();

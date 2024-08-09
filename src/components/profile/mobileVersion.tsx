@@ -110,7 +110,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
           {/* Profile Photo holder */}
           <div className="profileImage absolute left-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-border drop-shadow-md  ">
             <Image
-              src={user.userProfile.image ?? "no-profile-picture-icon.jpg"}
+              src={user.image ?? "no-profile-picture-icon.jpg"}
               alt="Profile Image"
               fill
               className="rounded-full object-cover"
@@ -126,11 +126,9 @@ const MobileVersion = ({ className }: { className?: string }) => {
           <div className="mt-10 flex w-full flex-col gap-1 overflow-scroll px-4">
             {/* Name and Position Div */}
             <div className="flex w-full flex-col items-center">
-              <p className="text-2xl font-bold text-foreground">
-                {user?.userProfile.name}
-              </p>
+              <p className="text-2xl font-bold text-foreground">{user?.name}</p>
               <p className="text-sm text-primary contrast-[0.55]">
-                {user.userProfile.role} - {user.userProfile.position}
+                {user.role} - {user.position}
               </p>
             </div>
 
@@ -140,12 +138,12 @@ const MobileVersion = ({ className }: { className?: string }) => {
                 <p className="text-sm text-foreground/70">Phone</p>
                 <p className="text-foreground">
                   {/* TODO - handle no phone number case */}
-                  {user.userProfile.phone}
+                  {user.phone}
                 </p>
               </div>
               <div>
                 <p className="text-sm text-foreground/70">Email</p>
-                <p className="text-foreground">{user.userProfile.email}</p>
+                <p className="text-foreground">{user.email}</p>
               </div>
             </div>
 

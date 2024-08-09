@@ -3,7 +3,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { Toaster } from "sonner";
+
 import { getServerAuthSession } from "~/server/auth";
+
 import DesktopVersion from "~/components/profile/desktopVersion";
 import MobileVersion from "~/components/profile/mobileVersion";
 
@@ -27,10 +29,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 const Profile = () => {
   const { status } = useSession();
   const router = useRouter();
+
   useEffect(() => {
-    if (status !== "authenticated" && typeof window !== "undefined") {
+    if (status !== "authenticated" && typeof window !== "undefined")
       router.push("/");
-    }
   }, [status, router]);
 
   return (

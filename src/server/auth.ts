@@ -32,7 +32,7 @@ declare module "next-auth" {
   interface User {
     accessToken: string;
     refreshToken: string;
-    id?: string;
+    id?: number;
     name?: string | null;
     email?: string | null;
     image?: string | null;
@@ -42,7 +42,7 @@ declare module "next-auth" {
   interface AdapterUser {
     accessToken: string;
     refreshToken: string;
-    id?: string;
+    id?: number;
     name?: string | null;
     email?: string | null;
     image?: string | null;
@@ -51,7 +51,7 @@ declare module "next-auth" {
 
   interface Session extends DefaultSession {
     user: DefaultSession["user"] & {
-      id: string;
+      id: number;
       // ...other properties
       role: Role;
     };
@@ -85,13 +85,10 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, trigger, session }): Promise<any> {
       if (!token.sub) return token;
-
-      // console.log("TOKEN FROM CLIENT COOKIES", token.accessToken);
-
       if (user && trigger === "signIn") {
         token = {
           ...token,
-          sub: user.id,
+          sub: user.id as unknown as string,
           name: user.name,
           email: user.email,
           role: user.role,
@@ -100,32 +97,17 @@ export const authOptions: NextAuthOptions = {
           iat: Math.floor(Date.now() / 1000),
           exp: getRefreshTokenExpiry(user.refreshToken),
         };
-        // console.log("Token from user", token);
         return token;
       } else if (trigger === "update" && session) {
-        // console.log("SESSIONN", session);
-        // console.log("SESSION ACCESSTOKEN", session.accessToken);
         token = {
           ...token,
           accessToken: session.accessToken,
         };
-
         return token;
       } else if (isJwtExpired(String(token.accessToken))) {
-        // user signed in before and to check if the token is expired
-        // console.log("expired, refreshing token");
-        // console.log("Refresh tokennnnnn", token.refreshToken);
-
         const [newAccessToken, newRefreshToken] = await rotateTokens(
           String(token.refreshToken),
         );
-        // console.log(
-        //   "newAccessToken",
-        //   newAccessToken,
-        //   "newRefreshToken",
-        //   newRefreshToken,
-        // );
-        // console.log("old token", token);
         if (newAccessToken && newRefreshToken) {
           token = {
             ...token,
@@ -133,40 +115,22 @@ export const authOptions: NextAuthOptions = {
             refreshToken: newRefreshToken,
             exp: getRefreshTokenExpiry(newRefreshToken),
           };
-          // console.log("token.accessToken", token.accessToken);
-          // console.log("token.refreshToken", token.refreshToken);
-          // console.log("token.exp", token.exp);
-
-          // console.log("token-new-token-attached", token);
-          if (token.accessToken === newAccessToken) {
-            return token;
-          } else {
-            return null;
-          }
+          if (token.accessToken === newAccessToken) return token;
+          else return null;
         } else {
-          // console.log("unable to refresh token");
-
           return null;
         }
       }
-      // console.log("RETURNING TOKEN");
-      // console.log(token);
-
       return token;
     },
     async session({ session, token, trigger }) {
-      // console.log("Hi from session");
-
       if (token.sub && session.user) {
-        // console.log("TOKEN FROM CALLBACK EXISTS");
-        session.user.id = token.sub;
+        session.user.id = parseInt(token.sub); // HOPE this doesnt break
         session.user.name = token.name;
         session.user.email = token.email!;
         session.user.role = token.role;
         session.accessToken = token.accessToken;
       }
-
-      // console.log("Session", session);
       return session;
     },
   },
@@ -180,33 +144,24 @@ export const authOptions: NextAuthOptions = {
       credentials: {},
       async authorize(credentials: any, req: any): Promise<any> {
         const validateFields = LoginZ.safeParse(credentials);
-        if (!validateFields.success) {
-          // console.log("Invalid fields", validateFields.error);
-          return null;
-        }
-        if (validateFields.success) {
-          const { email, password } = validateFields.data;
-          const data = await login({ email, password });
-          if (!data) return null;
-          const { accessToken, refreshToken } = data;
-          const existingUser: User | null = await getUserByEmail(email);
-          if (!existingUser) return null;
-          const passwordMatch = await bcrypt.compare(
-            password,
-            existingUser.password,
-          );
-
-          if (!passwordMatch) return null;
-          const user = {
-            ...existingUser,
-            refreshToken: refreshToken,
-            accessToken: accessToken,
-          };
-          // console.log("User", user);
-
-          return user;
-        }
-        return null;
+        if (!validateFields.success) return null;
+        const { email, password } = validateFields.data;
+        const data = await login({ email, password });
+        if (!data) return null;
+        const { accessToken, refreshToken } = data;
+        const existingUser: User | null = await getUserByEmail(email);
+        if (!existingUser) return null;
+        const passwordMatch = await bcrypt.compare(
+          password,
+          existingUser.password,
+        );
+        if (!passwordMatch) return null;
+        const user = {
+          ...existingUser,
+          refreshToken: refreshToken,
+          accessToken: accessToken,
+        };
+        return user;
       },
     }),
 
