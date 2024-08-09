@@ -5,78 +5,56 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import {
-  Building,
-  DiamondIcon,
-  FilePlus,
-  Layers,
-  ShoppingCart,
-} from "lucide-react";
+import { DiamondIcon } from "lucide-react";
 import Link from "next/link";
+import SidebarMenu from "./SidebarMenu";
 
 const AdminSidebar = () => {
-  
   const [option, setOption] = useState("");
 
   return (
-
-    <div className="h-screen w-[20%]  px-4 py-6 space-y-3 bg-white text-black shadow-md">
-
-      <h1 className="font-extrabold text-lg tracking-wide text-muted">
+    <div className=" sticky top-20 hidden h-[89vh] w-[15%] space-y-3 bg-black px-4  text-white shadow-md sm:visible sm:block">
+      <h1 className="mt-4 text-lg font-extrabold tracking-wide text-muted text-white">
         Admin Dashboard
       </h1>
 
       <Accordion type="single" collapsible className="w-full space-y-1">
         <AccordionItem
           value="item-1"
-          className={`px-2 hover:bg-slate-100 rounded-lg ${
-            option == "Events"
-              ? "border-l-2 border-border rounded-l-none"
-              : ""
+          className={`w-full rounded-lg px-2 hover:bg-zinc-800 ${
+            option == "Events" ? "rounded-l-none border-l-2 border-border" : ""
           }`}
         >
-          <div className="flex items-center gap-2">
-            <ShoppingCart />
-
+          <div className="flex w-full items-center">
             <AccordionTrigger
               onClick={() => {
                 option === "Events" ? setOption("") : setOption("Events");
               }}
-              className="flex-1"
+              className="w-full"
             >
-              Events
+              <h1>Events</h1>
             </AccordionTrigger>
-
           </div>
           <AccordionContent className="space-y-3">
-            <div className="flex gap-2 items-center pl-4">
+            <div className="flex items-center gap-2 pl-4">
               <DiamondIcon size={"16px"} />
               <button>
-                <Link
-                  href="/admin/all-events"
-                  className="hover:underline"
-                >
+                <Link href="/admin/all-events" className="hover:underline">
                   All events
                 </Link>
               </button>
             </div>
 
-            <div className="flex gap-2 items-center pl-4">
+            <div className="flex items-center gap-2 pl-4">
               <DiamondIcon size={"16px"} />
               <button>
-                <Link
-                  href="/admin/create-event"
-                  className="hover:underline"
-                >
+                <Link href="/admin/create-event" className="hover:underline">
                   Create Event
                 </Link>
               </button>
             </div>
-
           </AccordionContent>
         </AccordionItem>
-
-         
       </Accordion>
     </div>
   );

@@ -34,12 +34,9 @@ function page() {
         eventId="cly4g5jlv000246ht681op1lc"
         type={uploadTypeEnum.eventPicture}
       />
-      
 
-      <div className="grid  grid-cols-1 mx-auto gap-10 md:grid-cols-2 max-w-7xl xl:grid-cols-3 px-5">
-          
-            <EventCard  data={{}} />
-     
+      <div className="mx-auto  grid max-w-7xl grid-cols-1 gap-10 px-5 md:grid-cols-2 xl:grid-cols-3">
+        <EventCard data={{}} />
       </div>
 
       <div className="mx-2 mt-8 flex flex-wrap justify-center gap-20 md:mx-8">

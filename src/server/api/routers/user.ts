@@ -48,15 +48,19 @@ export const userRouter = createTRPCRouter({
 
       return { status: "success", userProfile };
     }),
-    getUserEvents: protectedProcedure
+  getUserEvents: protectedProcedure
     .input(getUserEventsZ)
-    .query(async ({ctx, input})=>{
+    .query(async ({ ctx, input }) => {
       const user = await ctx.db.user.findUnique({
         where: { id: input.id },
         include: {
-          Team: true,
+          Team: {
+            include: {
+              Event: true,
+            },
+          },
         },
-      })
+      });
 
       if (!user) {
         throw new TRPCError({
@@ -64,8 +68,8 @@ export const userRouter = createTRPCRouter({
           message: "User not found",
         });
       }
-      const userEvents = user.Team.map((team)=>team.eventId)
-      console.log("userEvents : ",userEvents)
-      return userEvents
-    }  )
+      const userEvents = user.Team.map((team) => team.eventId);
+      console.log("userEvents : ", userEvents);
+      return userEvents;
+    }),
 });

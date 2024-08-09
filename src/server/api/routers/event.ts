@@ -10,6 +10,7 @@ import {
   createEventZ,
   deleteEventZ,
   getEventByIdZ,
+  getEventByStateZ,
   setEventStateZ,
   toggleEventLegacyZ,
   updateEventZ,
@@ -165,6 +166,27 @@ export const eventRouter = createTRPCRouter({
       },
     });
   }),
+  getAllEventsForAdminByState: adminProcedure
+    .input(getEventByStateZ)
+    .query(async ({ input, ctx }) => {
+      const { state } = input;
+      return ctx.db.event.findMany({
+        where: {
+          state: state,
+        },
+        include: {
+          _count: {
+            select: {
+              Team: true,
+            },
+          },
+        },
+
+        orderBy: {
+          fromDate: "desc",
+        },
+      });
+    }),
 
   getAllEventsForOrganiser: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.event.findMany({

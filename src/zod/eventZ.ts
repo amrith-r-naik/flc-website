@@ -20,7 +20,7 @@ const createEventZ = z.object({
 });
 
 const updateEventZ = z.object({
-  id: z.string(),  //changed this to avoid issues with "...input" at line 57 "routers/event.ts"
+  id: z.string(), //changed this to avoid issues with "...input" at line 57 "routers/event.ts"
   name: z.string().optional(),
   imgSrc: z.string().optional(),
   deadline: z.date().optional(),
@@ -52,6 +52,11 @@ const toggleEventLegacyZ = z.object({
 const getEventByIdZ = z.object({
   eventId: z.string(),
 });
+
+const getEventByStateZ = z.object({
+  state: z.nativeEnum(EventState),
+});
+
 export {
   updateEventZ,
   createEventZ,
@@ -59,4 +64,5 @@ export {
   setEventStateZ,
   toggleEventLegacyZ,
   getEventByIdZ,
+  getEventByStateZ,
 };
