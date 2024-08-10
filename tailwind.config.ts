@@ -1,4 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 import type { Config } from "tailwindcss"
+
+
+
+//colors for heroSection-bg
+interface ColorPalette {
+  [key: string]: string | ColorPalette;
+}
+interface AddVariablesForColorsParams {
+  addBase: (base: Record<string, unknown>) => void;
+  theme: (key: string) => ColorPalette;
+}
+type FlattenedColorPalette = Record<string, string>;
+const flattenColorPalette = (colors: ColorPalette | null | undefined): FlattenedColorPalette => {
+  if (!colors) return {};
+
+  return Object.assign(
+    {},
+    ...Object.entries(colors).flatMap(([color, values]) =>
+      typeof values === "object" && values !== null
+        ? Object.entries(flattenColorPalette(values)).map(([number, hex]) => ({
+            [color + (number === "DEFAULT" ? "" : `-${number}`)]: hex
+          }))
+        : [{ [`${color}`]: values }]
+    )
+  );
+};
+
+
+
 
 const config = {
   darkMode: "class",
@@ -7,7 +38,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -18,6 +49,7 @@ const config = {
       },
     },
     extend: {
+
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -67,14 +99,53 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
+        orbit: {
+          "0%": {
+            transform:
+              "rotate(0deg) translateY(calc(var(--radius) * 1px)) rotate(0deg)",
+          },
+          "100%": {
+            transform:
+              "rotate(360deg) translateY(calc(var(--radius) * 1px)) rotate(-360deg)",
+          },
+        },
+      },
+      backgroundImage: {
+        'glassy-gradient': 'linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(48, 25, 52, 0.8), rgba(20, 20, 20, 0.8))',
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        marquee: "marquee var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+        orbit: "orbit calc(var(--duration)*1s) linear infinite",
       },
+
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    //colors for heroSection-bg
+    function addVariablesForColors({ addBase, theme }: AddVariablesForColorsParams) {
+      const allColors = flattenColorPalette(theme("colors"));
+      const newVars = Object.fromEntries(
+        Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+      );
+    
+      addBase({
+        ":root": newVars,
+      });
+    }
+  ],
+
 } satisfies Config
 
 export default config
