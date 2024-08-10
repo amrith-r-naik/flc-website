@@ -1,9 +1,10 @@
-import { signOut, useSession } from "next-auth/react";
-import { getServerAuthSession } from "../server/auth";
 import type { GetServerSideProps } from "next";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { db } from "~/server/db";
+
 import { api } from "~/utils/api";
+
+import { getServerAuthSession } from "../server/auth";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);

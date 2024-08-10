@@ -25,9 +25,6 @@ export const eventRouter = createTRPCRouter({
         return await ctx.db.event.create({
           data: {
             ...input,
-            deadline: input.deadline ? new Date(input.deadline) : undefined,
-            fromDate: new Date(input.fromDate),
-            toDate: new Date(input.toDate),
           },
         });
       } catch (error) {

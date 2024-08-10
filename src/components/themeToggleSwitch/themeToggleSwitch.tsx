@@ -1,9 +1,11 @@
-import React from "react";
-import styles from "./themeToggleSwitch.module.css";
 import { useTheme } from "next-themes";
+import React from "react";
+
+import styles from "./themeToggleSwitch.module.css";
 
 const ThemeToggleSwitch = () => {
-  const { resolvedTheme, theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
+  // TODO(Omkar): Better toggle
   return (
     <input
       type="checkbox"

@@ -1,23 +1,44 @@
-import Footer from "~/components/footer/Footer";
-import Benifits from "~/components/landing/Benifits";
-import { FlagShip } from "~/components/landing/FlagShip";
-import Hero from "~/components/landing/Hero";
-import Projects from "~/components/landing/Projects";
-import ScrollLeftSection from "~/components/landing/ScrollLeftSection";
-import ScrollRightSection from "~/components/landing/ScrollRightSection";
+"use client";
+
+import { signOut } from "next-auth/react";
+
+import { api } from "~/utils/api";
 
 export default function Home() {
+  const sendVerificationEmail = api.auth.sendVerifyEmail.useMutation();
+  const resetPassword = api.auth.resetPassword.useMutation();
+  const verifyEmail = api.auth.verifyEmail.useMutation();
+
   return (
-    <main className="flex flex-col items-stretch gap-10">
-      <Hero />
-      <ScrollRightSection />
-      <FlagShip />
-      <div className="bg-gradient-to-b from-black via-indigo-950 to-blue-950">
-        <Projects />
-      </div>
-      <ScrollLeftSection />
-      <Benifits />
-      <Footer />
+    <main className="bg- flex h-screen w-full flex-col items-center justify-center gap-10">
+      <button
+        onClick={() => {
+          sendVerificationEmail.mutate({
+            email: "len@nmamit.in",
+          });
+        }}
+      >
+        send password reset emaik
+      </button>
+
+      <button
+        onClick={() => {
+          verifyEmail.mutate({
+            token:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbHhvcXMzbzMwMDAwMTN2aWt2NzJrN3M2IiwianRpIjoiY2x4b3FzOTI3MDAwMjEzdmlyNHQ2ZGFkdyIsImlhdCI6MTcxODk3NzQzOSwiZXhwIjoxNzE5MDYzODM5fQ.uPsK9Me38dAZVQJdj4-Kb9AtI6i49YcW45eTlQ6-4vE",
+          });
+        }}
+      >
+        reset password
+      </button>
+
+      <button
+        onClick={async () => {
+          await signOut();
+        }}
+      >
+        signout
+      </button>
     </main>
   );
 }

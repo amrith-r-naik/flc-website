@@ -1,11 +1,12 @@
-import React from "react";
-import Logo from "../logo";
 import Link from "next/link";
-import NavBarMenu from "./dropdownMenu";
-import { Button } from "@radix-ui/themes";
-import { LogIn } from "lucide-react";
 import { useRouter } from "next/router";
+import React from "react";
+
+import AuthButton from "~/components/navbar/authButton";
+
+import Logo from "../logo";
 import ThemeToggleSwitch from "../themeToggleSwitch/themeToggleSwitch";
+import NavBarMenu from "./dropdownMenu";
 
 const links = [
   { label: "Home", url: "/" },
@@ -49,18 +50,8 @@ const Navbar = () => {
         <div>
           <ThemeToggleSwitch />
         </div>
-        <Button
-          asChild
-          className="rounded border border-border bg-white  px-3 py-2 font-bold hover:bg-white/5"
-        >
-          <Link
-            href="/"
-            className="flex gap-3  text-sm font-light text-black no-underline"
-          >
-            <LogIn size={18} />
-            Login
-          </Link>
-        </Button>
+
+        <AuthButton />
 
         <NavBarMenu />
       </div>
