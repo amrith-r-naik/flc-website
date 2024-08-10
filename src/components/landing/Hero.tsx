@@ -11,8 +11,8 @@ function Hero() {
       <div className=" pointer-events-none absolute inset-0 z-20 h-full w-full space-y-4 bg-slate-900 [mask-image:radial-gradient(transparent,white)]" />
 
       <Boxes />
-      <h1 className="title relative z-20  text-white text-center ">NMAMIT<br/>FINITE LOOP CLUB</h1>
-      <p className="relative z-20 mt-4 text-center text-neutral-300 leading-relaxed">
+      <h1 className="title relative z-20 bg-gradient-to-r from-blue-500 via-white to-yellow-500 text-transparent bg-clip-text text-center ">NMAMIT<br/>FINITE LOOP CLUB</h1>
+      <p className="relative z-20 mt-4 text-center text-white-300 leading-relaxed">
         We are a Coding club of NMAMIT aiming at Realizing the idea and
         Inspiring the next!
         <br />
@@ -43,4 +43,3 @@ function Hero() {
 
 export default Hero;
 
-export default Hero;

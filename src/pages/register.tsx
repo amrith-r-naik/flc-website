@@ -141,7 +141,7 @@ function Register() {
               </div>
             </div>
 
-            <button className="mt-4 w-full rounded bg-yellow-300 p-2 font-bold text-gray-900 sm:mt-6">
+            <button className="mt-4 w-full rounded bg-gradient-to-br from-purple-900 via-yellow-500 to-indigo-900 p-2 font-bold text-gray-900 sm:mt-6">
               Register
             </button>
           </form>

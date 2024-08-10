@@ -1,4 +1,5 @@
-import Footer from "~/components/footer/Footer";
+
+import Footer from "~/components/Footer/Footer";
 import Benifits from "~/components/landing/Benifits";
 import { FlagShip } from "~/components/landing/FlagShip";
 import Hero from "~/components/landing/Hero";
