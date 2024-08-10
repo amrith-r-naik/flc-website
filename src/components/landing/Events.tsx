@@ -26,15 +26,15 @@ function Events() {
         });
     }, [])
     return (
-        <section className="w-full content-container min-h-[80vh] flex flex-col gap-4 items-center" ref={ref}>
-            <h3 className='text-4xl font-semibold text-center'>Events & WorkShop</h3>
+        <section className="w-full content-container min-h-[80vh] flex flex-col gap-4 items-center mt-36 mb-16 bg-gradient-to-r from-blue-900 to-black" ref={ref}>
+            <h1 className='text-4xl font-semibold text-center border border-yellow-700 rounded-r-full p-4'>Events & WorkShop</h1>
             <p>Enrich your skills and knowledge with tons of events and workshops</p>
-            <div className=' w-full h-full flex gap-4 flex-grow justify-between items-center'>
+            <div className="w-full h-full grid gap-4 grid-cols-1 md:grid-cols-3 iteam-center justify-between">
                 <Image width={400} height={400} alt='flc' src={sampleImage} className="event" />
                 <Image width={400} height={400} alt='flc' src={sampleImage} className="event" />
                 <Image width={400} height={400} alt='flc' src={sampleImage} className="event" />
             </div>
-            <Button className="mx-auto">
+            <Button className="mx-auto mb-6">
                 View All
             </Button>
         </section>
