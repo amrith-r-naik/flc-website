@@ -30,6 +30,7 @@ const TermsAndConditions = () => {
       lastUpdated="Oct 20th 2022"
       sections={sections}
     />
+    
   );
 };
 

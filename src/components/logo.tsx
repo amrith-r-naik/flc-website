@@ -1,12 +1,14 @@
-import Image from 'next/image'
-import React from 'react'
+import Image from 'next/image';
 
-const Logo = () => {
-    return (
-        <div className=' h-4 w-4 md:h-8 md:w-8 relative'>
-            <Image src='/unnamed.png' fill /* width={10} height={10} sizes="(max-width: 768px) 10px , 40px" */ alt='logo'></Image>
-        </div>
-    )
-}
+const Logo = () => (
+  <div className='relative h-12 w-12 md:h-12 md:w-12'>
+    <Image
+      src='/unnamed.png'
+      fill
+      alt='logo'
+      style={{ objectFit: 'contain' }} 
+    />
+  </div>
+);
 
-export default Logo
+export default Logo;

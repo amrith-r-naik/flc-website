@@ -1,4 +1,4 @@
-import { ArrowRight,Badge } from "lucide-react";
+import { ArrowRight, Badge } from "lucide-react";
 import Link from "next/link";
 
 import { Boxes } from "~/components/ui/background-boxes";
@@ -11,13 +11,17 @@ function Hero() {
       <div className=" pointer-events-none absolute inset-0 z-20 h-full w-full space-y-4 bg-slate-900 [mask-image:radial-gradient(transparent,white)]" />
 
       <Boxes />
-      <h1 className="title relative z-20 bg-gradient-to-r from-blue-500 via-white to-yellow-500 text-transparent bg-clip-text text-center ">NMAMIT<br/>FINITE LOOP CLUB</h1>
-      <p className="relative z-20 mt-4 text-center text-white-300 leading-relaxed">
+      <h1 className="title relative z-20 bg-gradient-to-r from-blue-700 via-white to-yellow-500 bg-clip-text text-center text-transparent ">
+        NMAMIT
+        <br />
+        FINITE LOOP CLUB
+      </h1>
+      <p className="text-white-300 relative z-20 mt-4 text-center leading-relaxed">
         We are a Coding club of NMAMIT aiming at Realizing the idea and
         Inspiring the next!
         <br />
       </p>
-      <div className="z-20 mt-4 gap-2 flex flex-row">
+      <div className="z-20 mt-4 flex flex-row gap-2">
         <Button>
           <Link
             href="/register"
@@ -42,4 +46,3 @@ function Hero() {
 }
 
 export default Hero;
-
