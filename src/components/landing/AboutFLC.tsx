@@ -5,8 +5,9 @@ import sampleImage from "~/assets/images/sample.jpg";
 function AboutFLC() {
   return (
     <section className="content-container   bg-gradient-to-b from-black via-blue-950 to-purple-950-950 ">
-      <div className="mb-12  border border-yellow-700 md:rounded-r-full  rounded-b-full p-4 ">
-        <h1 className="heading text-center  ">
+      <div className="mb-12  border border-yellow-700 md:rounded-md  rounded-b-full p-4 ">
+
+        <h1 className="heading text-center justify-center items-center  ">
           FINITELOOP: The Best Coding Club of NMAMIT
         </h1>
       </div>

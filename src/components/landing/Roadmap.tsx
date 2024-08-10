@@ -6,7 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { type FC, useRef } from "react";
 
-import sampleImage from "~/assets/images/sample.jpg";
+
+import BoxReveal from "../magicui/box-reveal";
 
 // Define the props interface for the Card component
 interface CardProps {
@@ -87,8 +88,12 @@ const Card: FC<CardProps> = ({ heading, image, description, link }) => {
         />
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black to-transparent"></div>
         <div className="relative z-20 flex flex-col items-start p-4 text-left text-white">
-          <h3 className="mb-2 text-lg font-semibold">{heading}</h3>
-          <p className="text-sm">{description}</p>
+          <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+            <h3 className="mb-2 text-lg font-semibold">{heading}</h3>
+          </BoxReveal>
+          <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+            <p className="text-sm">{description}</p>
+          </BoxReveal>
         </div>
       </div>
     </Link>

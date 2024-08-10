@@ -1,6 +1,5 @@
 
 "use client";
-
 import {
   IconBrightnessDown,
   IconBrightnessUp,
@@ -137,6 +136,7 @@ export const Lid = ({
   translate: MotionValue<number>;
   src?: string;
 }) => {
+
   return (
     <div className="relative [perspective:800px]">
       <div
@@ -184,6 +184,7 @@ export const Lid = ({
           </ul>
         </div>
       </motion.div>
+     
     </div>
   );
 };
