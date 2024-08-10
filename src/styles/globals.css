@@ -32,7 +32,8 @@
 
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
-    }
+    --font-rowdies: "Rowdies", sans-serif;
+  }
   .dark {
     --primary: 50 98% 64%;
     --primary-foreground: 0 0% 8%;
@@ -64,7 +65,6 @@
 
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
-
   }
 }
 
@@ -75,59 +75,6 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-
-
-
-@layer utilities {
-.text-balance {
-  text-wrap: balance;
-}
-
-  /* font sizes */
-  .title {
-    @apply text-4xl lg:text-6xl;
-    @apply font-bold;
-  }
-
-  .heading {
-    @apply text-3xl lg:text-3xl;
-    @apply font-bold capitalize;
-  }
-
-  .subheading {
-    @apply text-lg lg:text-[1.675rem] leading-9;
-    @apply font-semibold;
-    /* @apply font-bold; */
-  }
-
-  .body {
-    @apply text-base lg:text-lg;
-    @apply font-extralight;
-  }
-
-  .caption {
-    @apply text-xs md:text-sm lg:text-base;
-    @apply tracking-wider;
-  }
-
-  /* layout */
-  .content-container {
-    @apply max-w-screen-xl;
-    @apply h-full;
-    @apply mx-auto;
-    @apply p-4 py-6 md:p-12 md:py-12;
-  }
-
-  .bg-gradient {
-    background: rgb(36, 28, 0);
-    background: radial-gradient(circle at 100%, rgba(136, 112, 3, 0.6), rgba(0, 0, 0, 0) 45%);
-  }
-}
-
-body {
-  @apply bg-background text-foreground;
 }
 
 @layer utilities {
@@ -147,7 +94,7 @@ body {
   }
 
   .subheading {
-    @apply text-lg lg:text-[1.675rem] leading-9;
+    @apply text-lg leading-9 lg:text-[1.675rem];
     @apply font-semibold;
     /* @apply font-bold; */
   }
@@ -172,30 +119,88 @@ body {
 
   .bg-gradient {
     background: rgb(36, 28, 0);
-    background: radial-gradient(circle at 100%, rgba(136, 112, 3, 0.6), rgba(0, 0, 0, 0) 45%);
+    background: radial-gradient(
+      circle at 100%,
+      rgba(136, 112, 3, 0.6),
+      rgba(0, 0, 0, 0) 45%
+    );
   }
 }
 
+body {
+  @apply bg-background text-foreground;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* font sizes */
+  .title {
+    @apply text-5xl lg:text-7xl;
+    @apply font-bold;
+  }
+
+  .heading {
+    @apply text-3xl md:text-4xl;
+    @apply font-bold capitalize;
+  }
+
+  .subheading {
+    @apply text-lg leading-9 lg:text-[1.675rem];
+    @apply font-semibold;
+    /* @apply font-bold; */
+  }
+
+  .body {
+    @apply text-base lg:text-lg;
+    @apply font-extralight;
+    @apply bg-gradient-to-b from-blue-900 to-black
+  }
+
+  .caption {
+    @apply text-xs md:text-sm lg:text-base;
+    @apply tracking-wider;
+  }
+
+  /* layout */
+  .content-container {
+    @apply max-w-screen-xl;
+    @apply h-full;
+    @apply mx-auto;
+    @apply p-4 py-6 md:p-12 md:py-12;
+  }
+
+  .bg-gradient {
+    background: rgb(36, 28, 0);
+    background: radial-gradient(
+      circle at 100%,
+      rgba(136, 112, 3, 0.6),
+      rgba(0, 0, 0, 0) 45%
+    );
+  }
+}
 
 /* Scrollbar styles */
 ::-webkit-scrollbar {
-width: 8px;
+  width: 8px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-background: none;
+  background: none;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-background: #555;
-border-radius: 5px;
+  background: #555;
+  border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-background: #333;
+  background: #333;
 }
 
 /*********************************************/
@@ -204,13 +209,49 @@ canvas {
   width: 100vw;
   height: 100vh;
   position: fixed;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   z-index: -4;
-  filter:hue-rotate(90deg);;
+  filter: hue-rotate(90deg);
   opacity: 0.3;
 }
 
-.radialgradient{
-  background: radial-gradient(circle at 50% -210%,#fbe737, #f5e74e 50%, #0e0f1100 75%, #0e0f1100 75%);
+.radialgradient {
+  background: radial-gradient(
+    circle at 50% -210%,
+    #fbe737,
+    #f5e74e 50%,
+    #0e0f1100 75%,
+    #0e0f1100 75%
+  );
 }
+
+.scroll-section-outer {
+  overflow: hidden;
+}
+
+.scroll-section-inner {
+  height: 100vh;
+  width: 400vw;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.scroll-section {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.scroll-section h3 {
+  color: var(--primaryTextColor);
+  letter-spacing: var(--headlineMedium);
+  font-size: var(--headlineMedium);
+  text-transform: uppercase;
+}
+
+
