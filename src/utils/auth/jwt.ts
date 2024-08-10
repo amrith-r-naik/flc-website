@@ -1,12 +1,15 @@
 import { type RefreshToken, type VerificationToken } from "@prisma/client";
 import { error } from "console";
 import jwt from "jsonwebtoken";
-import { db } from "~/server/db";
-import { RefreshTokenZ } from "~/zod/authZ";
-import { hashToken } from "./hashToken";
-import { getUserById } from "./auth";
 import { v4 as uuidv4 } from "uuid";
+
+import { db } from "~/server/db";
+
 import { addRefreshTokenToWhitelist } from "~/services/auth.service";
+import { RefreshTokenZ } from "~/zod/authZ";
+
+import { getUserById } from "./auth";
+import { hashToken } from "./hashToken";
 
 const AUTH_SECRET = process.env.AUTH_SECRET!;
 
@@ -17,13 +20,13 @@ const secrets = {
   JWT_REFRESH_SECRET: AUTH_SECRET + "verify",
 };
 
-const generateAccessToken = (user: { id: string }) => {
+const generateAccessToken = (user: { id: number }) => {
   return jwt.sign({ userId: user.id }, secrets.JWT_ACCESS_SECRET, {
     expiresIn: "1d",
   });
 };
 
-export function generateRefreshToken(user: { id: string }, jti: string) {
+export function generateRefreshToken(user: { id: number }, jti: string) {
   return jwt.sign(
     {
       userId: user.id,
@@ -37,7 +40,7 @@ export function generateRefreshToken(user: { id: string }, jti: string) {
 }
 
 const generateVerificationToken = (
-  user: { id: string },
+  user: { id: number },
   jti: string,
 ): string => {
   return jwt.sign(
@@ -45,7 +48,6 @@ const generateVerificationToken = (
       userId: user.id,
       jti,
     },
-
     secrets.JWT_VERIFICATION_SECRET,
     {
       expiresIn: "1d",
@@ -54,7 +56,7 @@ const generateVerificationToken = (
 };
 
 const generatePasswordResetToken = (
-  user: { id: string },
+  user: { id: number },
   jti: string,
 ): string => {
   return jwt.sign(
@@ -140,7 +142,7 @@ const revokeRefreshToken = async (id: string) => {
   });
 };
 
-const generateTokens = (user: { id: string }, jti: string) => {
+const generateTokens = (user: { id: number }, jti: string) => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user, jti);
 
@@ -191,7 +193,7 @@ const refreshToken = async (token: string) => {
       throw error("Unauthorized");
     }
 
-    const user = await getUserById(payload.userId as string);
+    const user = await getUserById(payload.userId as number);
     if (!user) {
       console.error("Unauthorized");
       throw error("Unauthorized");

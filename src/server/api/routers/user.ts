@@ -1,13 +1,16 @@
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
-import { EditProfileZ, GetProfileIdZ } from "~/zod/userZ";
+
+import { somethingWentWrong } from "~/utils/error";
+import { editProfileZ } from "~/zod/userZ";
+
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
   editUser: protectedProcedure
-    .input(EditProfileZ)
+    .input(editProfileZ)
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.db.user.update({
-        where: { id: input.id },
+        where: { id: ctx.session.user.id },
         data: { ...input },
       });
 
@@ -21,11 +24,10 @@ export const userRouter = createTRPCRouter({
       return { status: "success", user };
     }),
 
-  getUser: publicProcedure
-    .input(GetProfileIdZ)
-    .query(async ({ ctx, input }) => {
-      const userProfile = await ctx.db.user.findUnique({
-        where: { id: input.id },
+  getUser: protectedProcedure.query(async ({ ctx }) => {
+    try {
+      const user = await ctx.db.user.findUnique({
+        where: { id: ctx.session.user.id },
         include: {
           Attendance: true,
           Certificate: true,
@@ -39,13 +41,37 @@ export const userRouter = createTRPCRouter({
         },
       });
 
-      if (!userProfile) {
+      if (!user)
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "User not found",
         });
-      }
 
-      return { status: "success", userProfile };
-    }),
+      return user;
+    } catch (e) {
+      console.log(e);
+      somethingWentWrong(e);
+    }
+  }),
+  getUserEvents: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.db.user.findUnique({
+      where: { id: ctx.session.user.id },
+      include: {
+        Team: {
+          include: {
+            Event: true,
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: "User not found",
+      });
+    }
+    const userEvents = user.Team.map((team) => team.Event);
+    return userEvents;
+  }),
 });

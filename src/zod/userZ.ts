@@ -1,17 +1,13 @@
 import { z } from "zod";
 
-const EditProfileZ = z.object({
-  id: z.string(),
+const editProfileZ = z.object({
+  id: z.number(),
   name: z.string().optional(),
   bio: z.string().optional(),
   phone: z.string().optional(),
   year: z.string().optional(),
   position: z.string().optional(),
-  profilePicture: z.string(),
+  image: z.string().optional(),
 });
 
-const GetProfileIdZ = z.object({
-  id: z.string(),
-});
-
-export { EditProfileZ, GetProfileIdZ };
+export { editProfileZ };

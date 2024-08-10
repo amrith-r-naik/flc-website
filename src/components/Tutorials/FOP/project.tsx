@@ -1,186 +1,206 @@
 import React from "react";
 import Snippet from "./snippet";
-import { start, card, cards, player, style1, style2, responsive, responsive2, final, semiFinal1Card } from "./constants";
+import {
+  start,
+  card,
+  cards,
+  player,
+  style1,
+  style2,
+  responsive,
+  responsive2,
+  final,
+  semiFinal1Card,
+} from "./constants";
 
 export default function Project() {
   return (
-    <div className="w-full bg-green-200 p-2 text-black ">
-      <br /> <br />
+    <div className="w-full bg-green-200 p-2 text-black">
+      <br />
+      <br />
       <h2 className="mb-3 flex justify-between">
-        <div>2. Project</div>{" "}
-        <div className="right-0 inline  w-fit text-sm">
-          {" "}
-          <div>time:30-40 mins</div>
-          {/* <div>data: 300mbs </div> */}
+        <div>2. Project</div>
+        <div className="right-0 inline w-fit text-sm">
+          <div>Time: 30-40 mins</div>
         </div>
       </h2>
+
       <div className="h-fit w-full bg-slate-200">
-        In this section we will be seting up Tools which will come in handy to
-        finish the Projects.
-        <div className="List text m-3 rounded-md bg-slate-300  p-3 ">
+        In this section, we will be setting up tools that will be essential for
+        completing the project.
+
+        <div className="List text m-3 rounded-md bg-slate-300 p-3">
           <div>
             <ul className="ml-3 list-disc">
-              <li>Page Skeleton -HTML</li>
+              <li>Page Skeleton - HTML</li>
               <li>Page Styling - CSS</li>
-              <li>Audio player logic - JS</li>
+              <li>Audio Player Logic - JavaScript</li>
             </ul>
           </div>
         </div>
-        {/* html */}
-        <div className="html text m-3 rounded-md bg-slate-300 p-3 ">
-          <div>1. Page skeleton</div>
+
+        {/* HTML Section */}
+        <div className="html text m-3 rounded-md bg-slate-300 p-3">
+          <div>1. Page Skeleton - HTML</div>
 
           <div className="flex-col gap-y-4 md:ml-12">
             <p>
-              Create an index.html page in new folder
-              <div className="Image"></div>
+              Start by creating a new folder for your project. Inside this
+              folder, create an `index.html` file. This file will serve as the
+              main structure of our webpage.
             </p>
 
             <div>
-              <p> write boilerplate html in the file</p>
-              <div className="inline">
-                <button className="ml-12 inline">copy</button> or{" "}
-                <div className="inline">shift+! and enter</div>{" "}
-              </div>
+              <p>
+                Open the `index.html` file and write the basic HTML boilerplate.
+                You can either write it manually or use a shortcut like
+                `shift+!` followed by `enter` to generate it quickly.
+              </p>
               <div className="m-auto sm:w-[100%] md:w-[80%]">
-                <Snippet code={start}></Snippet>
+                <Snippet code={start} />
               </div>
             </div>
 
             <p>
-              Open the file in browser - drag and drop the html file in ur
-              browser
-              <div className="Image"></div>
+              To view your page, open the `index.html` file in a browser by
+              dragging and dropping it into the browser window.
             </p>
             <br />
             <br />
 
             <p>
-              Writing content for our empty page
-              <div className="Image">
-                {" "}
-                <div className="m-auto sm:w-[100%] md:w-[80%]">
-                  <Snippet code={card}></Snippet>
-                </div>
-              </div>
-              <br />
-              Repeat the no of cards with your liking
+              Let&apos;s start adding content to the page by creating a card element
+              that will represent a music track. This card will contain
+              information such as the song title and an image.
             </p>
+
+            <div className="Image">
+              <div className="m-auto sm:w-[100%] md:w-[80%]">
+                <Snippet code={card} />
+              </div>
+            </div>
+
+            <p>
+              You can duplicate this card element to create multiple cards,
+              allowing you to represent multiple music tracks.
+            </p>
+
             <div className="m-auto sm:w-[100%] md:w-[80%]">
-              <Snippet code={cards}></Snippet>
+              <Snippet code={cards} />
             </div>
+
             <p>
-              Creating Player
-              <div className="Image">
-                <div className="m-auto sm:w-[100%] md:w-[80%]">
-                  <Snippet code={player}></Snippet>
-                </div>
-              </div>
+              Next, let&apos;s create an audio player that will play the selected
+              music track when a card is clicked.
             </p>
+
+            <div className="Image">
+              <div className="m-auto sm:w-[100%] md:w-[80%]">
+                <Snippet code={player} />
+              </div>
+            </div>
           </div>
         </div>
-        {/* css */}
-        <div className="css text m-3 rounded-md bg-slate-300 p-2 p-3 ">
-          <div>2.Styling</div>
+
+        {/* CSS Section */}
+        <div className="css text m-3 rounded-md bg-slate-300 p-3">
+          <div>2. Page Styling - CSS</div>
 
           <div className="md:ml-12">
-            Lets use{" "}
-            <b>
-              {" "}
-              {"<"}style{">"}
-              {"</"}style{">"}
-            </b>{" "}
-            tag to give some styling to our music player
             <p>
-              set width,height and background color to each music cards we write
-              the style tag inside the{" "}
-              <b>
-                {" "}
-                {"<"}head{">"}
-                {"</"}head{">"}
-              </b>{" "}
-              tag ends
-              <div className="m-auto sm:w-[100%] md:w-[80%]">
-                <Snippet code={style1}></Snippet>
-              </div>
+              To style our music player, we&apos;ll use a &lt;style&gt; tag within the
+              &lt;head&gt; section of the HTML file. We&apos;ll start by setting the
+              width, height, and background color for each music card.
             </p>
+
+            <div className="m-auto sm:w-[100%] md:w-[80%]">
+              <Snippet code={style1} />
+            </div>
+
             <p>
-              set a background image to the page, font colors, and card layot as
-              flex
-              <div className="m-auto sm:w-[100%] md:w-[80%]">
-                <Snippet code={style2}></Snippet>
-              </div>
+              Now, we&apos;ll add a background image to the page, set the font
+              colors, and arrange the cards using Flexbox for a clean layout.
             </p>
+
+            <div className="m-auto sm:w-[100%] md:w-[80%]">
+              <Snippet code={style2} />
+            </div>
+
             <p>
-              Make the page responsive, i.e suitable both for laptop screens and
-              mobile screens as well
-              <div className="m-auto sm:w-[100%] md:w-[80%]">
-                <Snippet code={responsive}></Snippet>
-              </div>
+              Finally, we&apos;ll ensure that the page is responsive, meaning it
+              looks good on both laptop screens and mobile devices. We&apos;ll do
+              this by writing media queries and adjusting the layout based on
+              the screen size.
             </p>
+
+            <div className="m-auto sm:w-[100%] md:w-[80%]">
+              <Snippet code={responsive} />
+            </div>
+
             <p>
-              Make the page responsive, i.e suitable both for laptop screens and
-              mobile screens as well
-              <div className="m-auto sm:w-[100%] md:w-[80%]">
-                <Snippet code={responsive2}></Snippet>
-              </div>
+              We&apos;ll make further adjustments to fully optimize the page&apos;s
+              responsiveness.
             </p>
+
+            <div className="m-auto sm:w-[100%] md:w-[80%]">
+              <Snippet code={responsive2} />
+            </div>
             <br />
           </div>
         </div>
-        {/* JS */}
-        <div className="css text m-3 rounded-md bg-slate-300 p-2 p-3 ">
+
+        {/* JavaScript Section */}
+        <div className="js text m-3 rounded-md bg-slate-300 p-3">
           <div>
-            3.Logic with javascript{" "}
+            3. Adding Logic with JavaScript
             <p>
-              thers always more than 1 way to build any feature, hovever lets go
-              with logic of changing the source of audio on clicking respective
-              cards to play prefered music
+              There are multiple ways to implement features, but we&apos;ll go with
+              a simple approach where clicking on a music card changes the
+              audio source, allowing the player to play the selected track.
             </p>
           </div>
 
           <div className="md:ml-12">
-            Lets use{" "}
-            <b>
-              {" "}
-              {"<"}script {">"}
-              {"</"}script{">"}
-            </b>{" "}
-            tag to establish our logic
-            <p>lets listen to clicking on our cards</p>
             <p>
-              using id,col to identify tags
-              <div className="m-auto sm:w-[100%] md:w-[80%]">
-                <Snippet code={semiFinal1Card}></Snippet>
-              </div>
+              We&apos;ll use the &lt; script &gt;tag to add our JavaScript logic. The
+              first step is to listen for click events on the music cards.
             </p>
+
             <p>
-              accesing and manipulating html element&apos;s property and
-              behaviour
-              <div className="m-auto sm:w-[100%] md:w-[80%]">
-                <Snippet code={final}></Snippet>
-              </div>
+              We&apos;ll use IDs and class names to identify and manipulate the
+              necessary HTML elements.
             </p>
+
+            <div className="m-auto sm:w-[100%] md:w-[80%]">
+              <Snippet code={semiFinal1Card} />
+            </div>
+
+            <p>
+              Finally, we&apos;ll write the logic to change the audio source when a
+              card is clicked, allowing users to play different tracks by
+              selecting different cards.
+            </p>
+
+            <div className="m-auto sm:w-[100%] md:w-[80%]">
+              <Snippet code={final} />
+            </div>
             <br />
           </div>
         </div>
-        <div className="Note p-3">
-          <div className="text-red-800  ">Note</div>
 
-          <div className="text ml-3 rounded-md bg-slate-300 p-2 ">
-            1. When it comes to styling it is possible to write styling in
-            external file and import in our html page, lookup{" "}
-            <i> external css</i> <br />
-            2. Same is true with JS
+        <div className="Note p-3">
+          <div className="text-red-800">Note</div>
+
+          <div className="text ml-3 rounded-md bg-slate-300 p-2">
+            1. For styling, it&apos;s possible to write CSS in an external file and
+            link it to your HTML page. This method is called external CSS.
             <br />
-            {/* 3. after installation put the installation-path in{" "} */}
-            {/* <div className="m-3 text-center text-sm">
-              Will come in handy if u want to practice C/C++, Java Or Python in
-              future :){" "}
-            </div> */}
+            2. The same concept applies to JavaScript, where you can write
+            scripts in an external JS file and link it to your HTML page.
           </div>
         </div>
       </div>
-    </div>
+       </div>
+    // </div>
   );
 }

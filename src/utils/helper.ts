@@ -1,8 +1,9 @@
 import type { Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
+
 import { db } from "~/server/db";
 
-export async function findEventIfExistById(eventId: string) {
+export async function findEventIfExistById(eventId: number) {
   const existingEvent = await db.event.findUnique({
     where: { id: eventId },
   });
@@ -17,8 +18,8 @@ export async function findEventIfExistById(eventId: string) {
   return existingEvent;
 }
 export const checkOrganiser = async (
-  userId: string,
-  eventId: string,
+  userId: number,
+  eventId: number,
   role: Role,
 ) => {
   const organiser = await db.organiser.findFirst({

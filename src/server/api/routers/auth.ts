@@ -1,3 +1,28 @@
+import { TRPCError } from "@trpc/server";
+import jwt, {
+  JsonWebTokenError,
+  NotBeforeError,
+  TokenExpiredError,
+} from "jsonwebtoken";
+
+import { env } from "~/env";
+import {
+  addPasswordResetTokenToWhitelist,
+  addVerificationTokenToWhitelist,
+  revokeVerificationToken,
+} from "~/services/auth.service";
+import { getUserByEmail, getUserById, hashPassword } from "~/utils/auth/auth";
+import {
+  findVerificationTokenById,
+  generatePasswordResetToken,
+  generateVerificationToken,
+  secrets,
+} from "~/utils/auth/jwt";
+import { somethingWentWrong } from "~/utils/error";
+import {
+  sendPasswordResetEmail,
+  sendVerificationEmail,
+} from "~/utils/nodemailer/nodemailer";
 import {
   RegisterZ,
   ResetPasswordZ,
@@ -5,56 +30,33 @@ import {
   SendVerifyEmailZ,
   VerifyEmailZ,
 } from "~/zod/authZ";
+
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
-import { TRPCError } from "@trpc/server";
-import jwt, {
-  JsonWebTokenError,
-  NotBeforeError,
-  TokenExpiredError,
-} from "jsonwebtoken";
-import { getUserByEmail, getUserById, hashPassword } from "~/utils/auth/auth";
-import {
-  addPasswordResetTokenToWhitelist,
-  addVerificationTokenToWhitelist,
-  revokeVerificationToken,
-} from "~/services/auth.service";
-import {
-  findVerificationTokenById,
-  generatePasswordResetToken,
-  generateVerificationToken,
-  secrets,
-} from "~/utils/auth/jwt";
-import {
-  sendPasswordResetEmail,
-  sendVerificationEmail,
-} from "~/utils/nodemailer/nodemailer";
 
 export const authRouter = createTRPCRouter({
   signUp: publicProcedure.input(RegisterZ).mutation(async ({ ctx, input }) => {
-    if (ctx.session?.user ?? ctx.session) {
+    if (ctx.session?.user ?? ctx.session)
       throw new TRPCError({
         code: "BAD_REQUEST",
         message: "You are already logged in",
       });
-    }
+
     const { name, email, password, phone, year, branchId } = input;
 
     try {
       const existingUser = await getUserByEmail(email);
 
-      if (existingUser && !existingUser.emailVerified) {
+      if (existingUser && !existingUser.emailVerified)
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: "Please verify your email and Login",
         });
-      }
 
-      if (existingUser) {
+      if (existingUser)
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: "Account already exists",
         });
-      }
 
       //TODO: Implement year typechecks
 
@@ -72,7 +74,7 @@ export const authRouter = createTRPCRouter({
           email,
           password: hashedPassword!,
           phone: phone,
-          year, //Yet to be resolved
+          year, // TODO(Omkar) Yet to be resolved
           Branch: {
             connect: {
               id: branchId,
@@ -81,45 +83,31 @@ export const authRouter = createTRPCRouter({
         },
       });
 
-      if (!user) {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Something went wrong",
-        });
-      }
-
       return user;
     } catch (error) {
       console.error(error);
-
-      if (error instanceof TRPCError) {
-        throw error;
-      }
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Something went wrong",
-      });
+      somethingWentWrong(error);
     }
   }),
 
   sendVerifyEmail: publicProcedure
     .input(SendVerifyEmailZ)
     .mutation(async ({ input }) => {
-      const { email } = input;
       try {
-        const existingUser = await getUserByEmail(email);
-        if (!existingUser) {
+        const existingUser = await getUserByEmail(input.email);
+
+        if (!existingUser)
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "User not found",
           });
-        }
-        if (existingUser.emailVerified) {
+
+        if (existingUser.emailVerified)
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "User already verified",
           });
-        }
+
         const { id: token } = await addVerificationTokenToWhitelist({
           userId: existingUser.id,
         });
@@ -128,43 +116,34 @@ export const authRouter = createTRPCRouter({
           existingUser,
           token,
         );
-        const url = `${process.env.AUTH_URL}/auth/verify-email?token=${verificationToken}`;
+
+        const url = `${env.NEXTAUTH_URL}/auth/verify-email?token=${verificationToken}`;
 
         await sendVerificationEmail(existingUser.email, url, existingUser.name);
-
-        return {
-          success: "Email sent",
-        };
-      } catch (error) {
-        console.error(error);
-        if (error instanceof TRPCError) {
-          throw error;
-        }
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Something went wrong",
-        });
+      } catch (e) {
+        console.error(e);
+        somethingWentWrong(e);
       }
     }),
+
   verifyEmail: publicProcedure
     .input(VerifyEmailZ)
     .mutation(async ({ ctx, input }) => {
-      const { token } = input;
-
       try {
         const payload = jwt.verify(
-          token,
+          input.token,
           secrets.JWT_VERIFICATION_SECRET,
         ) as jwt.JwtPayload;
 
         const savedToken = await findVerificationTokenById(payload.jti!);
+
         if (!savedToken || savedToken.revoked == true) {
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "Invalid token",
           });
         }
-        const user = await getUserById(payload.userId! as string);
+        const user = await getUserById(payload.userId as number);
         if (!user) {
           throw new TRPCError({
             code: "BAD_REQUEST",
@@ -203,18 +182,19 @@ export const authRouter = createTRPCRouter({
       const { email } = input;
       try {
         const existingUser = await getUserByEmail(email);
-        if (!existingUser) {
+
+        if (!existingUser)
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "User not found",
           });
-        }
-        if (!existingUser.emailVerified) {
+
+        if (!existingUser.emailVerified)
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "User not verified",
           });
-        }
+
         const { id: token } = await addPasswordResetTokenToWhitelist({
           userId: existingUser.id,
         });
@@ -223,26 +203,17 @@ export const authRouter = createTRPCRouter({
           existingUser,
           token,
         );
-        const url = `${process.env.AUTH_URL}/auth/new-password?token=${passwordResetToken}`;
+
+        const url = `${env.NEXTAUTH_URL}/auth/new-password?token=${passwordResetToken}`;
 
         await sendPasswordResetEmail(
           existingUser.email,
           url,
           existingUser.name,
         );
-
-        return {
-          success: "Email sent",
-        };
-      } catch (error) {
-        console.error(error);
-        if (error instanceof TRPCError) {
-          throw error;
-        }
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Something went wrong",
-        });
+      } catch (e) {
+        console.error(e);
+        somethingWentWrong(e);
       }
     }),
 
@@ -264,7 +235,7 @@ export const authRouter = createTRPCRouter({
             message: "Invalid token",
           });
         }
-        const user = await getUserById(payload.userId! as string);
+        const user = await getUserById(payload.userId as number);
         if (!user) {
           throw new TRPCError({
             code: "BAD_REQUEST",

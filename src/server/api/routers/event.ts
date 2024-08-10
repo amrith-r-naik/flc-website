@@ -1,11 +1,6 @@
 import { TRPCError } from "@trpc/server";
-import {
-  adminProcedure,
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "../trpc";
 
+import { findEventIfExistById } from "~/utils/helper";
 import {
   createEventZ,
   deleteEventZ,
@@ -14,21 +9,24 @@ import {
   toggleEventLegacyZ,
   updateEventZ,
 } from "~/zod/eventZ";
-import { findEventIfExistById } from "~/utils/helper";
+
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../trpc";
 
 export const eventRouter = createTRPCRouter({
   createEvent: adminProcedure
     .input(createEventZ)
     .mutation(async ({ ctx, input }) => {
       try {
-        const data = {
-          ...input,
-          deadline: input.deadline ? new Date(input.deadline) : undefined,
-          fromDate: new Date(input.fromDate),
-          toDate: new Date(input.toDate),
-        };
-
-        return await ctx.db.event.create({ data });
+        return await ctx.db.event.create({
+          data: {
+            ...input,
+          },
+        });
       } catch (error) {
         console.error("Create Event Error:", error);
         throw new TRPCError({
@@ -187,11 +185,16 @@ export const eventRouter = createTRPCRouter({
       const event = await ctx.db.event.findUnique({
         where: { id: input.eventId },
       });
+
+      console.log("HELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLO", event);
+
       if (!event) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "Event not found",
         });
       }
+
+      return event;
     }),
 });

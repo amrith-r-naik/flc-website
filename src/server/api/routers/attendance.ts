@@ -1,6 +1,9 @@
-import { toggleTeamAttendanceZ, toggleAttendanceZ } from "~/zod/attendanceZ";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { TRPCError } from "@trpc/server";
+
 import { checkOrganiser } from "~/utils/helper";
+import { toggleTeamAttendanceZ, toggleAttendanceZ } from "~/zod/attendanceZ";
+
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const attendanceRouter = createTRPCRouter({
   toggleAttendance: protectedProcedure
@@ -91,4 +94,26 @@ export const attendanceRouter = createTRPCRouter({
         },
       });
     }),
+
+  getAttendanceByUserId: protectedProcedure.query(async ({ ctx }) => {
+    const totalEvents = await ctx.db.event.count();
+    const user = await ctx.db.user.findUnique({
+      where: {
+        id: ctx.session.user.id,
+      },
+      include: {
+        Attendance: true,
+      },
+    });
+    if (!user) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Couldn't find user",
+      });
+    }
+    const attendedEvents = user.Attendance.filter((event) => {
+      return event.hasAttended;
+    });
+    return (attendedEvents.length / totalEvents) * 100;
+  }),
 });

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const createActivityForEventZ = z.object({
-  eventId: z.string(),
+  eventId: z.number(),
   name: z.string(),
   point: z.number(),
 });
@@ -12,12 +12,12 @@ const deleteActivityZ = z.object({
 
 const addActivityPointsZ = z.object({
   activityId: z.string(),
-  users: z.array(z.string()), //UserId Array
+  users: z.array(z.number()), //UserId Array
 });
 
 const removeActivityPointsZ = z.object({
   activityId: z.string(),
-  users: z.array(z.string()), //UserId Array
+  users: z.array(z.number()), //UserId Array
 });
 
 export {

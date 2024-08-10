@@ -1,33 +1,61 @@
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
+
+
+
 import { api } from "~/utils/api";
+import { type createEventZ } from "~/zod/eventZ";
+
+
+
 import { modules, devices } from "./constants";
-import Head from "next/head";
+
+
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
 });
 
-export default function Editor({ eventId }: { eventId?: string }) {
+export default function Editor({
+  eventId,
+  id,
+  value,
+  FUNC,
+}: {
+  eventId?: number;
+  id?: string;
+  value?: string;
+  FUNC?: (
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | React.FormEvent<HTMLButtonElement>,
+  ) => void;
+}) {
   const [text, setText] = useState("");
   const [displayWidth, setDisplayWidth] = useState(0);
   const [displayHeight, setDisplayHeight] = useState(0);
   const [preview, setPreview] = useState(false);
 
-  const addEventDescription = api.event.updateEvent.useMutation();
-
-  const onChange = (text: string) => {
-    setText(text);
-    console.log(text);
-  };
+    const onChange = (text: string) => {
+      setText(text);
+      if (FUNC) {
+        const event = {
+          target: {
+            id,
+            value: text,
+            type: "text",
+          },
+        } as React.ChangeEvent<HTMLInputElement>;
+        FUNC(event);
+      }
+      console.log(text);
+    };
 
   // storing content in db
   const onConfirmEdit = async () => {
     try {
-      await addEventDescription.mutateAsync({
-        id: eventId ?? "cly4g5jlv000246ht681op1lc",
-        description: text,
-      });
+
       console.log("Event description updated successfully!");
       alert(
         `Event description updated successfully! \n id :${eventId ?? "cly358cjt0000whuimrz5so25"}`,
@@ -84,6 +112,7 @@ export default function Editor({ eventId }: { eventId?: string }) {
           theme="snow"
           placeholder="Type here"
           value={text}
+          id={id}
           onChange={onChange}
           modules={modules}
           className="m-3 m-auto bg-white text-black sm:m-auto sm:mx-3 sm:w-[90%] md:m-auto md:w-1/2 md:w-[90%] md:w-full lg:w-1/2"
@@ -99,15 +128,14 @@ export default function Editor({ eventId }: { eventId?: string }) {
               className="m-2 bg-slate-600"
             />
           </form>
-          
-            <button
-              onClick={onConfirmEdit}
-              className="m-3 mr-0 flex-1 content-center rounded-md bg-slate-700 p-3 text-white"
-            >
-              Confirm Edit
-            </button>
-          </div>
-        
+
+          {/* <button
+            onClick={onConfirmEdit}
+            className="m-3 mr-0 flex-1 content-center rounded-md bg-slate-700 p-3 text-white"
+          >
+            Confirm Edit
+          </button> */}
+        </div>
       </div>
 
       {/* Choose device for preview */}
