@@ -1,25 +1,50 @@
 import Image from "next/image";
 
-import sampleImage from "~/assets/images/sample.jpg"
+import sampleImage from "~/assets/images/sample.jpg";
 
 function AboutFLC() {
-    return (
-        <section className="w-full content-container min-h-[80vh] mt-80">
-            <h3 className='subheading text-center mb-12'>FINITELOOP The best Coding Club of NMAMIT</h3>
-            <div className=' w-full h-full grid grid-cols-1 md:grid-cols-2 flex-grow items-center justify-items-end'>
-                <div className="space-y-4">
-                    <p className='max-w-lg'>Finite Loop is a Coding Club, which aims to give a good perspective of development, and encourages students to realize their ideas. We encourage students to participate in competitive programming and thus, inspire the next.</p>
-                    <ul className="space-y-2 text-gray-500">
-                        <li><span>We stay curious, and seek out new solutions.</span></li>
-                        <li><span>We work relentlessly to produce fruitful results.</span></li>
-                        <li><span>We support each other to grow, with a positive spirit, and embrace our diversities.</span></li>
-                    </ul>
-                </div>
+  return (
+    <section className="content-container   bg-gradient-to-b from-black via-blue-950 to-purple-950-950 ">
+      <div className="mb-12  border border-yellow-700 md:rounded-r-full  rounded-b-full p-4 ">
+        <h1 className="heading text-center  ">
+          FINITELOOP: The Best Coding Club of NMAMIT
+        </h1>
+      </div>
 
-                <Image width={400} height={400} alt='flc' src={sampleImage} />
-            </div>
-        </section>
-    )
+      <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2   ">
+        <div className="space-y-6">
+          <p className="max-w-lg text-gray-200">
+            Finite Loop is a Coding Club that aims to provide a comprehensive
+            perspective on development and encourages students to realize their
+            ideas. We promote participation in competitive programming and
+            strive to inspire the next generation.
+          </p>
+
+          <ul className="list-disc space-y-3 pl-5 text-gray-300">
+            <li>We stay curious and seek out new solutions.</li>
+            <li>We work relentlessly to produce fruitful results.</li>
+            <li>
+              We support each other to grow with a positive spirit and embrace
+              our diversities.
+            </li>
+          </ul>
+        </div>
+
+        <div className="flex items-center justify-center">
+          <Image
+            width={400}
+            height={400}
+            alt="Finite Loop Club"
+            src={sampleImage}
+            className="md:rounded-r-full rounded-b-full shadow-lg"
+          />
+        </div>
+      </div>
+    </section>
+   
+
+  );
 }
 
-export default AboutFLC
+export default AboutFLC;
+
