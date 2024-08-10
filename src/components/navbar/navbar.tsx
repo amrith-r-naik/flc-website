@@ -10,6 +10,7 @@ import ThemeToggleSwitch from "../themeToggleSwitch/themeToggleSwitch";
 const links = [
   { label: "Home", url: "/" },
   { label: "Events", url: "/events" },
+  { label: "Calender", url: "/calender" },
   { label: "Team", url: "/team" },
 ];
 
@@ -19,7 +20,7 @@ const Navbar = () => {
   const activePath = links.find((link) => link.url === router.pathname);
 
   return (
-    <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-primary-foreground/5  bg-clip-padding px-[8%] py-3 backdrop-blur-lg backdrop-filter sm:px-[12%] sm:py-5 ">
+    <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-gradient-to-r from-blue-950 via-indigo-950 to-yellow-600 px-[8%] py-3  sm:px-[12%] sm:py-5 ">
       <Link href="/" className="flex items-center">
         <Logo />
         <p className="ml-3 text-sm font-bold text-white md:text-lg">
