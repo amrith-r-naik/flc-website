@@ -20,22 +20,23 @@ import { Input } from "~/components/ui/input";
 import { Password } from "~/components/ui/password";
 
 import { cn } from "~/lib/utils";
-import { loginFormZ } from "~/zod/formSchemaZ";
+import { RegisterFormZ } from "~/zod/formSchemaZ";
 
 interface Props {
-  className?: string;
-}
+    className?: string;
+  }
+  
+const Resetpassword: FunctionComponent<Props> = ({ className }) => {
+const router = useRouter();
 
-const LoginForm: FunctionComponent<Props> = ({ className }) => {
-  const router = useRouter();
-
-  const formSchema = loginFormZ;
+  const formSchema = RegisterFormZ;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
+      confirmPassword:"",
     },
   });
 
@@ -57,7 +58,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
       });
   };
 
-  return (
+return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
@@ -89,20 +90,19 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
             </FormItem>
           )}
         />
-        <div className="!mt-2 flex justify-between text-sm">
-          <Link
-            href="/send-reset-email"
-            className="text-muted-foreground underline"
-          >
-            Forgot password
-          </Link>
-          <Link
-            href="/send-verify-email"
-            className="text-muted-foreground underline"
-          >
-            Verify email
-          </Link>
-        </div>
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Password placeholder="Confirm Password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="flex justify-center">
           <Button className="" type="submit">
             Submit
@@ -113,4 +113,5 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
   );
 };
 
-export default LoginForm;
+export default Resetpassword;
+
