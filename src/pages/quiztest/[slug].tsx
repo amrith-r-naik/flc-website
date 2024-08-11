@@ -1,5 +1,10 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
+
+import { Button } from "~/components/ui/button";
+
+import QuizSubmissionAlertDialog from "~/components/quiz/QuizResultsDialog";
 import { api } from "~/utils/api";
 
 interface Option {
@@ -10,7 +15,7 @@ interface Option {
 interface Question {
   id: string;
   text: string;
-  type?: string; 
+  type?: string;
   options?: Option[];
   correctOptionId: string;
   score: number;
@@ -25,7 +30,8 @@ const QuizTest = () => {
   const [timer, setTimer] = useState<number>(0);
   const [timerRunning, setTimerRunning] = useState<boolean>(false);
   const [isTimerWarning, setIsTimerWarning] = useState<boolean>(false);
-
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [quizDone, setQuizDone] = useState<boolean>(false);
   const quizId = Array.isArray(router.query.slug)
     ? router.query.slug[0]
     : router.query.slug;
@@ -34,7 +40,11 @@ const QuizTest = () => {
     return <div>Error loading quiz.</div>;
   }
 
-  const { data: quiz, isLoading, isError } = api.quiz.getQuizById.useQuery({
+  const {
+    data: quiz,
+    isLoading,
+    isError,
+  } = api.quiz.getQuizById.useQuery({
     quizId: quizId,
   });
 
@@ -52,7 +62,7 @@ const QuizTest = () => {
         setTimer((prev) => {
           if (prev <= 1) {
             clearInterval(interval);
-            handleSubmit();
+            handleTimerSubmit();
             return 0;
           }
           if (prev <= 60 && !isTimerWarning) {
@@ -63,7 +73,7 @@ const QuizTest = () => {
       }, 1000);
       return () => clearInterval(interval);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timerRunning, timer]);
 
   if (isLoading) return <div>Loading...</div>;
@@ -112,7 +122,7 @@ const QuizTest = () => {
     setSavedAnswers((prev) => new Set(prev).add(currentQuestionIndex));
   };
 
-  const handleSubmit = () => {
+  const handleDialogSubmit = () => {
     const result = questions.map((question, index) => {
       return {
         questionIndex: index,
@@ -123,8 +133,39 @@ const QuizTest = () => {
       };
     });
 
+    if (result) {
+      setQuizDone(true);
+    }
     console.log("Quiz Results:", JSON.stringify(result));
-      void router.push(`/quizresult/${quizId}`)
+  };
+  const handleTimerSubmit = () => {
+    const result = questions.map((question, index) => {
+      return {
+        questionIndex: index,
+        questionText: question.text,
+        answer: answers[index] ?? "No answer provided",
+        correctAnswer: question.correctOptionId,
+        type: question.type ?? "unknown",
+      };
+    });
+
+    if (result) {
+      setQuizDone(true);
+    }
+
+    console.log("Quiz Results:", JSON.stringify(result));
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleSubmit = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleDoneClick = () => {
+    void router.push("/");
   };
 
   const formatTime = (seconds: number) => {
@@ -136,115 +177,163 @@ const QuizTest = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-100 lg:flex-row">
-      <div className="flex-1 bg-white p-4 text-black shadow-md lg:p-8">
-        <div className="mb-4 flex items-center justify-between border border-black p-4">
-          <h1 className="text-xl font-semibold underline">#{quiz.title}</h1>
-          <div
-            className={`text-lg font-semibold ${
-              isTimerWarning ? "animate-pulse text-red-500" : "text-green-500"
-            }`}
-          >
-            Time Left: {formatTime(timer)}
-          </div>
-        </div>
+    <>
+      {!quizDone ? (
+        <div className="flex min-h-screen flex-col bg-gray-100 lg:flex-row">
+          <div className="flex-1 bg-white p-4 text-black shadow-md lg:p-8">
+            <div className="mb-4 flex items-center justify-between border border-black p-4">
+              <h1 className="text-xl font-semibold underline">#{quiz.title}</h1>
+              <div
+                className={`text-lg font-semibold ${
+                  isTimerWarning
+                    ? "animate-pulse text-red-500"
+                    : "text-green-500"
+                }`}
+              >
+                Time Left: {formatTime(timer)}
+              </div>
+            </div>
 
-        <div>
-          <h2 className="mb-4 text-lg font-bold">
-            Question {currentQuestionIndex + 1}: {currentQuestion?.text}
-          </h2>
-          {currentQuestion?.options && (
-            <div className="space-y-2">
-              {currentQuestion.options.map((option) => (
-                <label
-                  key={option.id}
-                  className={`block cursor-pointer rounded-md border border-gray-300 p-2 ${
-                    answers[currentQuestionIndex] === option.text
-                      ? "bg-blue-200"
-                      : ""
-                  } hover:bg-gray-200`}
+            <div>
+              <h2 className="mb-4 text-lg font-bold">
+                Question {currentQuestionIndex + 1}: {currentQuestion?.text}
+              </h2>
+              {currentQuestion?.options && (
+                <div className="space-y-2">
+                  {currentQuestion.options.map((option) => (
+                    <label
+                      key={option.id}
+                      className={`block cursor-pointer rounded-md border border-gray-300 p-2 ${
+                        answers[currentQuestionIndex] === option.text
+                          ? "bg-blue-200"
+                          : ""
+                      } hover:bg-gray-200`}
+                    >
+                      <input
+                        type="radio"
+                        name={`question-${currentQuestionIndex}`}
+                        className="mr-2"
+                        checked={answers[currentQuestionIndex] === option.text}
+                        onChange={() =>
+                          handleOptionClick(currentQuestionIndex, option.text)
+                        }
+                      />
+                      {option.text}
+                    </label>
+                  ))}
+                </div>
+              )}
+              {!currentQuestion?.options && (
+                <textarea
+                  className="mt-4 w-full rounded-md border border-gray-500 bg-gray-100 p-2 text-black"
+                  rows={5}
+                  placeholder="Write your answer here..."
+                  value={answers[currentQuestionIndex] ?? ""}
+                  onChange={handleTextChange}
+                />
+              )}
+            </div>
+            {!currentQuestion?.options && (
+              <button
+                onClick={handleSaveAnswer}
+                className="mt-4 rounded-md bg-blue-500 px-4 py-2 font-semibold text-white"
+              >
+                Save Answer
+              </button>
+            )}
+            <div className="mt-4 flex justify-between">
+              <button
+                onClick={() =>
+                  setCurrentQuestionIndex(currentQuestionIndex - 1)
+                }
+                className="rounded-md bg-gray-500 px-4 py-2 font-semibold text-white"
+                disabled={currentQuestionIndex === 0}
+              >
+                Previous
+              </button>
+              {currentQuestionIndex === questions.length - 1 ? (
+                <button
+                  onClick={handleSubmit}
+                  className="rounded-md bg-green-500 px-4 py-2 font-semibold text-white"
                 >
-                  <input
-                    type="radio"
-                    name={`question-${currentQuestionIndex}`}
-                    className="mr-2"
-                    checked={answers[currentQuestionIndex] === option.text}
-                    onChange={() =>
-                      handleOptionClick(currentQuestionIndex, option.text)
-                    }
-                  />
-                  {option.text}
-                </label>
+                  Submit Quiz
+                </button>
+              ) : (
+                <button
+                  onClick={() =>
+                    setCurrentQuestionIndex(currentQuestionIndex + 1)
+                  }
+                  className="rounded-md bg-blue-500 px-4 py-2 font-semibold text-white"
+                >
+                  Next
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="border border-l-black bg-white p-4 shadow-md lg:w-1/4">
+            <h2 className="mb-4 border border-black p-4 text-lg font-semibold text-black">
+              Questions
+            </h2>
+            <div className="grid grid-cols-4 gap-2 lg:grid-cols-2">
+              {questions.map((_, index: number) => (
+                <button
+                  key={index}
+                  onClick={() => handleQuestionClick(index)}
+                  className={`rounded-md border p-2 ${
+                    currentQuestionIndex === index
+                      ? "bg-blue-500 text-white"
+                      : savedAnswers.has(index)
+                        ? "bg-green-500 text-white"
+                        : "bg-gray-200 text-gray-800"
+                  }`}
+                >
+                  {index + 1}
+                </button>
               ))}
             </div>
-          )}
-          {!currentQuestion?.options && (
-            <textarea
-              className="mt-4 w-full rounded-md border border-gray-500 bg-gray-100 p-2 text-black"
-              rows={5}
-              placeholder="Write your answer here..."
-              value={answers[currentQuestionIndex] ?? ""}
-              onChange={handleTextChange}
-            />
-          )}
+          </div>
+          <QuizSubmissionAlertDialog
+            open={isDialogOpen}
+            onClose={handleDialogClose}
+            onSubmit={handleDialogSubmit}
+          />
         </div>
-        {!currentQuestion?.options && (
-          <button
-            onClick={handleSaveAnswer}
-            className="mt-4 rounded-md bg-blue-500 px-4 py-2 font-semibold text-white"
-          >
-            Save Answer
-          </button>
-        )}
-        <div className="mt-4 flex justify-between">
-          <button
-            onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
-            className="rounded-md bg-gray-500 px-4 py-2 font-semibold text-white"
-            disabled={currentQuestionIndex === 0}
-          >
-            Previous
-          </button>
-          {currentQuestionIndex === questions.length - 1 ? (
-            <button
-              onClick={handleSubmit}
-              className="rounded-md bg-green-500 px-4 py-2 font-semibold text-white"
-            >
-              Submit Quiz
-            </button>
-          ) : (
-            <button
-              onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
-              className="rounded-md bg-blue-500 px-4 py-2 font-semibold text-white"
-            >
-              Next
-            </button>
-          )}
-        </div>
-      </div>
+      ) : (
+        <div className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-black via-violet-950 to-blue-950  p-4">
+          <div className="sapce-y-12 mx-auto mb-6 bg-gradient-to-br from-blue-800 via-yellow-400 to-blue-500 rounded-xl shadow-2xl p-10  text-center md:w-[800px] ">
+            <div className="flex flex-row items-center justify-center gap-1 m-4">
+              <div>
+                <Image
+                  src="/unnamed.png"
+                  alt="Finite Loop Club Logo"
+                  width={70}
+                  height={70}
+                />
+              </div>
+              <div>
+                <h1 className=" heading font-bold text-black">
+                  Finite Loop Club 
+                </h1>
+              </div>
+            </div>
+            <h1 className="title text-black">Thank You 🎉 </h1>
 
-      <div className="bg-white p-4 shadow-md lg:w-1/4 border border-l-black">
-        <h2 className="mb-4 text-lg font-semibold border border-black text-black p-4">Questions</h2>
-        <div className="grid grid-cols-4 gap-2 lg:grid-cols-2">
-          {questions.map((_, index: number) => (
-            <button
-              key={index}
-              onClick={() => handleQuestionClick(index)}
-              className={`rounded-md border p-2 ${
-                currentQuestionIndex === index
-                  ? "bg-blue-500 text-white"
-                  : savedAnswers.has(index)
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-200 text-gray-800"
-              }`}
+            <p className="mb-4 text-lg leading-relaxed text-gray-700">
+              Thank you for attempting the quiz! Your results will be declared
+              soon. Keep an eye on the leaderboard for updates.
+            </p>
+            <Button
+              onClick={handleDoneClick}
+              className="rounded-md bg-blue-500 px-4 py-2 text-white"
             >
-              {index + 1}
-            </button>
-          ))}
+              Home
+            </Button>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
 export default QuizTest;
-
