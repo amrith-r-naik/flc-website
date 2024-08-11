@@ -37,9 +37,9 @@ export default async function handler(
     // Destroy the image on Cloudinary
     const result = (await cloudinary.uploader.destroy(
       public_id,
-    )) as DeleteApiResponse | {result:string};
+    )) as  {result:string};
 
-    console.log(result);
+    
 
     // Check for deletion success
     if (result?.result !== "ok") {

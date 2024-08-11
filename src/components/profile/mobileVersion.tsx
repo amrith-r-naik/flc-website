@@ -25,11 +25,16 @@ const MobileVersion = ({ className }: { className?: string }) => {
 
   const { data: user } = api.user.getUser.useQuery();
 
-  const updateProfilePic = api.user.editUser.useMutation({
-    onError: ({ message }) => {
-      console.log(message);
-    },
-  });
+   const updateProfile = api.user.editUser.useMutation({
+     onSuccess: async () => {
+       toast.dismiss();
+       toast.success("Profile Picture changed successfully");
+     },
+     onError: async () => {
+       toast.dismiss();
+       toast.error("couldnt change profile picture");
+     },
+   });
 
   const { data: attendance } = api.attendance.getAttendanceByUserId.useQuery();
 
@@ -136,8 +141,9 @@ const MobileVersion = ({ className }: { className?: string }) => {
               className="rounded-full object-cover"
             /> */}
            {/* CLOUDINARY WORKS properly here */}
-               <fieldset className="mb-[15px] flex items-center self-center text-foreground">
-                          <CldUploadWidget
+               <fieldset className="mb-[15px] w-[100px] flex items-center self-center text-foreground">
+                          <CldUploadWidget 
+                            
                             signatureEndpoint="/api/cloudinary/sign"
                             onSuccess={(
                               result: CloudinaryUploadWidgetResults,
@@ -145,10 +151,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
                               const { info } = result;
                               const { secure_url: imageUrl } =
                                 info as CloudinaryUploadWidgetInfo;
-
-                              console.log(imageUrl);
-                              alert(imageUrl);
-
+                                
                               //deleting from cloudinary server
                               void deleteFromCloudinary(
                                 user.image as unknown as string,
@@ -156,15 +159,12 @@ const MobileVersion = ({ className }: { className?: string }) => {
 
                               if (imageUrl) {
                                 try {
-                                  void updateProfilePic.mutateAsync({
+                                  void updateProfile.mutateAsync({
                                     id: user.id,
                                     image: imageUrl,
                                   });
-                                  toast.dismiss();
-                                  toast.success(
-                                    "Profile Picture changed successfully",
-                                  );
-                                  router.refresh();
+                                 
+                                
                                 } catch (e) {
                                   toast.dismiss();
                                   toast.error("couldnt change profile picture");
@@ -179,11 +179,12 @@ const MobileVersion = ({ className }: { className?: string }) => {
                                   alt={"ur profile picture"}
                                   width={100}
                                   height={100}
+                                  onClick={() => open()}
                                   className=" h-full m-auto  border-spacing-10 overflow-hidden rounded-full border-4 border-primary object-cover"
                                 ></Image>
                                 <div
                                   className="absolute h-full  rounded-full bg-black/45"
-                                  onClick={() => open()}
+                                  
                                 ></div>
                                 <Pencil
                                   className="absolute left-1/2 -translate-x-[14px]"

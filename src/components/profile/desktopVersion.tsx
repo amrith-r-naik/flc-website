@@ -110,9 +110,6 @@ const DesktopVersion = ({ className }: { className?: string }) => {
                               const { secure_url: imageUrl } =
                                 info as CloudinaryUploadWidgetInfo;
 
-                              console.log(imageUrl);
-                              alert(imageUrl);
-
                               //deleting from cloudinary server
                               void deleteFromCloudinary(
                                 user.image as unknown as string,
