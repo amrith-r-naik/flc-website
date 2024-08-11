@@ -195,7 +195,7 @@ export const style2 = `<!DOCTYPE html>
     }
 
     .container{
-        background-image: url("./images/background.png");
+        background-image: url("https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-preview.jpg");
         background-size: contain;
             
     }
@@ -270,7 +270,7 @@ export const responsive = `<!DOCTYPE html>
     }
 
     .container {
-        background-image: url("./images/background.png");
+        background-image: url("https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-preview.jpg");
         background-size: contain;
         padding: 20px; /* Add padding to container */
     }
@@ -347,10 +347,11 @@ export const responsive2 = `<!DOCTYPE html>
         text-align: center;
         flex: 1; /* Make songs flexible */
         min-width: 150px; /* Ensure minimum width */
+         border-radius:6px
     }
 
     .container {
-        background-image: url("./images/background.png");
+        background-image: url("https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-preview.jpg");
         background-size: cover; /* Changed to cover for better background display */
         background-repeat: no-repeat;
         min-height: 100vh; /* Ensures the container takes full viewport height */
@@ -445,10 +446,11 @@ export const semiFinal1Card = `<!DOCTYPE html>
         text-align: center;
         flex: 1; /* Make songs flexible */
         min-width: 150px; /* Ensure minimum width */
+        border-radius:6px
     }
 
     .container {
-        background-image: url("./images/background.png");
+        background-image: url("https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-preview.jpg");
         background-size: cover; /* Changed to cover for better background display */
         background-repeat: no-repeat;
         min-height: 100vh; /* Ensures the container takes full viewport height */
@@ -473,6 +475,11 @@ export const semiFinal1Card = `<!DOCTYPE html>
         width: 100%; /* Ensure it takes full width */
         max-width: 600px; /* Limit the maximum width */
     }
+   #heading{
+     background-color:white;
+     padding:12px;
+     border-radius:12px}
+
 
     audio {
         width: 100%; /* Make audio element responsive */
@@ -567,10 +574,11 @@ export const final = `<!DOCTYPE html>
         text-align: center;
         flex: 1; /* Make songs flexible */
         min-width: 150px; /* Ensure minimum width */
+        border-radius:6px
     }
 
     .container {
-        background-image: url("./images/background.png");
+        background-image: url("https://c4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-preview.jpg");
         background-size: cover; /* Changed to cover for better background display */
         background-repeat: no-repeat;
         min-height: 100vh; /* Ensures the container takes full viewport height */
@@ -599,6 +607,11 @@ export const final = `<!DOCTYPE html>
     audio {
         width: 100%; /* Make audio element responsive */
     }
+    
+    #heading{
+    background-color:white;
+    padding:12px;
+    border-radius:12px}
 
     /* Responsive styling */
     @media (max-width: 600px) {
