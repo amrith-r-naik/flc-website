@@ -1,78 +1,88 @@
 import React, { useState } from "react";
 
-export default function Git() {
-  const [guiMode, setGuiMode] = useState<boolean>(true);
 
+
+import TutorialCarasoul from "./carasoul";
+
+
+export default function Git() {
+
+  const images1 = [
+    "/images/tutorial/g1.jpeg",
+    "/images/tutorial/g2.jpeg",
+    "/images/tutorial/g3.jpeg",
+  ];
+
+    const images2 = [
+    "/images/tutorial/g4.jpeg",
+    "/images/tutorial/g5.jpeg",
+    "/images/tutorial/g6.jpeg",
+    "/images/tutorial/g7.jpeg",
+    "/images/tutorial/g8.jpeg",
+  ];
   return (
     <div className="w-full bg-green-200 p-2 text-black">
       <br /> <br />{" "}
       <h2 className="mb-3 flex justify-between">
         <div>3. Git</div>{" "}
-        <div
-          onClick={() => setGuiMode((prev) => !prev)}
-          className={`h-fit cursor-pointer rounded-md p-2 text-sm text-white ${
-            guiMode ? "bg-green-500" : "bg-black"
-          }`}
-        >
-          {guiMode ? "use GUI" : "use CLI (from terminal)"}
-        </div>
+      
         <div className="right-0 inline w-fit text-sm">
           {" "}
           <div>time:5-10 mins</div>
           <div>data: few mbs </div>
         </div>
       </h2>
-      {!guiMode && (
-        <iframe
-          src="https://scribehow.com/embed/Search_for_potato_image_on_Google___aqFBaY9TZClvyVasLOv1g"
-          width="100%"
-          height="640"
-          allowFullScreen
-        ></iframe>
-      )}
+      
       <div className="h-fit w-full bg-slate-200">
         In this section, we will cover the basics of setting up a Git repository
         and uploading your project files.
         {/* Section 1: Cloning a Repository */}
         <div className="section m-3 rounded-md bg-slate-300 p-2 p-3">
-          <h3 className="text-lg font-bold">1. Cloning a Repository</h3>
+          <h3 className="text-lg font-bold">1.Setting up a new Repository</h3>
           <p>
-            To get started with Git, the first step is often to clone an
-            existing repository. You can do this using the command:
+            let us create new repository to store our code, in Git-Hub
+            Follow the instructions
           </p>
-          <code className="block rounded bg-slate-400 p-2">
-            git clone &lt;repository_url&gt;
-          </code>
-          <p>
-            This command will create a local copy of the repository on your
-            machine. You should see the files and folders listed in your file
-            explorer.
+          
+          <p className="ml-12 rounded bg-slate-400 p-2 w-fit">
+           <li>open https://github.com/</li>
+           
+           <li>find &quot;<b> youre repositories</b> &quot; on the RHS</li>
+           <li>press on &quot;<b> New</b> &quot; button again on the RHS </li>
+           <li>Fill the basic details and ur repo will be ready</li>
           </p>
-          <div className="image-placeholder my-3 flex h-40 w-full items-center justify-center bg-slate-400">
-            <span>Image Placeholder for cloning process</span>
+          <div className="image-placeholder my-3 flex  h-[500px] w-full items-center justify-center bg-slate-400">
+            <TutorialCarasoul images={images1}/>
+            {/* <img src={image1} alt="" className="w-24 " /> */}
           </div>
         </div>
         {/* Section 2: Making Changes and Committing */}
         <div className="section m-3 rounded-md bg-slate-300 p-2 p-3">
           <h3 className="text-lg font-bold">
-            2. Making Changes and Committing
+            2. Making Changes and Committing - operating from VS Code
           </h3>
           <p>
-            After making changes to the files, you’ll need to stage and commit
-            them to your local repository. This process is done with the
-            following commands:
+            IN this section we will be exploring how can we send the code we have in our system to our repository, that we created in the latest step
+            
+            <li>firstly open terminal, press on the <b> bottom-left</b>  button or &quot;  <b>ctrl+~</b>  &quot; for shortcut</li>
+            <li> Select <b>git Bash</b> as termina, Run the following commands <br />
+            <div className="ml-12 rounded bg-slate-400 p-2 w-fit">
+            <li>git init</li>
+            <li>git add .</li>
+            <li>git commit -m &quot; first commit&quot; </li>
+            <li>git remote add origin &lt;link_of_ur_repository&gt;.git</li>
+            <li>git push origin main</li>
+            </div>
+             </li>
+             <br />
+            <li>Find the commands used in the following images</li>
+            
           </p>
-          <code className="block rounded bg-slate-400 p-2">git add .</code>
-          <code className="block rounded bg-slate-400 p-2">
-            git commit -m &quot;Your commit message&quot;
-          </code>
-          <p>
-            The <b>git add</b> command stages your changes, and the{" "}
-            <b>git commit</b> command saves them with a message describing what
-            you&apos;ve changed.
-          </p>
-          <div className="image-placeholder my-3 flex h-40 w-full items-center justify-center bg-slate-400">
-            <span>Image Placeholder for committing changes</span>
+          
+          
+          
+          <div className="image-placeholder my-3 flex h-[500px] w-full items-center justify-center bg-slate-400">
+            <TutorialCarasoul images={images2}/>
           </div>
         </div>
         {/* Section 3: Pushing to Remote Repository */}
@@ -81,21 +91,34 @@ export default function Git() {
             3. Pushing to a Remote Repository
           </h3>
           <p>
-            Finally, you’ll want to push your committed changes to the remote
-            repository. Use the following command:
+            Finally, after pushing the code from the terminal we can see the code in our repo and move ahead for hosting it.
           </p>
-          <code className="block rounded bg-slate-400 p-2">
-            git push origin main
-          </code>
-          <p>
-            Replace <b>main</b> with your branch name if you&apos;re using a
-            different branch. This will upload your changes to the remote
-            repository, making them available to others.
-          </p>
-          <div className="image-placeholder my-3 flex h-40 w-full items-center justify-center bg-slate-400">
-            <span>Image Placeholder for pushing changes</span>
+          
+          
+          <div className="image-placeholder my-3 flex h-[500px] w-full items-center justify-center bg-slate-400">
+            <img src="/images/tutorial/g9.jpeg" alt=""   className="h-full" />
+          </div>
+
+          
+        </div>
+
+          <div className="Note p-3">
+          <div className="text-red-800  ">Note</div>
+
+          <div className="text ml-3 rounded-md bg-slate-300 p-2 ">
+           When it comes to version controls(i.e git hub here) consider the following points <br />
+            <div className="ml-6">
+              1. All the features that are there through buttons in github are also there as commands to be used through terminal <br />
+              2. to start with <i>these 3 commands</i> are sufficient
+              <br />
+              3. Developers prefer to using most of the features via terminal as their experience grows{" "}
+          
+            </div>
+    
           </div>
         </div>
+
+        
       </div>
     </div>
   );

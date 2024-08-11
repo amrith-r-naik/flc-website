@@ -1,4 +1,6 @@
+import Image from "next/image";
 import React, { useState } from "react";
+import ImageCarousel from "~/components/imageCarousel";
 
 export default function Hosting() {
   const [guiMode, setGuiMode] = useState<boolean>(true);
@@ -17,11 +19,7 @@ export default function Hosting() {
       
       <div className="h-fit w-full bg-slate-200">
         In this section, we will cover how to host your static website using GitHub Pages, a free and easy-to-use service provided by GitHub.
-        {/* Section 1: Creating a GitHub Repository */}
-       
-        {/* Section 2: Adding Your Website Files */}
         
-        {/* Section 3: Enabling GitHub Pages */}
         <div className="section m-3 rounded-md bg-slate-300 p-2">
           <h3 className="text-lg font-bold">1. Enabling GitHub Pages</h3>
           <p>
@@ -33,15 +31,14 @@ export default function Hosting() {
             <li>Select the source branch, typically <code>main</code> or <code>master</code>.</li>
             <li>Click &quot;Save&quot;.</li>
           </ul>
-          <p>
-            Alternatively, you can push a <code>gh-pages</code> branch to GitHub to automatically enable GitHub Pages:
-          </p>
-          <code className="block rounded bg-slate-400 p-2">
-            git checkout -b gh-pages
-          </code>
-          <code className="block rounded bg-slate-400 p-2">git push origin gh-pages</code>
-          <div className="image-placeholder my-3 flex h-40 w-full items-center justify-center bg-slate-400">
-            <span>Image Placeholder for enabling GitHub Pages</span>
+          
+          
+          
+          <div className="image-placeholder my-3 flex h-[500px] w-full items-center justify-center bg-slate-400">
+            
+            
+            <img src="/images/tutorial/g9.jpeg" alt="" className="h-full"  />
+
           </div>
         </div>
         {/* Section 4: Accessing Your Hosted Site */}
@@ -53,8 +50,8 @@ export default function Hosting() {
           <p>
             You can share this URL with others to give them access to your site.
           </p>
-          <div className="image-placeholder my-3 flex h-40 w-full items-center justify-center bg-slate-400">
-            <span>Image Placeholder for hosted site access</span>
+          <div className="image-placeholder my-3 flex h-[500px] w-full items-center justify-center bg-slate-400">
+            <img src="/images/tutorial/hostingFinal.jpeg" alt="" className="h-full"  />
           </div>
         </div>
       </div>
