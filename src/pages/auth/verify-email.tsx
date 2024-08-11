@@ -40,9 +40,6 @@ const Verify: FunctionComponent = () => {
 
   return (
     <>
-      <div className="z-0">
-        <Background />
-      </div>
       <div className="flex h-screen w-full items-center justify-center">
         {status === "LOADING" && <h1>Verifying...</h1>}
         {status === "INVALID" && <h1>Invalid token</h1>}
