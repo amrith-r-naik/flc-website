@@ -21,11 +21,7 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
   const router = useRouter();
   const getEventAttributes = () => {
     let teamSizeText = "";
-<<<<<<< HEAD
-    const eventTypeText = data.type;
-=======
     const eventTypeText = data.eventType;
->>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
     if (data.minTeamSize === data.maxTeamSize) {
       if (data.minTeamSize === 1)
         teamSizeText += `${data.minTeamSize} member per team`;
@@ -34,11 +30,7 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
     } else {
       teamSizeText = `${data.minTeamSize} - ${data.maxTeamSize} members per team`;
     }
-<<<<<<< HEAD
-    /* 
-=======
     /*
->>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
     if (data.type?.includes("MULTIPLE")) {
       eventTypeText =
         data.type?.split("_")[0][0] +
@@ -86,15 +78,11 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
     <div
       onClick={() => router.push(`/event/${data.id}`)}
       data-scroll
-<<<<<<< HEAD
-      className={`${styles.card} h-full w-full cursor-pointer rounded-2xl border     
-=======
-      className={`${styles.card} h-full w-full cursor-pointer rounded-2xl border
->>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
-         border-[#a26b1e]/80 bg-[#dc9c42] p-2 py-3`}
+      className={`${styles.card}  bg-custom-gradient shadow-3xl h-full w-full cursor-pointer
+         rounded-2xl p-2 py-3 shadow-white`}
     >
       <div
-        className={`${styles.top_section} flex flex-col bg-gradient-to-tr from-[#f4cd7f] to-[#ebc16e]`}
+        className={`${styles.top_section} bg-custom-gradient flex flex-col shadow-2xl`}
       >
         <div>
           <div className={styles.borderCard}></div>
@@ -125,7 +113,7 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
           <div className={`rounded-xl object-fill px-2`}>
             {
               /* data.imgSrc && */ <Image
-                src="/assets/sample.png"
+                src={data.imgSrc ?? "/assets/sample.png"}
                 //src={data.image}
                 alt={"Image"}
                 width={250}
@@ -140,15 +128,15 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
         className={`flex w-full flex-col items-center justify-center gap-3 pt-3`}
       >
         <span
-          className={`flex w-fit items-center justify-center px-2 text-center text-xl font-bold text-white`}
+          className={`text-bg-card-gradient flex w-fit items-center justify-center px-2 text-center text-xl text-white `}
         >
-          {"DSA WORKSHOP"}
+          {data.name}
         </span>
         <div className="flex h-[6rem] w-full flex-col items-start justify-center gap-2 px-1 py-2 text-white md:w-full">
           {getEventAttributes().map((attr, i) =>
             attr.name ? (
               <div
-                className="flex w-full items-center gap-2 rounded-full border border-[#FF94D2]/40 bg-[#A46EE3]/30 p-1 px-2 text-left"
+                className="bg-card-gradient flex w-full items-center gap-2 rounded-full border border-[#FF94D2]/40 p-1 px-2 text-left "
                 key={i}
               >
                 <attr.Icon />
@@ -163,9 +151,9 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
         </div>
         <div className="w-full">
           <Link href={`/event/${data.id}`}>
-            <button className="mt-0 flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-[#dbab68] to-[#d3ab74] py-2 text-lg capitalize text-white transition-all duration-300 hover:scale-[1.02] hover:brightness-125">
+            <button className="bg-card-gradient mt-0 flex w-full shrink-0 items-center justify-center gap-2 rounded-full  border border-[#FF94D2]/40 py-2 text-lg capitalize text-white transition-all duration-300 hover:scale-[1.02] hover:brightness-75">
               <IoIosPlayCircle />
-              Register
+              <span className="z-10 text-white brightness-100"> Register</span>
             </button>
           </Link>
         </div>

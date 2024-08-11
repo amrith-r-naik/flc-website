@@ -1,4 +1,5 @@
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 
 import { findEventIfExistById } from "~/utils/helper";
 import {
@@ -153,6 +154,34 @@ export const eventRouter = createTRPCRouter({
     });
   }),
 
+  getAllEventsForUser: protectedProcedure
+    .input(z.object({ year: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const { year } = input;
+
+      const startDate = new Date(`${year}-07-01T00:00:00.000Z`); // Start of the academic year
+      const endDate = new Date(`${parseInt(year) + 1}-05-31T23:59:59.999Z`); // End of the academic year
+
+      const fetchedEvents = await ctx.db.event.findMany({
+        where: {
+          state: "PUBLISHED",
+          fromDate: {
+            gte: startDate,
+            lt: endDate,
+          },
+        },
+        include: {
+          ActivityPoint: true,
+          Organiser: true,
+        },
+        orderBy: {
+          fromDate: "desc",
+        },
+      });
+
+      return fetchedEvents;
+    }),
+
   getAllEventsForAdmin: adminProcedure.query(async ({ ctx }) => {
     return ctx.db.event.findMany({
       include: {
@@ -206,9 +235,38 @@ export const eventRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const event = await ctx.db.event.findUnique({
         where: { id: input.eventId },
+        include: {
+          Organiser: {
+            select: {
+              User: {
+                select: {
+                  name: true,
+                  email: true,
+                  phone: true,
+                },
+              },
+            },
+          },
+          Team: {
+            select: {
+              Members: {
+                where: {
+                  image: {
+                    not: null,
+                  },
+                },
+                select: {
+                  image: true,
+                },
+                orderBy: {
+                  id: "asc",
+                },
+                take: 4,
+              },
+            },
+          },
+        },
       });
-
-      console.log("HELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLO", event);
 
       if (!event) {
         throw new TRPCError({
@@ -217,6 +275,23 @@ export const eventRouter = createTRPCRouter({
         });
       }
 
-      return event;
+      const images = event?.Team.flatMap((team) =>
+        team.Members.map((member) => member.image),
+      );
+
+      const teamCount = await ctx.db.team.count({
+        where: {
+          eventId: input.eventId,
+        },
+      });
+
+      console.log(
+        "HELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLO",
+        event,
+        "Images",
+        images,
+      );
+
+      return { ...event, teamCount, selectedImages: images };
     }),
 });

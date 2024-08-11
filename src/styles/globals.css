@@ -64,24 +64,19 @@
 
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
-
   }
 }
 
 @layer base {
-  
   body {
     @apply bg-background text-foreground;
   }
 }
 
-
-
-
 @layer utilities {
-.text-balance {
-  text-wrap: balance;
-}
+  .text-balance {
+    text-wrap: balance;
+  }
 
   /* font sizes */
   .title {
@@ -125,6 +120,27 @@
       rgba(136, 112, 3, 0.6),
       rgba(0, 0, 0, 0) 45%
     );
+  }
+
+  .bg-custom-gradient {
+    background: rgb(76, 67, 67);
+    background: linear-gradient(
+      90deg,
+      rgba(76, 67, 67, 1) 0%,
+      rgba(232, 222, 222, 1) 65%,
+      rgba(126, 125, 124, 1) 100%
+    );
+  }
+  .bg-card-gradient {
+    .bg-card-gradient {
+      background: rgb(53, 47, 47);
+      background: linear-gradient(
+        90deg,
+        rgba(76, 67, 67, 1) 0%,
+        rgb(130, 118, 118) 65%,
+        rgba(76, 67, 67, 1) 100%
+      );
+    }
   }
 }
 
@@ -180,27 +196,45 @@ body {
       rgba(0, 0, 0, 0) 45%
     );
   }
+  .bg-custom-gradient {
+    background: rgb(76, 67, 67);
+    background: linear-gradient(
+      90deg,
+      rgba(76, 67, 67, 1) 0%,
+      rgba(232, 222, 222, 1) 65%,
+      rgba(126, 125, 124, 1) 100%
+    );
+  }
+  .bg-card-gradient {
+    background: rgb(53, 47, 47);
+    background: linear-gradient(
+      90deg,
+      rgba(76, 67, 67, 1) 0%,
+      rgb(130, 118, 118) 65%,
+      rgba(76, 67, 67, 1) 100%
+    );
+  }
 }
 
 /* Scrollbar styles */
 ::-webkit-scrollbar {
-width: 8px;
+  width: 8px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-background: none;
+  background: none;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-background: #555;
-border-radius: 5px;
+  background: #555;
+  border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-background: #333;
+  background: #333;
 }
 
 /*********************************************/
