@@ -63,6 +63,9 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-8 ")}
       >
+        <FormMessage className="flex justify-center text-4xl text-white">
+          Login
+        </FormMessage>
         <FormField
           control={form.control}
           name="email"
@@ -104,7 +107,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
           </Link>
         </div>
         <div className="flex justify-center">
-          <Button className="" type="submit">
+          <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
             Submit
           </Button>
         </div>

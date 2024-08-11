@@ -1,5 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@radix-ui/react-select";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@radix-ui/react-select";
 import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -17,10 +23,11 @@ import {
 import { Input } from "~/components/ui/input";
 
 import { cn } from "~/lib/utils";
+import { api } from "~/utils/api";
 import { RegisterFormZ } from "~/zod/formSchemaZ";
+
 import { DatePicker } from "../ui/date-picker";
 import { InputOTP, InputOTPSlot } from "../ui/input-otp";
-import { api } from "~/utils/api";
 
 // Assuming you have a schema for the register form
 
@@ -31,7 +38,7 @@ interface Props {
 const RegisterForm: FunctionComponent<Props> = ({ className }) => {
   const formSchema = RegisterFormZ;
   const { data: branches } = api.branch.getAllBranch.useQuery();
-  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,7 +64,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-4")}
       >
-        <FormMessage className="flex justify-center text-3xl text-white">
+        <FormMessage className="flex justify-center text-4xl text-white/90">
           Signup
         </FormMessage>
         <FormField
@@ -189,7 +196,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
           )}
         />
         <div className="flex justify-center">
-          <Button className="" type="submit">
+          <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
             Register
           </Button>
         </div>
