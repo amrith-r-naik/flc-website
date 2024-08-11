@@ -83,7 +83,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-4")}
       >
-        <FormMessage className="flex justify-center text-3xl text-white">
+        <FormMessage className="flex justify-center text-3xl text-white/90">
           Signup
         </FormMessage>
         <FormField
@@ -120,16 +120,16 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
               <FormLabel>Phone</FormLabel>
               <FormControl>
                 <InputOTP maxLength={10} {...field}>
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
-                  <InputOTPSlot index={6} />
-                  <InputOTPSlot index={7} />
-                  <InputOTPSlot index={8} />
-                  <InputOTPSlot index={9} />
+                  <InputOTPSlot index={0} className="bg-white/15" />
+                  <InputOTPSlot index={1} className="bg-white/15" />
+                  <InputOTPSlot index={2} className="bg-white/15" />
+                  <InputOTPSlot index={3} className="bg-white/15" />
+                  <InputOTPSlot index={4} className="bg-white/15" />
+                  <InputOTPSlot index={5} className="bg-white/15" />
+                  <InputOTPSlot index={6} className="bg-white/15" />
+                  <InputOTPSlot index={7} className="bg-white/15" />
+                  <InputOTPSlot index={8} className="bg-white/15" />
+                  <InputOTPSlot index={9} className="bg-white/15" />
                 </InputOTP>
               </FormControl>
               <FormMessage />
@@ -203,7 +203,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
         />
 
         <div className="flex justify-center">
-          <Button className="" type="submit">
+          <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
             Submit
           </Button>
         </div>

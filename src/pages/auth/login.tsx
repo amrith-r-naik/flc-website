@@ -54,7 +54,7 @@ const Login: NextPage = () => {
             </div>
           </div>
 
-          <div className="order-1 mx-8 w-4/5 flex-col justify-center rounded-lg  bg-white/25 sm:w-2/3 lg:order-2 lg:w-1/2">
+          <div className="order-1 mx-8 w-4/5 flex-col justify-center rounded-lg  bg-white/15 sm:w-2/3 lg:order-2 lg:w-1/2">
             <div className="m-4">
               <LoginForm />
             </div>

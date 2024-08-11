@@ -20,23 +20,23 @@ import { Input } from "~/components/ui/input";
 import { Password } from "~/components/ui/password";
 
 import { cn } from "~/lib/utils";
-import { RegisterFormZ } from "~/zod/formSchemaZ";
+import { ResetPasswordFormZ } from "~/zod/formSchemaZ";
 
 interface Props {
-    className?: string;
-  }
-  
-const Resetpassword: FunctionComponent<Props> = ({ className }) => {
-const router = useRouter();
+  className?: string;
+}
 
-  const formSchema = RegisterFormZ;
+const Resetpassword: FunctionComponent<Props> = ({ className }) => {
+  const router = useRouter();
+
+  const formSchema = ResetPasswordFormZ;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword:"",
+      confirmPassword: "",
     },
   });
 
@@ -58,12 +58,15 @@ const router = useRouter();
       });
   };
 
-return (
+  return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-8 ")}
       >
+        <FormMessage className="flex justify-center text-center text-3xl text-white ">
+          Reset password
+        </FormMessage>
         <FormField
           control={form.control}
           name="email"
@@ -104,7 +107,7 @@ return (
           )}
         />
         <div className="flex justify-center">
-          <Button className="" type="submit">
+          <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
             Submit
           </Button>
         </div>
@@ -114,4 +117,3 @@ return (
 };
 
 export default Resetpassword;
-
