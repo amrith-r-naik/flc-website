@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -202,10 +203,14 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           )}
         />
 
-        <div className="flex justify-center">
+        <div className="flex flex-col gap-2 justify-center">
           <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
             Submit
           </Button>
+          <p className="mb-4 text-sm text-center">
+            Already have an account?<strong className="underline"><Link href="/auth/login">LogIn </Link> </strong>
+            
+          </p>
         </div>
       </form>
     </Form>
