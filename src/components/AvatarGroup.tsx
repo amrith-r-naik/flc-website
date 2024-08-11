@@ -1,4 +1,5 @@
 import React from "react";
+
 import AvatarCustom from "./avatar";
 
 interface ImageProps {
@@ -13,6 +14,7 @@ const AvatarGroup = ({ height, width, urls, className }: ImageProps) => {
     <div className="relative h-[20px] w-[40px]">
       {urls.map((url, index) => (
         <AvatarCustom
+          src=""
           key={index}
           height={height}
           width={width}

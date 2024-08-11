@@ -72,7 +72,11 @@ const SendVerifyEmailForm: FunctionComponent<Props> = ({ className }) => {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <div className="flex justify-center">
+          <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
+            Submit
+          </Button>
+        </div>
       </form>
     </Form>
   );

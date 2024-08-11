@@ -1,20 +1,60 @@
-import { type NextPage } from "next";
 import Image from "next/image";
-import React from "react";
+import React, { useState, type ChangeEvent } from "react";
+import { toast, Toaster } from "sonner";
 
 import Background from "~/components/background";
-import SignUpForm from "~/components/forms/signup";
+import RegisterForm from "~/components/forms/register";
+import { api } from "~/utils/api";
+import { RegisterZ } from "~/zod/authZ";
 
-const SignUp: NextPage = () => {
+function Index() {
+  const signUp = api.auth.signUp.useMutation({
+    onSuccess: async (data) => {
+      sendVerifyEmail.mutate({ email: data.email });
+    },
+    onError: ({ message }) => {
+      toast.dismiss();
+      toast.error(message);
+    },
+  });
+  const sendVerifyEmail = api.auth.sendVerifyEmail.useMutation({
+    onSuccess: async (data) => {
+      console.log("toast");
+      toast.success("Verification link sent to email", {
+        position: "bottom-center",
+      });
+    },
+    onError: ({ message }) => {
+      toast.dismiss();
+      toast.error(message);
+    },
+  });
+  const [formData, setFormData] = useState({
+    branchId: "cly1kesbp00004bj8a2twttca",
+    name: "",
+    email: "",
+    phone: "",
+    branch: "",
+    year: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
   return (
     <>
-      {/* <div className="z-0">
+      <Toaster position="bottom-center" />
+      <div className="z-0">
         <Background />
-      </div> */}
-      <div className="radialgradient flex min-h-screen gap-10 ">
-        <div className="my-10 flex w-full flex-col items-center gap-8 sm:my-20 sm:gap-16 lg:mx-24  lg:flex-row">
-          <div className="order-2 w-full flex-col  md:w-4/5 lg:order-1 lg:w-1/2">
-            <div className=" px-6 sm:px-10">
+      </div>
+      <div className="radialgradient flex min-h-screen gap-10">
+        <div className="sm:my-15 my-10 flex w-full flex-col items-center gap-8 sm:gap-16 lg:mx-24 lg:flex-row">
+          <div className="order-2 w-full flex-col md:w-4/5 lg:order-1 lg:w-1/2">
+            <div className="px-6 sm:px-10">
               <h1 className="flex justify-start text-2xl sm:text-4xl">
                 Finite Loop Club
               </h1>
@@ -53,15 +93,16 @@ const SignUp: NextPage = () => {
               </div>
             </div>
           </div>
-          <div className="order-1 mx-8 mt-16 w-4/5 flex-col justify-center rounded-lg bg-white/15 sm:w-2/3 lg:order-2 lg:w-1/2">
+
+          <div className="order-1 mx-8 mt-16 w-4/5 flex-col justify-center rounded-lg bg-white/10 sm:w-2/3 lg:order-2 lg:w-1/2">
             <div className="m-4">
-              <SignUpForm />
+              <RegisterForm />
             </div>
           </div>
         </div>
       </div>
     </>
   );
-};
+}
 
-export default SignUp;
+export default Index;

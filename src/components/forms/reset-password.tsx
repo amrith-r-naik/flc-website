@@ -20,22 +20,23 @@ import { Input } from "~/components/ui/input";
 import { Password } from "~/components/ui/password";
 
 import { cn } from "~/lib/utils";
-import { loginFormZ } from "~/zod/formSchemaZ";
+import { ResetPasswordFormZ } from "~/zod/formSchemaZ";
 
 interface Props {
   className?: string;
 }
 
-const LoginForm: FunctionComponent<Props> = ({ className }) => {
+const Resetpassword: FunctionComponent<Props> = ({ className }) => {
   const router = useRouter();
 
-  const formSchema = loginFormZ;
+  const formSchema = ResetPasswordFormZ;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
@@ -63,8 +64,8 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-8 ")}
       >
-        <FormMessage className="flex justify-center text-4xl text-white">
-          Login
+        <FormMessage className="flex justify-center text-center text-3xl text-white ">
+          Reset password
         </FormMessage>
         <FormField
           control={form.control}
@@ -92,20 +93,19 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
             </FormItem>
           )}
         />
-        <div className="!mt-2 flex justify-between text-sm">
-          <Link
-            href="/send-reset-email"
-            className="text-muted-foreground underline"
-          >
-            Forgot password
-          </Link>
-          <Link
-            href="/send-verify-email"
-            className="text-muted-foreground underline"
-          >
-            Verify email
-          </Link>
-        </div>
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Password placeholder="Confirm Password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="flex justify-center">
           <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
             Submit
@@ -116,4 +116,4 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
   );
 };
 
-export default LoginForm;
+export default Resetpassword;
