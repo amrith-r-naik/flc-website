@@ -33,9 +33,17 @@ const verifyEmailFormZ = z.object({
     }),
 });
 
+const resetPasswordFormZ =z.object({
+  email: z
+    .string()
+    .email()
+    .refine((email) => email.endsWith("nmamit.in"), {
+      message: "Email must be a NMAMIT email",
+    }),
+});
 const loginFormZ = z.object({
   email: z.string().email(),
   password: z.string(),
 });
 
-export { signUpFormZ, verifyEmailFormZ, loginFormZ };
+export { signUpFormZ, verifyEmailFormZ, loginFormZ,resetPasswordFormZ };
