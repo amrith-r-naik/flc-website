@@ -145,26 +145,23 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials: any, req: any): Promise<any> {
         const validateFields = LoginZ.safeParse(credentials);
         if (!validateFields.success) return null;
-        if (validateFields.success) {
-          const { email, password } = validateFields.data;
-          const data = await login({ email, password });
-          if (!data) return null;
-          const { accessToken, refreshToken } = data;
-          const existingUser: User | null = await getUserByEmail(email);
-          if (!existingUser) return null;
-          const passwordMatch = await bcrypt.compare(
-            password,
-            existingUser.password,
-          );
-          if (!passwordMatch) return null;
-          const user = {
-            ...existingUser,
-            refreshToken: refreshToken,
-            accessToken: accessToken,
-          };
-          return user;
-        }
-        return null;
+        const { email, password } = validateFields.data;
+        const data = await login({ email, password });
+        if (!data) return null;
+        const { accessToken, refreshToken } = data;
+        const existingUser: User | null = await getUserByEmail(email);
+        if (!existingUser) return null;
+        const passwordMatch = await bcrypt.compare(
+          password,
+          existingUser.password,
+        );
+        if (!passwordMatch) return null;
+        const user = {
+          ...existingUser,
+          refreshToken: refreshToken,
+          accessToken: accessToken,
+        };
+        return user;
       },
     }),
 

@@ -48,7 +48,6 @@ const generateVerificationToken = (
       userId: user.id,
       jti,
     },
-
     secrets.JWT_VERIFICATION_SECRET,
     {
       expiresIn: "1d",

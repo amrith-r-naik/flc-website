@@ -7,7 +7,7 @@ enum UIDType {
 }
 
 const idToUid = (id: number, year: string, uidType: UIDType) => {
-  return uidType + year + id.toString().padStart(4, "0");
+  return uidType + year + "-" + id.toString().padStart(4, "0");
 };
 
 const uidToId = (pid: string, uidType: UIDType) => {

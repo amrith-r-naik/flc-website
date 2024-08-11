@@ -5,46 +5,49 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useRef } from "react";
 
-import pythonIcon from "~/assets/icons/python.svg"
-import nextJsIcon from "~/assets/icons/nextjs-icon-svgrepo-com.svg"
-import reactIcon from "~/assets/icons/react-svgrepo-com.svg"
-import trpcIcon from "~/assets/icons/trpc.svg"
-import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg"
-import tailwindIcon from "~/assets/icons/tailwind-svgrepo-com.svg"
-import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg"
-import tsIcon from "~/assets/icons/typescript-svgrepo-com.svg"
+import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg";
+import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg";
+import nextJsIcon from "~/assets/icons/nextjs-icon-svgrepo-com.svg";
+import pythonIcon from "~/assets/icons/python.svg";
+import reactIcon from "~/assets/icons/react-svgrepo-com.svg";
+import tailwindIcon from "~/assets/icons/tailwind-svgrepo-com.svg";
+import trpcIcon from "~/assets/icons/trpc.svg";
+import tsIcon from "~/assets/icons/typescript-svgrepo-com.svg";
 
 const techs = [
-    {
-        name: "python",
-        icon: pythonIcon
-    },
-    {
-        name: "javascript",
-        icon: jsIcon
-    },
-    {
-        name: "typescript",
-        icon: tsIcon
-    },
-    {
-        name: "react",
-        icon: reactIcon
-    },
-    {
-        name: "nextjs",
-        icon: nextJsIcon
-    }, {
-        name: "trpc",
-        icon: trpcIcon
-    }, {
-        name: "graphql",
-        icon: graphqlIcon
-    }, {
-        name: "3",
-        icon: tailwindIcon
-    }
-]
+  {
+    name: "python",
+    icon: pythonIcon as string,
+  },
+  {
+    name: "javascript",
+    icon: jsIcon as string,
+  },
+  {
+    name: "typescript",
+    icon: tsIcon as string,
+  },
+  {
+    name: "react",
+    icon: reactIcon as string,
+  },
+  {
+    name: "nextjs",
+    icon: nextJsIcon as string,
+  },
+  {
+    name: "trpc",
+    icon: trpcIcon as string,
+  },
+  {
+    name: "graphql",
+    icon: graphqlIcon as string,
+  },
+  {
+    name: "3",
+    icon: tailwindIcon as string,
+  },
+];
 
 export default function TechStack() {
   const ref = useRef<HTMLElement>(null);

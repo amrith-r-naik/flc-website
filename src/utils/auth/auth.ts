@@ -4,15 +4,15 @@ import bcrypt from "bcryptjs";
 
 import { db } from "~/server/db";
 
+import { somethingWentWrong } from "~/utils/error";
+
 const getUserByEmail = async (email: string): Promise<User | null> => {
   try {
-    const user = await db.user.findUnique({
+    return await db.user.findUnique({
       where: {
         email,
       },
     });
-    if (!user) return null;
-    return user;
   } catch (error) {
     console.error(error);
     throw error;
@@ -21,13 +21,11 @@ const getUserByEmail = async (email: string): Promise<User | null> => {
 
 const getUserById = async (id: number): Promise<User | null> => {
   try {
-    const user = await db.user.findUnique({
+    return await db.user.findUnique({
       where: {
         id,
       },
     });
-    if (!user) return null;
-    return user;
   } catch (error) {
     console.error(error);
     throw error;
@@ -37,9 +35,7 @@ const getUserById = async (id: number): Promise<User | null> => {
 const hashPassword = async (password: string): Promise<string | null> => {
   try {
     const hashedPassword = await bcrypt.hash(password, 12);
-    if (!hashedPassword) {
-      return null;
-    }
+    if (!hashedPassword) return null;
     return hashedPassword;
   } catch (error) {
     console.log(error);
@@ -54,25 +50,16 @@ const compareHashedPassword = async (
   try {
     const validPassword = await bcrypt.compare(password, hashedPassword);
 
-    if (!validPassword) {
+    if (!validPassword)
       throw new TRPCError({
         code: "BAD_REQUEST",
         message: "Incorrect password",
       });
-    }
 
     return validPassword;
   } catch (error) {
     console.error(error);
-
-    if (error instanceof TRPCError) {
-      throw error;
-    }
-
-    throw new TRPCError({
-      code: "INTERNAL_SERVER_ERROR",
-      message: "Something went wrong",
-    });
+    somethingWentWrong(error);
   }
 };
 

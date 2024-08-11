@@ -1,25 +1,13 @@
-<<<<<<< HEAD
 import type { Config } from "tailwindcss";
-=======
-import type { Config } from "tailwindcss"
->>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
 
 const config = {
   darkMode: "class",
   content: [
-<<<<<<< HEAD
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
-=======
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
->>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
   prefix: "",
   theme: {
     container: {
@@ -79,26 +67,19 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-<<<<<<< HEAD
-      },
-      flexGrow: {
-        "2": "2",
-=======
->>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-<<<<<<< HEAD
 } satisfies Config;
 
 export default config;
-=======
-} satisfies Config
-
-export default config
->>>>>>> becfc021b9645726dc6c6dd7396d031d8e545d02
