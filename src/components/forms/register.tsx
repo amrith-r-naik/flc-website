@@ -1,44 +1,43 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@radix-ui/react-select";
 import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
-import { DatePicker } from "~/components/ui/date-picker";
 import {
-  FormField,
   Form,
   FormControl,
+  FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { InputOTP, InputOTPSlot } from "~/components/ui/input-otp";
-import { Password } from "~/components/ui/password";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
 
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
-import { signUpFormZ } from "~/zod/formSchemaZ";
+import { RegisterFormZ } from "~/zod/formSchemaZ";
+
+import { DatePicker } from "../ui/date-picker";
+import { InputOTP, InputOTPSlot } from "../ui/input-otp";
+
+// Assuming you have a schema for the register form
 
 interface Props {
   className?: string;
 }
 
-const SignUpForm: FunctionComponent<Props> = ({ className }) => {
+const RegisterForm: FunctionComponent<Props> = ({ className }) => {
+  const formSchema = RegisterFormZ;
   const { data: branches } = api.branch.getAllBranch.useQuery();
-
-  const signUp = api.auth.signUp.useMutation();
-
-  const formSchema = signUpFormZ;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,34 +46,16 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
       email: "",
       phone: "",
       branchId: "",
-      // TODO(omkar): what exactly is date
       year: new Date(),
-      password: "",
-      confirmPassword: "",
+      reasonToJoin: "",
+      expectations: "",
+      contribution: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    signUp.mutate(
-      {
-        branchId: values.branchId,
-        confirmPassword: values.confirmPassword,
-        email: values.email,
-        name: values.name,
-        password: values.password,
-        phone: values.phone,
-        // TODO(Omkar): again what is this date
-        year: values.year.toISOString(),
-      },
-      {
-        onSuccess: () => {
-          toast.success("Sign Up Successful");
-        },
-        onError: (error) => {
-          toast.error(error.message);
-        },
-      },
-    );
+    // Handle registration logic here, e.g., calling an API
+    toast.success("Registered successfully!");
   };
 
   return (
@@ -83,7 +64,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-4")}
       >
-        <FormMessage className="flex justify-center text-3xl text-white/90">
+        <FormMessage className="flex justify-center text-4xl text-white/90">
           Signup
         </FormMessage>
         <FormField
@@ -120,16 +101,16 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
               <FormLabel>Phone</FormLabel>
               <FormControl>
                 <InputOTP maxLength={10} {...field}>
-                  <InputOTPSlot index={0} className="bg-white/15" />
-                  <InputOTPSlot index={1} className="bg-white/15" />
-                  <InputOTPSlot index={2} className="bg-white/15" />
-                  <InputOTPSlot index={3} className="bg-white/15" />
-                  <InputOTPSlot index={4} className="bg-white/15" />
-                  <InputOTPSlot index={5} className="bg-white/15" />
-                  <InputOTPSlot index={6} className="bg-white/15" />
-                  <InputOTPSlot index={7} className="bg-white/15" />
-                  <InputOTPSlot index={8} className="bg-white/15" />
-                  <InputOTPSlot index={9} className="bg-white/15" />
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                  <InputOTPSlot index={6} />
+                  <InputOTPSlot index={7} />
+                  <InputOTPSlot index={8} />
+                  <InputOTPSlot index={9} />
                 </InputOTP>
               </FormControl>
               <FormMessage />
@@ -177,12 +158,12 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
         />
         <FormField
           control={form.control}
-          name="password"
+          name="reasonToJoin"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Why do you want to join FLC?</FormLabel>
               <FormControl>
-                <Password placeholder="Password" {...field} />
+                <Input as="textarea" placeholder="Answer" rows={3} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -190,21 +171,33 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
         />
         <FormField
           control={form.control}
-          name="confirmPassword"
+          name="expectations"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel>What are your expectations from FLC?</FormLabel>
               <FormControl>
-                <Password placeholder="Confirm Password" {...field} />
+                <Input as="textarea" placeholder="Answer" rows={3} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
+        <FormField
+          control={form.control}
+          name="contribution"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>How would you contribute to FLC?</FormLabel>
+              <FormControl>
+                <Input as="textarea" placeholder="Answer" rows={3} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="flex justify-center">
           <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
-            Submit
+            Register
           </Button>
         </div>
       </form>
@@ -212,4 +205,4 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
   );
 };
 
-export default SignUpForm;
+export default RegisterForm;
