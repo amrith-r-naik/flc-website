@@ -125,7 +125,7 @@ export function FlagShip() {
 
   useEffect(() => {
     if (show) {
-      const timeout = setTimeout(() => setShow(false), 1000); // Show confetti for 1 second
+      const timeout = setTimeout(() => setShow(false), 1000); 
       return () => clearTimeout(timeout);
     }
   }, [show]);
@@ -147,7 +147,7 @@ export function FlagShip() {
           </span>
         }
         badge={
-          <Link href="https://peerlist.io/manuarora">
+          <Link href="https://hackfest.dev">
             <Image
               alt="logo"
               src="/logo.webp"
