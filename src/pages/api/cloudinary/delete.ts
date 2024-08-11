@@ -1,6 +1,7 @@
 import { v2 as cloudinary, type DeleteApiResponse } from "cloudinary";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+
 // Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -9,14 +10,15 @@ cloudinary.config({
 });
 
 // Regular expression pattern to match Cloudinary public_id from URL
-const regex = /\/v\d+\/([^/]+)\./;
+const regex = /\/v\d+\/([^/]+)(?=\.)/;
+
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   try {
-    const { url } = req.body as {url:string};
+    const { url } = req.body as { url: string };
 
     // Function to extract public_id from Cloudinary URL
     const getPublicIdFromUrl = (url: string) => {
@@ -26,6 +28,7 @@ export default async function handler(
 
     // Get public_id from URL
     const public_id = getPublicIdFromUrl(url);
+    console.log("public_id:", public_id);
 
     if (!public_id) {
       return res.status(400).json({ error: "Invalid Cloudinary URL provided" });
@@ -34,9 +37,12 @@ export default async function handler(
     // Destroy the image on Cloudinary
     const result = (await cloudinary.uploader.destroy(
       public_id,
-    )) as DeleteApiResponse;
+    )) as DeleteApiResponse | {result:string};
 
-    if (result?.http_code !== 200) {
+    console.log(result);
+
+    // Check for deletion success
+    if (result?.result !== "ok") {
       console.error("Cloudinary deletion error:", result);
       return res.status(500).json({ error: "Failed to delete image", result });
     }
@@ -45,8 +51,6 @@ export default async function handler(
     res.status(200).json({ message: "Image deleted successfully", result });
   } catch (error) {
     console.error("Error in handler:", error);
-    res
-      .status(500)
-      .json({ error: "Internal Server Error", details: error });
+    res.status(500).json({ error: "Internal Server Error", details: error });
   }
 }

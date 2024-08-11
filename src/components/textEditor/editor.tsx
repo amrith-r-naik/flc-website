@@ -107,15 +107,16 @@ export default function Editor({
         />
       </Head>
 
-      <div className="mt-12 ">
+      <div className="mt-12   ">
         <ReactQuill
           theme="snow"
           placeholder="Type here"
           value={text}
           id={id}
+          style={{borderRadius:"10px"}}
           onChange={onChange}
           modules={modules}
-          className="m-3 m-auto bg-white text-black sm:m-auto sm:mx-3 sm:w-[90%] md:m-auto md:w-1/2 md:w-[90%] md:w-full lg:w-1/2"
+          className="m-3 border-hidden  m-auto bg-white text-black sm:m-auto sm:mx-3 sm:w-full md:m-auto   md:w-full lg:w-full"
         />
         <div className="md:2/3 mx-3 flex w-full flex-col justify-between sm:w-[90%] md:m-auto md:w-[90%] md:flex-row lg:m-auto lg:w-1/2">
           <form className="md m-3 ml-0  flex-1 rounded bg-slate-700 p-3 text-white">
