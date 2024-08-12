@@ -1,7 +1,6 @@
 import { v2 as cloudinary, type DeleteApiResponse } from "cloudinary";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-
 // Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -11,7 +10,6 @@ cloudinary.config({
 
 // Regular expression pattern to match Cloudinary public_id from URL
 const regex = /\/v\d+\/([^/]+)(?=\.)/;
-
 
 export default async function handler(
   req: NextApiRequest,
@@ -35,11 +33,9 @@ export default async function handler(
     }
 
     // Destroy the image on Cloudinary
-    const result = (await cloudinary.uploader.destroy(
-      public_id,
-    )) as  {result:string};
-
-    
+    const result = (await cloudinary.uploader.destroy(public_id)) as {
+      result: string;
+    };
 
     // Check for deletion success
     if (result?.result !== "ok") {
