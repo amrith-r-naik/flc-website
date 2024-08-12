@@ -21,7 +21,7 @@ const Navbar = () => {
   const activePath = links.find((link) => link.url === router.pathname);
 
   return (
-    <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-gradient-to-b from-blue-700 via-indigo-950 to-yellow-600 px-[8%] py-3  sm:px-[12%] sm:py-5 ">
+    <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-gradient-to-b from-blue-700 to-indigo-950  px-[8%] py-3  sm:px-[12%] sm:py-5 ">
       <Link href="/" className="flex items-center cursor-pointer">
         <Logo  />
         <p className="ml-3 hidden md:block text-sm font-bold text-white md:text-2xl">
