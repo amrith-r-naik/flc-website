@@ -84,7 +84,7 @@ const ReviewCard = ({
 
 export function Benifits() {
   return (
-    <section className="content-container min-h-[80vh] w-full space-y-8  bg-gradient-to-b from-black via-indigo-950 to-black ">
+    <section className="content-container min-h-screen w-full space-y-8  bg-gradient-to-b from-black via-indigo-950 to-black ">
       <h3 className="text-center text-4xl font-semibold border border-yellow-700 rounded-r-full p-4">Why To Join Us</h3>
 
       <div className="w-full flex-1 overflow-hidden">

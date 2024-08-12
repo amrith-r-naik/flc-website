@@ -41,9 +41,9 @@ function ScrollLeftSection() {
     <section className="scroll-section-outer">
       <div ref={triggerRef}>
         <div ref={sectionRef} className="scroll-section-inner">
-          <div className="scroll-section">
+          {/* <div className="scroll-section">
             <Events />
-          </div>
+          </div> */}
           <div className="scroll-section">
             <TechStack />
           </div>

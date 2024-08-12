@@ -1,13 +1,70 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import Image from "next/image";
+import { useRef } from "react";
 
 import sampleImage from "~/assets/images/sample.jpg";
 
 function AboutFLC() {
-  return (
-    <section className="content-container   bg-gradient-to-b from-black via-blue-950 to-purple-950-950 ">
-      <div className="mb-12  border border-yellow-700 md:rounded-md  rounded-b-full p-4 ">
+  const cardRef = useRef<HTMLDivElement>(null);
 
-        <h1 className="heading text-center justify-center items-center  ">
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        cardRef.current,
+        {
+          opacity: 0,
+          scale: 0.8,
+          duration: 1,
+          ease: "power1.inOut",
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          scrollTrigger: {
+            trigger: cardRef.current,
+            toggleActions: "restart none none reverse",
+            start: "top 80%",
+            end: "bottom 20%",
+          },
+        },
+      );
+    },
+    { scope: cardRef },
+  );
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        ref.current,
+        {
+          opacity: 0,
+          scale: 0.5,
+          duration: 3,
+          ease: "power1.inOut",
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          scrollTrigger: {
+            trigger: ref.current,
+            toggleActions: "restart none none reverse",
+          },
+        },
+      );
+    },
+    { scope: ref },
+  );
+
+  return (
+    <section className="content-container mt-20 h-screen   bg-gradient-to-b from-black via-blue-950 to-purple-950 ">
+      <div className="mb-12  rounded-md border border-yellow-700  p-4  ">
+        <h1
+          className="heading items-center justify-center text-center  "
+          ref={ref}
+        >
           FINITELOOP: The Best Coding Club of NMAMIT
         </h1>
       </div>
@@ -31,21 +88,18 @@ function AboutFLC() {
           </ul>
         </div>
 
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center " ref={cardRef}>
           <Image
             width={400}
             height={400}
             alt="Finite Loop Club"
             src={sampleImage}
-            className="md:rounded-r-full rounded-b-full shadow-lg"
+            className="rounded-xl shadow-lg "
           />
         </div>
       </div>
     </section>
-   
-
   );
 }
 
 export default AboutFLC;
-

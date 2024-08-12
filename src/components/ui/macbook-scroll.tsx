@@ -73,20 +73,16 @@ export const MacbookScroll = ({
   return (
     <div
       ref={ref}
-      className="flex min-h-[300vh] flex-shrink-0 scale-50 transform flex-col items-center justify-start py-0 [perspective:800px] sm:scale-75 md:scale-100 md:py-56"
+      className="flex h-full flex-shrink-0 scale-50 transform flex-col items-center justify-start py-0 [perspective:800px] sm:scale-75 md:scale-100 md:py-56"
     >
       <motion.h2
         style={{
           translateY: textTransform,
           opacity: textOpacity,
         }}
-        className="mb-20 text-center text-3xl font-bold text-neutral-800 dark:text-white"
+        className="mb-20 text-center title font-bold text-neutral-800 dark:text-white"
       >
-        {title ?? (
-          <span>
-            Introducing Our Flagship Event <br /> HackFest
-          </span>
-        )}
+        {title }
       </motion.h2>
       {/* Lid */}
       <Lid
