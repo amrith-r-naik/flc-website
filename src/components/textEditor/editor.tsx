@@ -1,36 +1,61 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 
+
+
 import { api } from "~/utils/api";
+import { type createEventZ } from "~/zod/eventZ";
+
+
 
 import { modules, devices } from "./constants";
+
 
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
 });
 
-export default function Editor({ eventId }: { eventId: number }) {
+export default function Editor({
+  eventId,
+  id,
+  value,
+  FUNC,
+}: {
+  eventId?: number;
+  id?: string;
+  value?: string;
+  FUNC?: (
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | React.FormEvent<HTMLButtonElement>,
+  ) => void;
+}) {
   const [text, setText] = useState("");
-  const [displayWidth, setDisplayWidth] = useState(0);
-  const [displayHeight, setDisplayHeight] = useState(0);
+  const [displayWidth, setDisplayWidth] = useState(360);
+  const [displayHeight, setDisplayHeight] = useState(740);
   const [preview, setPreview] = useState(false);
 
-  const addEventDescription = api.event.updateEvent.useMutation();
-
-  const onChange = (text: string) => {
-    setText(text);
-    console.log(text);
-  };
+    const onChange = (text: string) => {
+      setText(text);
+      if (FUNC) {
+        const event = {
+          target: {
+            id,
+            value: text,
+            type: "text",
+          },
+        } as React.ChangeEvent<HTMLInputElement>;
+        FUNC(event);
+      }
+      console.log(text);
+    };
 
   // storing content in db
   const onConfirmEdit = async () => {
     try {
-      await addEventDescription.mutateAsync({
-        id: eventId,
-        description: text,
-      });
+
       console.log("Event description updated successfully!");
       alert(
         `Event description updated successfully! \n id :${eventId ?? "cly358cjt0000whuimrz5so25"}`,
@@ -59,12 +84,7 @@ export default function Editor({ eventId }: { eventId: number }) {
     devices.forEach((device) => {
       if (device[0] === selectedDevice) {
         setDisplayWidth(device[1] as number);
-        setDisplayHeight(device[2] as number);
-        const displayElement = document.getElementById("display");
-        if (displayElement) {
-          displayElement.style.height = `${device[2]}px`;
-          displayElement.style.width = `${device[1]}px`;
-        }
+        setDisplayHeight(device[2] as number);    
       }
     });
   };
@@ -82,17 +102,21 @@ export default function Editor({ eventId }: { eventId: number }) {
         />
       </Head>
 
-      <div className="mt-12 ">
+      <div className="mt-12   ">
+        <div className="bg-white p-1 rounded-md">
         <ReactQuill
           theme="snow"
           placeholder="Type here"
           value={text}
+          id={id}
+          style={{ borderRadius: "0px", border: "none" }}  
           onChange={onChange}
           modules={modules}
-          className="m-3 m-auto bg-white text-black sm:m-auto sm:mx-3 sm:w-[90%] md:m-auto md:w-1/2 md:w-[90%] md:w-full lg:w-1/2"
+          className="m-3 border-hidden  m-auto bg-white text-black sm:m-auto sm:mx-3 sm:w-full md:m-auto   md:w-full lg:w-full"
         />
+        </div>
         <div className="md:2/3 mx-3 flex w-full flex-col justify-between sm:w-[90%] md:m-auto md:w-[90%] md:flex-row lg:m-auto lg:w-1/2">
-          <form className="md m-3 ml-0  flex-1 rounded bg-slate-700 p-3 text-white">
+          <div className="md m-3 ml-0  flex-1 rounded-md bg-slate-700 p-3 text-white">
             <label htmlFor="toggle">Preview content on other devices</label>
             <input
               type="checkbox"
@@ -101,14 +125,14 @@ export default function Editor({ eventId }: { eventId: number }) {
               id="toggle"
               className="m-2 bg-slate-600"
             />
-          </form>
+          </div>
 
-          <button
+          {/* <button
             onClick={onConfirmEdit}
             className="m-3 mr-0 flex-1 content-center rounded-md bg-slate-700 p-3 text-white"
           >
             Confirm Edit
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -149,6 +173,7 @@ export default function Editor({ eventId }: { eventId: number }) {
             id="display"
             className="ql-editor  m-auto mb-16 h-screen  resize overflow-auto rounded-sm border border-4 bg-white  text-black"
             onMouseDown={setSizeOfDisplay}
+            style={{width:displayWidth,height:displayHeight}}
           ></div>
         </div>
       )}

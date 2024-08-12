@@ -1,4 +1,4 @@
-import Footer from "~/components/footer/Footer";
+import Footer from "~/components/Footer/Footer";
 import AboutFLC from "~/components/landing/AboutFLC";
 import Benifits from "~/components/landing/Benifits";
 import Events from "~/components/landing/Events";
