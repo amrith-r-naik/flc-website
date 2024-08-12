@@ -241,15 +241,29 @@ model Quiz {
 }
 
 model QuizResponse {
-  id         String   @id @default(cuid())
+  id         String @id @default(cuid())
   answers    Json
-  totalScore Int      @default(0)
-  userId     Int
-  quizId     String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  quiz       Quiz     @relation(fields: [quizId], references: [id])
-  User       User     @relation(fields: [userId], references: [id])
+  totalScore Int    @default(0)
+
+  userId Int
+  User   User @relation(fields: [userId], references: [id])
+
+  quizId String
+  quiz   Quiz   @relation(fields: [quizId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+//galary
+
+model GalleryImage {
+  id     String @id @default(uuid())
+  imgSrc String
+  title  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
 }
 
 enum Role {
