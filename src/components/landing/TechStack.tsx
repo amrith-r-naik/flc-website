@@ -11,7 +11,6 @@ import nextJsIcon from "~/assets/icons/nextjs-icon-svgrepo-com.svg";
 import postgress from "~/assets/icons/PostgreSQL.png";
 import prisma from "~/assets/icons/prisma-svgrepo-com.svg";
 import pythonIcon from "~/assets/icons/python.svg";
-import reactIcon from "~/assets/icons/react-svgrepo-com.svg";
 import tailwindIcon from "~/assets/icons/tailwind-svgrepo-com.svg";
 import trpcIcon from "~/assets/icons/trpc.svg";
 import tsIcon from "~/assets/icons/typescript-svgrepo-com.svg";
@@ -21,7 +20,7 @@ import OrbitingCircles from "../magicui/orbiting-circles";
 
 export default function TechStack() {
   return (
-    <section className="flex h-[200vh] flex-col  items-center justify-center md:h-screen md:w-screen md:flex-row">
+    <section className="flex h-[300vh] flex-col  items-center justify-center md:h-screen md:w-screen md:flex-row">
       <div className="relative flex h-full w-full max-w-full items-center justify-center space-y-8  overflow-hidden bg-gradient-to-b from-black via-blue-900 to-violet-900 shadow-2xl md:bg-gradient-to-r ">
         <h2 className="absolute md:left-3 text-center top-4 rounded-lg   bg-gradient-to-b from-blue-700 via-blue-900 to-violet-900  p-2 text-lg text-white shadow-xl">
           Our Commonly Used Tech Tools and Frameworks
@@ -122,7 +121,7 @@ export default function TechStack() {
           className="size-[40px] border-none bg-transparent sm:size-[45px] md:size-[50px]"
           radius={220}
           duration={20}
-          delay={55}
+          delay={50}
         >
           <Image
             src="/go.png"
@@ -232,7 +231,7 @@ export default function TechStack() {
           className="size-[40px] border-none bg-transparent sm:size-[45px] md:size-[50px]"
           radius={220}
           duration={20}
-          delay={52}
+          delay={50}
         >
           <Image
             src={prisma as string}

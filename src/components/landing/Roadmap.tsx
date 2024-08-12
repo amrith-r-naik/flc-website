@@ -128,7 +128,7 @@ const Roadmap: FC = () => {
   );
 
   return (
-    <section className="content-container mt-28 bg-gradient-to-b from-black  via-slate-900 to-purple-950">
+    <section className="content-container space-y-16 h-screen ">
       <div ref={ref}>
         <div className="rounded-r-full border border-yellow-700 p-4 text-center md:mb-10">
           <h1 className="text-3xl font-bold ">

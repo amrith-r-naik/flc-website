@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image, {  type StaticImageData } from "next/image";
 
 import sampleImage from "~/assets/images/sample.jpg";
 
@@ -80,8 +80,8 @@ const ReviewCard = ({
 
 export function Benifits() {
   return (
-    <section className="content-container min-h-screen w-full space-y-8  bg-gradient-to-b from-black via-indigo-950 to-black ">
-      <h3 className="rounded-r-full border border-yellow-700 p-4 text-center text-4xl font-semibold">
+    <section className="  min-h-screen w-full space-y-8  ">
+      <h3 className=" m-4 rounded-r-full border border-yellow-700 p-4 text-center text-4xl font-semibold">
         Why To Join Us
       </h3>
 

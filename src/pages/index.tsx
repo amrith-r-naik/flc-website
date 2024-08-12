@@ -12,15 +12,24 @@ export default function Home() {
   return (
     <main className="flex flex-col items-stretch ">
       <Hero />
+      <div className=" bg-gradient-to-b from-black via-blue-950 to-purple-950 ">
+
       <AboutFLC />
-      <Roadmap />
+      </div>
+      <div className="bg-gradient-to-b from-black  via-slate-900 to-purple-950">
+        <Roadmap />
+      </div>
       <FlagShip />
       <div className="bg-gradient-to-b from-black via-indigo-950 to-blue-950">
         <Projects />
       </div>
       <TechStack />
-      <Events />
-      <Benifits />
+      <div className="bg-gradient-to-r from-blue-900 to-black">
+        <Events />
+      </div>
+      <div className="bg-gradient-to-b from-black via-indigo-950 to-black ">
+        <Benifits />
+      </div>
       <Footer />
     </main>
   );

@@ -59,7 +59,7 @@ function AboutFLC() {
   );
 
   return (
-    <section className="content-container mt-20 h-screen   bg-gradient-to-b from-black via-blue-950 to-purple-950 ">
+    <section className="content-container min-h-[80vh] mt-12 sapce-y-16   ">
       <div className="mb-12  rounded-md border border-yellow-700  p-4  ">
         <h1
           className="heading items-center justify-center text-center  "

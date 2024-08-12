@@ -1,18 +1,13 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
-
-import Card from "~/components/Card";
-import CloudinaryUpload from "~/components/cloudinary/cloudinaryUpload";
-import { uploadTypeEnum } from "~/components/cloudinary/cloudinaryUpload";
 import EventCard from "~/components/eventCard";
 import Loader from "~/components/Loader/Loader";
-import RadioButtons from "~/components/RadioButtons";
 import { api } from "~/utils/api";
-
 import Background from "./ParticlesBackground";
 
 function page() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [selectedYear, setSelectedYear] = useState<string>("2024");
   const years: string[] = [
     "2016",
     "2017",
@@ -24,7 +19,6 @@ function page() {
     "2023",
     "2024",
   ];
-  const [selectedYear, setSelectedYear] = useState<string>("2024");
 
   const handleYearClick = (year: string) => {
     setSelectedYear(year);
@@ -36,6 +30,9 @@ function page() {
     error,
   } = api.event.getAllEventsForUser.useQuery({ year: selectedYear });
 
+
+   console.log(events)
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     console.log(selectedYear);
   }, [selectedYear]);
@@ -88,25 +85,12 @@ function page() {
       {events && events.length > 0 ? (
         <div className="mx-auto  mb-4 grid max-w-7xl grid-cols-1 gap-10 px-5 md:grid-cols-2 xl:grid-cols-3">
           {events.map((event, index) => (
-            <EventCard data={event} />
+            <EventCard key={index} data={event} />
           ))}
         </div>
       ) : (
         <div className="flex justify-center">No events available</div>
       )}
-
-      {/* 
-      <div className="mx-2 mt-8 flex flex-wrap justify-center gap-20 md:mx-8">
-        {events && events.length > 0 ? (
-          <>
-            {events.map((event, index) => (
-              <Card key={index} event={event} />
-            ))}
-          </>
-        ) : (
-          <div>No events available</div>
-        )}
-      </div> */}
     </>
   );
 }

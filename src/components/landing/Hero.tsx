@@ -36,11 +36,11 @@ function Hero() {
     { scope: ref },
   );  
   return (
-    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-slate-900">
+    <div className="relative flex h-[100vh] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-slate-900">
       <div className=" pointer-events-none absolute inset-0 z-20 h-full w-full space-y-4 bg-slate-900 [mask-image:radial-gradient(transparent,white)]" />
 
       <Boxes />
-      <h1 className="title relative z-20 bg-gradient-to-r from-blue-700 via-white to-yellow-500 bg-clip-text text-center text-transparent " ref={ref}>
+      <h1 className="  text-4xl sm:text-6xl md:text-7xl lg:text-8xl relative z-20 bg-gradient-to-r from-blue-700 via-white to-yellow-500 bg-clip-text text-center text-transparent " ref={ref}>
         NMAMIT
         <br />
         FINITE LOOP CLUB

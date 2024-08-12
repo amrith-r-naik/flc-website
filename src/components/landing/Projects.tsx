@@ -59,7 +59,7 @@ function Projects() {
   );
 
   return (
-    <section className="content-container mb-14 flex min-h-[80vh] flex-col items-center  gap-4 ">
+    <section className="content-container mb-14 flex min-h-[80vh] flex-col items-center  gap-4 sapce-y-12 ">
       <h3
         className="rounded-r-full border border-yellow-700 p-4 text-center text-4xl font-semibold"
         ref={refs}

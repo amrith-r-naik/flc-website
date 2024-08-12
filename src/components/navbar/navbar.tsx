@@ -47,7 +47,7 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <div>
+        <div hidden>
           <ThemeToggleSwitch />
         </div>
 
