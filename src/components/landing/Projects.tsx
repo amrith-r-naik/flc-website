@@ -34,12 +34,38 @@ function Projects() {
     });
   }, []);
 
+
+  const refs = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        refs.current,
+        {
+          opacity: 0,
+          scale: 0.5,
+          duration: 3,
+          ease: "power1.inOut",
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          scrollTrigger: {
+            trigger: refs.current,
+            toggleActions: "restart none none reverse",
+          },
+        },
+      );
+    },
+    { scope: refs },
+  );
+
   return (
     <section
       className="content-container mb-14 flex min-h-[80vh] flex-col items-center  gap-4 "
-      ref={ref}
+      
     >
-      <h3 className="rounded-r-full border border-yellow-700 p-4 text-center text-4xl font-semibold">
+      <h3 className="rounded-r-full border border-yellow-700 p-4 text-center text-4xl font-semibold" ref={refs}>
         Projects Done By Flc Team
       </h3>
       <p>Get opportunity to work on numerous real-world projects</p>

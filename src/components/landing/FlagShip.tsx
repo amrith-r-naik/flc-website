@@ -101,9 +101,9 @@ export function FlagShip() {
     const handleScrollTrigger = () => {
       ScrollTrigger.create({
         trigger: element,
-        start: "top 50%", // Trigger when the top of the element reaches 50% of the viewport height
+        start: "top 50%",
         onEnter: () => setShow(true),
-        onLeaveBack: () => setShow(false), // Hide confetti when scrolling back up
+        onLeaveBack: () => setShow(false), 
       });
     };
 

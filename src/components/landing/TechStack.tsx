@@ -1,9 +1,7 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import Image from "next/image";
-import { useRef } from "react";
+
 
 import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg";
 import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg";
@@ -52,258 +50,41 @@ const techs = [
 ];
 
 export default function TechStack() {
-  // const ref = useRef<HTMLElement>(null);
 
-  // useGSAP(
-  //   () => {
-  //     const width = ref.current?.offsetWidth ?? 0;
-  //     const height = ref.current?.offsetHeight ?? 0;
-
-  //     gsap.to(".tech", {
-  //       x: (i) => {
-  //         return `${width * 0.4 * Math.sin((2 * Math.PI * i) / techs.length)}`;
-  //       },
-  //       y: (i) =>
-  //         `${height * 0.4 * Math.cos((2 * Math.PI * i) / techs.length)}`,
-  //       opacity: 1,
-  //       ease: "power1.inOut",
-  //       scrollTrigger: {
-  //         trigger: ref.current,
-  //         toggleActions: "restart none none reverse",
-  //       },
-  //       stagger: {
-  //         amount: 1,
-  //         from: "random",
-  //       },
-  //     });
-  //   },
-  //   { scope: ref },
-  // );
 
   return (
-    // <section className="h-full w-full ">
-    //   <div className="to-voilet-900 relative  flex h-full w-full items-center justify-center overflow-hidden  rounded-lg  bg-gradient-to-r from-black via-blue-900 md:shadow-xl ">
-    //     <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-6xl font-semibold leading-none text-transparent dark:from-white dark:to-black md:text-9xl">
-    //       TechStack
-    //     </span>
-
-    //     {/* Inner Circles */}
-    //     <OrbitingCircles
-    //       className="size-[30px] border-none bg-transparent"
-    //       duration={20}
-    //       delay={20}
-    //       radius={50}
-    //     >
-    //       <Image
-    //         src="/js.jpeg"
-    //         width={40}
-    //         height={40}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-    //     <OrbitingCircles
-    //       className="size-[30px] border-none bg-transparent"
-    //       duration={20}
-    //       delay={10}
-    //       radius={50}
-    //     >
-    //       <Image
-    //         src="/next.jpeg"
-    //         width={40}
-    //         height={40}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-
-    //     {/* Outer Circles (reverse) */}
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={100}
-    //       duration={20}
-    //       reverse
-    //     >
-    //       <Image
-    //         src="/docker.jpeg"
-    //         width={50}
-    //         height={50}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={100}
-    //       duration={20}
-    //       delay={20}
-    //       reverse
-    //     >
-    //       <Icons.gitHub />
-    //     </OrbitingCircles>
-
-    //     {/* Additional Outer Circle */}
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={150}
-    //       duration={20}
-    //       delay={10}
-    //       reverse
-    //     >
-    //       <Image
-    //         src="/go.png"
-    //         width={60}
-    //         height={60}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={150}
-    //       duration={20}
-    //       delay={20}
-    //       reverse
-    //     >
-    //       <Image
-    //         src="/aws.jpeg"
-    //         width={50}
-    //         height={50}
-    //         className="overflow-hidden rounded-full"
-    //         alt="aws"
-    //       />
-    //     </OrbitingCircles>
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={150}
-    //       duration={20}
-    //       delay={30}
-    //     >
-    //       <Image
-    //         src="/ts.png"
-    //         width={60}
-    //         height={60}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={200}
-    //       duration={20}
-    //       delay={30}
-    //     >
-    //       <Image
-    //         src="/ts.png"
-    //         width={60}
-    //         height={60}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={200}
-    //       duration={20}
-    //       delay={30}
-    //     >
-    //       <Image
-    //         src="/ts.png"
-    //         width={60}
-    //         height={60}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={250}
-    //       duration={20}
-    //       delay={10}
-    //     >
-    //       <Image
-    //         src="/ts.png"
-    //         width={60}
-    //         height={60}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={250}
-    //       duration={20}
-    //       delay={10}
-    //     >
-    //       <Image
-    //         src="/go.png"
-    //         width={60}
-    //         height={60}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={250}
-    //       duration={20}
-    //       delay={10}
-    //     >
-    //       <Image
-    //         src="/ts.png"
-    //         width={60}
-    //         height={60}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-    //     <OrbitingCircles
-    //       className="size-[50px] border-none bg-transparent"
-    //       radius={250}
-    //       duration={20}
-    //       delay={10}
-    //     >
-    //       <Image
-    //         src="/docker.jpeg"
-    //         width={60}
-    //         height={60}
-    //         className="overflow-hidden rounded-full"
-    //         alt="ts"
-    //       />
-    //     </OrbitingCircles>
-    //   </div>
-    // </section>
-    <section className="flex h-screen w-screen items-center justify-center">
-  <div className="relative flex h-full w-full max-w-7xl items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-black via-blue-900 to-violet-900 shadow-xl">
-    <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-6xl font-semibold leading-none text-transparent dark:from-white dark:to-black md:text-8xl">
+ 
+<section className="flex h-screen w-screen items-center justify-center">
+  <div className="relative flex h-full w-full max-w-7xl items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-black via-blue-900 to-violet-900 shadow-2xl md:rounded-r-full">
+    <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-4xl font-semibold leading-none text-transparent dark:from-white dark:to-black sm:text-5xl md:text-6xl lg:text-8xl">
       TechStack
     </span>
 
     {/* Inner Circles */}
     <OrbitingCircles
-      className="size-[30px] border-none bg-transparent"
+      className="size-[20px] sm:size-[25px] md:size-[30px] border-none bg-transparent"
       duration={20}
       delay={20}
-      radius={50}
+      radius={40}
     >
       <Image
         src="/js.jpeg"
-        width={40}
-        height={40}
+        width={30}
+        height={30}
         className="overflow-hidden rounded-full object-cover"
         alt="JavaScript"
       />
     </OrbitingCircles>
     <OrbitingCircles
-      className="size-[30px] border-none bg-transparent"
+      className="size-[20px] sm:size-[25px] md:size-[30px] border-none bg-transparent"
       duration={20}
       delay={10}
-      radius={50}
+      radius={40}
     >
       <Image
         src="/next.jpeg"
-        width={40}
-        height={40}
+        width={30}
+        height={30}
         className="overflow-hidden rounded-full object-cover"
         alt="Next.js"
       />
@@ -311,22 +92,22 @@ export default function TechStack() {
 
     {/* Outer Circles (reverse) */}
     <OrbitingCircles
-      className="size-[50px] border-none bg-transparent"
-      radius={100}
+      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
+      radius={80}
       duration={20}
       reverse
     >
       <Image
         src="/docker.jpeg"
-        width={50}
-        height={50}
+        width={40}
+        height={40}
         className="overflow-hidden rounded-full object-cover"
         alt="Docker"
       />
     </OrbitingCircles>
     <OrbitingCircles
-      className="size-[50px] border-none bg-transparent"
-      radius={100}
+      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
+      radius={80}
       duration={20}
       delay={20}
       reverse
@@ -336,31 +117,31 @@ export default function TechStack() {
 
     {/* Additional Outer Circle */}
     <OrbitingCircles
-      className="size-[50px] border-none bg-transparent"
-      radius={150}
+      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
+      radius={120}
       duration={20}
       delay={10}
       reverse
     >
       <Image
         src="/go.png"
-        width={60}
-        height={60}
+        width={50}
+        height={50}
         className="overflow-hidden rounded-full object-cover"
         alt="Go"
       />
     </OrbitingCircles>
     <OrbitingCircles
-      className="size-[50px] border-none bg-transparent"
-      radius={150}
+      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
+      radius={120}
       duration={20}
       delay={20}
       reverse
     >
       <Image
         src="/aws.jpeg"
-        width={50}
-        height={50}
+        width={40}
+        height={40}
         className="overflow-hidden rounded-full object-cover"
         alt="AWS"
       />
@@ -368,49 +149,50 @@ export default function TechStack() {
 
     {/* Outer-most Circles */}
     <OrbitingCircles
-      className="size-[50px] border-none bg-transparent"
-      radius={200}
+      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
+      radius={160}
       duration={20}
       delay={30}
     >
       <Image
         src="/ts.png"
-        width={60}
-        height={60}
+        width={50}
+        height={50}
         className="overflow-hidden rounded-full object-cover"
         alt="TypeScript"
       />
     </OrbitingCircles>
     <OrbitingCircles
-      className="size-[50px] border-none bg-transparent"
-      radius={250}
+      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
+      radius={200}
       duration={20}
       delay={10}
     >
       <Image
         src="/docker.jpeg"
-        width={60}
-        height={60}
+        width={50}
+        height={50}
         className="overflow-hidden rounded-full object-cover"
         alt="Docker"
       />
     </OrbitingCircles>
     <OrbitingCircles
-      className="size-[50px] border-none bg-transparent"
-      radius={250}
+      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
+      radius={200}
       duration={20}
       delay={10}
     >
       <Image
         src="/go.png"
-        width={60}
-        height={60}
+        width={50}
+        height={50}
         className="overflow-hidden rounded-full object-cover"
         alt="Go"
       />
     </OrbitingCircles>
   </div>
 </section>
+
 
   );
 }

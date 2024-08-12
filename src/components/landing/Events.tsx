@@ -10,25 +10,39 @@ import sampleImage from "~/assets/images/sample.jpg"
 
 function Events() {
 
-    const ref = useRef(null);
-    useGSAP(() => {
-        gsap.from('.event', {
+
+
+
+
+    const refs = useRef<HTMLDivElement>(null);
+
+    useGSAP(
+      () => {
+        gsap.fromTo(
+          refs.current,
+          {
             opacity: 0,
-            y: 100,
-            stagger: {
-                grid: "auto",
-                amount: .5,
-            },
+            scale: 0.5,
+            duration: 3,
+            ease: "power1.inOut",
+          },
+          {
+            opacity: 1,
+            scale: 1,
             scrollTrigger: {
-                trigger: ref.current,
-                toggleActions: "restart none none reverse",
-            }
-        });
-    }, [])
+              trigger: refs.current,
+              toggleActions: "restart none none reverse",
+            },
+          },
+        );
+      },
+      { scope: refs },
+    );
+  
     return (
-        <section className="w-full content-container h-full flex flex-col gap-4 items-center  mb-16 bg-gradient-to-r from-blue-900 to-black" ref={ref}>
-            <h1 className='text-4xl font-semibold text-center border border-yellow-700 rounded-r-full p-4'>Events & WorkShop</h1>
-            <p>Enrich your skills and knowledge with tons of events and workshops</p>
+        <section className="w-full content-container h-full flex flex-col gap-4 items-center  mb-16 bg-gradient-to-r from-blue-900 to-black" >
+            <h1 className='text-4xl font-semibold text-center border border-yellow-700 rounded-r-full p-4' ref={refs}>Events & WorkShop</h1>
+            <p   >Enrich your skills and knowledge with tons of events and workshops</p>
             <div className="w-full h-full grid gap-4 grid-cols-1 md:grid-cols-3 iteam-center justify-between">
                 <Image width={400} height={400} alt='flc' src={sampleImage} className="event" />
                 <Image width={400} height={400} alt='flc' src={sampleImage} className="event" />
