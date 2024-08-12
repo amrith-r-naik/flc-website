@@ -1,56 +1,55 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect, useState, type FunctionComponent } from "react";
-import { toast } from "sonner";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react'
+import { toast, Toaster } from 'sonner';
+import { api } from '~/utils/api';
 
-import Background from "~/components/background";
-import { api } from "~/utils/api";
-
-const Verify: FunctionComponent = () => {
-  const { query } = useRouter();
-  const token = query.token;
-
-  const [status, setStatus] = useState<"LOADING" | "INVALID" | "SUCCESS">(
-    "INVALID",
-  );
-
-  const verifyEmail = api.auth.verifyEmail.useMutation();
-
-  useEffect(() => {
-    if (token && typeof token === "string") {
-      setStatus("LOADING");
-
-      verifyEmail.mutate(
-        {
-          token,
+const index = () => {
+    const router = useRouter();
+    const { token } = router.query;
+    const [verificationToken, setVerificationToken] = useState('');
+    const [loading, setLoading] = useState(true);
+    const verifyEmail = api.auth.verifyEmail.useMutation({
+        onSuccess: async () => {
+            toast.success("Email verified successfully!");
+            setLoading(false)
+            router.push('/register')
         },
-        {
-          onSuccess: () => {
-            setStatus("SUCCESS");
-            toast.success("Email verified successfully");
-          },
-          onError: ({ message }) => {
-            setStatus("INVALID");
+        onError: ({ message }) => {
+            toast.dismiss();
             toast.error(message);
-          },
         },
-      );
-    }
-  }, [token, verifyEmail]);
 
-  return (
-    <>
-      <div className="flex h-screen w-full items-center justify-center">
-        {status === "LOADING" && <h1>Verifying...</h1>}
-        {status === "INVALID" && <h1>Invalid token</h1>}
-        {status === "SUCCESS" && (
-          <h1>
-            Email verified successfully. Please <Link href="/login">Login</Link>
-          </h1>
-        )}
-      </div>
-    </>
-  );
-};
+    });
 
-export default Verify;
+    useEffect(() => {
+        if (token) {
+            // Handle case where token is an array of strings
+            const tokenString = Array.isArray(token) ? token[0] : token;
+            console.log("token string: ", tokenString);
+            setVerificationToken(tokenString!);
+        }
+    }, [token]);
+
+    useEffect(() => {
+        if (verificationToken) {
+            console.log("verificationToken: ", verificationToken);
+            verifyEmail.mutate({ token: verificationToken });
+        }
+    }, [verificationToken]);
+    return (
+        <>
+            <div className='h-screen flex items-center'>
+                <div className=' -translate-y-10 order-1 mx-auto w-4/5  justify-center rounded-lg bg-white/15  lg:order-2 '>
+                    <Link href='/register' className=''>
+                        <h2>
+                            Back to login!
+                        </h2>
+                    </Link>
+                </div>
+            </div>
+        </>
+    )
+}
+
+export default index

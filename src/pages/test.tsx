@@ -1,11 +1,10 @@
+"use client";
+
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-
-
 import { api } from "~/utils/api";
-
 
 export default function Home() {
   const router = useRouter();

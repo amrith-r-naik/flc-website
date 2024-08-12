@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { type FunctionComponent } from "react";
+import React, { useEffect, useState, type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
@@ -20,7 +20,8 @@ import { Input } from "~/components/ui/input";
 import { Password } from "~/components/ui/password";
 
 import { cn } from "~/lib/utils";
-import { ResetPasswordFormZ } from "~/zod/formSchemaZ";
+import { api } from "~/utils/api";
+import { ResetPasswordZ } from "~/zod/authZ";
 
 interface Props {
   className?: string;
@@ -28,34 +29,51 @@ interface Props {
 
 const Resetpassword: FunctionComponent<Props> = ({ className }) => {
   const router = useRouter();
+  const { token } = router.query;
+  const [resetPasswordToken, setResetPasswordToken] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const formSchema = ResetPasswordFormZ;
+  const resetPassword = api.auth.resetPassword.useMutation({
+    onSuccess: async () => {
+      toast.success("Password reset successfully!");
+      setLoading(false)
+      router.push('/auth/login')
+    },
+    onError: ({ message }) => {
+      toast.dismiss();
+      toast.error(message);
+    },
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  })
+  const form = useForm<z.infer<typeof ResetPasswordZ>>({
+    resolver: zodResolver(ResetPasswordZ),
     defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
+      token: "",
+      newPassword: ""
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    signIn("credentials", {
-      email: values.email,
-      password: values.password,
-      redirect: false,
+  useEffect(() => {
+    if (token) {
+        // Handle case where token is an array of strings
+        const tokenString = Array.isArray(token) ? token[0] : token;
+        console.log("token string: ", tokenString);
+        setResetPasswordToken(tokenString!);
+    }
+}, [token]);
+
+useEffect(() => {
+    if (resetPasswordToken) {
+        console.log("verificationToken: ", resetPasswordToken);
+    }
+}, [resetPasswordToken]);
+
+  const onSubmit = (values: z.infer<typeof ResetPasswordZ>) => {
+    resetPassword.mutate({
+      token: resetPasswordToken,
+      newPassword: values.newPassword ,
+      confirmPassword:values.confirmPassword
     })
-      .then((s) => {
-        if (s?.ok) {
-          toast.success("Logged in successfully");
-          void router.push("/profile");
-        }
-      })
-      .catch((e) => {
-        console.error(e);
-        toast.error("Failed to log in");
-      });
   };
 
   return (
@@ -67,22 +85,10 @@ const Resetpassword: FunctionComponent<Props> = ({ className }) => {
         <FormMessage className="flex justify-center text-center text-3xl text-white ">
           Reset password
         </FormMessage>
+
         <FormField
           control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="Email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
+          name="newPassword"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
