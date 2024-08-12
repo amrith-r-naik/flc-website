@@ -102,10 +102,16 @@ const SendPasswordResetZ = z.object({
       },
     ),
 });
-const ResetPasswordZ = z.object({
-  token: z.string(),
-  newPassword: z.string(),
-});
+const ResetPasswordZ = z
+  .object({
+    token: z.string(),
+    newPassword: z.string(),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
 const VerifyEmailZ = z.object({
   token: z.string(),

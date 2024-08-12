@@ -1,27 +1,28 @@
 "use client";
 
 import { EventCategory, EventState, EventType } from "@prisma/client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { type z } from "zod";
 
+
+
 import { DatePicker } from "~/components/ui/date-picker";
+
+
 
 import { api } from "~/utils/api";
 import { type createEventZ } from "~/zod/eventZ";
 
+
+
+import Editor from "../textEditor/editor";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { Textarea } from "../ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+
 
 const CreateEvent: React.FC = () => {
   const createEvent = api.event.createEvent.useMutation();
@@ -147,12 +148,13 @@ const CreateEvent: React.FC = () => {
               <Label className="text-black-100 font-bold" htmlFor="description">
                 Description (optional)
               </Label>
-              <Textarea
+              <Editor id="description" value={formValues.description} FUNC={handleChange}></Editor>
+              {/* <Textarea
                 className="bg-white font-normal text-black focus:bg-white focus-visible:border-slate-400"
                 id="description"
                 value={formValues.description}
                 onChange={handleChange}
-              />
+              /> */}
             </div>
 
             <div className="flex w-full flex-col space-y-1.5">
@@ -173,6 +175,7 @@ const CreateEvent: React.FC = () => {
                 Type
               </Label>
               <Select
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 value={formValues.eventType}
                 onValueChange={(value) => handleSelectChange("type", value)}
               >
@@ -364,6 +367,7 @@ const CreateEvent: React.FC = () => {
             className="ml-auto"
             onClick={() => {
               createEvent.mutate({
+
                 amount: formValues.amount,
                 category: formValues.category,
                 deadline: formValues.deadline,
@@ -377,10 +381,13 @@ const CreateEvent: React.FC = () => {
                 name: formValues.name,
                 state: formValues.state,
                 toDate: formValues.toDate,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 eventType: formValues.eventType,
                 venue: formValues.venue,
               });
+                
             }}
+
           >
             Create Event
           </Button>

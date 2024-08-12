@@ -1,28 +1,21 @@
-
-
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
 /* import Layout from "~/components/layout"; */
 import { ThemeProvider } from "next-themes";
 import { type AppType } from "next/app";
-import { Rowdies,  } from "next/font/google";
+import { Rowdies } from "next/font/google";
 import { useRouter } from "next/router";
 import { Toaster } from "sonner";
+
 import Footer from "~/components/Footer/Footer";
-
-
 import AdminLayout from "~/components/Layout/adminLayout";
 import MainLayout from "~/components/Layout/mainLayout";
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
-
 // If loading a variable font, you don't need to specify the font weight
 // const inter = Inter({ subsets: ["latin"], display: "swap" });
-
-
-
 
 const rowdies = Rowdies({
   weight: ["700"],
@@ -47,7 +40,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <div className={` ${rowdies.className}  } `}>
           <Layout>
             <Component {...pageProps} />
-        
           </Layout>
           <Toaster />
         </div>

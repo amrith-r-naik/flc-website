@@ -11,8 +11,7 @@ import {
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import Image from "next/image";
-import {  type ReactNode, useRef } from "react";
-
+import { type ReactNode, useRef } from "react";
 
 import Button from "~/components/Button";
 import { cn } from "~/lib/utils";
@@ -33,7 +32,6 @@ function Projects() {
       },
     });
   }, []);
-
 
   const refs = useRef<HTMLDivElement>(null);
 
@@ -61,11 +59,11 @@ function Projects() {
   );
 
   return (
-    <section
-      className="content-container mb-14 flex min-h-[80vh] flex-col items-center  gap-4 "
-      
-    >
-      <h3 className="rounded-r-full border border-yellow-700 p-4 text-center text-4xl font-semibold" ref={refs}>
+    <section className="content-container mb-14 flex min-h-[80vh] flex-col items-center  gap-4 ">
+      <h3
+        className="rounded-r-full border border-yellow-700 p-4 text-center text-4xl font-semibold"
+        ref={refs}
+      >
         Projects Done By Flc Team
       </h3>
       <p>Get opportunity to work on numerous real-world projects</p>
@@ -94,9 +92,6 @@ function Projects() {
 }
 
 export default Projects;
-
-
-
 
 interface BentoGridProps {
   children: ReactNode;
@@ -144,7 +139,6 @@ export function BentoGridItem({
 }
 
 const SkeletonOne = () => {
-
   return (
     <motion.div
       initial="initial"
@@ -152,7 +146,7 @@ const SkeletonOne = () => {
       whileHover="hover"
       className="dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex h-full min-h-[6rem] w-full flex-1 flex-col space-y-2"
     >
-      <motion.div  className="h-full w-full">
+      <motion.div className="h-full w-full">
         <div className="relative h-full w-full overflow-hidden rounded-lg">
           <Image
             src="/hackfest.jpg"

@@ -36,9 +36,31 @@ interface Props {
 
 const SignUpForm: FunctionComponent<Props> = ({ className }) => {
   const { data: branches } = api.branch.getAllBranch.useQuery();
+  const sendVerifyEmail = api.auth.sendVerifyEmail.useMutation({
+    onSuccess: async (data) => {
+      console.log("toast")
+      toast.success("Verification link sent to email",{
+        position: "bottom-center",
+      })
 
-  const signUp = api.auth.signUp.useMutation();
+    },
+    onError: ({ message }) => {
+      toast.dismiss();
+      toast.error(message);
+    }, 
+});
+  const signUp = api.auth.signUp.useMutation({
+    onSuccess: async (data) => {
+      sendVerifyEmail.mutate({email:data.email})
 
+
+    },
+    onError: ({ message }) => {
+      toast.dismiss();
+      toast.error(message);
+    }, 
+  });
+  
   const formSchema = signUpFormZ;
 
   const form = useForm<z.infer<typeof formSchema>>({

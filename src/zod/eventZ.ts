@@ -53,6 +53,10 @@ const getEventByIdZ = z.object({
   eventId: z.number(),
 });
 
+const getEventByStateZ = z.object({
+  state: z.nativeEnum(EventState),
+});
+
 export {
   updateEventZ,
   createEventZ,
@@ -60,4 +64,5 @@ export {
   setEventStateZ,
   toggleEventLegacyZ,
   getEventByIdZ,
+  getEventByStateZ,
 };
