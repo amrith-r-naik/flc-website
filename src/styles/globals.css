@@ -32,6 +32,7 @@
 
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
+    --font-rowdies: "Rowdies", sans-serif;
   }
   .dark {
     --primary: 50 98% 64%;
@@ -115,32 +116,7 @@
 
   .bg-gradient {
     background: rgb(36, 28, 0);
-    background: radial-gradient(
-      circle at 100%,
-      rgba(136, 112, 3, 0.6),
-      rgba(0, 0, 0, 0) 45%
-    );
-  }
-
-  .bg-custom-gradient {
-    background: rgb(76, 67, 67);
-    background: linear-gradient(
-      90deg,
-      rgba(76, 67, 67, 1) 0%,
-      rgba(232, 222, 222, 1) 65%,
-      rgba(126, 125, 124, 1) 100%
-    );
-  }
-  .bg-card-gradient {
-    .bg-card-gradient {
-      background: rgb(53, 47, 47);
-      background: linear-gradient(
-        90deg,
-        rgba(76, 67, 67, 1) 0%,
-        rgb(130, 118, 118) 65%,
-        rgba(76, 67, 67, 1) 100%
-      );
-    }
+    background: radial-gradient(circle at 100%, rgba(136, 112, 3, 0.6), rgba(0, 0, 0, 0) 45%);
   }
 }
 
@@ -155,12 +131,12 @@ body {
 
   /* font sizes */
   .title {
-    @apply text-4xl lg:text-6xl;
+    @apply text-5xl lg:text-7xl;
     @apply font-bold;
   }
 
   .heading {
-    @apply text-3xl lg:text-3xl;
+    @apply text-3xl md:text-4xl;
     @apply font-bold capitalize;
   }
 
@@ -173,6 +149,7 @@ body {
   .body {
     @apply text-base lg:text-lg;
     @apply font-extralight;
+    @apply bg-gradient-to-b from-blue-900 to-black;
   }
 
   .caption {
@@ -190,29 +167,7 @@ body {
 
   .bg-gradient {
     background: rgb(36, 28, 0);
-    background: radial-gradient(
-      circle at 100%,
-      rgba(136, 112, 3, 0.6),
-      rgba(0, 0, 0, 0) 45%
-    );
-  }
-  .bg-custom-gradient {
-    background: rgb(76, 67, 67);
-    background: linear-gradient(
-      90deg,
-      rgba(76, 67, 67, 1) 0%,
-      rgba(232, 222, 222, 1) 65%,
-      rgba(126, 125, 124, 1) 100%
-    );
-  }
-  .bg-card-gradient {
-    background: rgb(53, 47, 47);
-    background: linear-gradient(
-      90deg,
-      rgba(76, 67, 67, 1) 0%,
-      rgb(130, 118, 118) 65%,
-      rgba(76, 67, 67, 1) 100%
-    );
+    background: radial-gradient(circle at 100%, rgba(136, 112, 3, 0.6), rgba(0, 0, 0, 0) 45%);
   }
 }
 
@@ -251,11 +206,5 @@ canvas {
 }
 
 .radialgradient {
-  background: radial-gradient(
-    circle at 50% -210%,
-    #fbe737,
-    #f5e74e 50%,
-    #0e0f1100 75%,
-    #0e0f1100 75%
-  );
+  background: radial-gradient(circle at 50% -210%, #fbe737, #f5e74e 50%, #0e0f1100 75%, #0e0f1100 75%);
 }

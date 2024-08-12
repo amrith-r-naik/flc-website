@@ -106,11 +106,18 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
             Verify email
           </Link>
         </div>
-        <div className="flex justify-center">
+        <div className="flex  flex-col justify-center gap-2">
           <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
             Submit
           </Button>
+          <p className="mb-4 text-center text-sm">
+            Don&#39;t have an account?
+            <strong className="underline">
+              <Link href="/auth/signup">Sign up </Link>{" "}
+            </strong>
+          </p>
         </div>
+        <div></div>
       </form>
     </Form>
   );
