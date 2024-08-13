@@ -1,4 +1,4 @@
-import { v2 as cloudinary, type DeleteApiResponse } from "cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // Configure Cloudinary

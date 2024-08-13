@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
-import { DatePicker } from "~/components/ui/date-picker";
+import { ComboBox } from "~/components/ui/combobox";
 import {
   FormField,
   Form,
@@ -26,9 +26,9 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 
-import { cn } from "~/lib/utils";
+import { cn, getGraduationYears } from "~/lib/utils";
 import { api } from "~/utils/api";
-import { signUpFormZ } from "~/zod/formSchemaZ";
+import { signUpZ } from "~/zod/authZ";
 
 interface Props {
   className?: string;
@@ -36,32 +36,10 @@ interface Props {
 
 const SignUpForm: FunctionComponent<Props> = ({ className }) => {
   const { data: branches } = api.branch.getAllBranch.useQuery();
-  const sendVerifyEmail = api.auth.sendVerifyEmail.useMutation({
-    onSuccess: async (data) => {
-      console.log("toast")
-      toast.success("Verification link sent to email",{
-        position: "bottom-center",
-      })
 
-    },
-    onError: ({ message }) => {
-      toast.dismiss();
-      toast.error(message);
-    }, 
-});
-  const signUp = api.auth.signUp.useMutation({
-    onSuccess: async (data) => {
-      sendVerifyEmail.mutate({email:data.email})
+  const signUp = api.auth.signUp.useMutation();
 
-
-    },
-    onError: ({ message }) => {
-      toast.dismiss();
-      toast.error(message);
-    }, 
-  });
-  
-  const formSchema = signUpFormZ;
+  const formSchema = signUpZ;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,14 +48,14 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
       email: "",
       phone: "",
       branchId: "",
-      // TODO(omkar): what exactly is date
-      year: new Date(),
+      year: "",
       password: "",
       confirmPassword: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const toastId = toast.loading("Signing up...");
     signUp.mutate(
       {
         branchId: values.branchId,
@@ -86,14 +64,18 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
         name: values.name,
         password: values.password,
         phone: values.phone,
-        // TODO(Omkar): again what is this date
-        year: values.year.toISOString(),
+        year: values.year,
       },
       {
-        onSuccess: () => {
-          toast.success("Sign Up Successful");
+        onSuccess: ({ emailSent }) => {
+          toast.dismiss(toastId);
+          if (emailSent)
+            toast.success("Verification email sent! Please check your inbox");
+          else
+            toast.success("Signed up successfully! Please verify your email");
         },
         onError: (error) => {
+          toast.dismiss(toastId);
           toast.error(error.message);
         },
       },
@@ -167,19 +149,12 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
             <FormItem>
               <FormLabel>Branch</FormLabel>
               <FormControl>
-                {/* TODO(Omkar): Possibly replace with a combobox */}
-                <Select {...field} onValueChange={field.onChange}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Branch" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {branches?.map((branch, idx) => (
-                      <SelectItem key={idx} value={branch.id}>
-                        {branch.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <ComboBox
+                  data={branches ?? []}
+                  value={field.value}
+                  setValue={field.onChange}
+                  placeholder="Search branch..."
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -190,9 +165,30 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           name="year"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Year</FormLabel>
+              <FormLabel>Graduation Year</FormLabel>
               <FormControl>
-                <DatePicker date={field.value} setDate={field.onChange} />
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose Year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {getGraduationYears().map((year, idx) => (
+                      <SelectItem key={idx} value={`${year}`}>
+                        {year} (
+                        {idx == 0
+                          ? "4th B.Tech, 2nd MCA"
+                          : idx == 1
+                            ? "3rd B.Tech, 1st MCA"
+                            : idx == 2
+                              ? "2nd B.Tech"
+                              : idx == 3
+                                ? "1st B.Tech"
+                                : ""}
+                        )
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -225,13 +221,15 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           )}
         />
 
-        <div className="flex flex-col gap-2 justify-center">
+        <div className="flex flex-col justify-center gap-2">
           <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
             Submit
           </Button>
-          <p className="mb-4 text-sm text-center">
-            Already have an account?<strong className="underline"><Link href="/auth/login">LogIn </Link> </strong>
-            
+          <p className="mb-4 text-center text-sm">
+            Already have an account?
+            <strong className="underline">
+              <Link href="/auth/login">LogIn </Link>{" "}
+            </strong>
           </p>
         </div>
       </form>

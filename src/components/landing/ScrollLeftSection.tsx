@@ -2,8 +2,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useRef, useEffect } from "react";
 
-import Footer from "../Footer/Footer";
-import Events from "./Events";
 import TechStack from "./TechStack";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,7 +15,7 @@ function ScrollLeftSection() {
     const pin = gsap.fromTo(
       sectionRef.current,
       {
-        translateX: "-300vw", 
+        translateX: "-300vw",
       },
       {
         translateX: "0",
@@ -47,7 +45,6 @@ function ScrollLeftSection() {
           <div className="scroll-section">
             <TechStack />
           </div>
-      
         </div>
       </div>
     </section>
@@ -55,6 +52,3 @@ function ScrollLeftSection() {
 }
 
 export default ScrollLeftSection;
-
-
-

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 
-
 import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg";
 import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg";
 import nextJsIcon from "~/assets/icons/nextjs-icon-svgrepo-com.svg";
@@ -50,150 +49,145 @@ const techs = [
 ];
 
 export default function TechStack() {
-
-
   return (
- 
-<section className="flex h-screen w-screen items-center justify-center">
-  <div className="relative flex h-full w-full max-w-7xl items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-black via-blue-900 to-violet-900 shadow-2xl md:rounded-r-full">
-    <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-4xl font-semibold leading-none text-transparent dark:from-white dark:to-black sm:text-5xl md:text-6xl lg:text-8xl">
-      TechStack
-    </span>
+    <section className="flex h-screen w-screen items-center justify-center">
+      <div className="relative flex h-full w-full max-w-7xl items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-black via-blue-900 to-violet-900 shadow-2xl md:rounded-r-full">
+        <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-4xl font-semibold leading-none text-transparent dark:from-white dark:to-black sm:text-5xl md:text-6xl lg:text-8xl">
+          TechStack
+        </span>
 
-    {/* Inner Circles */}
-    <OrbitingCircles
-      className="size-[20px] sm:size-[25px] md:size-[30px] border-none bg-transparent"
-      duration={20}
-      delay={20}
-      radius={40}
-    >
-      <Image
-        src="/js.jpeg"
-        width={30}
-        height={30}
-        className="overflow-hidden rounded-full object-cover"
-        alt="JavaScript"
-      />
-    </OrbitingCircles>
-    <OrbitingCircles
-      className="size-[20px] sm:size-[25px] md:size-[30px] border-none bg-transparent"
-      duration={20}
-      delay={10}
-      radius={40}
-    >
-      <Image
-        src="/next.jpeg"
-        width={30}
-        height={30}
-        className="overflow-hidden rounded-full object-cover"
-        alt="Next.js"
-      />
-    </OrbitingCircles>
+        {/* Inner Circles */}
+        <OrbitingCircles
+          className="size-[20px] border-none bg-transparent sm:size-[25px] md:size-[30px]"
+          duration={20}
+          delay={20}
+          radius={40}
+        >
+          <Image
+            src="/js.jpeg"
+            width={30}
+            height={30}
+            className="overflow-hidden rounded-full object-cover"
+            alt="JavaScript"
+          />
+        </OrbitingCircles>
+        <OrbitingCircles
+          className="size-[20px] border-none bg-transparent sm:size-[25px] md:size-[30px]"
+          duration={20}
+          delay={10}
+          radius={40}
+        >
+          <Image
+            src="/next.jpeg"
+            width={30}
+            height={30}
+            className="overflow-hidden rounded-full object-cover"
+            alt="Next.js"
+          />
+        </OrbitingCircles>
 
-    {/* Outer Circles (reverse) */}
-    <OrbitingCircles
-      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
-      radius={80}
-      duration={20}
-      reverse
-    >
-      <Image
-        src="/docker.jpeg"
-        width={40}
-        height={40}
-        className="overflow-hidden rounded-full object-cover"
-        alt="Docker"
-      />
-    </OrbitingCircles>
-    <OrbitingCircles
-      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
-      radius={80}
-      duration={20}
-      delay={20}
-      reverse
-    >
-      <Icons.gitHub />
-    </OrbitingCircles>
+        {/* Outer Circles (reverse) */}
+        <OrbitingCircles
+          className="size-[40px] border-none bg-transparent sm:size-[45px] md:size-[50px]"
+          radius={80}
+          duration={20}
+          reverse
+        >
+          <Image
+            src="/docker.jpeg"
+            width={40}
+            height={40}
+            className="overflow-hidden rounded-full object-cover"
+            alt="Docker"
+          />
+        </OrbitingCircles>
+        <OrbitingCircles
+          className="size-[40px] border-none bg-transparent sm:size-[45px] md:size-[50px]"
+          radius={80}
+          duration={20}
+          delay={20}
+          reverse
+        >
+          <Icons.gitHub />
+        </OrbitingCircles>
 
-    {/* Additional Outer Circle */}
-    <OrbitingCircles
-      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
-      radius={120}
-      duration={20}
-      delay={10}
-      reverse
-    >
-      <Image
-        src="/go.png"
-        width={50}
-        height={50}
-        className="overflow-hidden rounded-full object-cover"
-        alt="Go"
-      />
-    </OrbitingCircles>
-    <OrbitingCircles
-      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
-      radius={120}
-      duration={20}
-      delay={20}
-      reverse
-    >
-      <Image
-        src="/aws.jpeg"
-        width={40}
-        height={40}
-        className="overflow-hidden rounded-full object-cover"
-        alt="AWS"
-      />
-    </OrbitingCircles>
+        {/* Additional Outer Circle */}
+        <OrbitingCircles
+          className="size-[40px] border-none bg-transparent sm:size-[45px] md:size-[50px]"
+          radius={120}
+          duration={20}
+          delay={10}
+          reverse
+        >
+          <Image
+            src="/go.png"
+            width={50}
+            height={50}
+            className="overflow-hidden rounded-full object-cover"
+            alt="Go"
+          />
+        </OrbitingCircles>
+        <OrbitingCircles
+          className="size-[40px] border-none bg-transparent sm:size-[45px] md:size-[50px]"
+          radius={120}
+          duration={20}
+          delay={20}
+          reverse
+        >
+          <Image
+            src="/aws.jpeg"
+            width={40}
+            height={40}
+            className="overflow-hidden rounded-full object-cover"
+            alt="AWS"
+          />
+        </OrbitingCircles>
 
-    {/* Outer-most Circles */}
-    <OrbitingCircles
-      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
-      radius={160}
-      duration={20}
-      delay={30}
-    >
-      <Image
-        src="/ts.png"
-        width={50}
-        height={50}
-        className="overflow-hidden rounded-full object-cover"
-        alt="TypeScript"
-      />
-    </OrbitingCircles>
-    <OrbitingCircles
-      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
-      radius={200}
-      duration={20}
-      delay={10}
-    >
-      <Image
-        src="/docker.jpeg"
-        width={50}
-        height={50}
-        className="overflow-hidden rounded-full object-cover"
-        alt="Docker"
-      />
-    </OrbitingCircles>
-    <OrbitingCircles
-      className="size-[40px] sm:size-[45px] md:size-[50px] border-none bg-transparent"
-      radius={200}
-      duration={20}
-      delay={10}
-    >
-      <Image
-        src="/go.png"
-        width={50}
-        height={50}
-        className="overflow-hidden rounded-full object-cover"
-        alt="Go"
-      />
-    </OrbitingCircles>
-  </div>
-</section>
-
-
+        {/* Outer-most Circles */}
+        <OrbitingCircles
+          className="size-[40px] border-none bg-transparent sm:size-[45px] md:size-[50px]"
+          radius={160}
+          duration={20}
+          delay={30}
+        >
+          <Image
+            src="/ts.png"
+            width={50}
+            height={50}
+            className="overflow-hidden rounded-full object-cover"
+            alt="TypeScript"
+          />
+        </OrbitingCircles>
+        <OrbitingCircles
+          className="size-[40px] border-none bg-transparent sm:size-[45px] md:size-[50px]"
+          radius={200}
+          duration={20}
+          delay={10}
+        >
+          <Image
+            src="/docker.jpeg"
+            width={50}
+            height={50}
+            className="overflow-hidden rounded-full object-cover"
+            alt="Docker"
+          />
+        </OrbitingCircles>
+        <OrbitingCircles
+          className="size-[40px] border-none bg-transparent sm:size-[45px] md:size-[50px]"
+          radius={200}
+          duration={20}
+          delay={10}
+        >
+          <Image
+            src="/go.png"
+            width={50}
+            height={50}
+            className="overflow-hidden rounded-full object-cover"
+            alt="Go"
+          />
+        </OrbitingCircles>
+      </div>
+    </section>
   );
 }
 const Icons = {
@@ -324,4 +318,3 @@ const Icons = {
     </svg>
   ),
 };
-

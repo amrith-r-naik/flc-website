@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import React from "react";
 
-import Background from "~/components/background";
 import SendResetForm from "~/components/forms/send-reset";
 
 const SendResetEmail: NextPage = () => {

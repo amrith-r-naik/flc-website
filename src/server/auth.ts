@@ -20,7 +20,7 @@ import {
   isJwtExpired,
   rotateTokens,
 } from "~/utils/auth/jwt";
-import { LoginZ } from "~/zod/authZ";
+import { loginZ } from "~/zod/authZ";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -143,7 +143,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       credentials: {},
       async authorize(credentials: any, req: any): Promise<any> {
-        const validateFields = LoginZ.safeParse(credentials);
+        const validateFields = loginZ.safeParse(credentials);
         if (!validateFields.success) return null;
         const { email, password } = validateFields.data;
         const data = await login({ email, password });

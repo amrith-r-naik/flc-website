@@ -1,15 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@radix-ui/react-select";
 import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { type z } from "zod";
+import { z } from "zod";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -21,32 +14,42 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { Textarea } from "~/components/ui/textarea";
 
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
-import { RegisterFormZ } from "~/zod/formSchemaZ";
+import { registerZ } from "~/zod/authZ";
 
-import { DatePicker } from "../ui/date-picker";
 import { InputOTP, InputOTPSlot } from "../ui/input-otp";
-
-// Assuming you have a schema for the register form
 
 interface Props {
   className?: string;
 }
 
 const RegisterForm: FunctionComponent<Props> = ({ className }) => {
-  const formSchema = RegisterFormZ;
-  const { data: branches } = api.branch.getAllBranch.useQuery();
+  const { data: user } = api.user.getMe.useQuery();
+
+  const register = api.auth.register.useMutation();
+
+  const formSchema = z.object({
+    name: z.string(),
+    email: z.string(),
+    phone: z.string(),
+    branch: z.string(),
+    year: z.string(),
+    reasonToJoin: registerZ.shape.reasonToJoin,
+    expectations: registerZ.shape.expectations,
+    contribution: registerZ.shape.contribution,
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      branchId: "",
-      year: new Date(),
+      name: user?.name ?? "",
+      email: user?.email ?? "",
+      phone: user?.phone ?? "",
+      branch: user?.Branch.name ?? "",
+      year: user?.year ?? "",
       reasonToJoin: "",
       expectations: "",
       contribution: "",
@@ -54,8 +57,24 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Handle registration logic here, e.g., calling an API
-    toast.success("Registered successfully!");
+    const toastId = toast.loading("Registering to FLC...");
+    register.mutate(
+      {
+        reasonToJoin: values.reasonToJoin,
+        expectations: values.expectations,
+        contribution: values.contribution,
+      },
+      {
+        onSuccess: () => {
+          toast.dismiss(toastId);
+          toast.success("Registered to FLC successfully!");
+        },
+        onError: ({ message }) => {
+          toast.dismiss(toastId);
+          toast.error(message);
+        },
+      },
+    );
   };
 
   return (
@@ -74,7 +93,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Name" {...field} />
+                <Input placeholder="Name" {...field} disabled />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -87,7 +106,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <Input placeholder="Email" {...field} disabled />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -100,7 +119,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
             <FormItem className="rounded-lg bg-black p-4">
               <FormLabel>Phone</FormLabel>
               <FormControl>
-                <InputOTP maxLength={10} {...field}>
+                <InputOTP maxLength={10} {...field} disabled>
                   <InputOTPSlot index={0} />
                   <InputOTPSlot index={1} />
                   <InputOTPSlot index={2} />
@@ -120,24 +139,12 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
 
         <FormField
           control={form.control}
-          name="branchId"
+          name="branch"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Branch</FormLabel>
               <FormControl>
-                {/* TODO(Omkar): Possibly replace with a combobox */}
-                <Select {...field} onValueChange={field.onChange}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Branch" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {branches?.map((branch, idx) => (
-                      <SelectItem key={idx} value={branch.id}>
-                        {branch.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Input placeholder="Branch" {...field} disabled />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -148,9 +155,9 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
           name="year"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Year</FormLabel>
+              <FormLabel>Graduation Year</FormLabel>
               <FormControl>
-                <DatePicker date={field.value} setDate={field.onChange} />
+                <Input placeholder="Graduation Year" {...field} disabled />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -163,7 +170,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
             <FormItem>
               <FormLabel>Why do you want to join FLC?</FormLabel>
               <FormControl>
-                <Input as="textarea" placeholder="Answer" rows={3} {...field} />
+                <Textarea placeholder="Answer" rows={3} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -176,7 +183,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
             <FormItem>
               <FormLabel>What are your expectations from FLC?</FormLabel>
               <FormControl>
-                <Input as="textarea" placeholder="Answer" rows={3} {...field} />
+                <Textarea placeholder="Answer" rows={3} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -189,7 +196,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
             <FormItem>
               <FormLabel>How would you contribute to FLC?</FormLabel>
               <FormControl>
-                <Input as="textarea" placeholder="Answer" rows={3} {...field} />
+                <Textarea placeholder="Answer" rows={3} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

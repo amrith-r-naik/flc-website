@@ -1,5 +1,6 @@
 import { FacebookIcon, InstagramIcon, MailIcon, PhoneIcon } from "lucide-react";
 import Link from "next/link";
+import React from "react";
 
 const socialLinks = [
   {
@@ -83,8 +84,10 @@ function Footer() {
               <div className="flex-1 text-left sm:text-left">
                 <p className="underline">Made With 💙 By FLc TechTeam</p>
               </div>
-              <div className="flex-1 text-center sm:text-right right-0">
-                <p className="text-center">copyright @2024-FiniteLoopClub.co.in</p>
+              <div className="right-0 flex-1 text-center sm:text-right">
+                <p className="text-center">
+                  copyright @2024-FiniteLoopClub.co.in
+                </p>
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
-import React from 'react'
-import { useState } from 'react';
+import React from "react";
+
 export default function SideBar({
   visibility,
   setupVisiblity,
@@ -24,29 +24,29 @@ export default function SideBar({
     hostingVisibility(false);
   }
 
-   function openProject() {
-     setupVisiblity(false);
-     projectVisiblity(true);
-     gitVisiblity(false);
-     hostingVisibility(false);
-   }
+  function openProject() {
+    setupVisiblity(false);
+    projectVisiblity(true);
+    gitVisiblity(false);
+    hostingVisibility(false);
+  }
 
-    function openGit() {
-      setupVisiblity(false);
-      projectVisiblity(false);
-      gitVisiblity(true);
-      hostingVisibility(false);
-    }
+  function openGit() {
+    setupVisiblity(false);
+    projectVisiblity(false);
+    gitVisiblity(true);
+    hostingVisibility(false);
+  }
 
-     function OpenHosting() {
-       setupVisiblity(false);
-       projectVisiblity(false);
-       gitVisiblity(false);
-       hostingVisibility(true);
-     }
+  function OpenHosting() {
+    setupVisiblity(false);
+    projectVisiblity(false);
+    gitVisiblity(false);
+    hostingVisibility(true);
+  }
 
   return (
-    <div className="sticky z-40  px-4 w-fit">
+    <div className="sticky z-40  w-fit px-4">
       <div className="leading-8">
         <button onClick={close} className="text-right text-white">
           <svg

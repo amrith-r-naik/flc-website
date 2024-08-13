@@ -1,4 +1,5 @@
-import React, { MouseEventHandler } from "react";
+import React, { type MouseEventHandler } from "react";
+
 import styles from "./toggleSwitch.module.css";
 
 interface ToggleSwitchProps {

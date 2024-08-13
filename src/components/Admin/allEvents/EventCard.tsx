@@ -1,16 +1,11 @@
-import React from "react";
 import Image from "next/image";
-import styles from "./styles.module.css";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../../../components/ui/card";
+import React from "react";
+
 import sampleImage from "~/assets/images/sample.jpg";
 import AvatarGroup from "~/components/AvatarGroup";
+
+import { Card, CardContent } from "../../../components/ui/card";
+import styles from "./styles.module.css";
 
 interface EventCardProps {
   title: string;

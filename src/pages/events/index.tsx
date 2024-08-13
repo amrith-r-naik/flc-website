@@ -2,17 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 
-import Card from "~/components/Card";
-import CloudinaryUpload from "~/components/cloudinary/cloudinaryUpload";
-import { uploadTypeEnum } from "~/components/cloudinary/cloudinaryUpload";
 import EventCard from "~/components/eventCard";
 import Loader from "~/components/Loader/Loader";
-import RadioButtons from "~/components/RadioButtons";
 import { api } from "~/utils/api";
 
 import Background from "./ParticlesBackground";
 
-function page() {
+function Page() {
   const years: string[] = [
     "2016",
     "2017",
@@ -87,15 +83,15 @@ function page() {
 
       {events && events.length > 0 ? (
         <div className="mx-auto  mb-4 grid max-w-7xl grid-cols-1 gap-10 px-5 md:grid-cols-2 xl:grid-cols-3">
-          {events.map((event, index) => (
-            <EventCard data={event} />
+          {events.map((event, idx) => (
+            <EventCard key={idx} data={event} />
           ))}
         </div>
       ) : (
         <div className="flex justify-center">No events available</div>
       )}
 
-      {/* 
+      {/*
       <div className="mx-2 mt-8 flex flex-wrap justify-center gap-20 md:mx-8">
         {events && events.length > 0 ? (
           <>
@@ -111,4 +107,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

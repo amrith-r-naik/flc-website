@@ -91,10 +91,9 @@ const EventSlug = () => {
           <p className="text-base font-medium">Venue : {event.venue}</p>
           <p className="text-sm font-medium sm:text-base">
             Organisers :{" "}
-            {event.Organiser &&
-              event.Organiser.map((organiser) => organiser.User.name).join(
-                ", ",
-              )}
+            {event.Organiser?.map((organiser) => organiser.User.name).join(
+              ", ",
+            )}
           </p>
 
           <div className="mt-4 flex items-center gap-8">
