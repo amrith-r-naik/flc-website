@@ -1,11 +1,16 @@
-import Navbar from "../navbar/navbar";
-import React from "react";
-import gsap from "gsap"
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import React from "react";
 
-gsap.registerPlugin(ScrollTrigger)
+import Navbar from "../navbar/navbar";
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+gsap.registerPlugin(ScrollTrigger);
+
+export default function MainLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div>
       <Navbar />

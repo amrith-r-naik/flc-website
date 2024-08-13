@@ -116,7 +116,11 @@
 
   .bg-gradient {
     background: rgb(36, 28, 0);
-    background: radial-gradient(circle at 100%, rgba(136, 112, 3, 0.6), rgba(0, 0, 0, 0) 45%);
+    background: radial-gradient(
+      circle at 100%,
+      rgba(136, 112, 3, 0.6),
+      rgba(0, 0, 0, 0) 45%
+    );
   }
 }
 
@@ -167,7 +171,11 @@ body {
 
   .bg-gradient {
     background: rgb(36, 28, 0);
-    background: radial-gradient(circle at 100%, rgba(136, 112, 3, 0.6), rgba(0, 0, 0, 0) 45%);
+    background: radial-gradient(
+      circle at 100%,
+      rgba(136, 112, 3, 0.6),
+      rgba(0, 0, 0, 0) 45%
+    );
   }
 }
 
@@ -206,5 +214,11 @@ canvas {
 }
 
 .radialgradient {
-  background: radial-gradient(circle at 50% -210%, #fbe737, #f5e74e 50%, #0e0f1100 75%, #0e0f1100 75%);
+  background: radial-gradient(
+    circle at 50% -210%,
+    #fbe737,
+    #f5e74e 50%,
+    #0e0f1100 75%,
+    #0e0f1100 75%
+  );
 }

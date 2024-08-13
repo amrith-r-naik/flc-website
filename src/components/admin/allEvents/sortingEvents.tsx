@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 
-import ToggleSwitch from "~/components/toggleSwitch/ToggleSwitch";
+import ToggleSwitch from "~/components/toggleSwitch";
 
 interface SortingEventsProps {
   onSortOrderChange: (order: string) => void;

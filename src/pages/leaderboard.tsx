@@ -1,8 +1,10 @@
 "use client";
+
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 import RankBars from "~/components/leaderboard/rank-bars";
 import Row from "~/components/leaderboard/row";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 

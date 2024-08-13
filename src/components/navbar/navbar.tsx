@@ -5,7 +5,7 @@ import React from "react";
 import AuthButton from "~/components/navbar/authButton";
 
 import Logo from "../logo";
-import ThemeToggleSwitch from "../themeToggleSwitch/themeToggleSwitch";
+import ThemeToggleSwitch from "../themeToggleSwitch/index.tsx";
 import NavBarMenu from "./navbarMenu";
 
 const links = [

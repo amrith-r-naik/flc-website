@@ -1,10 +1,11 @@
-import Image from "next/image";
-import React from "react";
-import Tilt from "react-parallax-tilt";
-import styles from "./memberCard.module.css";
 import { Linkedin } from "lucide-react";
 import { Github } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import React from "react";
+import Tilt from "react-parallax-tilt";
+
+import styles from "./memberCard.module.css";
 
 interface MemberCardProps {
   src: string;

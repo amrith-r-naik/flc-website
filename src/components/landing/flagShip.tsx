@@ -103,7 +103,7 @@ export function FlagShip() {
         trigger: element,
         start: "top 50%",
         onEnter: () => setShow(true),
-        onLeaveBack: () => setShow(false), 
+        onLeaveBack: () => setShow(false),
       });
     };
 

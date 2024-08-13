@@ -1,10 +1,12 @@
 "use client";
+
 import { type GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
-
 import React from "react";
-import Payment from "~/components/razorPay/paymentButton";
+
 import { getServerAuthSession } from "~/server/auth";
+
+import Payment from "~/components/razorPay/paymentButton";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
