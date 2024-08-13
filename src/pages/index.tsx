@@ -1,12 +1,12 @@
-import Footer from "~/components/Footer/Footer";
-import AboutFLC from "~/components/landing/AboutFLC";
-import Benifits from "~/components/landing/Benifits";
-import Events from "~/components/landing/Events";
-import Hackfest from "~/components/landing/Hackfest";
-import Hero from "~/components/landing/Hero";
-import Projects from "~/components/landing/Projects";
-import Roadmap from "~/components/landing/Roadmap";
-import TechStack from "~/components/landing/TechStack";
+import Footer from "~/components/footer";
+import AboutFLC from "~/components/landing/aboutFLC";
+import Benifits from "~/components/landing/benifits";
+import Events from "~/components/landing/events";
+import Hackfest from "~/components/landing/hackfest";
+import Hero from "~/components/landing/hero";
+import Projects from "~/components/landing/projects";
+import Roadmap from "~/components/landing/roadmap";
+import TechStack from "~/components/landing/techStack";
 
 export default function Home() {
   return (

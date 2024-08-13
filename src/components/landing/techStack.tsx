@@ -2,18 +2,6 @@
 
 import Image from "next/image";
 
-import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg";
-import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg";
-import nextAuth from "~/assets/icons/na.png";
-import nextJsIcon from "~/assets/icons/nextjs-icon-svgrepo-com.svg";
-import postgress from "~/assets/icons/PostgreSQL.png";
-import prisma from "~/assets/icons/prisma-svgrepo-com.svg";
-import pythonIcon from "~/assets/icons/python.svg";
-import tailwindIcon from "~/assets/icons/tailwind-svgrepo-com.svg";
-import trpcIcon from "~/assets/icons/trpc.svg";
-import tsIcon from "~/assets/icons/typescript-svgrepo-com.svg";
-import vscode from "~/assets/icons/vs.png";
-
 import OrbitingCircles from "../magicui/orbiting-circles";
 
 export default function TechStack() {

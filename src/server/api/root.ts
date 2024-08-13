@@ -1,3 +1,4 @@
+import { blogRouter } from "~/server/api/routers/blog";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
 import { activityPointsRouter } from "./routers/activitypoints";
@@ -34,6 +35,7 @@ export const appRouter = createTRPCRouter({
   userLink: userLinkRouter,
   payment: payment,
   quiz: quizRouter,
+  blog: blogRouter,
   user: userRouter,
 });
 

@@ -2,7 +2,6 @@ import { FacebookIcon, InstagramIcon, MailIcon, PhoneIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import pythonIcon from "~/assets/icons/python.svg";
 import footerWave from "~/assets/images/footerwave.svg";
 
 const socialLinks = [

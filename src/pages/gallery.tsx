@@ -1,10 +1,9 @@
 import Image from "next/image";
 
+import ParticlesBackground from "~/components/background/particles";
 import BlurFade from "~/components/magicui/blur-fade";
 import BoxReveal from "~/components/magicui/box-reveal";
 import { ConfettiButton } from "~/components/magicui/confetti";
-
-import Background from "../events/ParticlesBackground";
 
 const images = [
   { src: "img1.jpeg", title: "Induction 2024" },
@@ -38,7 +37,7 @@ export function BlurFadeDemo() {
           zIndex: -1,
         }}
       >
-        <Background />
+        <ParticlesBackground />
       </div>
       <section id="photos" className="bg-gradientpx-4 py-8">
         <div className="p-4">

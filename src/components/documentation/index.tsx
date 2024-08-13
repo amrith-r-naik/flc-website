@@ -1,6 +1,6 @@
 import React, { type FC } from "react";
 
-import Background from "~/pages/events/particlesBackground";
+import ParticlesBackground from "~/components/background/particles";
 
 interface DocumentPageProps {
   title: string;
@@ -32,7 +32,7 @@ const DocumentPage: FC<DocumentPageProps> = ({
           zIndex: -1,
         }}
       >
-        <Background />
+        <ParticlesBackground />
       </div>
       <div className="   ">
         {/* Header Section */}

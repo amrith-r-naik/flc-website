@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-import Background from "../events/particlesBackground";
+import ParticlesBackground from "~/components/background/particles";
+
 import "./calender.module.css";
 
 const localizer = momentLocalizer(moment);
@@ -42,7 +43,7 @@ const App = () => {
           zIndex: -1,
         }}
       >
-        <Background />
+        <ParticlesBackground />
       </div>
       <div style={{ height: "600px" }} className="bg-gradient-to-b">
         <Calendar

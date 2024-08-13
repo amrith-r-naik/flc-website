@@ -4,7 +4,7 @@ import { loadSlim } from "@tsparticles/slim";
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useState } from "react";
 
-const Background = () => {
+const ParticlesBackground = () => {
   const [init, setInit] = useState(false);
   const { theme } = useTheme();
 
@@ -642,4 +642,4 @@ const Background = () => {
   );
 };
 
-export default Background;
+export default ParticlesBackground;

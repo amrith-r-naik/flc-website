@@ -2,11 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 
+import ParticlesBackground from "~/components/background/particles";
 import EventCard from "~/components/eventCard";
 import Loader from "~/components/loader";
 import { api } from "~/utils/api";
-
-import Background from "./particlesBackground";
 
 function Events() {
   const [selectedYear, setSelectedYear] = useState<string>("2024");
@@ -65,7 +64,7 @@ function Events() {
           zIndex: -1,
         }}
       >
-        <Background />
+        <ParticlesBackground />
       </div>
       <div className="flex justify-center">
         <h1 className="text-gradient mt-8 text-7xl font-bold">Events</h1>
