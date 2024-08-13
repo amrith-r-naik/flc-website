@@ -56,7 +56,6 @@ export function BlurFadeDemo() {
                 }}
               >
                 <div className="relative mb-4 overflow-hidden rounded-lg">
-                  
                   <Image
                     src={`/${image.src}`}
                     layout="responsive"

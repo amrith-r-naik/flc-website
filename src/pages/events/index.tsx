@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import EventCard from "~/components/eventCard";
-import Loader from "~/components/Loader/Loader";
+import Loader from "~/components/loader";
 import { api } from "~/utils/api";
 
 import Background from "./ParticlesBackground";

@@ -9,7 +9,7 @@ import React from "react";
 
 import AvatarCustom from "~/components/avatar";
 import CopyBtn from "~/components/copyBtn";
-import Loader from "~/components/Loader/Loader";
+import Loader from "~/components/loader";
 import { api } from "~/utils/api";
 
 import NotFound from "../404";
