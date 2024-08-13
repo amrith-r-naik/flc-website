@@ -9,11 +9,11 @@ import React from "react";
 
 import AvatarCustom from "~/components/avatar";
 import CopyBtn from "~/components/copyBtn";
-import Loader from "~/components/Loader/Loader";
+import Loader from "~/components/loader";
 import { api } from "~/utils/api";
 
 import NotFound from "../404";
-import Background from "../events/ParticlesBackground";
+import Background from "../events/particlesBackground";
 
 const EventSlug = () => {
   const router = useRouter();
@@ -91,10 +91,9 @@ const EventSlug = () => {
           <p className="text-base font-medium">Venue : {event.venue}</p>
           <p className="text-sm font-medium sm:text-base">
             Organisers :{" "}
-            {event.Organiser &&
-              event.Organiser.map((organiser) => organiser.User.name).join(
-                ", ",
-              )}
+            {event.Organiser?.map((organiser) => organiser.User.name).join(
+              ", ",
+            )}
           </p>
 
           <div className="mt-4 flex items-center gap-8">

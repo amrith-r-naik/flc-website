@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import React from "react";
 
-import Background from "~/components/background";
 import SendVerifyEmailForm from "~/components/forms/send-verify";
 
 const SendVerifyEmail: NextPage = () => {

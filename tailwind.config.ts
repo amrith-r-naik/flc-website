@@ -1,18 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-
-import type { Config } from "tailwindcss"
-
-
-
+import type { Config } from "tailwindcss";
 
 
 const config = {
   darkMode: "class",
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -24,7 +20,6 @@ const config = {
       },
     },
     extend: {
-
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -94,7 +89,8 @@ const config = {
         },
       },
       backgroundImage: {
-        'glassy-gradient': 'linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(48, 25, 52, 0.8), rgba(20, 20, 20, 0.8))',
+        "glassy-gradient":
+          "linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(48, 25, 52, 0.8), rgba(20, 20, 20, 0.8))",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -103,13 +99,11 @@ const config = {
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
         orbit: "orbit calc(var(--duration)*1s) linear infinite",
       },
-
     },
   },
   plugins: [
     require("tailwindcss-animate"),
   ],
+} satisfies Config;
 
-} satisfies Config
-
-export default config
+export default config;

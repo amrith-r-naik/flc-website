@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "~/server/db";
 
 import { addRefreshTokenToWhitelist } from "~/services/auth.service";
-import { RefreshTokenZ } from "~/zod/authZ";
+import { refreshTokenZ } from "~/zod/authZ";
 
 import { getUserById } from "./auth";
 import { hashToken } from "./hashToken";
@@ -165,7 +165,7 @@ const rotateTokens = async (token: string) => {
 
 const refreshToken = async (token: string) => {
   try {
-    const validateFields = RefreshTokenZ.safeParse({
+    const validateFields = refreshTokenZ.safeParse({
       refreshToken: token,
     });
     if (!validateFields.success) {

@@ -1,14 +1,15 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { type MouseEventHandler } from "react";
+
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import ToggleSwitch from "~/components/toggleSwitch/ToggleSwitch";
+
+import ToggleSwitch from "~/components/toggleSwitch";
 
 interface SortingEventsProps {
   onSortOrderChange: (order: string) => void;

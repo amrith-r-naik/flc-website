@@ -1,18 +1,19 @@
-/* eslint-disable @next/next/no-img-element */
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import React from "react";
-
 
 interface ImageCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   images: string[];
 }
 
-const TutorialCarasoul: React.FC<ImageCarouselProps> = ({ images, ...rest }) => {
+const TutorialCarasoul: React.FC<ImageCarouselProps> = ({
+  images,
+  ...rest
+}) => {
   const [emblaRef] = useEmblaCarousel();
 
   const imageItems = images.map((img: string, index: number) => (
-    <img
+    <Image
       key={index}
       src={img}
       width={413}

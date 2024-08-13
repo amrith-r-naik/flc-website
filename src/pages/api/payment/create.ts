@@ -13,21 +13,20 @@ type RequestBody = {
 };
 
 export type RazorpayOrderResponse = {
- 
-  order:{
-  amount: number;
-  amount_due: number;
-  amount_paid: number;
-  attempts: number;
-  created_at: number;
-  currency: string;
-  entity: string;
-  id: string;
-  notes: [];
-  offer_id: string;
-  receipt: string;
-  status: string;
-  }
+  order: {
+    amount: number;
+    amount_due: number;
+    amount_paid: number;
+    attempts: number;
+    created_at: number;
+    currency: string;
+    entity: string;
+    id: string;
+    notes: [];
+    offer_id: string;
+    receipt: string;
+    status: string;
+  };
 };
 
 export default async function handler(

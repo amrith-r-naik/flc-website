@@ -1,5 +1,6 @@
-import { adminProcedure, createTRPCRouter } from "../trpc";
 import { addOrganiserZ, removeOrganiserZ } from "~/zod/organiserZ";
+
+import { adminProcedure, createTRPCRouter } from "../trpc";
 
 export const organiserRouter = createTRPCRouter({
   addOrganiser: adminProcedure

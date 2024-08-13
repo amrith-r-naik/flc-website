@@ -120,7 +120,6 @@ export const player = `<!DOCTYPE html>
 </body>
 </html>`;
 
-
 export const style1 = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -248,7 +247,6 @@ export const style2 = `<!DOCTYPE html>
 
 </body>
 </html>`;
-
 
 export const responsive = `<!DOCTYPE html>
 <html lang="en">
@@ -427,7 +425,6 @@ export const responsive2 = `<!DOCTYPE html>
 </body>
 </html>
 `;
-
 
 export const semiFinal1Card = `<!DOCTYPE html>
 <html lang="en">

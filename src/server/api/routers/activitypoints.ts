@@ -1,10 +1,11 @@
-import { adminProcedure, createTRPCRouter } from "../trpc";
 import {
   addActivityPointsZ,
   createActivityForEventZ,
   deleteActivityZ,
   removeActivityPointsZ,
 } from "~/zod/activityPointsZ";
+
+import { adminProcedure, createTRPCRouter } from "../trpc";
 
 export const activityPointsRouter = createTRPCRouter({
   createActivityForEventZ: adminProcedure

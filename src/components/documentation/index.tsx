@@ -1,6 +1,8 @@
-// components/DocumentPage.tsx
 import { type  FC } from 'react';
-import Background from '~/pages/events/ParticlesBackground';
+import Background from '../background';
+
+
+
 
 interface DocumentPageProps {
   title: string;
@@ -18,7 +20,6 @@ const DocumentPage: FC<DocumentPageProps> = ({
   subtitle,
   lastUpdated,
   sections,
-  
 }) => {
   return (
     <>
@@ -37,7 +38,7 @@ const DocumentPage: FC<DocumentPageProps> = ({
       </div>
     <div className="   ">
       {/* Header Section */}
-      <header className=" shadow-md py-4">
+      <header className=" py-4 shadow-md">
         <div className="container mx-auto px-4">
           <h1 className="heading font-bold text-center e">{title}</h1>
           <p className="subheading text-center mt-2 ">{subtitle}</p>
@@ -46,21 +47,22 @@ const DocumentPage: FC<DocumentPageProps> = ({
           )}
         </div>
       </header>
-      
+
       {/* Content Section */}
       <main className="container mx-auto px-4 py-8  ">
         {sections.map((section, index) => (
           <section key={index} className="bg-gradient p-6 mb-8 rounded-lg shadow-md">
             {section.heading && (
-              <h2 className="text-2xl font-semibold mb-4">{section.heading}</h2>
+              <h2 className="mb-4 text-2xl font-semibold">{section.heading}</h2>
             )}
             {section.content.map((paragraph, idx) => (
-              <p key={idx} className="mb-4">{paragraph}</p>
+              <p key={idx} className="mb-4">
+                {paragraph}
+              </p>
             ))}
           </section>
         ))}
       </main>
-      
     </div>
     </>
   );

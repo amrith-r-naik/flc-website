@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-const RegisterZ = z
+const signUpZ = z
   .object({
-    name: z.string().min(1, {
+    name: z.string().min(3, {
       message: "Name is required",
     }),
     email: z
@@ -10,43 +10,25 @@ const RegisterZ = z
       .email({
         message: "Email is required",
       })
-      .refine(
-        (email) => {
-          if (email.endsWith("@nmamit.in")) {
-            return true;
-          }
-          return false;
-        },
-        {
-          message: "Email must be from NMAMIT",
-        },
-      ),
-    phone: z.string().regex(/^[6-9]\d{9}$/, {
-      message: "Invalid phone number. Must be a 10-digit number ",
-    }),
+      .refine((email) => email.endsWith("@nmamit.in"), {
+        message: "Email must be from NMAMIT",
+      }),
+    phone: z.string().regex(/^\d{10}$/, { message: "Invalid phone number" }),
     year: z.string(),
-    branchId: z.string(),
-
-    password: z.string().min(8, {
-      message: "password should consist of minimum 6 characters",
+    branchId: z.string().min(1, {
+      message: "Please select a branch",
     }),
-
+    password: z.string().min(8, {
+      message: "Password should consist of minimum 8 characters",
+    }),
     confirmPassword: z.string(),
   })
-  .refine(
-    (data) => {
-      if (data.password === data.confirmPassword) {
-        return true;
-      }
-      return false;
-    },
-    {
-      path: ["confirmPassword"],
-      message: "passwords dont match",
-    },
-  );
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
-const LoginZ = z.object({
+const loginZ = z.object({
   email: z
     .string()
     .email({
@@ -66,43 +48,41 @@ const LoginZ = z.object({
   password: z.string().min(1, { message: "Password is required" }),
 });
 
-const SendVerifyEmailZ = z.object({
+const registerZ = z.object({
+  reasonToJoin: z.string().min(10, {
+    message: "Answer should be atleast 10 characters",
+  }),
+  expectations: z.string().min(10, {
+    message: "Answer should be atleast 10 characters",
+  }),
+  contribution: z.string().min(10, {
+    message: "Answer should be atleast 10 characters",
+  }),
+});
+
+const sendVerifyEmailZ = z.object({
   email: z
     .string()
     .email({
       message: "Email is required",
     })
-    .refine(
-      (email) => {
-        if (email.endsWith("@nmamit.in")) {
-          return true;
-        }
-        return false;
-      },
-      {
-        message: "Email must be from NMAMIT",
-      },
-    ),
+    .refine((email) => email.endsWith("@nmamit.in"), {
+      message: "Email must be from NMAMIT",
+    }),
 });
-const SendPasswordResetZ = z.object({
+
+const sendPasswordResetZ = z.object({
   email: z
     .string()
     .email({
       message: "Email is required",
     })
-    .refine(
-      (email) => {
-        if (email.endsWith("@nmamit.in")) {
-          return true;
-        }
-        return false;
-      },
-      {
-        message: "Email must be from NMAMIT",
-      },
-    ),
+    .refine((email) => email.endsWith("@nmamit.in"), {
+      message: "Email must be from NMAMIT",
+    }),
 });
-const ResetPasswordZ = z
+
+const resetPasswordZ = z
   .object({
     token: z.string(),
     newPassword: z.string(),
@@ -113,20 +93,21 @@ const ResetPasswordZ = z
     path: ["confirmPassword"],
   });
 
-const VerifyEmailZ = z.object({
+const verifyEmailZ = z.object({
   token: z.string(),
 });
 
-const RefreshTokenZ = z.object({
+const refreshTokenZ = z.object({
   refreshToken: z.string(),
 });
 
 export {
-  LoginZ,
-  RegisterZ,
-  SendPasswordResetZ,
-  ResetPasswordZ,
-  SendVerifyEmailZ,
-  VerifyEmailZ,
-  RefreshTokenZ,
+  signUpZ,
+  loginZ,
+  registerZ,
+  sendVerifyEmailZ,
+  sendPasswordResetZ,
+  resetPasswordZ,
+  verifyEmailZ,
+  refreshTokenZ,
 };

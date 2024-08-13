@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+
 import AvatarCustom from "../avatar";
 
 const RankBars = ({
@@ -23,7 +24,7 @@ const RankBars = ({
       style={{ /*  height: `${size}px`, */ backgroundColor: `${bgColor}` }}
     >
       <div className="absolute -top-12 left-1/2 -translate-x-1/2 transform ">
-        <AvatarCustom height={75} width={75} />
+        <AvatarCustom src="" height={75} width={75} />
       </div>
     </div>
   );

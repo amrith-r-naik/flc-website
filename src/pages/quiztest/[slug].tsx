@@ -1,5 +1,9 @@
 import { useRouter } from "next/router";
-import QuizTestPage from "~/components/quiz/QuizTestPage";
+import React from "react";
+
+import NotFound from "~/pages/404";
+
+import QuizPage from "~/components/quiz/page";
 
 const QuizTest = () => {
   const router = useRouter();
@@ -8,14 +12,9 @@ const QuizTest = () => {
     ? router.query.slug[0]
     : router.query.slug;
 
-  if (!quizId) {
-    return <div>Error loading quiz.</div>;
-  }
+  if (!quizId) return <NotFound />;
 
-  return (
-    
-    <QuizTestPage quizId={quizId}/>
-  );
+  return <QuizPage quizId={quizId} />;
 };
 
 export default QuizTest;

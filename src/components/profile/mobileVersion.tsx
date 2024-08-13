@@ -2,19 +2,20 @@ import { useGSAP } from "@gsap/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import gsap from "gsap";
 import { ChevronDown, ChevronUp, Pencil, X } from "lucide-react";
-import { CldUploadWidget, type CloudinaryUploadWidgetInfo, type CloudinaryUploadWidgetResults } from "next-cloudinary";
+import {
+  CldUploadWidget,
+  type CloudinaryUploadWidgetInfo,
+  type CloudinaryUploadWidgetResults,
+} from "next-cloudinary";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
-
-
 import { deleteFromCloudinary } from "~/components/cloudinary/cloudinaryDelete";
 import ImageCarousel from "~/components/imageCarousel";
 import QRCode from "~/components/profile/qrcode";
 import { api } from "~/utils/api";
-
 
 const MobileVersion = ({ className }: { className?: string }) => {
   const [name, setName] = useState("");
@@ -25,16 +26,16 @@ const MobileVersion = ({ className }: { className?: string }) => {
 
   const { data: user } = api.user.getUser.useQuery();
 
-   const updateProfile = api.user.editUser.useMutation({
-     onSuccess: async () => {
-       toast.dismiss();
-       toast.success("Profile Picture changed successfully");
-     },
-     onError: async () => {
-       toast.dismiss();
-       toast.error("couldnt change profile picture");
-     },
-   });
+  const updateProfile = api.user.editUser.useMutation({
+    onSuccess: async () => {
+      toast.dismiss();
+      toast.success("Profile Picture changed successfully");
+    },
+    onError: async () => {
+      toast.dismiss();
+      toast.error("couldnt change profile picture");
+    },
+  });
 
   const { data: attendance } = api.attendance.getAttendanceByUserId.useQuery();
 
@@ -140,62 +141,51 @@ const MobileVersion = ({ className }: { className?: string }) => {
               fill
               className="rounded-full object-cover"
             /> */}
-           {/* CLOUDINARY WORKS properly here */}
-               <fieldset className="mb-[15px] w-[100px] flex items-center self-center text-foreground">
-                          <CldUploadWidget 
-                            
-                            signatureEndpoint="/api/cloudinary/sign"
-                            onSuccess={(
-                              result: CloudinaryUploadWidgetResults,
-                            ) => {
-                              const { info } = result;
-                              const { secure_url: imageUrl } =
-                                info as CloudinaryUploadWidgetInfo;
-                                
-                              //deleting from cloudinary server
-                              void deleteFromCloudinary(
-                                user.image as unknown as string,
-                              );
+            {/* CLOUDINARY WORKS properly here */}
+            <fieldset className="mb-[15px] flex w-[100px] items-center self-center text-foreground">
+              <CldUploadWidget
+                signatureEndpoint="/api/cloudinary/sign"
+                onSuccess={(result: CloudinaryUploadWidgetResults) => {
+                  const { info } = result;
+                  const { secure_url: imageUrl } =
+                    info as CloudinaryUploadWidgetInfo;
 
-                              if (imageUrl) {
-                                try {
-                                  void updateProfile.mutateAsync({
-                                    id: user.id,
-                                    image: imageUrl,
-                                  });
-                                 
-                                
-                                } catch (e) {
-                                  toast.dismiss();
-                                  toast.error("couldnt change profile picture");
-                                }
-                              }
-                            }}
-                          >
-                            {({ open }) => (
-                              <>
-                                <Image
-                                  src={user.image as unknown as string}
-                                  alt={"ur profile picture"}
-                                  width={100}
-                                  height={100}
-                                  onClick={() => open()}
-                                  className=" h-full m-auto  border-spacing-10 overflow-hidden rounded-full border-4 border-primary object-cover"
-                                ></Image>
-                                <div
-                                  className="absolute h-full  rounded-full bg-black/45"
-                                  
-                                ></div>
-                                <Pencil
-                                  className="absolute left-1/2 -translate-x-[14px]"
-                                  width={28}
-                                  onClick={() => open()}
-                                />
-                              </>
-                            )}
-                          </CldUploadWidget>
-                </fieldset>
+                  //deleting from cloudinary server
+                  void deleteFromCloudinary(user.image as unknown as string);
 
+                  if (imageUrl) {
+                    try {
+                      void updateProfile.mutateAsync({
+                        id: user.id,
+                        image: imageUrl,
+                      });
+                    } catch (e) {
+                      toast.dismiss();
+                      toast.error("couldnt change profile picture");
+                    }
+                  }
+                }}
+              >
+                {({ open }) => (
+                  <>
+                    <Image
+                      src={user.image as unknown as string}
+                      alt={"ur profile picture"}
+                      width={100}
+                      height={100}
+                      onClick={() => open()}
+                      className=" m-auto h-full  border-spacing-10 overflow-hidden rounded-full border-4 border-primary object-cover"
+                    ></Image>
+                    <div className="absolute h-full  rounded-full bg-black/45"></div>
+                    <Pencil
+                      className="absolute left-1/2 -translate-x-[14px]"
+                      width={28}
+                      onClick={() => open()}
+                    />
+                  </>
+                )}
+              </CldUploadWidget>
+            </fieldset>
           </div>
 
           {/* QR and Edit Options */}
@@ -232,8 +222,7 @@ const MobileVersion = ({ className }: { className?: string }) => {
                     Make changes to your profile here. Click save when
                     you&apos;re done.
                   </Dialog.Description>
-                 
-                 
+
                   <fieldset className="mb-[15px] flex items-center gap-5">
                     <label
                       className="w-[90px] text-right text-[15px] text-primary"

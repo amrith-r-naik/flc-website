@@ -12,9 +12,9 @@ const Background = () => {
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
+    })
+      .then(() => setInit(true))
+      .catch((e) => console.log(e));
   }, []);
 
   const particlesLoaded = async (container?: Container): Promise<void> => {

@@ -1,18 +1,19 @@
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
+
+import { activityPointsRouter } from "./routers/activitypoints";
+import { attendanceRouter } from "./routers/attendance";
+import { authRouter } from "./routers/auth";
+import { branchRouter } from "./routers/branch";
+import { certificateRouter } from "./routers/certificate";
 import { eventRouter } from "./routers/event";
 import { feedbackRouter } from "./routers/feedback";
-import { attendanceRouter } from "./routers/attendance";
-import { teamRouter } from "./routers/team";
-import { authRouter } from "./routers/auth";
-import { winnerRouter } from "./routers/winner";
-import { certificateRouter } from "./routers/certificate";
-import { activityPointsRouter } from "./routers/activitypoints";
 import { organiserRouter } from "./routers/organiser";
-import { branchRouter } from "./routers/branch";
-import { userLinkRouter } from "./routers/userLink";
 import { payment } from "./routers/payment";
 import { quizRouter } from "./routers/quiz";
+import { teamRouter } from "./routers/team";
 import { userRouter } from "./routers/user";
+import { userLinkRouter } from "./routers/userLink";
+import { winnerRouter } from "./routers/winner";
 
 /**
  * This is the primary router for your server.

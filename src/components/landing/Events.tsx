@@ -4,9 +4,10 @@ import gsap from "gsap"
 import { useGSAP } from '@gsap/react';
 import { useRef } from "react";
 
-import Button from "~/components/Button";
+
 
 import sampleImage from "~/assets/images/sample.jpg"
+import { Button } from "../ui/button";
 
 function Events() {
 

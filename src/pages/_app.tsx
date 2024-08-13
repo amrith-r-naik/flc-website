@@ -8,9 +8,8 @@ import { Rowdies } from "next/font/google";
 import { useRouter } from "next/router";
 import { Toaster } from "sonner";
 
-import Footer from "~/components/Footer/Footer";
-import AdminLayout from "~/components/Layout/adminLayout";
-import MainLayout from "~/components/Layout/mainLayout";
+import AdminLayout from "~/components/layout/adminLayout";
+import MainLayout from "~/components/layout/mainLayout";
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
@@ -28,9 +27,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   const router = useRouter();
   const getLayout = () => {
-    if (router.pathname.startsWith("/admin")) {
-      return AdminLayout;
-    }
+    if (router.pathname.startsWith("/admin")) return AdminLayout;
     return MainLayout;
   };
   const Layout = getLayout();

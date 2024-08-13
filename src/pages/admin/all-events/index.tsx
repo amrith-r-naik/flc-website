@@ -1,9 +1,10 @@
-import React, { MouseEventHandler, use, useEffect, useState } from "react";
-import SortingEvents from "../../../components/Admin/allEvents/SortingEvents";
-import AllEventsHeader from "../../../components/Admin/allEvents/AllEventsHeader";
-import EventCard from "~/components/Admin/allEvents/EventCard";
-import Card from "~/components/Card";
+import React, { useEffect, useState } from "react";
+
+import EventCard from "~/components/admin/allEvents/eventCard";
 import { api } from "~/utils/api";
+
+import AllEventsHeader from "../../../components/admin/allEvents/allEventsHeader";
+import SortingEvents from "../../../components/admin/allEvents/sortingEvents";
 
 function formatDate(dateString: Date) {
   const date = new Date(dateString);
@@ -12,7 +13,7 @@ function formatDate(dateString: Date) {
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
-const page = () => {
+const AllEvents = () => {
   const [sortOrder, setSortOrder] = useState<string>("asc");
   const [groupBy, setGroupBy] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("");
@@ -124,4 +125,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AllEvents;

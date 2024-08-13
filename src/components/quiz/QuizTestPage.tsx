@@ -5,9 +5,10 @@ import React, { useState, useEffect } from "react";
 
 import { Button } from "~/components/ui/button";
 
-import QuizSubmissionAlertDialog from "~/components/quiz/QuizResultsDialog";
+
 import { api } from "~/utils/api";
 import Background from "~/pages/events/ParticlesBackground";
+import QuizDialog from "./quizDialog";
 
 interface Option {
   id: string;
@@ -305,7 +306,7 @@ const QuizTestPage = ({ quizId }:Props) => {
                   ))}
                 </div>
               </div>
-              <QuizSubmissionAlertDialog
+              <QuizDialog
                 open={isDialogOpen}
                 onClose={handleDialogClose}
                 onSubmit={handleDialogSubmit}

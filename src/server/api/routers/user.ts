@@ -6,6 +6,13 @@ import { editProfileZ } from "~/zod/userZ";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
+  getMe: protectedProcedure.query(async ({ ctx }) => {
+    return (await ctx.db.user.findUnique({
+      where: { id: ctx.session.user.id },
+      include: { Branch: true },
+    }))!;
+  }),
+
   editUser: protectedProcedure
     .input(editProfileZ)
     .mutation(async ({ ctx, input }) => {

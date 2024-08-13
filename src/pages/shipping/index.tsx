@@ -1,7 +1,8 @@
 // pages/shipping-and-delivery-policy.tsx
 import { type FC } from 'react';
-import Footer from '~/components/Footer/Footer';
+
 import Background from '../events/ParticlesBackground';
+import Footer from '~/components/footer';
 
 const ShippingAndDeliveryPolicy: FC = () => {
   return (

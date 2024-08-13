@@ -2,7 +2,7 @@ import React from "react";
 
 const RadioButtons = () => {
   return (
-    <div className="justify-center mx-8 flex flex-wrap items-center gap-8 md:mx-4">
+    <div className="mx-8 flex flex-wrap items-center justify-center gap-8 md:mx-4">
       <div className="radio-wrapper">
         <input className="input" name="btn" id="value-3" type="radio" />
         <div className="btn">

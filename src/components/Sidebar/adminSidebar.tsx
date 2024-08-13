@@ -8,7 +8,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import SidebarMenu from "./SidebarMenu";
 
 const AdminSidebar = () => {
   const [option, setOption] = useState("");

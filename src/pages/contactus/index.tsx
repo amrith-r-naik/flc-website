@@ -1,6 +1,6 @@
 // pages/contact-us.tsx
 import { type FC } from 'react';
-import Footer from '~/components/Footer/Footer';
+
 import Background from '../events/ParticlesBackground';
 
 const ContactUs: FC = () => {
@@ -53,7 +53,7 @@ const ContactUs: FC = () => {
         </section>
       </main>
       
-      <Footer />
+
     </div>
     </>
   );

@@ -20,7 +20,7 @@ import { Input } from "~/components/ui/input";
 import { Password } from "~/components/ui/password";
 
 import { cn } from "~/lib/utils";
-import { loginFormZ } from "~/zod/formSchemaZ";
+import { loginZ } from "~/zod/authZ";
 
 interface Props {
   className?: string;
@@ -29,7 +29,7 @@ interface Props {
 const LoginForm: FunctionComponent<Props> = ({ className }) => {
   const router = useRouter();
 
-  const formSchema = loginFormZ;
+  const formSchema = loginZ;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,18 +40,21 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const toastId = toast.loading("Logging in...");
     signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
     })
       .then((s) => {
+        toast.dismiss(toastId);
         if (s?.ok) {
           toast.success("Logged in successfully");
           void router.push("/profile");
         }
       })
       .catch((e) => {
+        toast.dismiss(toastId);
         console.error(e);
         toast.error("Failed to log in");
       });

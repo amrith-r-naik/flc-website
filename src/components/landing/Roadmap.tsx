@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { type FC, useRef } from "react";
 
-
 import BoxReveal from "../magicui/box-reveal";
 
 // Define the props interface for the Card component
