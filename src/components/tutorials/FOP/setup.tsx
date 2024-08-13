@@ -1,5 +1,4 @@
-
-import React from 'react'
+import React from "react";
 
 export default function Setup() {
   return (
@@ -16,7 +15,7 @@ export default function Setup() {
       <div className="h-fit w-full bg-slate-200">
         In this section we will be seting up Tools which will come in handy to
         finish the Projects.
-        <div className="List text m-3 rounded-md bg-slate-300 p-2 p-3 ">
+        <div className="List text m-3 rounded-md bg-slate-300 p-3 ">
           <div>
             <ul className="ml-3 list-disc">
               <li>VS Code *</li>
@@ -24,7 +23,7 @@ export default function Setup() {
             </ul>
           </div>
         </div>
-        <div className="VScode text m-3 rounded-md bg-slate-300 p-2 p-3 ">
+        <div className="VScode text m-3 rounded-md bg-slate-300 p-3 ">
           <div>VS Code (~200 mbs)</div>
 
           <div>
@@ -46,7 +45,7 @@ export default function Setup() {
             <br />
           </div>
         </div>
-        <div className="GitBash text m-3 rounded-md bg-slate-300 p-2 p-3 ">
+        <div className="GitBash text m-3 rounded-md bg-slate-300 p-3 ">
           <div>Git-Bash (~70 mbs)</div>
 
           <div>

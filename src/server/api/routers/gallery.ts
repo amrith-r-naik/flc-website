@@ -1,5 +1,6 @@
+import { addGalleryImageZ, deleteGalleryImageZ } from "~/zod/galleryZ";
+
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { addGalleryImageZ, deleteGalleryImageZ, } from "~/zod/galleryZ";
 
 export const galleryRouter = createTRPCRouter({
   addImage: protectedProcedure
@@ -8,7 +9,6 @@ export const galleryRouter = createTRPCRouter({
       await ctx.db.galleryImage.create({
         data: input,
       });
-
     }),
 
   deleteImage: protectedProcedure
@@ -17,12 +17,11 @@ export const galleryRouter = createTRPCRouter({
       await ctx.db.galleryImage.delete({
         where: { id: input.id },
       });
-
     }),
 
   getAllImages: protectedProcedure.query(async ({ ctx }) => {
     return ctx.db.galleryImage.findMany({
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     });
   }),
 });

@@ -8,7 +8,7 @@ import { api } from "~/utils/api";
 
 import Background from "./particlesBackground";
 
-function Page() {
+function Events() {
   const years: string[] = [
     "2016",
     "2017",
@@ -107,4 +107,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default Events;

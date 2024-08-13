@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import React, { useRef, useState } from "react";
 
-import MemberCard from "~/components/teamPageComponents/memberCard";
+import MemberCard from "~/components/team/memberCard";
 import { teamTabs } from "~/constants";
 
 const Team = () => {
