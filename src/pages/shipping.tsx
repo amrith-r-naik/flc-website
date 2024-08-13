@@ -3,7 +3,7 @@ import { type FC } from "react";
 
 import Footer from "~/components/footer";
 
-const ShippingAndDeliveryPolicy: FC = () => {
+const Shipping: FC = () => {
   return (
     <div className="bg-gradient-to-b from-indigo-950 via-purple-900 to-yellow-500   ">
       {/* Header Section */}
@@ -52,4 +52,4 @@ const ShippingAndDeliveryPolicy: FC = () => {
   );
 };
 
-export default ShippingAndDeliveryPolicy;
+export default Shipping;

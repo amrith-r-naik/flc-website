@@ -16,6 +16,7 @@ import {
 } from "~/components/ui/sheet";
 
 import { api } from "~/utils/api";
+import Background from "../events/ParticlesBackground";
 
 const QuizIntroPage = () => {
   const router = useRouter();
@@ -34,7 +35,22 @@ const QuizIntroPage = () => {
   };
 
   return (
-    <section className="container mx-auto  bg-gradient-to-b from-black via-gray-800 to-gray-700 ">
+    <>
+    <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          zIndex: -1,
+        }}
+      >
+        <Background />
+      </div>
+  
+    <section className="container mx-auto   ">
       <div className=" stickey  mt-5 rounded-lg border border-black bg-gray-200 p-2 text-black">
         <h1 className="subheading">Quiz Dashboard</h1>
       </div>
@@ -104,6 +120,7 @@ const QuizIntroPage = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

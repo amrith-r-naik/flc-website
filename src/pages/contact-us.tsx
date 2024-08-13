@@ -1,7 +1,6 @@
 import { type FC } from "react";
-import React from "react";
 
-import Footer from "../components/footer";
+import Footer from "~/components/footer";
 
 const ContactUs: FC = () => {
   return (

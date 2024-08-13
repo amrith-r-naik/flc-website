@@ -9,6 +9,7 @@ import { api } from "~/utils/api";
 import Background from "./particlesBackground";
 
 function Events() {
+  const [selectedYear, setSelectedYear] = useState<string>("2024");
   const years: string[] = [
     "2016",
     "2017",
@@ -20,7 +21,6 @@ function Events() {
     "2023",
     "2024",
   ];
-  const [selectedYear, setSelectedYear] = useState<string>("2024");
 
   const handleYearClick = (year: string) => {
     setSelectedYear(year);
@@ -32,6 +32,8 @@ function Events() {
     error,
   } = api.event.getAllEventsForUser.useQuery({ year: selectedYear });
 
+  console.log(events);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     console.log(selectedYear);
   }, [selectedYear]);
