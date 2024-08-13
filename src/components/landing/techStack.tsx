@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 
-import canva from "~/assets/icons/canva.webp";
-import Gc from "~/assets/icons/gc.svg";
 import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg";
 import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg";
 import nextAuth from "~/assets/icons/na.png";
