@@ -84,7 +84,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
         className={cn(className, "space-y-4")}
       >
         <FormMessage className="flex justify-center text-4xl text-white/90">
-          Signup
+          Register
         </FormMessage>
         <FormField
           control={form.control}

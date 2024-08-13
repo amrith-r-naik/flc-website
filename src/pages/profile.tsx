@@ -46,12 +46,9 @@ const Profile = () => {
           height="100%"
         ></iframe>
       </div> */}
+
       <Toaster position="bottom-center" />
-
-      {/* Mobile Version */}
       <MobileVersion className="absolute sm:hidden" />
-
-      {/* Desktop Version*/}
       <DesktopVersion className="hidden sm:flex" />
     </main>
   );

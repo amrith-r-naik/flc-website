@@ -279,6 +279,7 @@ export const authRouter = createTRPCRouter({
         },
         data: {
           // TODO(Omkar): finish code
+          memberSince: new Date(),
         },
       });
     }),
