@@ -3,7 +3,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React from "react";
 
 import Navbar from "../navbar/navbar";
-import AdminSidebar from "../Sidebar/adminSidebar";
+import AdminSidebar from "../sidebar/adminSidebar";
 
 gsap.registerPlugin(ScrollTrigger);
 

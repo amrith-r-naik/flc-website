@@ -6,7 +6,7 @@ import EventCard from "~/components/eventCard";
 import Loader from "~/components/loader";
 import { api } from "~/utils/api";
 
-import Background from "./ParticlesBackground";
+import Background from "./particlesBackground";
 
 function Page() {
   const years: string[] = [

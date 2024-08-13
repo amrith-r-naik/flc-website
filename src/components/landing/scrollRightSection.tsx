@@ -2,10 +2,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useRef, useEffect } from "react";
 
-import AboutFLC from "./AboutFLC";
-import Roadmap from "./Roadmap";
-
-
+import AboutFLC from "./aboutFLC";
+import Roadmap from "./roadmap";
 
 function ScrollRightSection() {
   const sectionRef = useRef(null);
@@ -56,6 +54,3 @@ function ScrollRightSection() {
 }
 
 export default ScrollRightSection;
-
-
-

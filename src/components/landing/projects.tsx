@@ -13,7 +13,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import { type ReactNode, useRef } from "react";
 
-import Button from "~/components/Button";
+import Button from "~/components/button";
 import { cn } from "~/lib/utils";
 
 function Projects() {

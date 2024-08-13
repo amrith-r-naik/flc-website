@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useRef, useEffect } from "react";
 
-import TechStack from "./TechStack";
+import TechStack from "./techStack";
 
 gsap.registerPlugin(ScrollTrigger);
 

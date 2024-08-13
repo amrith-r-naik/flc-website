@@ -1,5 +1,7 @@
 import React from "react";
-import SidebarMenu from "~/components/Sidebar/SidebarMenu";
+
+import SidebarMenu from "~/components/sidebar/sidebarMenu";
+
 const AllEventsHeader = () => {
   return (
     <div className="mb-2 mt-4 flex w-full items-center bg-black px-2">

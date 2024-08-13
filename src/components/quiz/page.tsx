@@ -4,7 +4,7 @@ import React, { useState, useEffect, type FunctionComponent } from "react";
 
 import { Button } from "~/components/ui/button";
 
-import QuizSubmissionAlertDialog from "~/components/quiz/QuizResultsDialog";
+import QuizSubmissionAlertDialog from "~/components/quiz/quizResultsDialog";
 import { api } from "~/utils/api";
 
 interface Option {

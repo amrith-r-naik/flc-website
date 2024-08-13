@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRef } from "react";
 
 import sampleImage from "~/assets/images/sample.jpg";
-import Button from "~/components/Button";
+import Button from "~/components/button";
 
 function Events() {
   const refs = useRef<HTMLDivElement>(null);

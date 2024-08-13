@@ -13,7 +13,7 @@ import Loader from "~/components/loader";
 import { api } from "~/utils/api";
 
 import NotFound from "../404";
-import Background from "../events/ParticlesBackground";
+import Background from "../events/particlesBackground";
 
 const EventSlug = () => {
   const router = useRouter();

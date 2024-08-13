@@ -1,16 +1,14 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { ArrowRight, Badge } from "lucide-react";
 import Link from "next/link";
+import { useRef } from "react";
 
 import { Boxes } from "~/components/ui/background-boxes";
 
-import Button from "~/components/Button";
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+import Button from "~/components/button";
 
 function Hero() {
-
-
   const ref = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -34,13 +32,16 @@ function Hero() {
       );
     },
     { scope: ref },
-  );  
+  );
   return (
     <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-slate-900">
       <div className=" pointer-events-none absolute inset-0 z-20 h-full w-full space-y-4 bg-slate-900 [mask-image:radial-gradient(transparent,white)]" />
 
       <Boxes />
-      <h1 className="title relative z-20 bg-gradient-to-r from-blue-700 via-white to-yellow-500 bg-clip-text text-center text-transparent " ref={ref}>
+      <h1
+        className="title relative z-20 bg-gradient-to-r from-blue-700 via-white to-yellow-500 bg-clip-text text-center text-transparent "
+        ref={ref}
+      >
         NMAMIT
         <br />
         FINITE LOOP CLUB

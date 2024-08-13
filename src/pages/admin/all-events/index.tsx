@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import EventCard from "~/components/Admin/allEvents/EventCard";
+import EventCard from "~/components/admin/allEvents/eventCard";
 import { api } from "~/utils/api";
 
-import AllEventsHeader from "../../../components/Admin/allEvents/AllEventsHeader";
-import SortingEvents from "../../../components/Admin/allEvents/SortingEvents";
+import AllEventsHeader from "../../../components/admin/allEvents/allEventsHeader";
+import SortingEvents from "../../../components/admin/allEvents/sortingEvents";
 
 function formatDate(dateString: Date) {
   const date = new Date(dateString);
