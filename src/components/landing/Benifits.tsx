@@ -1,6 +1,9 @@
 "use client";
 
-import Image, {  type StaticImageData } from "next/image";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import Image, { type StaticImageData } from "next/image";
+import { useRef } from "react";
 
 import sampleImage from "~/assets/images/sample.jpg";
 
@@ -79,11 +82,42 @@ const ReviewCard = ({
 };
 
 export function Benifits() {
+  const ref = useRef(null);
+
+  useGSAP(
+    () => {
+      gsap.from(ref.current, {
+        opacity: 0,
+        scale: 0.5,
+        duration: 1,
+        ease: "power1.inOut",
+        scrollTrigger: {
+          trigger: ref.current,
+          toggleActions: "restart none none reverse",
+        },
+      });
+
+      gsap.from(".benifit", {
+        opacity: 0,
+        y: 100,
+        stagger: {
+          grid: "auto",
+          amount: 1,
+        },
+        scrollTrigger: {
+          trigger: ref.current,
+          toggleActions: "restart none none reverse",
+        },
+      });
+    },
+    { scope: ref },
+  );
   return (
-    <section className="  min-h-screen w-full space-y-8  ">
-      <h3 className=" m-4 rounded-r-full border border-yellow-700 p-4 text-center text-4xl font-semibold">
-        Why To Join Us
-      </h3>
+    <section
+      className="content-container min-h-[80vh] w-full space-y-8   "
+      ref={ref}
+    >
+      <h3 className="text-center text-4xl font-semibold">Why To join us</h3>
 
       <div className="w-full flex-1 overflow-hidden">
         <Marquee pauseOnHover className="[--duration:25s]">

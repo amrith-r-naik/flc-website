@@ -20,12 +20,8 @@ import OrbitingCircles from "../magicui/orbiting-circles";
 
 export default function TechStack() {
   return (
-    <section className="flex h-[300vh] flex-col  items-center justify-center md:h-screen md:w-screen md:flex-row">
-      <div className="relative flex h-full w-full max-w-full items-center justify-center space-y-8  overflow-hidden bg-gradient-to-b from-black via-blue-900 to-violet-900 shadow-2xl md:bg-gradient-to-r ">
-        <h2 className="absolute md:left-3 text-center top-4 rounded-lg   bg-gradient-to-b from-blue-700 via-blue-900 to-violet-900  p-2 text-lg text-white shadow-xl">
-          Our Commonly Used Tech Tools and Frameworks
-        </h2>
-
+    <section className="flex h-[300vh] flex-col  items-center justify-center  md:h-screen md:w-screen md:flex-row  ">
+      <div className="relative flex h-full w-full max-w-full items-center justify-center space-y-8  overflow-hidden  ">
         <span className="pointer-events-none whitespace-pre-wrap  bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center  text-5xl leading-none text-transparent dark:from-white dark:to-black sm:text-5xl md:text-6xl lg:text-6xl">
           Tech Resources
         </span>
@@ -132,10 +128,7 @@ export default function TechStack() {
           />
         </OrbitingCircles>
       </div>
-      <div className="relative flex h-full w-full max-w-7xl items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-black via-blue-900 to-violet-900 shadow-2xl md:rounded-r-full space-y-8">
-      <h2 className="absolute md:left-3 text-center top-4 rounded-lg   bg-gradient-to-b from-blue-700 via-blue-900 to-violet-900  p-2 text-lg text-white shadow-xl">
-      Finite Loop Club Main TechStack
-        </h2>
+      <div className="relative flex h-full w-full max-w-7xl items-center  justify-center space-y-8 overflow-hidden rounded-lg ">
         <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center  text-6xl leading-none text-transparent dark:from-white dark:to-black sm:text-5xl md:text-6xl lg:text-8xl">
           T3-Stack
         </span>

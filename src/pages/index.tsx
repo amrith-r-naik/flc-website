@@ -2,7 +2,7 @@ import Footer from "~/components/Footer/Footer";
 import AboutFLC from "~/components/landing/AboutFLC";
 import Benifits from "~/components/landing/Benifits";
 import Events from "~/components/landing/Events";
-import { FlagShip } from "~/components/landing/FlagShip";
+import Hackfest from "~/components/landing/Hackfest";
 import Hero from "~/components/landing/Hero";
 import Projects from "~/components/landing/Projects";
 import Roadmap from "~/components/landing/Roadmap";
@@ -11,25 +11,26 @@ import TechStack from "~/components/landing/TechStack";
 export default function Home() {
   return (
     <main className="flex flex-col items-stretch ">
+      <video
+        src="waves.webm"
+        autoPlay
+        muted
+        loop
+        className="absolute top-[30%] -z-10 w-full brightness-75"
+      ></video>
       <Hero />
-      <div className=" bg-gradient-to-b from-black via-blue-950 to-purple-950 ">
-
       <AboutFLC />
+      <Roadmap />
+      <Hackfest />
+      <Projects />
+      <div className="mt-12 bg-gradient">
+        <h1 className="heading text-center p-4">
+          Technology Stack Our Club Works With
+        </h1>
+        <TechStack />
       </div>
-      <div className="bg-gradient-to-b from-black  via-slate-900 to-purple-950">
-        <Roadmap />
-      </div>
-      <FlagShip />
-      <div className="bg-gradient-to-b from-black via-indigo-950 to-blue-950">
-        <Projects />
-      </div>
-      <TechStack />
-      <div className="bg-gradient-to-r from-blue-900 to-black">
-        <Events />
-      </div>
-      <div className="bg-gradient-to-b from-black via-indigo-950 to-black ">
-        <Benifits />
-      </div>
+      <Events />
+      <Benifits />
       <Footer />
     </main>
   );

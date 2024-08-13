@@ -1,22 +1,37 @@
 // pages/contact-us.tsx
 import { type FC } from 'react';
 import Footer from '~/components/Footer/Footer';
+import Background from '../events/ParticlesBackground';
 
 const ContactUs: FC = () => {
   return (
-    <div className=" bg-gradient-to-b from-indigo-950  to-black ">
+    <>
+    <div
+     style={{
+       position: "absolute",
+       top: 0,
+       left: 0,
+       width: "100%",
+       height: "100%",
+       overflow: "hidden",
+       zIndex: -1,
+     }}
+   >
+     <Background/>
+   </div>
+    <div className="  ">
       {/* Header Section */}
-      <header className="text-white shadow-md py-4">
+      <header className="shadow-md py-4">
         <div className="container mx-auto px-4">
           <h1 className="heading font-bold text-center">INSPIRANTE TECHNOLOGIES PRIVATE LIMITED</h1>
           <p className="subheading  text-center mt-2">Contact Us</p>
-          <p className="text-center caption text-gray-600 mt-1">Last updated on Oct 20th 2022</p>
+          <p className="text-center caption  mt-1">Last updated on Oct 20th 2022</p>
         </div>
       </header>
       
       {/* Content Section */}
       <main className="container mx-auto px-4 py-8 ">
-        <section className="text-gray-900 p-6 rounded-lg shadow-md  bg-gradient-to-b from-slate-300 via-slate-400 to-slate-300 ">
+        <section className=" p-6 rounded-lg shadow-md  bg-gradient ">
           <p className="text-lg font-semibold mb-4">You may contact us using the information below:</p>
           <ul className="list-none space-y-4">
             <li>
@@ -40,6 +55,7 @@ const ContactUs: FC = () => {
       
       <Footer />
     </div>
+    </>
   );
 };
 

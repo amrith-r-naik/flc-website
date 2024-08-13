@@ -4,31 +4,6 @@ import type { Config } from "tailwindcss"
 
 
 
-//colors for heroSection-bg
-interface ColorPalette {
-  [key: string]: string | ColorPalette;
-}
-interface AddVariablesForColorsParams {
-  addBase: (base: Record<string, unknown>) => void;
-  theme: (key: string) => ColorPalette;
-}
-type FlattenedColorPalette = Record<string, string>;
-const flattenColorPalette = (colors: ColorPalette | null | undefined): FlattenedColorPalette => {
-  if (!colors) return {};
-
-  return Object.assign(
-    {},
-    ...Object.entries(colors).flatMap(([color, values]) =>
-      typeof values === "object" && values !== null
-        ? Object.entries(flattenColorPalette(values)).map(([number, hex]) => ({
-            [color + (number === "DEFAULT" ? "" : `-${number}`)]: hex
-          }))
-        : [{ [`${color}`]: values }]
-    )
-  );
-};
-
-
 
 
 const config = {
@@ -133,17 +108,6 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    //colors for heroSection-bg
-    function addVariablesForColors({ addBase, theme }: AddVariablesForColorsParams) {
-      const allColors = flattenColorPalette(theme("colors"));
-      const newVars = Object.fromEntries(
-        Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-      );
-
-      addBase({
-        ":root": newVars,
-      });
-    }
   ],
 
 } satisfies Config

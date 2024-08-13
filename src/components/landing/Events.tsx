@@ -1,82 +1,44 @@
-"use client";
-
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import Link from "next/link";
+"use client"
+import Image from "next/image";
+import gsap from "gsap"
+import { useGSAP } from '@gsap/react';
 import { useRef } from "react";
 
 import Button from "~/components/Button";
-import { api } from "~/utils/api";
 
-import EventCard from "../eventCard";
-import Loader from "../Loader/Loader";
+import sampleImage from "~/assets/images/sample.jpg"
 
 function Events() {
-  const { data: events, isLoading, error } = api.event.getAllEvents.useQuery();
 
-  const refs = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        refs.current,
-        {
-          opacity: 0,
-          scale: 0.5,
-          duration: 3,
-          ease: "power1.inOut",
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          scrollTrigger: {
-            trigger: refs.current,
-            toggleActions: "restart none none reverse",
-          },
-        },
-      );
-    },
-    { scope: refs },
-  );
-
-  if (isLoading) {
+    const ref = useRef(null);
+    useGSAP(() => {
+        gsap.from('.event', {
+            opacity: 0,
+            y: 100,
+            stagger: {
+                grid: "auto",
+                amount: .5,
+            },
+            scrollTrigger: {
+                trigger: ref.current,
+                toggleActions: "restart none none reverse",
+            }
+        });
+    }, [])
     return (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Loader />
-      </div>
-    );
-  }
-  if (events) {
-    console.log(events);
-  }
-  if (error) {
-    return <div>Error loading events</div>;
-  }
-
-  return (
-    <section className="content-container sapce-y-12 mb-16 flex h-full w-full flex-col   items-center ">
-      <h1
-        className="rounded-r-full border border-yellow-700 p-4 text-center text-4xl font-semibold"
-        ref={refs}
-      >
-        Events & WorkShop
-      </h1>
-      <p>Enrich your skills and knowledge with tons of events and workshops</p>
-      {events && events.length > 0 ? (
-        <div className="mx-auto mb-4 mt-6 grid w-full grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
-          {events.slice(0, 3).map((event, index) => (
-            <EventCard key={index} data={event} />
-          ))}
-        </div>
-      ) : (
-        <div className="flex justify-center">No events available</div>
-      )}
-
-      <Button className="mx-auto mb-6">
-        <Link href="/events">View All</Link>
-      </Button>
-    </section>
-  );
+        <section className="w-full content-container min-h-[80vh] flex flex-col gap-4 items-center  bg-gradient " ref={ref}>
+            <h3 className='text-4xl font-semibold text-center'>Events & WorkShop</h3>
+            <p>Enrich your skills and knowledge with tons of events and workshops</p>
+            <div className='w-full h-full grid grid-cols-1 md:grid-cols-3 gap-4 flex-grow justify-between items-center place-items-center'>
+                <Image width={400} height={400} alt='flc' src={sampleImage} className="event rounded" />
+                <Image width={400} height={400} alt='flc' src={sampleImage} className="event rounded" />
+                <Image width={400} height={400} alt='flc' src={sampleImage} className="event rounded" />
+            </div>
+            <Button className="mx-auto">
+                View All
+            </Button>
+        </section>
+    )
 }
 
-export default Events;
+export default Events

@@ -128,9 +128,9 @@ const Roadmap: FC = () => {
   );
 
   return (
-    <section className="content-container space-y-16 h-screen ">
+    <section className="content-container space-y-16 h-screen  bg-gradient   ">
       <div ref={ref}>
-        <div className="rounded-r-full border border-yellow-700 p-4 text-center md:mb-10">
+        <div className="rounded-r-full p-4 text-center md:mb-10">
           <h1 className="text-3xl font-bold ">
             Finite Loop Club Presents: The Roadmap for 2024-25
           </h1>

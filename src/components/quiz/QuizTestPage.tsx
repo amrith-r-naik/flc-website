@@ -7,6 +7,7 @@ import { Button } from "~/components/ui/button";
 
 import QuizSubmissionAlertDialog from "~/components/quiz/QuizResultsDialog";
 import { api } from "~/utils/api";
+import Background from "~/pages/events/ParticlesBackground";
 
 interface Option {
   id: string;
@@ -311,7 +312,21 @@ const QuizTestPage = ({ quizId }:Props) => {
               />
             </div>
           ) : (
-            <div className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-black via-violet-950 to-blue-950  p-4">
+            <>
+            <div
+             style={{
+               position: "absolute",
+               top: 0,
+               left: 0,
+               width: "100%",
+               height: "100%",
+               overflow: "hidden",
+               zIndex: -1,
+             }}
+           >
+             <Background/>
+           </div>
+            <div className="flex h-screen flex-col items-center justify-center  p-4">
               <div className="sapce-y-12 mx-auto mb-6 bg-gradient-to-br from-blue-800 via-yellow-400 to-blue-500 rounded-xl shadow-2xl p-10  text-center md:w-[800px] ">
                 <div className="flex flex-row items-center justify-center gap-1 m-4">
                   <div>
@@ -342,6 +357,7 @@ const QuizTestPage = ({ quizId }:Props) => {
                 </Button>
               </div>
             </div>
+            </>
           )}
         </>
       );
