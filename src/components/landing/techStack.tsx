@@ -2,51 +2,21 @@
 
 import Image from "next/image";
 
+import canva from "~/assets/icons/canva.webp";
+import Gc from "~/assets/icons/gc.svg";
 import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg";
 import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg";
+import nextAuth from "~/assets/icons/na.png";
 import nextJsIcon from "~/assets/icons/nextjs-icon-svgrepo-com.svg";
+import postgress from "~/assets/icons/PostgreSQL.png";
+import prisma from "~/assets/icons/prisma-svgrepo-com.svg";
 import pythonIcon from "~/assets/icons/python.svg";
-import reactIcon from "~/assets/icons/react-svgrepo-com.svg";
 import tailwindIcon from "~/assets/icons/tailwind-svgrepo-com.svg";
 import trpcIcon from "~/assets/icons/trpc.svg";
 import tsIcon from "~/assets/icons/typescript-svgrepo-com.svg";
+import vscode from "~/assets/icons/vs.png";
 
 import OrbitingCircles from "../magicui/orbiting-circles";
-
-const techs = [
-  {
-    name: "python",
-    icon: pythonIcon as string,
-  },
-  {
-    name: "javascript",
-    icon: jsIcon as string,
-  },
-  {
-    name: "typescript",
-    icon: tsIcon as string,
-  },
-  {
-    name: "react",
-    icon: reactIcon as string,
-  },
-  {
-    name: "nextjs",
-    icon: nextJsIcon as string,
-  },
-  {
-    name: "trpc",
-    icon: trpcIcon as string,
-  },
-  {
-    name: "graphql",
-    icon: graphqlIcon as string,
-  },
-  {
-    name: "3",
-    icon: tailwindIcon as string,
-  },
-];
 
 export default function TechStack() {
   return (

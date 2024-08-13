@@ -1,77 +1,27 @@
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ArrowRight, Badge } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useRef } from "react";
-
-import { Boxes } from "~/components/ui/background-boxes";
 
 import Button from "~/components/button";
 
 function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        ref.current,
-        {
-          opacity: 0,
-          scale: 0.5,
-          duration: 5,
-          ease: "power1.inOut",
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          scrollTrigger: {
-            trigger: ref.current,
-            toggleActions: "restart none none reverse",
-          },
-        },
-      );
-    },
-    { scope: ref },
-  );
   return (
-    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-slate-900">
-      <div className=" pointer-events-none absolute inset-0 z-20 h-full w-full space-y-4 bg-slate-900 [mask-image:radial-gradient(transparent,white)]" />
-
-      <Boxes />
-      <h1
-        className="title relative z-20 bg-gradient-to-r from-blue-700 via-white to-yellow-500 bg-clip-text text-center text-transparent "
-        ref={ref}
-      >
-        NMAMIT
-        <br />
-        FINITE LOOP CLUB
-      </h1>
-      <p className="text-white-300 relative z-20 mt-4 text-center leading-relaxed">
-        We are a Coding club of NMAMIT aiming at Realizing the idea and
-        Inspiring the next!
-        <br />
-      </p>
-      <div className="z-20 mt-4 flex flex-row gap-2">
-        <Button>
-          <Link
-            href="/register"
-            className="flex items-center gap-2 text-white "
-          >
+    <section className=" grid min-h-[70vh] w-full place-content-center">
+      <div className="content-container space-y-6  text-center">
+        <h1 className="bg-gradient-to-r from-[#F0C78E] to-[#E98F81] bg-clip-text text-6xl font-bold text-transparent">
+          FINITE LOOP CLUB
+        </h1>
+        <p className="mx-auto max-w-sm text-center">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus
+          numquam{" "}
+        </p>
+        <Button className="border-2 border-yellow-400 bg-transparent from-amber-500/50 to-transparent transition-colors delay-150 hover:bg-gradient-to-tr">
+          <Link href="/register" className="flex items-center gap-2">
             <span>Register</span>
             <ArrowRight size={16} />
           </Link>
         </Button>
-        <Button>
-          <Link
-            href="/register"
-            className="flex items-center gap-2 text-white "
-          >
-            <span> Events</span>
-            <Badge size={16} />
-          </Link>
-        </Button>
       </div>
-    </div>
+    </section>
   );
 }
 

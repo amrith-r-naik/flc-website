@@ -1,24 +1,34 @@
-import Footer from "~/components/footer";
-import AboutFLC from "~/components/landing/aboutFLC";
-import Benifits from "~/components/landing/benifits";
-import Events from "~/components/landing/events";
-import { FlagShip } from "~/components/landing/flagShip";
-import Hero from "~/components/landing/hero";
-import Projects from "~/components/landing/projects";
-import Roadmap from "~/components/landing/roadmap";
-import TechStack from "~/components/landing/techStack";
+import Footer from "~/components/Footer/Footer";
+import AboutFLC from "~/components/landing/AboutFLC";
+import Benifits from "~/components/landing/Benifits";
+import Events from "~/components/landing/Events";
+import Hackfest from "~/components/landing/Hackfest";
+import Hero from "~/components/landing/Hero";
+import Projects from "~/components/landing/Projects";
+import Roadmap from "~/components/landing/Roadmap";
+import TechStack from "~/components/landing/TechStack";
 
 export default function Home() {
   return (
     <main className="flex flex-col items-stretch ">
+      <video
+        src="waves.webm"
+        autoPlay
+        muted
+        loop
+        className="absolute top-[30%] -z-10 w-full brightness-75"
+      ></video>
       <Hero />
       <AboutFLC />
       <Roadmap />
-      <FlagShip />
-      <div className="bg-gradient-to-b from-black via-indigo-950 to-blue-950">
-        <Projects />
+      <Hackfest />
+      <Projects />
+      <div className="bg-gradient mt-12">
+        <h1 className="heading p-4 text-center">
+          Technology Stack Our Club Works With
+        </h1>
+        <TechStack />
       </div>
-      <TechStack />
       <Events />
       <Benifits />
       <Footer />

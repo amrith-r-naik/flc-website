@@ -9,64 +9,52 @@ import sampleImage from "~/assets/images/sample.jpg";
 import Button from "~/components/button";
 
 function Events() {
-  const refs = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        refs.current,
-        {
-          opacity: 0,
-          scale: 0.5,
-          duration: 3,
-          ease: "power1.inOut",
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          scrollTrigger: {
-            trigger: refs.current,
-            toggleActions: "restart none none reverse",
-          },
-        },
-      );
-    },
-    { scope: refs },
-  );
-
+  const ref = useRef(null);
+  useGSAP(() => {
+    gsap.from(".event", {
+      opacity: 0,
+      y: 100,
+      stagger: {
+        grid: "auto",
+        amount: 0.5,
+      },
+      scrollTrigger: {
+        trigger: ref.current,
+        toggleActions: "restart none none reverse",
+      },
+    });
+  }, []);
   return (
-    <section className="content-container mb-16 flex h-full w-full flex-col items-center  gap-4 bg-gradient-to-r from-blue-900 to-black">
-      <h1
-        className="rounded-r-full border border-yellow-700 p-4 text-center text-4xl font-semibold"
-        ref={refs}
-      >
-        Events & WorkShop
-      </h1>
+    <section
+      className="content-container bg-gradient flex min-h-[80vh] w-full flex-col items-center  gap-4 "
+      ref={ref}
+    >
+      <h3 className="text-center text-4xl font-semibold">Events & WorkShop</h3>
       <p>Enrich your skills and knowledge with tons of events and workshops</p>
-      <div className="iteam-center grid h-full w-full grid-cols-1 justify-between gap-4 md:grid-cols-3">
+      <div className="grid h-full w-full flex-grow grid-cols-1 place-items-center items-center justify-between gap-4 md:grid-cols-3">
         <Image
           width={400}
           height={400}
           alt="flc"
           src={sampleImage}
-          className="event"
+          className="event rounded"
         />
         <Image
           width={400}
           height={400}
           alt="flc"
           src={sampleImage}
-          className="event"
+          className="event rounded"
         />
         <Image
           width={400}
           height={400}
           alt="flc"
           src={sampleImage}
-          className="event"
+          className="event rounded"
         />
       </div>
-      <Button className="mx-auto mb-6">View All</Button>
+      <Button className="mx-auto">View All</Button>
     </section>
   );
 }

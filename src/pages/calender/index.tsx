@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
+import Background from "../events/particlesBackground";
 import "./calender.module.css";
 
 const localizer = momentLocalizer(moment);
@@ -29,19 +30,31 @@ const App = () => {
   const [events] = useState(initialEvents);
 
   return (
-    <div
-      style={{ height: "600px" }}
-      className="bg-gradient-to-b from-black via-purple-950 to-yellow-700"
-    >
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ margin: "50px" }}
-        selectable={true}
-      />
-    </div>
+    <>
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          zIndex: -1,
+        }}
+      >
+        <Background />
+      </div>
+      <div style={{ height: "600px" }} className="bg-gradient-to-b">
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ margin: "50px" }}
+          selectable={true}
+        />
+      </div>
+    </>
   );
 };
 
