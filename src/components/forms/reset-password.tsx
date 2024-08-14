@@ -94,7 +94,7 @@ const Resetpassword: FunctionComponent<Props> = ({ className }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
-              <FormControl>
+              <FormControl className="bg-[#494949] ">
                 <Password placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
@@ -107,7 +107,7 @@ const Resetpassword: FunctionComponent<Props> = ({ className }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
-              <FormControl>
+              <FormControl className="bg-[#494949] ">
                 <Password placeholder="Confirm Password" {...field} />
               </FormControl>
               <FormMessage />

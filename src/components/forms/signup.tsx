@@ -96,8 +96,8 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
+              <FormLabel> Name</FormLabel>
+              <FormControl className="bg-[#494949]">
                 <Input placeholder="Name" {...field} />
               </FormControl>
               <FormMessage />
@@ -110,7 +110,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
-              <FormControl>
+              <FormControl className="bg-[#494949]">
                 <Input placeholder="Email" {...field} />
               </FormControl>
               <FormMessage />
@@ -121,86 +121,129 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           control={form.control}
           name="phone"
           render={({ field }) => (
-            <FormItem className="rounded-lg bg-black p-4">
+            <FormItem className="flex-1 rounded-lg p-2 sm:p-4">
               <FormLabel>Phone</FormLabel>
-              <FormControl>
-                <InputOTP maxLength={10} {...field}>
-                  <InputOTPSlot index={0} className="bg-white/15" />
-                  <InputOTPSlot index={1} className="bg-white/15" />
-                  <InputOTPSlot index={2} className="bg-white/15" />
-                  <InputOTPSlot index={3} className="bg-white/15" />
-                  <InputOTPSlot index={4} className="bg-white/15" />
-                  <InputOTPSlot index={5} className="bg-white/15" />
-                  <InputOTPSlot index={6} className="bg-white/15" />
-                  <InputOTPSlot index={7} className="bg-white/15" />
-                  <InputOTPSlot index={8} className="bg-white/15" />
-                  <InputOTPSlot index={9} className="bg-white/15" />
+              <FormControl className="bg-[#494949]">
+                <InputOTP maxLength={10} {...field} disabled>
+                  <InputOTPSlot
+                    index={0}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={1}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={2}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={2}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={2}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={3}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={4}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={5}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={6}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={6}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={7}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={8}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
+                  <InputOTPSlot
+                    index={9}
+                    className="size-6 bg-[#494949] sm:size-10"
+                  />
                 </InputOTP>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        <FormField
-          control={form.control}
-          name="branchId"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Branch</FormLabel>
-              <FormControl>
-                <ComboBox
-                  data={branches ?? []}
-                  value={field.value}
-                  setValue={field.onChange}
-                  placeholder="Search branch..."
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="year"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Graduation Year</FormLabel>
-              <FormControl>
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Choose Year" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {getGraduationYears().map((year, idx) => (
-                      <SelectItem key={idx} value={`${year}`}>
-                        {year} (
-                        {idx == 0
-                          ? "4th B.Tech, 2nd MCA"
-                          : idx == 1
-                            ? "3rd B.Tech, 1st MCA"
-                            : idx == 2
-                              ? "2nd B.Tech"
-                              : idx == 3
-                                ? "1st B.Tech"
-                                : ""}
-                        )
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+          <FormField
+            control={form.control}
+            name="branchId"
+            render={({ field }) => (
+              <FormItem className="min-w-52">
+                <FormLabel>Branch</FormLabel>
+                <FormControl className="bg-[#494949]">
+                  <ComboBox
+                    data={branches ?? []}
+                    value={field.value}
+                    setValue={field.onChange}
+                    placeholder="Search branch..."
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="year"
+            render={({ field }) => (
+              <FormItem className="min-w-52">
+                <FormLabel>Graduation Year</FormLabel>
+                <FormControl>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="bg-[#494949]">
+                      <SelectValue placeholder="Choose Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {getGraduationYears().map((year, idx) => (
+                        <SelectItem key={idx} value={`${year}`}>
+                          {year} (
+                          {idx == 0
+                            ? "4th B.Tech, 2nd MCA"
+                            : idx == 1
+                              ? "3rd B.Tech, 1st MCA"
+                              : idx == 2
+                                ? "2nd B.Tech"
+                                : idx == 3
+                                  ? "1st B.Tech"
+                                  : ""}
+                          )
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
-              <FormControl>
+              <FormControl className="bg-[#494949]">
                 <Password placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
@@ -213,7 +256,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
-              <FormControl>
+              <FormControl className="bg-[#494949]">
                 <Password placeholder="Confirm Password" {...field} />
               </FormControl>
               <FormMessage />

@@ -75,7 +75,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
-              <FormControl>
+              <FormControl className="bg-[#494949]">
                 <Input placeholder="Email" {...field} />
               </FormControl>
               <FormMessage />
@@ -88,7 +88,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
-              <FormControl>
+              <FormControl className="bg-[#494949]">
                 <Password placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
