@@ -1,16 +1,29 @@
 import { TRPCError } from "@trpc/server";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { createBlogZ, updateBlogZ, toggleBlogStatusZ, deleteBlogZ } from "~/zod/blogZ";
+
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+
+import {
+  createBlogZ,
+  updateBlogZ,
+  toggleBlogStatusZ,
+  deleteBlogZ,
+} from "~/zod/blogZ";
 
 export const blogRouter = createTRPCRouter({
-
   createBlog: protectedProcedure
     .input(createBlogZ)
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.blog.create({
+      await ctx.db.blog.create({
         data: {
-          ...input,
-          userId: ctx.session.user.id,
+          title: input.title,
+          content: input.content,
+          status: "DRAFT",
+          images: input.images,
+          User: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
         },
       });
     }),
@@ -18,17 +31,21 @@ export const blogRouter = createTRPCRouter({
   updateBlog: protectedProcedure
     .input(updateBlogZ)
     .mutation(async ({ ctx, input }) => {
-      const { blogId, ...data } = input;
-      return await ctx.db.blog.update({
-        where: { id: blogId },
-        data,
+      await ctx.db.blog.update({
+        where: { id: input.blogId },
+        data: {
+          title: input.title,
+          content: input.content,
+          images: input.images,
+          status: input.status,
+        },
       });
     }),
 
   deleteBlog: protectedProcedure
     .input(deleteBlogZ)
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.blog.delete({
+      await ctx.db.blog.delete({
         where: { id: input.blogId },
       });
     }),
@@ -40,14 +57,13 @@ export const blogRouter = createTRPCRouter({
         where: { id: input.blogId },
       });
 
-      if (!blog) {
+      if (!blog)
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "Blog not found",
         });
-      }
 
-      return await ctx.db.blog.update({
+      await ctx.db.blog.update({
         where: { id: input.blogId },
         data: {
           status: blog.status === "DRAFT" ? "PUBLISHED" : "DRAFT",
@@ -55,34 +71,27 @@ export const blogRouter = createTRPCRouter({
       });
     }),
 
-  getAllBlogsForUser: protectedProcedure
-    .query(async ({ ctx }) => {
-      return await ctx.db.blog.findMany({
-        where: {
-          status: "PUBLISHED"
-        },
-        orderBy: { createdAt: 'desc' },
-      });
-    }),
+  getPublishedBlogs: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.blog.findMany({
+      where: {
+        status: "PUBLISHED",
+      },
+      orderBy: { createdAt: "desc" },
+    });
+  }),
 
-  getAllBlogsForAdmin: protectedProcedure
-    .query(async ({ ctx }) => {
-      return await ctx.db.blog.findMany({
-        where: {
-          status: "DRAFT"
-        },
-        orderBy: { createdAt: 'desc' },
-      });
-    }),
+  getAllBlogs: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.blog.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  }),
 
-  getAllBlogsOfUser: protectedProcedure
-    .query(async ({ ctx }) => {
-      return await ctx.db.blog.findMany({
-        where: {
-          userId: ctx.session.user.id
-        },
-        orderBy: { createdAt: 'desc' },
-      });
-    }),
-
+  getMyBlogs: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.blog.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+      orderBy: { createdAt: "desc" },
+    });
+  }),
 });

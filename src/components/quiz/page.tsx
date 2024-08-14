@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 
 import QuizSubmissionAlertDialog from "~/components/quiz/quizDialog";
 import { api } from "~/utils/api";
+import Background from "../background/particles";
 
 interface Option {
   id: string;
@@ -293,7 +294,21 @@ const QuizPage: FunctionComponent<{ quizId: string }> = ({ quizId }) => {
           />
         </div>
       ) : (
-        <div className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-black via-violet-950 to-blue-950  p-4">
+        <>
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            overflow: "hidden",
+            zIndex: -1,
+          }}
+        >
+          <Background />
+        </div>
+        <div className="flex h-screen flex-col items-center justify-center  p-4">
           <div className="sapce-y-12 mx-auto mb-6 rounded-xl bg-gradient-to-br from-blue-800 via-yellow-400 to-blue-500 p-10 text-center  shadow-2xl md:w-[800px] ">
             <div className="m-4 flex flex-row items-center justify-center gap-1">
               <div>
@@ -324,6 +339,7 @@ const QuizPage: FunctionComponent<{ quizId: string }> = ({ quizId }) => {
             </Button>
           </div>
         </div>
+        </>
       )}
     </>
   );

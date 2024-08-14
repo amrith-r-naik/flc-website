@@ -1,8 +1,6 @@
-import { type  FC } from 'react';
-import Background from '../background';
+import React, { type FC } from "react";
 
-
-
+import ParticlesBackground from "~/components/background/particles";
 
 interface DocumentPageProps {
   title: string;
@@ -23,7 +21,7 @@ const DocumentPage: FC<DocumentPageProps> = ({
 }) => {
   return (
     <>
-       <div
+      <div
         style={{
           position: "absolute",
           top: 0,
@@ -34,36 +32,45 @@ const DocumentPage: FC<DocumentPageProps> = ({
           zIndex: -1,
         }}
       >
-        <Background/>
+        <ParticlesBackground />
       </div>
-    <div className="   ">
-      {/* Header Section */}
-      <header className=" py-4 shadow-md">
-        <div className="container mx-auto px-4">
-          <h1 className="heading font-bold text-center e">{title}</h1>
-          <p className="subheading text-center mt-2 ">{subtitle}</p>
-          {lastUpdated && (
-            <p className="caption text-sm  mt-1">Last updated on {lastUpdated}</p>
-          )}
-        </div>
-      </header>
-
-      {/* Content Section */}
-      <main className="container mx-auto px-4 py-8  ">
-        {sections.map((section, index) => (
-          <section key={index} className="bg-gradient p-6 mb-8 rounded-lg shadow-md">
-            {section.heading && (
-              <h2 className="mb-4 text-2xl font-semibold">{section.heading}</h2>
-            )}
-            {section.content.map((paragraph, idx) => (
-              <p key={idx} className="mb-4">
-                {paragraph}
+      <div className="   ">
+        {/* Header Section */}
+        <header className=" py-4 shadow-md">
+          <div className="content-container mx-auto px-4">
+            <h1 className="heading text-center font-bold ">
+              {title}
+            </h1>
+            <p className="subheading mt-2 text-center ">{subtitle}</p>
+            {lastUpdated && (
+              <p className="caption mt-1 text-sm ">
+                Last updated on {lastUpdated}
               </p>
-            ))}
-          </section>
-        ))}
-      </main>
-    </div>
+            )}
+          </div>
+        </header>
+
+        {/* Content Section */}
+        <main className="container mx-auto px-4 py-8  ">
+          {sections.map((section, index) => (
+            <section
+              key={index}
+              className="mb-8 rounded-lg bg-gradient p-6 shadow-md"
+            >
+              {section.heading && (
+                <h2 className="mb-4 text-2xl font-semibold">
+                  {section.heading}
+                </h2>
+              )}
+              {section.content.map((paragraph, idx) => (
+                <p key={idx} className="mb-4">
+                  {paragraph}
+                </p>
+              ))}
+            </section>
+          ))}
+        </main>
+      </div>
     </>
   );
 };

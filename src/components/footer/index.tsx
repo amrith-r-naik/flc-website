@@ -37,17 +37,17 @@ export const Links = [
 ];
 
 export const footLinks = [
-    { name: "Privacy", link: "/privacyandpolicy" },
-    { name: "Terms and Conditions", link: "/termsandConditions" },
+    { name: "Privacy", link: "/privacy-policy" },
+    { name: "Terms and Conditions", link: "/terms" },
     { name: "Refund & Cancellation", link: "/refund" },
-    { name: "Contact us", link: "/contactus" },
+    { name: "Contact us", link: "/contact-us" },
     { name: "Shipping", link: "/shipping" },
 ];
 
 function Footer() {
     return (
         <footer className="mt-60  bg-[#FCAF3C] text-black relative">
-            <Image width={800} height={200} priority={false} className="w-full object-cover absolute bottom-[70%] -z-10" src={footerWave as string} alt="footer wave" />
+            <Image width={800} height={200} priority={false} className="w-full object-cover absolute bottom-[99%] md:bottom-[70%] z-30 md:-z-10" src={footerWave as string} alt="footer wave" />
             <div className="content-container space-y-8">
                 <h1 className="text-4xl font-bold text-center">FiniteLoop</h1>
 
@@ -73,6 +73,7 @@ function Footer() {
 
                 <hr className="border-current"/>
                 <p className="text-center">copyright @2024</p>
+                <p className="text-center">Made With 💙 By Flc Tech Team</p>
             </div>
         </footer>
     )

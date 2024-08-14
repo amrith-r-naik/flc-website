@@ -41,7 +41,7 @@ const Team = () => {
     }
   });
 
-  // Animating the cards when year is changed
+
   const cardsContainer = useRef<HTMLDivElement | null>(null);
   const { contextSafe } = useGSAP({ scope: cardsContainer });
   const onYearChange = contextSafe(() => {
@@ -56,6 +56,7 @@ const Team = () => {
   });
 
   return (
+    <>
     <div className="absolute top-0 flex h-screen w-screen flex-col items-center overflow-y-scroll bg-background pt-24">
       <div className="my-10 flex w-full flex-col items-center md:my-20">
         <div className="titleContainer flex items-center justify-center gap-4">
@@ -185,6 +186,7 @@ const Team = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

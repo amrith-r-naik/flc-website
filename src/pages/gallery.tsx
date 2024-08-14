@@ -1,33 +1,23 @@
 import Image from "next/image";
 
+import Background from "~/components/background/particles";
 import BlurFade from "~/components/magicui/blur-fade";
 import BoxReveal from "~/components/magicui/box-reveal";
 import { ConfettiButton } from "~/components/magicui/confetti";
-import Background from "./events/ParticlesBackground";
-
 
 const images = [
-  { src: "img1.jpeg", title: "Induction 2024" },
-  { src: "img2.jpeg", title: "Induction 2024" },
-  { src: "img3.jpeg", title: "Alumini Talk" },
   { src: "img5.jpeg", title: "FareWell 2024" },
   { src: "img6.jpeg", title: "FareWell 2024" },
   { src: "img7.jpeg", title: "FareWell 2024" },
   { src: "img9.jpeg", title: "FareWell 2024" },
   { src: "img8.jpeg", title: "Image 8" },
-  { src: "img11.jpeg", title: "Image 11" },
   { src: "img10.jpeg", title: "Image 10" },
-  { src: "img12.jpeg", title: "Image 12" },
-  { src: "img13.jpeg", title: "Image 13" },
-  { src: "img14.jpeg", title: "Image 14" },
-  { src: "img15.jpeg", title: "Image 15" },
-  { src: "img16.jpeg", title: "Image 16" },
 ];
 
 export function BlurFadeDemo() {
   return (
     <>
-     <div
+      <div
         style={{
           position: "absolute",
           top: 0,
@@ -40,7 +30,7 @@ export function BlurFadeDemo() {
       >
         <Background />
       </div>
-      <section id="photos" className="bg-gradient px-4 py-8">
+      <section id="photos" className="bg-gradientpx-4 py-8">
         <div className="p-4">
           <div className="mb-8 space-y-4 text-left">
             <BoxReveal boxColor={"#5046e6"} duration={0.5}>
@@ -58,7 +48,7 @@ export function BlurFadeDemo() {
             <hr />
           </div>
 
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-3">
             {images.map((image, idx) => (
               <BlurFade key={image.src} delay={0.25 + idx * 0.05} inView>
                 <ConfettiButton
@@ -68,7 +58,7 @@ export function BlurFadeDemo() {
                     },
                   }}
                 >
-                  <div className="relative mb-4 overflow-hidden rounded-lg">
+                  <div className="relative mb-4 overflow-hidden rounded-lg md:m-1">
                     <Image
                       src={`/${image.src}`}
                       layout="responsive"
@@ -80,7 +70,7 @@ export function BlurFadeDemo() {
                     />
                     <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-1 text-white md:p-8">
                       <BoxReveal boxColor={"#5046e6"} duration={0.5}>
-                        <div className="subheading text-left">
+                        <div className="text-left text-sm md:text-xl lg:text-2xl">
                           {image.title}
                         </div>
                       </BoxReveal>

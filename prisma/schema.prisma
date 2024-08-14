@@ -30,6 +30,7 @@ model User {
   Branch   Branch @relation(fields: [branchId], references: [id])
 
   UserLink UserLink[]
+  Blog     Blog[]
   Payment  Payment[]
 
   Attendance Attendance[]
@@ -44,8 +45,6 @@ model User {
 
   RefreshToken      RefreshToken[]
   VerificationToken VerificationToken[]
-
-  Blogs Blog[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -321,10 +320,10 @@ model GalleryImage {
 model Blog {
   id String @id @unique @default(cuid())
 
-  title        String
-  content      String?
-  images       Json?
-  status       BlogStatus @default(DRAFT)
+  title   String
+  content String?
+  images  Json?
+  status  BlogStatus @default(DRAFT)
 
   userId Int
   User   User? @relation(fields: [userId], references: [id])
