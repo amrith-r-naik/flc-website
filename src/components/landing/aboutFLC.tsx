@@ -32,9 +32,9 @@ function AboutFLC() {
   );
 
   return (
-    <section className="  mt-10 min-h-[80vh] w-full  md:mt-80 p-2 md:p-10  ">
+    <section className="  mt-10 min-h-[80vh] w-full  p-2 md:mt-80 md:p-10  ">
       <h3 className="heading mb-12 text-center " ref={ref}>
-      “  FINITELOOP The best Coding Club of NMAMIT ❞  
+        “ FINITELOOP The best Coding Club of NMAMIT ❞
       </h3>
       <div className=" grid h-full w-full flex-grow grid-cols-1 items-center justify-items-center gap-4 md:grid-cols-2">
         <div className="space-y-4">

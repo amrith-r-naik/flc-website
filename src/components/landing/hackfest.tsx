@@ -41,7 +41,9 @@ function Hackfest() {
       className="  bg-gradient mt-96 min-h-[80vh] w-full rounded-2xl  border border-yellow-700 p-2 md:mt-4 md:p-8  "
       ref={ref}
     >
-      <h3 className="heading mb-12 mt-6 text-center">“  HackFest:Our FlagShip Event  ❞</h3>
+      <h3 className="heading mb-12 mt-6 text-center">
+        “ HackFest:Our FlagShip Event ❞
+      </h3>
       <div className=" grid h-full w-full flex-grow grid-cols-1 items-center justify-items-center gap-4 md:grid-cols-2">
         <div className="space-y-4 p-2">
           <p className="max-w-lg">
@@ -52,7 +54,9 @@ function Hackfest() {
             50 hours, including a 36-hour hackathon, providing a platform for
             participants to showcase their skills.❞
           </p>
-          <p className="max-w-lg md:text-3xl  text-2xl">“ Hackfest 2024 Soon❞</p>
+          <p className="max-w-lg text-2xl  md:text-3xl">
+            “ Hackfest 2024 Soon❞
+          </p>
           <Button className="max-w-lg">
             <Link href="https://www.hackfest.dev/">Visit Official Website</Link>
           </Button>

@@ -20,10 +20,10 @@ import OrbitingCircles from "../magicui/orbiting-circles";
 
 export default function TechStack() {
   return (
-    <section className="flex h-full md:h-[100vh] flex-col  items-center justify-center   md:w-screen md:flex-row p-2 ">
-      <div className="relative flex h-[110vh] md:h-full  w-full max-w-full items-center justify-center space-y-2  overflow-hidden  ">
+    <section className="flex h-full flex-col items-center  justify-center p-2   md:h-[100vh] md:w-screen md:flex-row ">
+      <div className="relative flex h-[110vh] w-full  max-w-full items-center justify-center space-y-2 overflow-hidden  md:h-full  ">
         <span className="pointer-events-none whitespace-pre-wrap  bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center  text-3xl leading-none text-transparent dark:from-white dark:to-black sm:text-5xl md:text-6xl lg:text-6xl">
-        “ Tech Resources ❞
+          “ Tech Resources ❞
         </span>
 
         <OrbitingCircles
@@ -128,9 +128,9 @@ export default function TechStack() {
           />
         </OrbitingCircles>
       </div>
-      <div className="relative flex    h-[100vh] md:h-full  w-full max-w-full items-center justify-center space-y-2  overflow-hidden  ">
-      <span className="pointer-events-none whitespace-pre-wrap  bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center  text-5xl leading-none text-transparent dark:from-white dark:to-black sm:text-5xl md:text-6xl lg:text-6xl">
-      “ T3-Stack ❞
+      <div className="relative flex    h-[100vh] w-full  max-w-full items-center justify-center space-y-2 overflow-hidden  md:h-full  ">
+        <span className="pointer-events-none whitespace-pre-wrap  bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center  text-5xl leading-none text-transparent dark:from-white dark:to-black sm:text-5xl md:text-6xl lg:text-6xl">
+          “ T3-Stack ❞
         </span>
 
         <OrbitingCircles

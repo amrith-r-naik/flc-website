@@ -27,8 +27,7 @@ const QuizIntroPage = () => {
     isError,
   } = api.quiz.getAllQuizzes.useQuery();
 
-
-  console.log(quizzes)
+  console.log(quizzes);
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading quizzes </div>;
 

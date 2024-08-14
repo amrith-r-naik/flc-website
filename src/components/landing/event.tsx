@@ -33,11 +33,11 @@ function Events() {
   if (isLoading) {
     return (
       <section
-      className="flex  min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
-      ref={ref}
-    >
+        className="flex  min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
+        ref={ref}
+      >
         <h3 className="text-center text-4xl font-semibold">
-        “  Events & WorkShop  ❞
+          “ Events & WorkShop ❞
         </h3>
         <p>
           Enrich your skills and knowledge with tons of events and workshops

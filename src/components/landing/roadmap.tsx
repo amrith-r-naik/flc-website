@@ -127,11 +127,11 @@ const Roadmap: FC = () => {
   );
 
   return (
-    <section className="md:p-10 p-2  h-screen  space-y-16   ">
+    <section className="h-screen space-y-16  p-2  md:p-10   ">
       <div ref={ref}>
         <div className="rounded-r-full p-4 text-center md:mb-10">
-          <h1 className="text-3xl font-bold  heading">
-          “ Finite Loop Club Presents: The Roadmap for 2024-25  ❞ 
+          <h1 className="heading text-3xl  font-bold">
+            “ Finite Loop Club Presents: The Roadmap for 2024-25 ❞
           </h1>
         </div>
 

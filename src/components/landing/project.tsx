@@ -103,10 +103,12 @@ function Projects() {
 
   return (
     <section className="bg-gradient mt-12 flex min-h-[80vh] flex-col items-center gap-4 p-2 md:p-10">
-      <h3 className="text-center heading " ref={ref}>
-      “  Projects  ❞
+      <h3 className="heading text-center " ref={ref}>
+        “ Projects ❞
       </h3>
-      <p className="text-center">Get the opportunity to work on numerous real-world projects</p>
+      <p className="text-center">
+        Get the opportunity to work on numerous real-world projects
+      </p>
       <div className="grid h-full w-full flex-grow grid-cols-1 place-items-center items-center justify-between gap-4 md:grid-cols-3">
         {projects.map((project) => (
           <ProjectCard

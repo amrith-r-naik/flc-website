@@ -8,7 +8,6 @@ import Logo from "../logo";
 import ThemeToggleSwitch from "../themeToggleSwitch/index.tsx";
 import MobileNav from "./mobileNav";
 
-
 const links = [
   { label: "Gallery", url: "/gallery" },
   { label: "Events", url: "/events" },

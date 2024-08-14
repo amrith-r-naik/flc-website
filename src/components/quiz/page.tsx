@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 
 import QuizSubmissionAlertDialog from "~/components/quiz/quizDialog";
 import { api } from "~/utils/api";
+
 import Background from "../background/particles";
 
 interface Option {
@@ -295,50 +296,50 @@ const QuizPage: FunctionComponent<{ quizId: string }> = ({ quizId }) => {
         </div>
       ) : (
         <>
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            overflow: "hidden",
-            zIndex: -1,
-          }}
-        >
-          <Background />
-        </div>
-        <div className="flex h-screen flex-col items-center justify-center  p-4">
-          <div className="sapce-y-12 mx-auto mb-6 rounded-xl bg-gradient-to-br from-blue-800 via-yellow-400 to-blue-500 p-10 text-center  shadow-2xl md:w-[800px] ">
-            <div className="m-4 flex flex-row items-center justify-center gap-1">
-              <div>
-                <Image
-                  src="/unnamed.png"
-                  alt="Finite Loop Club Logo"
-                  width={70}
-                  height={70}
-                />
-              </div>
-              <div>
-                <h1 className=" heading font-bold text-black">
-                  Finite Loop Club
-                </h1>
-              </div>
-            </div>
-            <h1 className="title text-black">Thank You 🎉 </h1>
-
-            <p className="mb-4 text-lg leading-relaxed text-gray-700">
-              Thank you for attempting the quiz! Your results will be declared
-              soon. Keep an eye on the leaderboard for updates.
-            </p>
-            <Button
-              onClick={handleDoneClick}
-              className="rounded-md bg-blue-500 px-4 py-2 text-white"
-            >
-              Home
-            </Button>
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              overflow: "hidden",
+              zIndex: -1,
+            }}
+          >
+            <Background />
           </div>
-        </div>
+          <div className="flex h-screen flex-col items-center justify-center  p-4">
+            <div className="sapce-y-12 mx-auto mb-6 rounded-xl bg-gradient-to-br from-blue-800 via-yellow-400 to-blue-500 p-10 text-center  shadow-2xl md:w-[800px] ">
+              <div className="m-4 flex flex-row items-center justify-center gap-1">
+                <div>
+                  <Image
+                    src="/unnamed.png"
+                    alt="Finite Loop Club Logo"
+                    width={70}
+                    height={70}
+                  />
+                </div>
+                <div>
+                  <h1 className=" heading font-bold text-black">
+                    Finite Loop Club
+                  </h1>
+                </div>
+              </div>
+              <h1 className="title text-black">Thank You 🎉 </h1>
+
+              <p className="mb-4 text-lg leading-relaxed text-gray-700">
+                Thank you for attempting the quiz! Your results will be declared
+                soon. Keep an eye on the leaderboard for updates.
+              </p>
+              <Button
+                onClick={handleDoneClick}
+                className="rounded-md bg-blue-500 px-4 py-2 text-white"
+              >
+                Home
+              </Button>
+            </div>
+          </div>
         </>
       )}
     </>
