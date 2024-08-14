@@ -4,21 +4,11 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
 
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "~/components/ui/accordion";
 import { Form } from "~/components/ui/form";
 
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import { createQuizZ } from "~/zod/quizZ";
-
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
 
 const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
   className,
