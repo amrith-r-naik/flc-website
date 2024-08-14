@@ -41,7 +41,7 @@ function Hackfest() {
       className="  bg-gradient mt-96 min-h-[80vh] w-full rounded-2xl  border border-yellow-700 p-2 md:mt-4 md:p-8  "
       ref={ref}
     >
-      <h3 className="heading mb-12 mt-6 text-center">
+      <h3 className="subheading mb-12 mt-6 text-center">
         “ HackFest:Our FlagShip Event ❞
       </h3>
       <div className=" grid h-full w-full flex-grow grid-cols-1 items-center justify-items-center gap-4 md:grid-cols-2">

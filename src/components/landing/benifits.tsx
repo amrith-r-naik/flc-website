@@ -117,7 +117,7 @@ export function Benifits() {
       className="mb-12 mt-12 min-h-[80vh] w-full space-y-8 md:p-10   "
       ref={ref}
     >
-      <h3 className="heading text-center font-semibold">
+      <h3 className="subheading text-center font-semibold">
         {" "}
         “ Why To join us ❞{" "}
       </h3>
