@@ -21,6 +21,7 @@ function Events() {
     "2024",
   ];
 
+
   const handleYearClick = (year: string) => {
     setSelectedYear(year);
   };

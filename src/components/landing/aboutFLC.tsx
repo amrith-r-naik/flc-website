@@ -3,7 +3,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useRef } from "react";
 
-import sampleImage from "~/assets/images/sample.jpg";
+import ab from "~/assets/images/hackfest[1].png";
 
 function AboutFLC() {
   const ref = useRef<HTMLDivElement>(null);
@@ -32,9 +32,9 @@ function AboutFLC() {
   );
 
   return (
-    <section className="content-container bg-gradient mt-10 min-h-[80vh] w-full  md:mt-80   ">
-      <h3 className="subheading mb-12 text-center" ref={ref}>
-        FINITELOOP The best Coding Club of NMAMIT
+    <section className="  mt-10 min-h-[80vh] w-full  md:mt-80 p-2 md:p-10  ">
+      <h3 className="heading mb-12 text-center " ref={ref}>
+      “  FINITELOOP The best Coding Club of NMAMIT ❞  
       </h3>
       <div className=" grid h-full w-full flex-grow grid-cols-1 items-center justify-items-center gap-4 md:grid-cols-2">
         <div className="space-y-4">
@@ -61,10 +61,10 @@ function AboutFLC() {
         </div>
 
         <Image
-          width={400}
-          height={400}
+          width={600}
+          height={600}
           alt="flc"
-          src={sampleImage}
+          src={ab}
           className="rounded"
         />
       </div>

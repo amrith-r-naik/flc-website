@@ -205,7 +205,7 @@ const ParticlesBackground = () => {
           },
         },
         color: {
-          value: "#FFEA00",
+          value: "#FFF",
           animation: {
             h: {
               count: 0,

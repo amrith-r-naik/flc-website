@@ -1,12 +1,27 @@
 import { type FC } from "react";
+import ParticlesBackground from "~/components/background/particles";
 
 import Footer from "~/components/footer";
 
 const ContactUs: FC = () => {
   return (
-    <div className=" bg-gradient-to-b from-indigo-950  to-black ">
+    <>
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          zIndex: -1,
+        }}
+      >
+        <ParticlesBackground />
+      </div>
+    <div >
       {/* Header Section */}
-      <header className="py-4 text-white shadow-md">
+      <header className="py-4 shadow-md">
         <div className="container mx-auto px-4">
           <h1 className="heading text-center font-bold">
             INSPIRANTE TECHNOLOGIES PRIVATE LIMITED
@@ -20,7 +35,7 @@ const ContactUs: FC = () => {
 
       {/* Content Section */}
       <main className="container mx-auto px-4 py-8 ">
-        <section className="rounded-lg bg-gradient-to-b from-slate-300 via-slate-400  to-slate-300 p-6 text-gray-900 shadow-md ">
+        <section className="rounded-lg bg-gradient p-6 shadow-md ">
           <p className="mb-4 text-lg font-semibold">
             You may contact us using the information below:
           </p>
@@ -55,6 +70,7 @@ const ContactUs: FC = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

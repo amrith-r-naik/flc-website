@@ -6,12 +6,13 @@ import AuthButton from "~/components/navbar/authButton";
 
 import Logo from "../logo";
 import ThemeToggleSwitch from "../themeToggleSwitch/index.tsx";
-import NavBarMenu from "./navbarMenu";
+import MobileNav from "./mobileNav";
+
 
 const links = [
-  { label: "Gallary", url: "/gallary" },
+  { label: "Gallery", url: "/gallery" },
   { label: "Events", url: "/events" },
-  { label: "Calender", url: "/calender" },
+  { label: "Blogs", url: "/blogs" },
   { label: "Team", url: "/team" },
 ];
 
@@ -21,15 +22,15 @@ const Navbar = () => {
   const activePath = links.find((link) => link.url === router.pathname);
 
   return (
-    <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-primary-foreground/5  bg-clip-padding px-[8%] py-3 backdrop-blur-lg backdrop-filter sm:px-[12%] sm:py-5 ">
+    <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-primary-foreground/5  bg-clip-padding px-[8%] py-3 backdrop-blur-lg backdrop-filter sm:px-[6%] sm:py-5 ">
       {" "}
       <Link href="/" className="flex cursor-pointer items-center">
         <Logo />
-        <p className="ml-3 hidden text-sm font-bold md:block md:text-2xl">
+        <p className="ml-3 hidden text-sm font-bold lg:block  lg:text-2xl">
           Finite-Loop-Club
         </p>
       </Link>
-      <div className="ml-auto flex items-center gap-10 ">
+      <div className="ml-auto flex items-center gap-8 ">
         <div className="hidden gap-8 sm:flex">
           {links.map((link) => (
             <Link
@@ -51,10 +52,11 @@ const Navbar = () => {
         <div>
           <ThemeToggleSwitch />
         </div>
+        <div className="hidden md:block">
+          <AuthButton />
+        </div>
 
-        <AuthButton />
-
-        <NavBarMenu />
+        <MobileNav />
       </div>
     </nav>
   );

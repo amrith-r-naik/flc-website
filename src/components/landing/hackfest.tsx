@@ -3,9 +3,12 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 
-import sampleImage from "~/assets/images/sample.jpg";
+import Hf from "~/assets/images/hackfest[1].png";
+
+import { Button } from "../ui/button";
 
 function Hackfest() {
   const ref = useRef(null);
@@ -35,18 +38,33 @@ function Hackfest() {
 
   return (
     <section
-      className="content-container bg-gradient grid min-h-[80vh] w-full grid-cols-1 content-around justify-items-center gap-4 rounded-3xl border border-yellow-700 md:grid-cols-2 md:justify-items-stretch"
+      className="  bg-gradient mt-96 min-h-[80vh] w-full rounded-2xl  border border-yellow-700 p-2 md:mt-4 md:p-8  "
       ref={ref}
     >
-      <Image width={400} height={400} alt="flc" src={sampleImage} />
-      <div className="space-y-4">
-        <h3 className="text-4xl font-semibold">HackFest</h3>
-        <p className="max-w-lg">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi
-          quisquam voluptates nostrum! Reprehenderit excepturi in possimus
-          corporis aut! Deserunt soluta obcaecati culpa totam voluptatum natus
-          hic distinctio voluptatibus dolore mollitia.
-        </p>
+      <h3 className="heading mb-12 mt-6 text-center">“  HackFest:Our FlagShip Event  ❞</h3>
+      <div className=" grid h-full w-full flex-grow grid-cols-1 items-center justify-items-center gap-4 md:grid-cols-2">
+        <div className="space-y-4 p-2">
+          <p className="max-w-lg">
+            “ NMAM Institute of Technology presents a three-day National Tech
+            Fest featuring a 36-hour hackathon, tech conferences, and
+            networking. Our vision is to bring together 60 teams from leading
+            Indian engineering colleges, fostering innovation. The event spans
+            50 hours, including a 36-hour hackathon, providing a platform for
+            participants to showcase their skills.❞
+          </p>
+          <p className="max-w-lg md:text-3xl  text-2xl">“ Hackfest 2024 Soon❞</p>
+          <Button className="max-w-lg">
+            <Link href="https://www.hackfest.dev/">Visit Official Website</Link>
+          </Button>
+        </div>
+
+        <Image
+          width={600}
+          height={600}
+          alt="flc"
+          src={Hf}
+          className="rounded-md"
+        />
       </div>
     </section>
   );
