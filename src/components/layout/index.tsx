@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 
 import SignIn from "~/components/auth/signIn";
 import Unauthorized from "~/components/auth/unauthorized";
+import Cursor from "~/components/cursor";
 import Loader from "~/components/loader";
 import NavBar from "~/components/navBar";
 import { useLoading } from "~/hooks";
@@ -40,6 +41,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
       <div className="flex h-full w-full flex-col">
         <NavBar />
         <main>
+          <Cursor></Cursor>
           {loading ? (
             <div className="flex size-full items-center justify-center">
               <Loader />

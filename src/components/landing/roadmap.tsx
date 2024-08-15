@@ -76,7 +76,7 @@ const Card: FC<CardProps> = ({ heading, image, description, link }) => {
     <Link href={link}>
       <div
         ref={cardRef}
-        className="relative flex  h-40 flex-col justify-end overflow-hidden rounded-lg border border-gray-300 shadow-sm md:h-80"
+        className="relative  flex  h-40 flex-col justify-end overflow-hidden rounded-lg border border-gray-300 shadow-sm md:h-80 "
       >
         <Image
           src={image}
@@ -137,13 +137,15 @@ const Roadmap: FC = () => {
 
         <div className="card-container grid grid-cols-1 gap-6 p-2 md:grid-cols-4">
           {eodmaosp.map((item, index) => (
-            <Card
-              key={index}
-              heading={item.heading}
-              image={item.image}
-              description={item.description}
-              link={item.link}
-            />
+            <div className="hoverable" key={index}>
+              <Card
+                key={index}
+                heading={item.heading}
+                image={item.image}
+                description={item.description}
+                link={item.link}
+              />
+            </div>
           ))}
         </div>
       </div>
