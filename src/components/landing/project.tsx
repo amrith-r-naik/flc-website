@@ -103,7 +103,7 @@ function Projects() {
 
   return (
     <section className="bg-gradient mt-12 flex min-h-[80vh] flex-col items-center gap-4 p-2 md:p-10">
-      <h3 className="heading text-center " ref={ref}>
+      <h3 className="subheading text-center " ref={ref}>
         “ Projects ❞
       </h3>
       <p className="text-center">

@@ -36,10 +36,10 @@ function Events() {
         className="flex  min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
         ref={ref}
       >
-        <h3 className="text-center text-4xl font-semibold">
+        <h3 className="text-center subheading font-semibold">
           “ Events & WorkShop ❞
         </h3>
-        <p>
+        <p className="text-center">
           Enrich your skills and knowledge with tons of events and workshops
         </p>
         <div className="flex h-screen w-screen items-center justify-center">
@@ -85,7 +85,7 @@ function Events() {
         className="content-container bg-gradient flex min-h-[80vh] w-full flex-col items-center  gap-4 "
         ref={ref}
       >
-        <h3 className="text-center text-4xl font-semibold">
+        <h3 className=" subheading text-center  font-semibold">
           Events & WorkShop
         </h3>
         <p>

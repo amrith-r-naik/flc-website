@@ -5,6 +5,7 @@ import Footer from "~/components/footer";
 import AboutFLC from "~/components/landing/aboutFLC";
 import Benifits from "~/components/landing/benifits";
 import Events from "~/components/landing/event";
+
 import Hackfest from "~/components/landing/hackfest";
 import Hero from "~/components/landing/hero";
 import Projects from "~/components/landing/project";
@@ -53,9 +54,9 @@ export default function Home() {
       <Hackfest />
       <div className="bg-gradient">
         <Projects />
-        <div>
-          <h1 className="heading p-4 text-center">
-            “ Technology Stack Our Club Works With ❞
+        <div >
+          <h1 className="subheading p-4 text-center">
+          “ Technology Stack Our Club Works With  ❞ 
           </h1>
           <TechStack />
         </div>

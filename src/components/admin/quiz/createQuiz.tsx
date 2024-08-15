@@ -51,6 +51,7 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
   };
 
   return (
+    <div className="mt-14 md:mt-4">
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
@@ -207,6 +208,7 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
         </Button> */}
       </form>
     </Form>
+    </div>
   );
 };
 

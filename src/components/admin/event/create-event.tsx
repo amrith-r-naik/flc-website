@@ -3,25 +3,32 @@
 import { EventCategory, EventState, EventType } from "@prisma/client";
 import React, { useState } from "react";
 import { type z } from "zod";
+import Editor from "~/components/textEditor/editor";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent } from "~/components/ui/card";
+import { Checkbox } from "~/components/ui/checkbox";
 
 import { DatePicker } from "~/components/ui/date-picker";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select";
 
 import { api } from "~/utils/api";
 import { type createEventZ } from "~/zod/eventZ";
 
-import Editor from "../textEditor/editor";
-import { Button } from "../ui/button";
-import { Card, CardContent } from "../ui/card";
-import { Checkbox } from "../ui/checkbox";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+// import Editor from "../textEditor/editor";
+// import { Button } from "../ui/button";
+// import { Card, CardContent } from "../ui/card";
+// import { Checkbox } from "../ui/checkbox";
+// import { Input } from "../ui/input";
+// import { Label } from "../ui/label";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "../ui/select";
 
 const CreateEvent: React.FC = () => {
   const createEvent = api.event.createEvent.useMutation();
