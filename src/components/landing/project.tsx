@@ -51,7 +51,7 @@ const ProjectCard: React.FC<{ title: string; src: StaticImageData }> = ({
     { scope: cardRef },
   );
   return (
-    <div className="relative h-80 w-full overflow-hidden rounded" ref={cardRef}>
+    <div className="relative h-80 w-full overflow-hidden rounded hoverable" ref={cardRef}>
       <Image
         src={src}
         alt={title}
@@ -118,7 +118,7 @@ function Projects() {
           />
         ))}
       </div>
-      <Button className="mx-auto">View All Past Projects</Button>
+      <Button className="mx-auto hoverable">View All Past Projects</Button>
     </section>
   );
 }
