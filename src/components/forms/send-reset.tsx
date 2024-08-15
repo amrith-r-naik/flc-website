@@ -71,7 +71,11 @@ const SendResetForm = ({ className }: { className?: string }) => {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <div className="flex justify-center">
+          <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
+            Submit
+          </Button>
+        </div>
       </form>
     </Form>
   );
