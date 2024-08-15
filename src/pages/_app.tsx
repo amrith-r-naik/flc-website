@@ -6,7 +6,6 @@ import { type AppType } from "next/app";
 import { Rowdies } from "next/font/google";
 import { useRouter } from "next/router";
 import { Toaster } from "sonner";
-import Cursor from "~/components/cursor/cursor";
 
 import AdminLayout from "~/components/layout/adminLayout";
 import MainLayout from "~/components/layout/mainLayout";
