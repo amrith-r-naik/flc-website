@@ -138,13 +138,13 @@ const Roadmap: FC = () => {
         <div className="card-container grid grid-cols-1 gap-6 p-2 md:grid-cols-4">
           {eodmaosp.map((item, index) => (
             <div className="hoverable" key={index}>
-            <Card
-              key={index}
-              heading={item.heading}
-              image={item.image}
-              description={item.description}
-              link={item.link}
-            />
+              <Card
+                key={index}
+                heading={item.heading}
+                image={item.image}
+                description={item.description}
+                link={item.link}
+              />
             </div>
           ))}
         </div>

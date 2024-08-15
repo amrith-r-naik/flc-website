@@ -35,7 +35,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
           <div className={` ${rowdies.className}  } `}>
             <Layout>
               <Component {...pageProps} />
-              
             </Layout>
             <Toaster />
           </div>

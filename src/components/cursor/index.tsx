@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 
-
 export default function Cursor() {
   useEffect(() => {
     console.log("hello");
@@ -27,11 +26,11 @@ export default function Cursor() {
       cursor?.classList.remove("scale-up");
       cursor2?.classList.remove("scale-down");
     };
-    
-    const makeInvisible=()=>{
-        cursor?.classList.add("invisible");
-        cursor2?.classList.add("invisible");
-    }
+
+    const makeInvisible = () => {
+      cursor?.classList.add("invisible");
+      cursor2?.classList.add("invisible");
+    };
     const makeVisible = () => {
       setTimeout(() => {
         cursor?.classList.remove("invisible");
@@ -42,14 +41,16 @@ export default function Cursor() {
     document.addEventListener("mousemove", handleMouseMove);
 
     const hoverableElements = document.querySelectorAll(".hoverable");
-    const hoverInvisibleElements = document.querySelectorAll(".hoverableInvisible");
+    const hoverInvisibleElements = document.querySelectorAll(
+      ".hoverableInvisible",
+    );
 
     hoverableElements.forEach((element) => {
       element.addEventListener("mouseenter", handleMouseEnter);
       element.addEventListener("mouseleave", handleMouseLeave);
     });
 
-     hoverInvisibleElements.forEach((element) => {
+    hoverInvisibleElements.forEach((element) => {
       element.addEventListener("mouseenter", makeInvisible);
       element.addEventListener("mouseleave", makeVisible);
     });
@@ -135,12 +136,12 @@ export default function Cursor() {
         .scale-up {
           transform: translate(-50%, -50%) scale(1);
           box-shadow: 0 0 20px 30px rgba(255, 255, 255, 0.5); /* Thicker shadow */
-          
+
         }
 
         .scale-down {
           transform: translate(-50%, -50%) scale(0.5);
-          
+
         }
 
         .cursorinnerhover {
