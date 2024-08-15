@@ -57,6 +57,7 @@ const Resetpassword: FunctionComponent<Props> = ({ className }) => {
   }, [resetPasswordToken]);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const toastId = toast.loading("Resetting password...");
     resetPassword.mutate(
       {
         token: resetPasswordToken,
@@ -65,11 +66,12 @@ const Resetpassword: FunctionComponent<Props> = ({ className }) => {
       },
       {
         onSuccess: () => {
+          toast.dismiss(toastId);
           toast.success("Password reset successfully!");
           void router.push("/auth/login");
         },
         onError: ({ message }) => {
-          toast.dismiss();
+          toast.dismiss(toastId);
           toast.error(message);
         },
       },

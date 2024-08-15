@@ -1,7 +1,8 @@
-import Navbar from "./navbar/navbar";
-import React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import React from "react";
+
+import Navbar from "./navbar/navbar";
 
 gsap.registerPlugin(ScrollTrigger);
 

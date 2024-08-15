@@ -278,7 +278,10 @@ export const authRouter = createTRPCRouter({
           id: ctx.session.user.id,
         },
         data: {
-          // TODO(Omkar): finish code
+          memberSince: new Date(),
+          reasonToJoin: input.reasonToJoin,
+          expectations: input.expectations,
+          contribution: input.contribution,
         },
       });
     }),

@@ -1,4 +1,4 @@
- export const modules = {
+export const modules = {
   toolbar: [
     [{ header: "1" }, { header: "2" }, { font: [] }],
     [{ size: [] }],
@@ -16,8 +16,6 @@
     matchVisual: false,
   },
 };
-
-
 
 export const devices = [
   ["Galaxy S9", 360, 740],
@@ -37,4 +35,3 @@ export const devices = [
   ["Desktop 1080p", 1920, 1080],
   ["Desktop 4K", 3840, 2160],
 ];
-

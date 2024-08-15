@@ -5,32 +5,28 @@ import React from "react";
 import AuthButton from "~/components/navbar/authButton";
 
 import Logo from "../logo";
-import ThemeToggleSwitch from "../themeToggleSwitch/themeToggleSwitch";
-import NavBarMenu from "./dropdownMenu";
+import ThemeToggleSwitch from "../themeToggleSwitch/index.tsx";
+import MobileNav from "./mobileNav";
+import { Userlinks } from "~/constants";
 
-const links = [
-  { label: "Gallary", url: "/gallary" },
-  { label: "Events", url: "/events" },
-  { label: "Calender", url: "/calender" },
-  { label: "Team", url: "/team" },
-];
 
 const Navbar = () => {
   const router = useRouter();
 
-  const activePath = links.find((link) => link.url === router.pathname);
+  const activePath = Userlinks.find((link) => link.url === router.pathname);
 
   return (
-    <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-gradient-to-b from-blue-700 via-indigo-950 to-yellow-600 px-[8%] py-3  sm:px-[12%] sm:py-5 ">
+    <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-primary-foreground/5  bg-clip-padding px-[8%] py-3 backdrop-blur-lg backdrop-filter sm:px-[6%] sm:py-5 ">
+      {" "}
       <Link href="/" className="flex cursor-pointer items-center">
         <Logo />
-        <p className="ml-3 hidden text-sm font-bold text-white md:block md:text-2xl">
+        <p className="ml-3 hidden text-sm font-bold lg:block  lg:text-2xl">
           Finite-Loop-Club
         </p>
       </Link>
-      <div className="ml-auto flex items-center gap-10 ">
+      <div className="ml-auto flex items-center gap-8 ">
         <div className="hidden gap-8 sm:flex">
-          {links.map((link) => (
+          {Userlinks.map((link) => (
             <Link
               key={link.url}
               className="group space-y-0.5 text-foreground"
@@ -50,10 +46,11 @@ const Navbar = () => {
         <div>
           <ThemeToggleSwitch />
         </div>
+        <div className="hidden md:block">
+          <AuthButton />
+        </div>
 
-        <AuthButton />
-
-        <NavBarMenu />
+        <MobileNav />
       </div>
     </nav>
   );

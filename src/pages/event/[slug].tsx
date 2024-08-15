@@ -8,12 +8,12 @@ import { useRouter } from "next/router";
 import React from "react";
 
 import AvatarCustom from "~/components/avatar";
+import ParticlesBackground from "~/components/background/particles";
 import CopyBtn from "~/components/copyBtn";
-import Loader from "~/components/Loader/Loader";
+import Loader from "~/components/loader";
 import { api } from "~/utils/api";
 
 import NotFound from "../404";
-import Background from "../events/ParticlesBackground";
 
 const EventSlug = () => {
   const router = useRouter();
@@ -71,7 +71,7 @@ const EventSlug = () => {
           zIndex: -1,
         }}
       >
-        <Background />
+        <ParticlesBackground />
       </div>
       <section className="  flex w-[90%] flex-col  rounded-3xl border border-border bg-accent sm:flex-row md:w-[85%] lg:w-[75%] xl:w-[60%]">
         <div className="flex    shrink justify-start overflow-hidden">

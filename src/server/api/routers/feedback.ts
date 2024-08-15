@@ -96,7 +96,7 @@ export const feedbackRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       return await ctx.db.userFeedback.create({
         data: {
-          Answers: input.answers,
+          answers: input.answers,
           userId: input.userId,
           feedbackTemplateId: input.templateId,
         },

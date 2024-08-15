@@ -2,13 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 
+import ParticlesBackground from "~/components/background/particles";
 import EventCard from "~/components/eventCard";
-import Loader from "~/components/Loader/Loader";
+import Loader from "~/components/loader";
 import { api } from "~/utils/api";
 
-import Background from "./ParticlesBackground";
-
-function Page() {
+function Events() {
+  const [selectedYear, setSelectedYear] = useState<string>("2024");
   const years: string[] = [
     "2016",
     "2017",
@@ -20,7 +20,6 @@ function Page() {
     "2023",
     "2024",
   ];
-  const [selectedYear, setSelectedYear] = useState<string>("2024");
 
   const handleYearClick = (year: string) => {
     setSelectedYear(year);
@@ -32,6 +31,8 @@ function Page() {
     error,
   } = api.event.getAllEventsForUser.useQuery({ year: selectedYear });
 
+  console.log(events);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     console.log(selectedYear);
   }, [selectedYear]);
@@ -63,7 +64,7 @@ function Page() {
           zIndex: -1,
         }}
       >
-        <Background />
+        <ParticlesBackground />
       </div>
       <div className="flex justify-center">
         <h1 className="text-gradient mt-8 text-7xl font-bold">Events</h1>
@@ -107,4 +108,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default Events;

@@ -1,10 +1,11 @@
-import React from 'react'
-import SideBar from '~/components/Tutorials/FOP/sideBar'
-import Setup from '~/components/Tutorials/FOP/setup'
-import Git from '~/components/Tutorials/FOP/git';
-import Hosting from '~/components/Tutorials/FOP/hosting';
-import Project from '~/components/Tutorials/FOP/project';
-import { useState } from 'react';
+import React from "react";
+import { useState } from "react";
+
+import Git from "~/components/tutorials/FOP/git";
+import Hosting from "~/components/tutorials/FOP/hosting";
+import Project from "~/components/tutorials/FOP/project";
+import Setup from "~/components/tutorials/FOP/setup";
+import SideBar from "~/components/tutorials/FOP/sideBar";
 
 export default function Tutorials() {
   const [sideBarVisiblity, setSideBarVisiblity] = useState<boolean>(true);
@@ -12,9 +13,9 @@ export default function Tutorials() {
   const [projectVisiblity, setProjectVisiblity] = useState<boolean>(false);
   const [gitVisiblity, setgitVisiblity] = useState<boolean>(false);
   const [hostingVisibility, setHostingVisibility] = useState<boolean>(false);
-  
-  function close(){
-    setSideBarVisiblity((prev)=> !prev);
+
+  function close() {
+    setSideBarVisiblity((prev) => !prev);
   }
   return (
     <div className={sideBarVisiblity ? `p-4` : `flex p-6 py-4 `}>
@@ -34,13 +35,13 @@ export default function Tutorials() {
           </svg>
         </button>
       )}
-      <div className="md:flex sm:inline w-full justify-evenly gap-64   ">
+      <div className="w-full justify-evenly gap-64 sm:inline md:flex   ">
         {sideBarVisiblity && (
           <div>
             {sideBarVisiblity && (
               <div
                 className={
-                  "fixed  left-2 md:top-24  h-full  bg-gray-800 p-4 sm:z-50 sm:w-[100vw] md:w-64  "
+                  "fixed  left-2 h-full  bg-gray-800  p-4 sm:z-50 sm:w-[100vw] md:top-24 md:w-64  "
                 }
               >
                 <SideBar
