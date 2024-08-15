@@ -27,6 +27,7 @@ const QuizIntroPage = () => {
     isError,
   } = api.quiz.getAllQuizzes.useQuery();
 
+  console.log(quizzes);
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading quizzes </div>;
 
@@ -89,12 +90,12 @@ const QuizIntroPage = () => {
                     </ul>
                   </div>
 
-                  <button
+                  <Button
                     onClick={() => handleTakeTestClick(quiz.id)}
-                    className="mt-auto w-full rounded bg-gradient-to-tr from-violet-900 via-indigo-700 to-yellow-600 px-4 py-2 font-bold text-white transition duration-200 hover:bg-blue-600"
+                    className="mt-auto w-full rounded  px-4 py-2 font-bold transition duration-200 hover:bg-blue-600"
                   >
                     Take Test
-                  </button>
+                  </Button>
                 </div>
               ))
             ) : (

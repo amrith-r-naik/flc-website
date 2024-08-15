@@ -1,6 +1,6 @@
 import React from "react";
 
-import CreateQuizForm from "~/components/quiz/createQuiz";
+import CreateQuizForm from "~/components/admin/quiz/createQuiz";
 
 const page = () => {
   return (

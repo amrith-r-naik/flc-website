@@ -41,7 +41,6 @@ const Team = () => {
     }
   });
 
-  // Animating the cards when year is changed
   const cardsContainer = useRef<HTMLDivElement | null>(null);
   const { contextSafe } = useGSAP({ scope: cardsContainer });
   const onYearChange = contextSafe(() => {
@@ -56,135 +55,137 @@ const Team = () => {
   });
 
   return (
-    <div className="absolute top-0 flex h-screen w-screen flex-col items-center overflow-y-scroll bg-background pt-24">
-      <div className="my-10 flex w-full flex-col items-center md:my-20">
-        <div className="titleContainer flex items-center justify-center gap-4">
-          <h1 className="meet mb-3 text-2xl font-bold text-primary md:text-4xl">
-            MEET
-          </h1>
-          <h1 className="the mb-3 text-2xl font-bold text-primary md:text-4xl">
-            THE
-          </h1>
-          <h1 className="team mb-3 text-2xl font-bold text-primary md:text-4xl">
-            TEAM
-          </h1>
+    <>
+      <div className="absolute top-0 flex h-screen w-screen flex-col items-center overflow-y-scroll bg-background pt-24">
+        <div className="my-10 flex w-full flex-col items-center md:my-20">
+          <div className="titleContainer flex items-center justify-center gap-4">
+            <h1 className="meet mb-3 text-2xl font-bold text-primary md:text-4xl">
+              MEET
+            </h1>
+            <h1 className="the mb-3 text-2xl font-bold text-primary md:text-4xl">
+              THE
+            </h1>
+            <h1 className="team mb-3 text-2xl font-bold text-primary md:text-4xl">
+              TEAM
+            </h1>
+          </div>
+          <p className="text-lg text-foreground">Dynamic and Agile</p>
         </div>
-        <p className="text-lg text-foreground">Dynamic and Agile</p>
-      </div>
 
-      {/* The horizontal list of years (when widow width > md) */}
-      <ul className="hidden flex-wrap justify-center md:flex">
-        {teamTabs.map((tab, index) => (
-          <li key={index}>
-            <a
-              onClick={() => {
-                setToggleState(index);
-                onYearChange();
-              }}
-              className="relative block cursor-pointer p-4"
-            >
-              {toggleState === index ? (
-                <span className="absolute inset-x-0 -bottom-px h-px w-full bg-primary"></span>
-              ) : null}
-              <div className="flex items-center justify-center">
-                <span className="ml-3 text-xs font-light text-foreground lg:text-sm lg:font-medium">
-                  {tab.replace("Year", "").replace("to", " - ")}
-                </span>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      {/* A dropdown(select) of year for smaller screens */}
-      {/* UI needs to corrected */}
-      <div className="flex w-full items-center justify-center md:hidden">
-        <select
-          className="rounded-md border-2 border-border bg-card px-3 py-1 text-white"
-          value={toggleState}
-        >
-          {teamTabs.map((year, index) => (
-            <option
-              className="text-center text-xs text-white"
-              key={index}
-              onClick={() => {
-                setToggleState(index);
-                onYearChange();
-              }}
-              value={index}
-            >
-              {year.replace("Year", "").replace("to", " - ")}
-            </option>
+        {/* The horizontal list of years (when widow width > md) */}
+        <ul className="hidden flex-wrap justify-center md:flex">
+          {teamTabs.map((tab, index) => (
+            <li key={index}>
+              <a
+                onClick={() => {
+                  setToggleState(index);
+                  onYearChange();
+                }}
+                className="relative block cursor-pointer p-4"
+              >
+                {toggleState === index ? (
+                  <span className="absolute inset-x-0 -bottom-px h-px w-full bg-primary"></span>
+                ) : null}
+                <div className="flex items-center justify-center">
+                  <span className="ml-3 text-xs font-light text-foreground lg:text-sm lg:font-medium">
+                    {tab.replace("Year", "").replace("to", " - ")}
+                  </span>
+                </div>
+              </a>
+            </li>
           ))}
-        </select>
-      </div>
+        </ul>
 
-      {/* Member Cards Container */}
-      <div
-        ref={cardsContainer}
-        className="mt-8 flex w-full justify-center pb-24"
-      >
-        <div className="grid gap-4 gap-y-24 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {/* Iterate and display the cards here */}
-          <MemberCard
-            src="/images/GalaxyTexture.jpg"
-            name="Amrith R Naik"
-            role="Developer"
-            github="flkajdfl"
-            linkedin="ldjfl"
-          />
-          <MemberCard
-            src="/images/GalaxyTexture.jpg"
-            name="Amrith R Naik"
-            role="Developer"
-            github="flkajdfl"
-            linkedin="ldjfl"
-          />
-          <MemberCard
-            src="/images/GalaxyTexture.jpg"
-            name="Amrith R Naik"
-            role="Developer"
-            github="flkajdfl"
-            linkedin="ldjfl"
-          />
-          <MemberCard
-            src="/images/GalaxyTexture.jpg"
-            name="Amrith R Naik"
-            role="Developer"
-            github="flkajdfl"
-            linkedin="ldjfl"
-          />
-          <MemberCard
-            src="/images/GalaxyTexture.jpg"
-            name="Amrith R Naik"
-            role="Developer"
-            github="flkajdfl"
-            linkedin="ldjfl"
-          />
-          <MemberCard
-            src="/images/GalaxyTexture.jpg"
-            name="Amrith R Naik"
-            role="Developer"
-            github="flkajdfl"
-            linkedin="ldjfl"
-          />
-          <MemberCard
-            src="/images/GalaxyTexture.jpg"
-            name="Amrith R Naik"
-            role="Developer"
-            github="flkajdfl"
-            linkedin="ldjfl"
-          />
-          <MemberCard
-            src="/images/GalaxyTexture.jpg"
-            name="Amrith R Naik"
-            role="Developer"
-            github="flkajdfl"
-            linkedin="ldjfl"
-          />
+        {/* A dropdown(select) of year for smaller screens */}
+        {/* UI needs to corrected */}
+        <div className="flex w-full items-center justify-center md:hidden">
+          <select
+            className="rounded-md border-2 border-border bg-card px-3 py-1 text-white"
+            value={toggleState}
+          >
+            {teamTabs.map((year, index) => (
+              <option
+                className="text-center text-xs text-white"
+                key={index}
+                onClick={() => {
+                  setToggleState(index);
+                  onYearChange();
+                }}
+                value={index}
+              >
+                {year.replace("Year", "").replace("to", " - ")}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Member Cards Container */}
+        <div
+          ref={cardsContainer}
+          className="mt-8 flex w-full justify-center pb-24"
+        >
+          <div className="grid gap-4 gap-y-24 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {/* Iterate and display the cards here */}
+            <MemberCard
+              src="/images/GalaxyTexture.jpg"
+              name="Amrith R Naik"
+              role="Developer"
+              github="flkajdfl"
+              linkedin="ldjfl"
+            />
+            <MemberCard
+              src="/images/GalaxyTexture.jpg"
+              name="Amrith R Naik"
+              role="Developer"
+              github="flkajdfl"
+              linkedin="ldjfl"
+            />
+            <MemberCard
+              src="/images/GalaxyTexture.jpg"
+              name="Amrith R Naik"
+              role="Developer"
+              github="flkajdfl"
+              linkedin="ldjfl"
+            />
+            <MemberCard
+              src="/images/GalaxyTexture.jpg"
+              name="Amrith R Naik"
+              role="Developer"
+              github="flkajdfl"
+              linkedin="ldjfl"
+            />
+            <MemberCard
+              src="/images/GalaxyTexture.jpg"
+              name="Amrith R Naik"
+              role="Developer"
+              github="flkajdfl"
+              linkedin="ldjfl"
+            />
+            <MemberCard
+              src="/images/GalaxyTexture.jpg"
+              name="Amrith R Naik"
+              role="Developer"
+              github="flkajdfl"
+              linkedin="ldjfl"
+            />
+            <MemberCard
+              src="/images/GalaxyTexture.jpg"
+              name="Amrith R Naik"
+              role="Developer"
+              github="flkajdfl"
+              linkedin="ldjfl"
+            />
+            <MemberCard
+              src="/images/GalaxyTexture.jpg"
+              name="Amrith R Naik"
+              role="Developer"
+              github="flkajdfl"
+              linkedin="ldjfl"
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

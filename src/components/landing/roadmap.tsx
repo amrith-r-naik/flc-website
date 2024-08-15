@@ -127,15 +127,15 @@ const Roadmap: FC = () => {
   );
 
   return (
-    <section className="content-container bg-gradient h-screen  space-y-16   ">
+    <section className="h-screen space-y-16  p-2  md:p-10   ">
       <div ref={ref}>
         <div className="rounded-r-full p-4 text-center md:mb-10">
-          <h1 className="text-3xl font-bold ">
-            Finite Loop Club Presents: The Roadmap for 2024-25
+          <h1 className="subheading text-3xl  font-bold">
+            “ Finite Loop Club Presents: The Roadmap for 2024-25 ❞
           </h1>
         </div>
 
-        <div className="card-container grid grid-cols-2 gap-6 p-6 md:grid-cols-4">
+        <div className="card-container grid grid-cols-1 gap-6 p-2 md:grid-cols-4">
           {eodmaosp.map((item, index) => (
             <Card
               key={index}

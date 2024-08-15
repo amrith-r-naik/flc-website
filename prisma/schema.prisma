@@ -26,6 +26,10 @@ model User {
   memberSince         DateTime?
   totalActivityPoints Int       @default(0)
 
+  reasonToJoin String?
+  expectations String?
+  contribution String?
+
   branchId String
   Branch   Branch @relation(fields: [branchId], references: [id])
 

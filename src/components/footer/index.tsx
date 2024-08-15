@@ -1,6 +1,7 @@
 import { FacebookIcon, InstagramIcon, MailIcon, PhoneIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
 import footerWave from "~/assets/images/footerwave.svg";
 
@@ -34,10 +35,10 @@ export const Links = [
 ];
 
 export const footLinks = [
-  { name: "Privacy", link: "/privacyandpolicy" },
-  { name: "Terms and Conditions", link: "/termsandConditions" },
+  { name: "Privacy", link: "/privacy-policy" },
+  { name: "Terms and Conditions", link: "/terms" },
   { name: "Refund & Cancellation", link: "/refund" },
-  { name: "Contact us", link: "/contactus" },
+  { name: "Contact us", link: "/contact-us" },
   { name: "Shipping", link: "/shipping" },
 ];
 
@@ -48,7 +49,7 @@ function Footer() {
         width={800}
         height={200}
         priority={false}
-        className="absolute bottom-[70%] -z-10 w-full object-cover"
+        className="absolute bottom-[99%] z-30 w-full object-cover md:bottom-[70%] md:-z-10"
         src={footerWave as string}
         alt="footer wave"
       />
@@ -77,6 +78,7 @@ function Footer() {
 
         <hr className="border-current" />
         <p className="text-center">copyright @2024</p>
+        <p className="text-center">Made With 💙 By Flc Tech Team</p>
       </div>
     </footer>
   );

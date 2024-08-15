@@ -114,10 +114,13 @@ export function Benifits() {
   );
   return (
     <section
-      className="content-container min-h-[80vh] w-full space-y-8   "
+      className="mb-12 mt-12 min-h-[80vh] w-full space-y-8 md:p-10   "
       ref={ref}
     >
-      <h3 className="text-center text-4xl font-semibold">Why To join us</h3>
+      <h3 className="subheading text-center font-semibold">
+        {" "}
+        “ Why To join us ❞{" "}
+      </h3>
 
       <div className="w-full flex-1 overflow-hidden">
         <Marquee pauseOnHover className="[--duration:25s]">

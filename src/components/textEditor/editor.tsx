@@ -1,14 +1,14 @@
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import { modules, devices } from "./constants";
 
-// TODO(Omkar): Is dynamic import needed?
-// const ReactQuill = dynamic(() => import("react-quill"), {
-//   ssr: false,
-// });
+// Cannot get page data during build as react-quill referd to Document object
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+});
 
 export default function Editor({
   id,
