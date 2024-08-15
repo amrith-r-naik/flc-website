@@ -7,18 +7,13 @@ import AuthButton from "~/components/navbar/authButton";
 import Logo from "../logo";
 import ThemeToggleSwitch from "../themeToggleSwitch/index.tsx";
 import MobileNav from "./mobileNav";
+import { Userlinks } from "~/constants";
 
-const links = [
-  { label: "Gallery", url: "/gallery" },
-  { label: "Events", url: "/events" },
-  { label: "Blogs", url: "/blogs" },
-  { label: "Team", url: "/team" },
-];
 
 const Navbar = () => {
   const router = useRouter();
 
-  const activePath = links.find((link) => link.url === router.pathname);
+  const activePath = Userlinks.find((link) => link.url === router.pathname);
 
   return (
     <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-primary-foreground/5  bg-clip-padding px-[8%] py-3 backdrop-blur-lg backdrop-filter sm:px-[6%] sm:py-5 ">
@@ -31,7 +26,7 @@ const Navbar = () => {
       </Link>
       <div className="ml-auto flex items-center gap-8 ">
         <div className="hidden gap-8 sm:flex">
-          {links.map((link) => (
+          {Userlinks.map((link) => (
             <Link
               key={link.url}
               className="group space-y-0.5 text-foreground"

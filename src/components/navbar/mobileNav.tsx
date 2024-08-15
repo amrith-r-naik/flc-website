@@ -13,13 +13,9 @@ import {
 
 import Logo from "../logo";
 import AuthButton from "./authButton";
+import { Userlinks } from "~/constants";
 
-const links = [
-  { label: "Gallery", url: "/gallery" },
-  { label: "Events", url: "/events" },
-  { label: "Blogs", url: "/blogs" },
-  { label: "Team", url: "/team" },
-];
+
 
 function MobileNav() {
   const activePath = null;
@@ -32,18 +28,20 @@ function MobileNav() {
         </SheetTrigger>
         <SheetContent side="left" className="border-none ">
           <div className="mt-4 flex items-center justify-between p-2 ">
+          <SheetClose asChild >
             <Link href="/" className="flex cursor-pointer items-center">
               <Logo />
               <p className="ml-3  text-sm font-bold md:block md:text-2xl">
                 Finite-Loop-Club
               </p>
             </Link>
+            </SheetClose>
           </div>
 
           <div className="flex h-[calc(100vh-72px)] flex-col justify-between overflow-y-auto p-2 ">
             <section className="flex h-full flex-col gap-6 pt-5 text-black">
               <div className="flex flex-col gap-8 sm:hidden">
-                {links.map((link) => (
+                {Userlinks.map((link) => (
                   <SheetClose asChild key={link.url}>
                     <Link
                       className="group space-y-0.5 text-foreground"

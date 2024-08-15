@@ -1,12 +1,13 @@
 import React from "react";
+import AddGallery from "~/components/admin/gallery/add-gallery";
 
-import CreateQuizForm from "~/components/admin/quiz/createQuiz";
+
 
 const page = () => {
   return (
     <div className="w-full space-y-4  bg-[#373A40] p-8">
-      <h1 className="text-xl font-extrabold ">Create Quiz</h1>
-      <CreateQuizForm />
+      <h1 className="text-xl font-extrabold ">Add Gallery</h1>
+      <AddGallery />
     </div>
   );
 };
