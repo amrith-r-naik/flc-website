@@ -4,11 +4,9 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 import { type AppType } from "next/app";
 import { Rowdies } from "next/font/google";
-import { useRouter } from "next/router";
 import { Toaster } from "sonner";
 
-import MainLayout from "~/components/layout";
-import AdminLayout from "~/components/layout/adminLayout";
+import Layout from "~/components/layout";
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
@@ -22,12 +20,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  const router = useRouter();
-
-  const Layout = router.pathname.startsWith("/admin")
-    ? AdminLayout
-    : MainLayout;
-
   return (
     <SessionProvider session={session}>
       <ThemeProvider defaultTheme="dark" attribute="class">

@@ -6,7 +6,8 @@ import { toast } from "sonner";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
-import { ComboBox } from "~/components/ui/combobox";
+import { ComboBox } from "~/components/ui/custom/combobox";
+import { Password } from "~/components/ui/custom/password";
 import {
   FormField,
   Form,
@@ -17,7 +18,6 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { InputOTP, InputOTPSlot } from "~/components/ui/input-otp";
-import { Password } from "~/components/ui/password";
 import {
   Select,
   SelectContent,

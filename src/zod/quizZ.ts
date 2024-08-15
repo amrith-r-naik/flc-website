@@ -4,7 +4,9 @@ import { z } from "zod";
 
 const createQuizZ = z.object({
   title: z.string().min(3, { message: "Title must be atleast 3 characters" }),
-  questions: z.array(quizQuestionZ),
+  questions: z
+    .array(quizQuestionZ)
+    .min(1, { message: "Atleast one question is required" }),
   timeLimit: z.number().positive(),
 });
 

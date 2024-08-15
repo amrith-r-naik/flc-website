@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
+import { Password } from "~/components/ui/custom/password";
 import {
   Form,
   FormControl,
@@ -17,7 +18,6 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { Password } from "~/components/ui/password";
 
 import { cn } from "~/lib/utils";
 import { loginZ } from "~/zod/authZ";

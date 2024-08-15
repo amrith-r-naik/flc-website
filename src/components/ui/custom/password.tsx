@@ -1,11 +1,11 @@
 import { Eye, EyeOff } from "lucide-react";
 import React from "react";
 
-import { Input } from "~/components/ui/input";
+import { Input, type InputProps } from "~/components/ui/input";
 
 import { cn } from "~/lib/utils";
 
-interface PasswordProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface PasswordProps extends InputProps {
   eyeClassName?: string;
 }
 

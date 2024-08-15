@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import SignIn from "~/components/auth/signIn";
 import Unauthorized from "~/components/auth/unauthorized";
 import Cursor from "~/components/cursor";
+import AdminLayout from "~/components/layout/adminLayout";
 import Loader from "~/components/loader";
 import NavBar from "~/components/navBar";
 import { useLoading } from "~/hooks";
@@ -30,18 +31,21 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
 
   if (
     status === "authenticated" &&
-    pathname.startsWith("admin") &&
+    pathname.startsWith("/admin") &&
     session.user.role !== "ADMIN"
   )
     return <Unauthorized user={session.user} />;
 
+  if (pathname.startsWith("/admin"))
+    return <AdminLayout>{children}</AdminLayout>;
+
   return (
     <div className="flex h-screen w-screen">
       <Toaster />
+      <Cursor />
       <div className="flex h-full w-full flex-col">
         <NavBar />
-        <main>
-          <Cursor></Cursor>
+        <main className="flex">
           {loading ? (
             <div className="flex size-full items-center justify-center">
               <Loader />

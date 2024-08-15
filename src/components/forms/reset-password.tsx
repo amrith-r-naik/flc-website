@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
+import { Password } from "~/components/ui/custom/password";
 import {
   Form,
   FormControl,
@@ -14,7 +15,6 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
-import { Password } from "~/components/ui/password";
 
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";

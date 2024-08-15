@@ -23,7 +23,9 @@ const QuestionCard: FunctionComponent<{
       {question.questionType === QuestionType.MCQ && (
         <CardContent>
           {question.options.map((option, idx) => (
-            <div key={idx}>{option}</div>
+            <div key={idx}>
+              {idx}. {option}
+            </div>
           ))}
         </CardContent>
       )}

@@ -4,12 +4,12 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "~/components/ui/accordion";
+// import {
+//   Accordion,
+//   AccordionContent,
+//   AccordionItem,
+//   AccordionTrigger,
+// } from "~/components/ui/accordion";
 import { Button } from "~/components/ui/button";
 import {
   Form,
@@ -20,7 +20,7 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
+// import { Label } from "~/components/ui/label";
 import { Slider } from "~/components/ui/slider";
 
 import AddQuestion from "~/components/admin/quiz/addQuestion";
@@ -35,6 +35,7 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
   const createQuiz = api.quiz.createQuiz.useMutation();
 
   const formSchema = createQuizZ;
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -111,14 +112,18 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
           name="questions"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Questions</FormLabel>
-              <FormControl>
-                <AddQuestion
-                  addQuestion={(newQuestion) => {
-                    form.setValue("questions", [...field.value, newQuestion]);
-                  }}
-                />
-              </FormControl>
+              <div className="flex items-center">
+                <FormLabel>Questions</FormLabel>
+                <FormControl>
+                  <AddQuestion
+                    className="ml-auto"
+                    questionId={field.value.length}
+                    addQuestion={(newQuestion) => {
+                      form.setValue("questions", [...field.value, newQuestion]);
+                    }}
+                  />
+                </FormControl>
+              </div>
               <FormMessage />
             </FormItem>
           )}
@@ -130,7 +135,7 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
           ))}
         </div>
 
-        <div>
+        {/* <div>
           <Accordion type="single" collapsible className="w-full border">
             {form.getValues("questions").map((field, index) => (
               <AccordionItem
@@ -142,10 +147,7 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
                   <span>Question {index + 1}</span>
                   <Button
                     type="button"
-                    onClick={
-                      () => null
-                      // remove(index)
-                    }
+                    onClick={() => null}
                     className="rounded bg-red-500 px-2 py-1 text-white"
                   >
                     Remove
@@ -170,44 +172,12 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
                   </div>
                   <div>
                     <Label className="block">Options (MCQ only)</Label>
-                    {/* <Controller
-                        name={`questions.${index}.options`}
-                        control={control}
-                        render={({ field }) => (
-                          <>
-                            {field.value.map((option, optIndex) => (
-                              <div key={optIndex} className="mb-2">
-                                <Input
-                                  {...register(
-                                    `questions.${index}.options.${optIndex}.text`,
-                                  )}
-                                  className="w-full rounded border p-2"
-                                  placeholder={`Option ${optIndex + 1}`}
-                                />
-                              </div>
-                            ))}
-                            <Button
-                              type="button"
-                              onClick={() =>
-                                setValue(`questions.${index}.options`, [
-                                  ...field.value,
-                                  { id: Math.random().toString(), text: "" },
-                                ])
-                              }
-                              className="rounded bg-blue-500 px-4 py-2 text-white"
-                            >
-                              Add Option
-                            </Button>
-                          </>
-                        )}
-                      /> */}
                   </div>
                   <div>
                     <Label className="block">
                       Correct Option ID (MCQ) / Correct Answer (Text)
                     </Label>
                     <Input
-                      // {...register(`questions.${index}.correctOptionId`)}
                       className="w-full rounded border p-2"
                       placeholder="ID of the correct option or the correct answer"
                     />
@@ -216,7 +186,7 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </div> */}
 
         <Button
           type="submit"

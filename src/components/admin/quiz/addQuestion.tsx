@@ -2,10 +2,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { QuestionType, quizQuestionZ } from "prisma/schemaZ";
 import React, { useState, type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
-import { LuPlus } from "react-icons/lu";
+import { LuPlus, LuTrash2 } from "react-icons/lu";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
+import InputButton from "~/components/ui/custom/input-button";
 import {
   Dialog,
   DialogContent,
@@ -33,8 +34,10 @@ import {
 import { Slider } from "~/components/ui/slider";
 
 const AddQuestion: FunctionComponent<{
+  questionId: number;
   addQuestion: (values: z.infer<typeof quizQuestionZ>) => void;
-}> = ({ addQuestion }) => {
+  className?: string;
+}> = ({ questionId, addQuestion, className }) => {
   const [open, setOpen] = useState(false);
   const [optionValue, setOptionValue] = useState("");
 
@@ -43,6 +46,7 @@ const AddQuestion: FunctionComponent<{
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      id: questionId,
       question: "",
       image: "", // TODO(Omkar): Add image
       questionType: QuestionType.MCQ,
@@ -55,7 +59,7 @@ const AddQuestion: FunctionComponent<{
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (values.questionType === QuestionType.MCQ)
       addQuestion({
-        id: 0,
+        id: values.id,
         question: values.question,
         image: values.image,
         questionType: QuestionType.MCQ,
@@ -65,13 +69,15 @@ const AddQuestion: FunctionComponent<{
       });
     else
       addQuestion({
-        id: 0,
+        id: values.id,
         question: values.question,
         image: values.image,
         questionType: QuestionType.TEXT,
         answer: values.answer,
         points: values.points,
       });
+    setOpen(open);
+    form.reset();
   };
 
   return (
@@ -83,7 +89,7 @@ const AddQuestion: FunctionComponent<{
       }}
     >
       <DialogTrigger asChild>
-        <Button>
+        <Button className={className}>
           <LuPlus className="mr-2 size-5" />
           Question
         </Button>
@@ -115,9 +121,7 @@ const AddQuestion: FunctionComponent<{
                 <FormItem>
                   <FormLabel>Question</FormLabel>
                   <Select
-                    onValueChange={(value) =>
-                      field.onChange(value as QuestionType)
-                    }
+                    onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
@@ -165,19 +169,40 @@ const AddQuestion: FunctionComponent<{
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Options</FormLabel>
+                      {form.getValues("options").map((option, idx) => (
+                        <InputButton
+                          key={idx}
+                          value={`${idx + 1}. ${option}`}
+                          disabled
+                          onButtonClick={() =>
+                            form.setValue(
+                              "options",
+                              field.value.filter((_, i) => i !== idx),
+                            )
+                          }
+                          onButtonBlur={() =>
+                            form.setValue(
+                              "options",
+                              field.value.filter((_, i) => i !== idx),
+                            )
+                          }
+                        >
+                          <LuTrash2 className="size-5" />
+                        </InputButton>
+                      ))}
                       <FormControl>
-                        <>
-                          <Input
+                        {form.getValues("options").length < 5 && (
+                          <InputButton
                             value={optionValue}
+                            placeholder="Option Value"
                             onChange={(e) => setOptionValue(e.target.value)}
-                            placeholder="Option value"
-                          />
-                          <Button
-                            onClick={() => {
-                              if (!optionValue)
+                            onButtonClick={() => {
+                              if (optionValue.length === 0) {
                                 form.setError("options", {
                                   message: "Option cannot be empty",
                                 });
+                                return;
+                              }
                               form.setValue("options", [
                                 ...field.value,
                                 optionValue,
@@ -185,13 +210,10 @@ const AddQuestion: FunctionComponent<{
                               setOptionValue("");
                             }}
                           >
-                            Add
-                          </Button>
-                        </>
+                            <LuPlus className="size-5" />
+                          </InputButton>
+                        )}
                       </FormControl>
-                      {form.getValues("options").map((option, idx) => (
-                        <div key={idx}>{option}</div>
-                      ))}
                       <FormMessage />
                     </FormItem>
                   )}
@@ -203,7 +225,25 @@ const AddQuestion: FunctionComponent<{
                     <FormItem>
                       <FormLabel>Answer</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} placeholder="Answer" />
+                        <Select
+                          onValueChange={(value) => field.onChange(+value)}
+                          defaultValue={field.value as string}
+                        >
+                          <FormControl>
+                            <SelectTrigger
+                              disabled={form.getValues("options").length <= 0}
+                            >
+                              <SelectValue placeholder="Select correct option" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {form.getValues("options").map((_, idx) => (
+                              <SelectItem key={idx} value={`${idx + 1}`}>
+                                {idx + 1}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </FormControl>
                       <FormMessage />
                     </FormItem>

@@ -20,11 +20,15 @@ const blogImagesZ = z.object({
 const __baseQuizQuestionZ = z.object({
   id: z.number(),
   question: z.string().min(1, { message: "Question cannot be empty" }),
-  image: z.string().url().optional(),
+  image: z
+    .string()
+    .transform((string) => (string === "" ? undefined : string))
+    .or(z.string().url())
+    .optional(),
   points: z.number().positive(),
 });
 
-const quizQuestionZ = z.union([
+const quizQuestionZ = z.discriminatedUnion("questionType", [
   __baseQuizQuestionZ.extend({
     questionType: z.literal(QuestionType.MCQ),
     options: z

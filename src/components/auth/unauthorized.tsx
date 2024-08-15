@@ -1,7 +1,9 @@
 import { type User } from "next-auth";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 import React, { type FunctionComponent } from "react";
 import { LuLogOut } from "react-icons/lu";
+import { toast } from "sonner";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -20,6 +22,8 @@ interface Props {
 }
 
 const Unauthorized: FunctionComponent<Props> = ({ user }) => {
+  const router = useRouter();
+
   return (
     <div className="h-screen w-screen">
       <SpaceBG>
@@ -44,7 +48,20 @@ const Unauthorized: FunctionComponent<Props> = ({ user }) => {
             <CardFooter>
               <Button
                 onClick={async () => {
-                  await signOut();
+                  const toastId = toast.loading("Signing out...");
+                  signOut({
+                    redirect: false,
+                  })
+                    .then(() => {
+                      toast.dismiss(toastId);
+                      toast.success("Signed out successfully");
+                      void router.push("/");
+                    })
+                    .catch((e) => {
+                      toast.dismiss(toastId);
+                      console.error(e);
+                      toast.error("Failed to sign out");
+                    });
                 }}
               >
                 <LuLogOut className="mr-2 size-5" />
