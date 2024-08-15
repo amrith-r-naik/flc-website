@@ -5,7 +5,8 @@ import gsap from "gsap";
 import Link from "next/link";
 import { useRef } from "react";
 
-import Button from "~/components/button";
+import { Button } from "~/components/ui/button";
+
 import { api } from "~/utils/api";
 
 import EventCard from "../eventCard";
@@ -36,7 +37,7 @@ function Events() {
         className="flex  min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
         ref={ref}
       >
-        <h3 className="text-center subheading font-semibold">
+        <h3 className="subheading text-center font-semibold">
           “ Events & WorkShop ❞
         </h3>
         <p className="text-center">

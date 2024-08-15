@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 
-import ParticlesBackground from "~/components/background/particles";
 import EventCard from "~/components/eventCard";
 import Loader from "~/components/loader";
 import { api } from "~/utils/api";
@@ -53,19 +52,6 @@ function Events() {
 
   return (
     <>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          overflow: "hidden",
-          zIndex: -1,
-        }}
-      >
-        <ParticlesBackground />
-      </div>
       <div className="flex justify-center">
         <h1 className="text-gradient mt-8 text-7xl font-bold">Events</h1>
       </div>

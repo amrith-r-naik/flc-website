@@ -1,72 +1,48 @@
 import { QuizState } from "@prisma/client";
+import { quizAnswerZ, quizQuestionZ } from "prisma/schemaZ";
 import { z } from "zod";
 
-const questionSchema = z.object({
-  id: z.string(),
-  text: z.string(),
-  imgSrc: z.string().optional(),
-  score: z.number(),
-  options: z.array(
-    z.object({
-      id: z.string(),
-      text: z.string(),
-    }),
-  ),
-  correctOptionId: z.string(),
-});
-
-const answerSchema = z.object({
-  questionId: z.string(),
-  selectedOptionId: z.string(),
-});
-
 const createQuizZ = z.object({
-  title: z.string(),
-  timeLimit: z.number().min(0),
-  state: z.nativeEnum(QuizState).optional().default("DRAFT"),
-  questions: z.array(questionSchema),
-  maxScore: z.number().min(0),
+  title: z.string().min(3, { message: "Title must be atleast 3 characters" }),
+  questions: z.array(quizQuestionZ),
+  timeLimit: z.number().positive(),
 });
 
-const updateQuizZ = z.object({
+const createQuizResponseZ = z.object({
   quizId: z.string(),
-  title: z.string().optional(),
-  timeLimit: z.number().min(0).optional(),
-  state: z.nativeEnum(QuizState).optional(),
-  questions: z.array(questionSchema).optional(),
-  maxScore: z.number().min(0).optional(),
-});
-
-const deleteQuestionZ = z.object({
-  quizId: z.string(),
-  questionId: z.string(),
+  answers: z.array(quizAnswerZ),
 });
 
 const getQuizByIdZ = z.object({
   quizId: z.string(),
 });
 
+const getQuizResponseByIdZ = z.object({
+  responseId: z.string(),
+});
+
+const updateQuizZ = z.object({
+  quizId: z.string(),
+  title: z.string().optional(),
+  questions: z.array(quizQuestionZ).optional(),
+  timeLimit: z.number().positive().optional(),
+  maxScore: z.number().positive().optional(),
+});
+
+const updateQuizStateZ = z.object({
+  quizId: z.string(),
+  quizState: z.nativeEnum(QuizState),
+});
 const deleteQuizZ = z.object({
   quizId: z.string(),
 });
 
-const createQuizResponseZ = z.object({
-  quizId: z.string(),
-  userId: z.number(),
-  answers: z.array(answerSchema),
-});
-
-const getQuizResponseByIdZ = z.object({
-  responseId: z.string(),
-  userId: z.number(),
-});
-
 export {
   createQuizZ,
-  updateQuizZ,
-  deleteQuestionZ,
-  getQuizByIdZ,
-  deleteQuizZ,
   createQuizResponseZ,
+  getQuizByIdZ,
   getQuizResponseByIdZ,
+  updateQuizZ,
+  updateQuizStateZ,
+  deleteQuizZ,
 };

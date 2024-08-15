@@ -1,25 +1,10 @@
-// pages/shipping-and-delivery-policy.tsx
 import { type FC } from "react";
 
-import ParticlesBackground from "~/components/background/particles";
 import Footer from "~/components/footer";
 
 const Shipping: FC = () => {
   return (
     <>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          overflow: "hidden",
-          zIndex: -1,
-        }}
-      >
-        <ParticlesBackground />
-      </div>
       <div>
         <header className="py-4  shadow-md ">
           <div className="container mx-auto px-4">

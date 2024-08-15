@@ -8,6 +8,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model WebsiteSettings {
+  id String @id @default(cuid())
+
+  gallery Json[] // galleryZ
+  about   String
+  contact String
+}
+
 model User {
   id    Int    @id @default(autoincrement())
   name  String
@@ -44,8 +52,8 @@ model User {
   ActivityPoint ActivityPoint[]
   Certificate   Certificate[]
 
-  QuizResponse QuizResponse[]
-  UserFeedback UserFeedback[]
+  QuizResponse     QuizResponse[]
+  FeedbackResponse FeedbackResponse[]
 
   RefreshToken      RefreshToken[]
   VerificationToken VerificationToken[]
@@ -144,8 +152,8 @@ model Event {
   Attendance Attendance[]
   Winner     Winner[]
 
-  Certificate      Certificate[]
-  FeedbackTemplate FeedbackTemplate[]
+  Certificate Certificate[]
+  Feedback    Feedback[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -235,37 +243,6 @@ model Certificate {
   @@index([userId, eventId])
 }
 
-model FeedbackTemplate {
-  id            String                @id @default(cuid())
-  templateState FeedbackTemplateState @default(DRAFT)
-  eventId       Int
-  questions     String[]
-
-  AnswersType  AnswerType[]
-  Event        Event          @relation(fields: [eventId], references: [id])
-  UserFeedback UserFeedback[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model UserFeedback {
-  answers String[]
-
-  feedbackTemplateId String
-  FeedbackTemplate   FeedbackTemplate @relation(fields: [feedbackTemplateId], references: [id])
-
-  userId Int
-  User   User @relation(fields: [userId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@id([userId, feedbackTemplateId])
-  @@unique([userId, feedbackTemplateId])
-  @@index([userId, feedbackTemplateId])
-}
-
 model Payment {
   id                String @id @default(cuid())
   paymentName       String
@@ -285,67 +262,93 @@ model Payment {
 model Quiz {
   id        String    @id @default(cuid())
   title     String
+  quizState QuizState @default(DRAFT)
   timeLimit Int
-  state     QuizState @default(DRAFT)
-  questions Json
-  maxScore  Int       @default(0)
+  maxPoints Int
 
-  Responses QuizResponse[]
+  questions Json[] //quizQuestionZ
+
+  QuizResponse QuizResponse[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model QuizResponse {
-  id         String @id @default(cuid())
-  answers    Json
-  totalScore Int    @default(0)
+  id    String @id @default(cuid())
+  score Int    @default(0)
+
+  answers Json[] //quizAnswerZ
 
   userId Int
   User   User @relation(fields: [userId], references: [id])
 
   quizId String
-  quiz   Quiz   @relation(fields: [quizId], references: [id])
+  Quiz   Quiz   @relation(fields: [quizId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
+
+  @@unique([userId, quizId])
+  @@index([userId, quizId])
 }
 
-model GalleryImage {
-  id     String @id @default(cuid())
-  imgSrc String
-  title  String
+model Feedback {
+  id            String        @id @default(cuid())
+  title         String
+  feedbackState FeedbackState @default(DRAFT)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
-}
+  questions Json[] //feedbackQuestionZ
 
-//
-model Blog {
-  id String @id @unique @default(cuid())
+  eventId Int
+  Event   Event @relation(fields: [eventId], references: [id])
 
-  title   String
-  content String?
-  images  Json?
-  status  BlogStatus @default(DRAFT)
-
-  userId Int
-  User   User? @relation(fields: [userId], references: [id])
+  FeedbackResponse FeedbackResponse[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
+model FeedbackResponse {
+  id String @id @default(cuid())
+
+  answers Json[] //feedbackAnswerZ
+
+  userId Int
+  User   User @relation(fields: [userId], references: [id])
+
+  feedbackId String
+  Feedback   Feedback @relation(fields: [feedbackId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, feedbackId])
+  @@index([userId, feedbackId])
+}
+
+model Blog {
+  id String @id @unique @default(cuid())
+
+  title     String
+  content   String
+  images    Json[] // blogImagesZ
+  blogState BlogState @default(DRAFT)
+
+  userId Int
+  User   User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// enums
 enum Role {
   USER
   MEMBER
+  ORGANISER
   CORE
   ADMIN
-}
-
-enum EventType {
-  SOLO
-  TEAM
 }
 
 enum EventCategory {
@@ -355,10 +358,10 @@ enum EventCategory {
   SPECIAL
 }
 
-enum EventState {
-  DRAFT
-  PUBLISHED
-  COMPLETED
+// type enums
+enum EventType {
+  SOLO
+  TEAM
 }
 
 enum WinnerType {
@@ -374,20 +377,24 @@ enum CertificateType {
   PARTICIPATION
 }
 
-enum AnswerType {
-  BOOLEAN
-  RATING
-  COMMENT
-}
-
-enum FeedbackTemplateState {
-  DRAFT
-  PUBLISHED
-}
-
 enum VerificationType {
   PASSWORD_RESET
   EMAIL_VERIFICATION
+}
+
+// state enums
+enum EventState {
+  DRAFT
+  PUBLISHED
+  LIVE
+  COMPLETED
+}
+
+enum FeedbackState {
+  DRAFT
+  PUBLISHED
+  LIVE
+  COMPLETED
 }
 
 enum QuizState {
@@ -397,7 +404,7 @@ enum QuizState {
   COMPLETED
 }
 
-enum BlogStatus {
+enum BlogState {
   DRAFT
   PUBLISHED
 }

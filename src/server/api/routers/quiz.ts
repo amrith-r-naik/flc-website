@@ -1,206 +1,198 @@
-import { type QuizState, type Prisma } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
+import { QuestionType, quizQuestionZ } from "prisma/schemaZ";
+import { z } from "zod";
 
 import {
   createQuizZ,
   updateQuizZ,
-  deleteQuestionZ,
   getQuizByIdZ,
   deleteQuizZ,
   createQuizResponseZ,
   getQuizResponseByIdZ,
+  updateQuizStateZ,
 } from "~/zod/quizZ";
 
-import { adminProcedure, createTRPCRouter, protectedProcedure } from "../trpc";
+import {
+  adminProcedure,
+  createTRPCRouter,
+  organiserProcedure,
+  protectedProcedure,
+} from "../trpc";
 
 export const quizRouter = createTRPCRouter({
-  createQuiz: adminProcedure
+  // Create
+  createQuiz: organiserProcedure
     .input(createQuizZ)
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.quiz.create({
+      await ctx.db.quiz.create({
         data: {
-          ...input,
+          title: input.title,
+          questions: input.questions,
+          timeLimit: input.timeLimit,
+          maxPoints: input.questions.reduce(
+            (acc, question) => acc + question.points,
+            0,
+          ),
+          quizState: "DRAFT",
         },
       });
-    }),
-
-  updateQuiz: adminProcedure
-    .input(updateQuizZ)
-    .mutation(async ({ ctx, input }) => {
-      const quiz = await ctx.db.quiz.findUnique({
-        where: { id: input.quizId },
-      });
-
-      ensureQuizInDraftState<typeof quiz>(quiz);
-
-      return await ctx.db.quiz.update({
-        where: { id: input.quizId },
-        data: {
-          ...input,
-        },
-      });
-    }),
-
-  deleteQuestion: adminProcedure
-    .input(deleteQuestionZ)
-    .mutation(async ({ ctx, input }) => {
-      const quiz = await ctx.db.quiz.findUnique({
-        where: { id: input.quizId },
-      });
-
-      ensureQuizExists<typeof quiz>(quiz);
-      ensureQuizInDraftState<typeof quiz>(quiz);
-
-      const questions = quiz!.questions as Prisma.JsonObject[];
-      const updatedQuestions = questions.filter(
-        (q) => q.id !== input.questionId,
-      );
-
-      await ctx.db.quiz.update({
-        where: { id: input.quizId },
-        data: { questions: updatedQuestions },
-      });
-
-      return { success: true, message: "Question deleted successfully" };
-    }),
-
-  deleteQuiz: adminProcedure
-    .input(deleteQuizZ)
-    .mutation(async ({ ctx, input }) => {
-      return await ctx.db.quiz.delete({
-        where: { id: input.quizId },
-      });
-    }),
-
-  getQuizById: protectedProcedure
-    .input(getQuizByIdZ)
-    .query(async ({ ctx, input }) => {
-      const quiz = await ctx.db.quiz.findFirst({
-        where: {
-          id: input.quizId,
-          state: "PUBLISHED",
-        },
-      });
-
-      ensureQuizExists(quiz);
-
-      return quiz;
-    }),
-
-  adminGetQuizById: adminProcedure
-    .input(getQuizByIdZ)
-    .query(async ({ ctx, input }) => {
-      const quiz = await ctx.db.quiz.findUnique({
-        where: { id: input.quizId },
-      });
-
-      ensureQuizExists(quiz);
-
-      return quiz;
     }),
 
   createQuizResponse: protectedProcedure
     .input(createQuizResponseZ)
     .mutation(async ({ ctx, input }) => {
-      const existingResponse = await ctx.db.quizResponse.findFirst({
+      const quizResponse = await ctx.db.quizResponse.findUnique({
         where: {
-          quizId: input.quizId,
-          userId: input.userId,
+          userId_quizId: {
+            userId: ctx.session.user.id,
+            quizId: input.quizId,
+          },
         },
+        select: { id: true },
       });
 
-      if (existingResponse) {
+      if (quizResponse)
         throw new TRPCError({
           code: "FORBIDDEN",
-          message: "Quiz response already exists. You cannot submit again.",
+          message: "You have already attempted this quiz",
         });
-      }
 
-      const quiz = await ctx.db.quiz.findUnique({
+      const quiz = await ctx.db.quiz.findUniqueOrThrow({
         where: { id: input.quizId },
+        select: { quizState: true, questions: true },
       });
 
-      ensureQuizExists(quiz);
+      if (quiz.quizState !== "LIVE")
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "You cannot attempt this quiz",
+        });
 
-      const questions = quiz!.questions as Prisma.JsonObject[];
-      const gradedAnswers = input.answers.map((answer) => {
+      const { success: parseSuccess, data: questions } = z
+        .array(quizQuestionZ)
+        .safeParse(quiz.questions);
+
+      if (!parseSuccess)
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Invalid quiz questions",
+        });
+
+      const score = input.answers.reduce((acc, answer) => {
         const question = questions.find((q) => q.id === answer.questionId);
-        const scoreRewarded =
-          question && question.correctOptionId === answer.selectedOptionId
-            ? question.score
-            : 0;
-
-        return {
-          ...answer,
-          scoreRewarded: scoreRewarded as number,
-        };
-      });
-
-      const totalScore = gradedAnswers.reduce((acc, answer) => {
-        const score = answer.scoreRewarded;
-        return acc + score;
+        if (!question) return acc;
+        if (question.questionType === QuestionType.MCQ) {
+          if (typeof answer.answer !== "number")
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: `Invalid answer type! Question no. ${answer.questionId}`,
+            });
+          if (question.answer === answer.answer) acc += question.points;
+        } else if (question.questionType === QuestionType.TEXT) {
+          if (typeof answer.answer !== "string")
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: `Invalid answer type! Question no. ${answer.questionId}`,
+            });
+          if (question.answer === answer.answer) acc += question.points;
+        }
+        return acc;
       }, 0);
 
-      return await ctx.db.quizResponse.create({
+      await ctx.db.quizResponse.create({
         data: {
-          quizId: input.quizId,
-          userId: input.userId,
-          answers: gradedAnswers,
-          totalScore,
+          score: score,
+          answers: input.answers,
+          Quiz: {
+            connect: {
+              id: input.quizId,
+            },
+          },
+          User: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
         },
       });
     }),
 
-  getQuizResponseById: protectedProcedure
+  // Retrieve
+  getQuizById: protectedProcedure
+    .input(getQuizByIdZ)
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.quiz.findUniqueOrThrow({
+        where: { id: input.quizId },
+      });
+    }),
+
+  getQuizResponseById: organiserProcedure
     .input(getQuizResponseByIdZ)
     .query(async ({ ctx, input }) => {
-      const quizResponse = await ctx.db.quizResponse.findFirst({
-        where: {
-          id: input.responseId,
-          userId: input.userId,
-        },
+      return await ctx.db.quizResponse.findUniqueOrThrow({
+        where: { id: input.responseId },
       });
-
-      if (!quizResponse) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Quiz response not found",
-        });
-      }
-
-      return quizResponse;
     }),
 
-  getAllQuizzes: protectedProcedure.query(async ({ ctx }) => {
-    const quizzes = await ctx.db.quiz.findMany({
-      where: { state: "PUBLISHED" },
-    });
-    return quizzes;
+  getAllQuizzes: adminProcedure.query(async ({ ctx }) => {
+    return await ctx.db.quiz.findMany();
   }),
 
-  adminGetAllQuizzes: adminProcedure.query(async ({ ctx }) => {
-    const quizzes = await ctx.db.quiz.findMany();
-    return quizzes;
-  }),
+  // Update
+  updateQuiz: organiserProcedure
+    .input(updateQuizZ)
+    .mutation(async ({ ctx, input }) => {
+      const quiz = await ctx.db.quiz.findUniqueOrThrow({
+        where: { id: input.quizId },
+        select: { quizState: true },
+      });
+
+      if (quiz.quizState !== "DRAFT")
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Cannot update quiz unless it's draft",
+        });
+
+      await ctx.db.quiz.update({
+        where: { id: input.quizId },
+        data: {
+          title: input.title,
+          questions: input.questions,
+          timeLimit: input.timeLimit,
+          maxPoints: input.questions?.reduce(
+            (acc, question) => acc + question.points,
+            0,
+          ),
+        },
+      });
+    }),
+
+  updateQuizState: organiserProcedure
+    .input(updateQuizStateZ)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.quiz.update({
+        where: { id: input.quizId },
+        data: { quizState: input.quizState },
+      });
+    }),
+
+  // Delete
+  deleteQuiz: adminProcedure
+    .input(deleteQuizZ)
+    .mutation(async ({ ctx, input }) => {
+      const quiz = await ctx.db.quiz.findUniqueOrThrow({
+        where: { id: input.quizId },
+        select: { quizState: true },
+      });
+
+      if (quiz.quizState !== "DRAFT")
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Cannot delete quiz unless it's in draft",
+        });
+
+      await ctx.db.quiz.delete({
+        where: { id: input.quizId },
+      });
+    }),
 });
-
-// Helper functions
-function ensureQuizExists<T>(quiz: T) {
-  if (!quiz) {
-    throw new TRPCError({
-      code: "NOT_FOUND",
-      message: "Quiz not found",
-    });
-  }
-}
-
-function ensureQuizInDraftState<T extends { state: QuizState } | null>(
-  quiz: T,
-) {
-  if (quiz && quiz.state !== "DRAFT") {
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "Cannot update quiz unless it's in draft",
-    });
-  }
-}

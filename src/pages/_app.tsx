@@ -7,8 +7,8 @@ import { Rowdies } from "next/font/google";
 import { useRouter } from "next/router";
 import { Toaster } from "sonner";
 
+import MainLayout from "~/components/layout";
 import AdminLayout from "~/components/layout/adminLayout";
-import MainLayout from "~/components/layout/mainLayout";
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 

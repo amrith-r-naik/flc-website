@@ -1,20 +1,16 @@
-import { checkOrganiser } from "~/utils/helper";
-// import { findEventIfExistById, checkOrganiser } from "~/utils/helper";
 import {
   getWinnersByEventIdZ,
   makeTeamWinnerZ,
   removeWinnerZ,
 } from "~/zod/winnerZ";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, organiserProcedure } from "../trpc";
 
 export const winnerRouter = createTRPCRouter({
   //Mutations
-  makeTeamWinner: protectedProcedure
+  makeTeamWinner: organiserProcedure
     .input(makeTeamWinnerZ)
     .mutation(async ({ ctx, input }) => {
-      const reqUser = ctx.session.user;
-      await checkOrganiser(reqUser.id, input.eventId, reqUser.role);
       await ctx.db.winner.create({
         data: {
           eventId: input.eventId,
@@ -24,12 +20,9 @@ export const winnerRouter = createTRPCRouter({
       });
     }),
 
-  removeWinner: protectedProcedure
+  removeWinner: organiserProcedure
     .input(removeWinnerZ)
     .mutation(async ({ ctx, input }) => {
-      const reqUser = ctx.session.user;
-      await checkOrganiser(reqUser.id, input.eventId, reqUser.role);
-
       await ctx.db.winner.delete({
         where: {
           id: input.winnerId,
@@ -38,12 +31,9 @@ export const winnerRouter = createTRPCRouter({
     }),
 
   //Queries
-  getWinnersByEventId: protectedProcedure
+  getWinnersByEventId: organiserProcedure
     .input(getWinnersByEventIdZ)
     .query(async ({ ctx, input }) => {
-      const reqUser = ctx.session.user;
-      await checkOrganiser(reqUser.id, input.eventId, reqUser.role);
-
       const winners = await ctx.db.winner.findMany({
         where: {
           eventId: input.eventId,

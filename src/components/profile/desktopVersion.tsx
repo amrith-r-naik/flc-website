@@ -1,5 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { type inferProcedureOutput } from "@trpc/server";
 import gsap from "gsap";
 import { Pencil, X } from "lucide-react";
 import {
@@ -9,22 +10,25 @@ import {
 } from "next-cloudinary";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { type FunctionComponent, useState } from "react";
 import { toast } from "sonner";
+
+import { type AppRouter } from "~/server/api/root";
 
 import { deleteFromCloudinary } from "~/components/cloudinary/cloudinaryDelete";
 import ImageCarousel from "~/components/imageCarousel";
 import QRCode from "~/components/profile/qrcode";
 import { api } from "~/utils/api";
 
-const DesktopVersion = ({ className }: { className?: string }) => {
+const DesktopVersion: FunctionComponent<{
+  className?: string;
+  user: inferProcedureOutput<AppRouter["user"]["getUser"]>;
+}> = ({ className, user }) => {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [phone, setPhone] = useState("");
 
   const router = useRouter();
-
-  const { data: user } = api.user.getUser.useQuery();
 
   const updateProfile = api.user.editUser.useMutation({
     onSuccess: async () => {
@@ -79,9 +83,6 @@ const DesktopVersion = ({ className }: { className?: string }) => {
       ease: "expo.out",
     });
   });
-
-  //FIXME
-  if (!user) return <>Error</>;
 
   return (
     <div

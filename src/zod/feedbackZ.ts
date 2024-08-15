@@ -1,53 +1,48 @@
-import { AnswerType, FeedbackTemplateState } from "@prisma/client";
+import { FeedbackState } from "@prisma/client";
+import { feedbackAnswerZ, feedbackQuestionZ } from "prisma/schemaZ";
 import { z } from "zod";
 
-const createFeedbackTemplateZ = z.object({
+const createFeedbackZ = z.object({
   eventId: z.number(),
-  questions: z.array(z.string()),
-  answers: z.array(z.string()),
-  answerstype: z.array(z.nativeEnum(AnswerType)),
+  title: z.string(),
+  questions: z.array(feedbackQuestionZ),
 });
 
-const editFeedbackTemplateZ = z.object({
-  id: z.string(),
-  eventId: z.number(),
-  questions: z.array(z.string()),
-  answers: z.array(z.string()),
-  answerstype: z.array(z.nativeEnum(AnswerType)),
+const createFeedbackResponseZ = z.object({
+  feedbackId: z.string(),
+  answers: z.array(feedbackAnswerZ),
 });
 
-const deleteFeedbackTemplateZ = z.object({
-  templateId: z.string(),
-  eventId: z.number(),
+const getFeedbackByIdZ = z.object({
+  feedbackId: z.string(),
 });
 
-const toggleTemplateStateZ = z.object({
-  templateId: z.string(),
-  eventId: z.number(),
-  state: z.nativeEnum(FeedbackTemplateState),
+const getFeedbackResponseByIdZ = z.object({
+  responseId: z.string(),
 });
 
-const submitFeedbackZ = z.object({
-  templateId: z.string(),
-  answers: z.array(z.string()),
-  userId: z.number(),
+const updateFeedbackZ = z.object({
+  feedbackId: z.string(),
+  eventId: z.number().optional(),
+  title: z.string().optional(),
+  questions: z.array(feedbackQuestionZ).optional(),
 });
 
-const getFeedbackTemplateZ = z.object({
-  templateId: z.string(),
+const updateFeedbackStateZ = z.object({
+  feedbackId: z.string(),
+  feedbackState: z.nativeEnum(FeedbackState),
 });
 
-const responseForEventZ = z.object({
-  templateId: z.string(),
-  eventId: z.number(),
+const deleteFeedbackZ = z.object({
+  feedbackId: z.string(),
 });
 
 export {
-  createFeedbackTemplateZ,
-  editFeedbackTemplateZ,
-  deleteFeedbackTemplateZ,
-  toggleTemplateStateZ,
-  submitFeedbackZ,
-  responseForEventZ,
-  getFeedbackTemplateZ,
+  createFeedbackZ,
+  createFeedbackResponseZ,
+  getFeedbackByIdZ,
+  getFeedbackResponseByIdZ,
+  updateFeedbackStateZ,
+  updateFeedbackZ,
+  deleteFeedbackZ,
 };

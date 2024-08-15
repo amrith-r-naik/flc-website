@@ -50,7 +50,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         toast.dismiss(toastId);
         if (s?.ok) {
           toast.success("Logged in successfully");
-          void router.push("/profile");
+          void router.push(`/profile`);
         }
       })
       .catch((e) => {
@@ -120,7 +120,6 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
             </strong>
           </p>
         </div>
-        <div></div>
       </form>
     </Form>
   );

@@ -124,7 +124,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
             <FormItem className="flex-1 rounded-lg p-2 sm:p-4">
               <FormLabel>Phone</FormLabel>
               <FormControl className="bg-[#494949]">
-                <InputOTP maxLength={10} {...field} disabled>
+                <InputOTP maxLength={10} {...field}>
                   <InputOTPSlot
                     index={0}
                     className="size-6 bg-[#494949] sm:size-10"

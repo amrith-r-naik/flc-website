@@ -1,11 +1,7 @@
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React from "react";
 
-import Navbar from "../navbar/navbar";
+import Navbar from "../navBar";
 import AdminSidebar from "../sidebar/adminSidebar";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function AdminLayout({
   children,

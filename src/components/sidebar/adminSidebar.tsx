@@ -1,9 +1,8 @@
-
 import { DiamondIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
-import { AdminLinks } from "~/constants";
+import { adminLinks } from "~/constants";
 
 import {
   Accordion,
@@ -26,12 +25,12 @@ const AdminSidebar = () => {
         <MobileNav />
       </div>
 
-      <div className="sticky top-20 hidden h-[89vh] w-[15%] space-y-3 bg-black px-4 text-white shadow-md sm:block border-r">
-        <h1 className="mt-4 subheading font-extrabold tracking-wide text-muted text-white text-left   border-b">
+      <div className="sticky top-20 hidden h-[89vh] w-[15%] space-y-3 border-r bg-black px-4 text-white shadow-md sm:block">
+        <h1 className="subheading mt-4 border-b text-left font-extrabold tracking-wide text-muted   text-white">
           Admin Dashboard
         </h1>
 
-        {AdminLinks.map((item, index) =>
+        {adminLinks.map((item, index) =>
           item.sublinks ? (
             <Accordion
               key={index}
@@ -41,7 +40,7 @@ const AdminSidebar = () => {
             >
               <AccordionItem
                 value={`item-${index}`}
-                className={`w-full rounded-lg px-2 hover:bg-zinc-800 rounded-l-none border-l-2 border-border border-b ${
+                className={`w-full rounded-lg rounded-l-none border-b border-l-2 border-border px-2 hover:bg-zinc-800 ${
                   activeItem === item.label ? "bg-zinc-800" : ""
                 }`}
               >
@@ -77,7 +76,7 @@ const AdminSidebar = () => {
           ) : (
             <div
               key={index}
-              className={`mt-2 w-full cursor-pointer space-y-1 rounded-r-lg border-l-2 border-border border-b p-4 px-2 hover:bg-zinc-800 ${
+              className={`mt-2 w-full cursor-pointer space-y-1 rounded-r-lg border-b border-l-2 border-border p-4 px-2 hover:bg-zinc-800 ${
                 activeItem === item.label ? "bg-zinc-800" : ""
               }`}
               onClick={() => setActiveItem(item.label)}
@@ -86,7 +85,7 @@ const AdminSidebar = () => {
                 <p>{item.label}</p>
               </Link>
             </div>
-          )
+          ),
         )}
       </div>
     </>
@@ -94,4 +93,3 @@ const AdminSidebar = () => {
 };
 
 export default AdminSidebar;
-

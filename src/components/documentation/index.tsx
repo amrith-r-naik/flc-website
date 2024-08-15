@@ -1,7 +1,5 @@
 import React, { type FC } from "react";
 
-import ParticlesBackground from "~/components/background/particles";
-
 interface DocumentPageProps {
   title: string;
   subtitle: string;
@@ -21,19 +19,6 @@ const DocumentPage: FC<DocumentPageProps> = ({
 }) => {
   return (
     <>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          overflow: "hidden",
-          zIndex: -1,
-        }}
-      >
-        <ParticlesBackground />
-      </div>
       <div className="   ">
         {/* Header Section */}
         <header className=" py-4 shadow-md">

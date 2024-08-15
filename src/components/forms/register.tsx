@@ -91,7 +91,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel >Name</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl className="bg-[#494949]">
                 <Input placeholder="Name" {...field} disabled />
               </FormControl>

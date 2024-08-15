@@ -1,7 +1,6 @@
 import React from "react";
+
 import AddGallery from "~/components/admin/gallery/add-gallery";
-
-
 
 const page = () => {
   return (

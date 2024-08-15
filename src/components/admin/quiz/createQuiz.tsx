@@ -4,8 +4,27 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
 
-import { Form } from "~/components/ui/form";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "~/components/ui/accordion";
+import { Button } from "~/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { Slider } from "~/components/ui/slider";
 
+import AddQuestion from "~/components/admin/quiz/addQuestion";
+import QuestionCard from "~/components/admin/quiz/questionCard";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import { createQuizZ } from "~/zod/quizZ";
@@ -20,10 +39,8 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      timeLimit: 0,
-      state: "DRAFT",
+      timeLimit: 1,
       questions: [],
-      maxScore: 0,
     },
   });
 
@@ -33,8 +50,6 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
       {
         title: values.title,
         questions: values.questions,
-        state: values.state,
-        maxScore: values.maxScore,
         timeLimit: values.timeLimit,
       },
       {
@@ -51,64 +66,73 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
   };
 
   return (
-    <div className="mt-14 md:mt-4">
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-4")}
       >
-        {/* TODO(Omkar) */}
-        {/* <div>
-          <Label className="block">Title</Label>
-          <Input {...register("title")} className="w-full rounded border p-2" />
-        </div>
+        <FormMessage className="flex justify-center text-4xl text-white">
+          Create Quiz
+        </FormMessage>
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl className="bg-[#494949]">
+                <Input placeholder="Title" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="timeLimit"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Time Limit ({field.value} minutes)</FormLabel>
+              <FormControl>
+                <Slider
+                  min={1}
+                  max={30}
+                  step={1}
+                  value={[field.value]}
+                  onValueChange={(e) => field.onChange(e[0])}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="questions"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Questions</FormLabel>
+              <FormControl>
+                <AddQuestion
+                  addQuestion={(newQuestion) => {
+                    form.setValue("questions", [...field.value, newQuestion]);
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div>
-          <Label className="block">Time Limit (minutes)</Label>
-          <Input
-            {...register("timeLimit", { valueAsNumber: true })}
-            className="w-full rounded border p-2"
-            type="number"
-          />
-        </div>
-        <div>
-          <Label className="block">State</Label>
-          <select {...register("state")} className="w-full rounded border p-2">
-            <option value="DRAFT">Draft</option>
-            <option value="PUBLISHED">Published</option>
-          </select>
-        </div>
-        <div>
-          <Label className="block">Max Score</Label>
-          <Input
-            {...register("maxScore", { valueAsNumber: true })}
-            className="w-full rounded border p-2"
-            type="number"
-          />
+          {form.getValues("questions").map((question, idx) => (
+            <QuestionCard key={idx} question={question} />
+          ))}
         </div>
 
         <div>
-          <div className="m-2 flex flex-row justify-between border border-white p-2">
-            <h3 className="subheading font-bold">Questions</h3>
-            <Button
-              type="button"
-              onClick={() =>
-                append({
-                  id: Math.random().toString(),
-                  text: "",
-                  imgSrc: "",
-                  score: 0,
-                  options: [{ id: Math.random().toString(), text: "" }],
-                  correctOptionId: "",
-                })
-              }
-              className="rounded bg-green-500 px-4 py-2 text-white"
-            >
-              Add Question
-            </Button>
-          </div>
-
           <Accordion type="single" collapsible className="w-full border">
-            {fields.map((field, index) => (
+            {form.getValues("questions").map((field, index) => (
               <AccordionItem
                 key={field.id}
                 value={`item-${index}`}
@@ -118,7 +142,10 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
                   <span>Question {index + 1}</span>
                   <Button
                     type="button"
-                    onClick={() => remove(index)}
+                    onClick={
+                      () => null
+                      // remove(index)
+                    }
                     className="rounded bg-red-500 px-2 py-1 text-white"
                   >
                     Remove
@@ -128,68 +155,59 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
                 <AccordionContent className="space-y-4 p-3">
                   <div>
                     <Label className="block">Question Text</Label>
-                    <Input
-                      {...register(`questions.${index}.text`)}
-                      className="w-full rounded border p-2"
-                    />
+                    <Input className="w-full rounded border p-2" />
                   </div>
                   <div>
                     <Label className="block">Image Source (optional)</Label>
-                    <Input
-                      {...register(`questions.${index}.imgSrc`)}
-                      className="w-full rounded border p-2"
-                    />
+                    <Input className="w-full rounded border p-2" />
                   </div>
                   <div>
                     <Label className="block">Score</Label>
                     <Input
-                      {...register(`questions.${index}.score`, {
-                        valueAsNumber: true,
-                      })}
                       className="w-full rounded border p-2"
                       type="number"
                     />
                   </div>
                   <div>
                     <Label className="block">Options (MCQ only)</Label>
-                    <Controller
-                      name={`questions.${index}.options`}
-                      control={control}
-                      render={({ field }) => (
-                        <>
-                          {field.value.map((option, optIndex) => (
-                            <div key={optIndex} className="mb-2">
-                              <Input
-                                {...register(
-                                  `questions.${index}.options.${optIndex}.text`,
-                                )}
-                                className="w-full rounded border p-2"
-                                placeholder={`Option ${optIndex + 1}`}
-                              />
-                            </div>
-                          ))}
-                          <Button
-                            type="button"
-                            onClick={() =>
-                              setValue(`questions.${index}.options`, [
-                                ...field.value,
-                                { id: Math.random().toString(), text: "" },
-                              ])
-                            }
-                            className="rounded bg-blue-500 px-4 py-2 text-white"
-                          >
-                            Add Option
-                          </Button>
-                        </>
-                      )}
-                    />
+                    {/* <Controller
+                        name={`questions.${index}.options`}
+                        control={control}
+                        render={({ field }) => (
+                          <>
+                            {field.value.map((option, optIndex) => (
+                              <div key={optIndex} className="mb-2">
+                                <Input
+                                  {...register(
+                                    `questions.${index}.options.${optIndex}.text`,
+                                  )}
+                                  className="w-full rounded border p-2"
+                                  placeholder={`Option ${optIndex + 1}`}
+                                />
+                              </div>
+                            ))}
+                            <Button
+                              type="button"
+                              onClick={() =>
+                                setValue(`questions.${index}.options`, [
+                                  ...field.value,
+                                  { id: Math.random().toString(), text: "" },
+                                ])
+                              }
+                              className="rounded bg-blue-500 px-4 py-2 text-white"
+                            >
+                              Add Option
+                            </Button>
+                          </>
+                        )}
+                      /> */}
                   </div>
                   <div>
                     <Label className="block">
                       Correct Option ID (MCQ) / Correct Answer (Text)
                     </Label>
                     <Input
-                      {...register(`questions.${index}.correctOptionId`)}
+                      // {...register(`questions.${index}.correctOptionId`)}
                       className="w-full rounded border p-2"
                       placeholder="ID of the correct option or the correct answer"
                     />
@@ -205,10 +223,9 @@ const CreateQuizForm: FunctionComponent<{ className?: string }> = ({
           className="rounded bg-blue-500 px-4 py-2 text-white"
         >
           Create Quiz
-        </Button> */}
+        </Button>
       </form>
     </Form>
-    </div>
   );
 };
 

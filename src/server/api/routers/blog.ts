@@ -1,24 +1,30 @@
 import { TRPCError } from "@trpc/server";
 
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 
 import {
   createBlogZ,
   updateBlogZ,
-  toggleBlogStatusZ,
   deleteBlogZ,
+  updateBlogStateZ,
 } from "~/zod/blogZ";
 
 export const blogRouter = createTRPCRouter({
-  createBlog: protectedProcedure
+  // Create
+  createBlog: adminProcedure
     .input(createBlogZ)
     .mutation(async ({ ctx, input }) => {
       await ctx.db.blog.create({
         data: {
           title: input.title,
           content: input.content,
-          status: "DRAFT",
           images: input.images,
+          blogState: "DRAFT",
           User: {
             connect: {
               id: ctx.session.user.id,
@@ -28,60 +34,12 @@ export const blogRouter = createTRPCRouter({
       });
     }),
 
-  updateBlog: protectedProcedure
-    .input(updateBlogZ)
-    .mutation(async ({ ctx, input }) => {
-      await ctx.db.blog.update({
-        where: { id: input.blogId },
-        data: {
-          title: input.title,
-          content: input.content,
-          images: input.images,
-          status: input.status,
-        },
-      });
-    }),
-
-  deleteBlog: protectedProcedure
-    .input(deleteBlogZ)
-    .mutation(async ({ ctx, input }) => {
-      await ctx.db.blog.delete({
-        where: { id: input.blogId },
-      });
-    }),
-
-  toggleBlogStatus: protectedProcedure
-    .input(toggleBlogStatusZ)
-    .mutation(async ({ ctx, input }) => {
-      const blog = await ctx.db.blog.findUnique({
-        where: { id: input.blogId },
-      });
-
-      if (!blog)
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Blog not found",
-        });
-
-      await ctx.db.blog.update({
-        where: { id: input.blogId },
-        data: {
-          status: blog.status === "DRAFT" ? "PUBLISHED" : "DRAFT",
-        },
-      });
-    }),
-
-  getPublishedBlogs: protectedProcedure.query(async ({ ctx }) => {
+  // Retrieve
+  getPublishedBlogs: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.blog.findMany({
       where: {
-        status: "PUBLISHED",
+        blogState: "PUBLISHED",
       },
-      orderBy: { createdAt: "desc" },
-    });
-  }),
-
-  getAllBlogs: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.db.blog.findMany({
       orderBy: { createdAt: "desc" },
     });
   }),
@@ -94,4 +52,65 @@ export const blogRouter = createTRPCRouter({
       orderBy: { createdAt: "desc" },
     });
   }),
+
+  getAllBlogs: adminProcedure.query(async ({ ctx }) => {
+    return await ctx.db.blog.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  }),
+
+  // Update
+  updateBlog: protectedProcedure
+    .input(updateBlogZ)
+    .mutation(async ({ ctx, input }) => {
+      const blog = await ctx.db.blog.findUniqueOrThrow({
+        where: { id: input.blogId },
+      });
+
+      if (blog.blogState === "PUBLISHED")
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Cannot update a published blog",
+        });
+
+      await ctx.db.blog.update({
+        where: { id: input.blogId },
+        data: {
+          title: input.title,
+          content: input.content,
+          images: input.images,
+        },
+      });
+    }),
+
+  updateBlogState: adminProcedure
+    .input(updateBlogStateZ)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.blog.update({
+        where: { id: input.blogId },
+        data: {
+          blogState: input.blogState,
+        },
+      });
+    }),
+
+  // Delete
+  deleteBlog: protectedProcedure
+    // FIXME(Omkar): protectedProcedure or adminProcedure
+    .input(deleteBlogZ)
+    .mutation(async ({ ctx, input }) => {
+      const blog = await ctx.db.blog.findUniqueOrThrow({
+        where: { id: input.blogId },
+      });
+
+      if (blog.blogState === "PUBLISHED")
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Cannot delete a published blog",
+        });
+
+      await ctx.db.blog.delete({
+        where: { id: input.blogId },
+      });
+    }),
 });

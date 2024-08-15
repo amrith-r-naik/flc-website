@@ -51,7 +51,7 @@ export default function AddGallery() {
 
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between mt-14 md:mt-4">
+      <div className="mb-4 mt-14 flex items-center justify-between md:mt-4">
         <h2 className="text-lg font-medium">Images</h2>
         <Dialog>
           <DialogTrigger asChild>

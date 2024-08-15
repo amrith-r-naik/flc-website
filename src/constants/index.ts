@@ -8,8 +8,7 @@ export const teamTabs = [
   "Faculty",
 ];
 
-
-export const AdminLinks = [
+export const adminLinks = [
   {
     label: "Events",
     sublinks: [
@@ -22,8 +21,7 @@ export const AdminLinks = [
   { label: "Quiz", url: "/admin/create-quiz" },
 ];
 
-
- export const Userlinks = [
+export const userLinks = [
   { label: "Gallery", url: "/gallery" },
   { label: "Events", url: "/events" },
   { label: "Blogs", url: "/blogs" },

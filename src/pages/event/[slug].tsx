@@ -8,9 +8,8 @@ import { useRouter } from "next/router";
 import React from "react";
 
 import AvatarCustom from "~/components/avatar";
-import ParticlesBackground from "~/components/background/particles";
-import CopyBtn from "~/components/copyBtn";
 import Loader from "~/components/loader";
+import CopyBtn from "~/components/utils/copyBtn";
 import { api } from "~/utils/api";
 
 import NotFound from "../404";
@@ -60,19 +59,6 @@ const EventSlug = () => {
 
   return (
     <main className="mb-1 mt-16 flex w-[100%] flex-col items-center justify-start space-y-4">
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          overflow: "hidden",
-          zIndex: -1,
-        }}
-      >
-        <ParticlesBackground />
-      </div>
       <section className="  flex w-[90%] flex-col  rounded-3xl border border-border bg-accent sm:flex-row md:w-[85%] lg:w-[75%] xl:w-[60%]">
         <div className="flex    shrink justify-start overflow-hidden">
           <Image
