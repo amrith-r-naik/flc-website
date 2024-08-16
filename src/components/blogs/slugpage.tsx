@@ -23,7 +23,7 @@ export function SlugPage({ blogId }: { blogId: string }) {
       <div className="prose prose-invert mx-auto py-4">
         <div className="flex items-center justify-between">
           <div className="md:text-md w-fit text-right text-xs">
-            {blog?.User.name} • {new Date(blog?.createdAt).toDateString()}
+            {blog.User.name} • {new Date(blog.createdAt).toDateString()}
           </div>
           <div className="block text-xs md:hidden"></div>
         </div>
@@ -32,24 +32,26 @@ export function SlugPage({ blogId }: { blogId: string }) {
           <a className="mb-5 flex items-center gap-2 text-xs text-gray-300 no-underline md:text-sm">
             <span className="inline-flex items-center gap-1">
               <FaBookOpen />
-              {blog?.readTimer}
+              {blog.readTime}
             </span>
             <span className="inline-flex items-center gap-1">
               <FaPencilAlt />
-              {blog?.words}
+              {blog.words}
             </span>
           </a>
         </div>
         <div className="sapce-y-12">
-          <h1>{blog?.title}</h1>
-          <Image
-            src={blog?.imageSrc}
-            alt="Middle Ad"
-            width={1200}
-            height={600}
-            layout="responsive"
-            className="h-auto w-full"
-          />
+          <h1>{blog.title}</h1>
+          {blog.images && blog.images.length > 0 && (
+            <Image
+              src={blog.images[0]!.src}
+              alt={blog.images[0]!.title}
+              width={1200}
+              height={600}
+              layout="responsive"
+              className="h-auto w-full"
+            />
+          )}
           <p>{blog?.content}</p>
         </div>
       </div>

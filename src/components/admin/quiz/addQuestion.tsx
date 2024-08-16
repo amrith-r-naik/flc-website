@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { QuestionType, quizQuestionZ } from "prisma/schemaZ";
 import React, { useState, type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
-import { LuPlus, LuTrash2 } from "react-icons/lu";
+import { LuCheck, LuMinus, LuPlus, LuTrash2 } from "react-icons/lu";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
@@ -51,10 +51,21 @@ const AddQuestion: FunctionComponent<{
       image: "", // TODO(Omkar): Add image
       questionType: QuestionType.MCQ,
       options: [],
-      answer: 1,
+      answer: 0,
       points: 5,
     },
   });
+
+  const onOptionAdd: (values: string[]) => void = (values) => {
+    if (optionValue.length === 0) {
+      form.setError("options", {
+        message: "Option cannot be empty",
+      });
+      return;
+    }
+    form.setValue("options", [...values, optionValue]);
+    setOptionValue("");
+  };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (values.questionType === QuestionType.MCQ)
@@ -76,7 +87,7 @@ const AddQuestion: FunctionComponent<{
         answer: values.answer,
         points: values.points,
       });
-    setOpen(open);
+    setOpen(false);
     form.reset();
   };
 
@@ -121,7 +132,14 @@ const AddQuestion: FunctionComponent<{
                 <FormItem>
                   <FormLabel>Question</FormLabel>
                   <Select
-                    onValueChange={field.onChange}
+                    onValueChange={(value) => {
+                      if (
+                        QuestionType[value as keyof typeof QuestionType] ===
+                        QuestionType.TEXT
+                      )
+                        form.setValue("answer", "");
+                      field.onChange(value);
+                    }}
                     defaultValue={field.value}
                   >
                     <FormControl>
@@ -169,48 +187,67 @@ const AddQuestion: FunctionComponent<{
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Options</FormLabel>
-                      {form.getValues("options").map((option, idx) => (
-                        <InputButton
-                          key={idx}
-                          value={`${idx + 1}. ${option}`}
-                          disabled
-                          onButtonClick={() =>
-                            form.setValue(
-                              "options",
-                              field.value.filter((_, i) => i !== idx),
-                            )
-                          }
-                          onButtonBlur={() =>
-                            form.setValue(
-                              "options",
-                              field.value.filter((_, i) => i !== idx),
-                            )
-                          }
-                        >
-                          <LuTrash2 className="size-5" />
-                        </InputButton>
-                      ))}
+                      {form.getValues("options").map((option, idx) => {
+                        return (
+                          <InputButton
+                            key={idx}
+                            value={`${idx + 1}. ${option}`}
+                            className={
+                              idx === +form.getValues("answer")
+                                ? "outline-none ring-2 ring-ring ring-offset-2 disabled:opacity-60"
+                                : ""
+                            }
+                            disabled
+                          >
+                            <Button
+                              variant={"ghost"}
+                              className="px-2"
+                              onClick={() => form.setValue("answer", idx)}
+                            >
+                              {idx === +form.getValues("answer") ? (
+                                <LuMinus className="size-5" />
+                              ) : (
+                                <LuCheck className="size-5" />
+                              )}
+                            </Button>
+                            <Button
+                              variant={"ghost"}
+                              className="px-2"
+                              onClick={() => {
+                                form.setValue(
+                                  "options",
+                                  field.value.filter((_, i) => i !== idx),
+                                );
+                                if (form.getValues("answer") === idx)
+                                  form.reset({ answer: 0 });
+                              }}
+                            >
+                              <LuTrash2 className="size-5" />
+                            </Button>
+                          </InputButton>
+                        );
+                      })}
                       <FormControl>
                         {form.getValues("options").length < 5 && (
                           <InputButton
                             value={optionValue}
                             placeholder="Option Value"
                             onChange={(e) => setOptionValue(e.target.value)}
-                            onButtonClick={() => {
-                              if (optionValue.length === 0) {
-                                form.setError("options", {
-                                  message: "Option cannot be empty",
-                                });
-                                return;
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                onOptionAdd(field.value);
                               }
-                              form.setValue("options", [
-                                ...field.value,
-                                optionValue,
-                              ]);
-                              setOptionValue("");
                             }}
                           >
-                            <LuPlus className="size-5" />
+                            <Button
+                              variant={"ghost"}
+                              className="px-2"
+                              onClick={() => onOptionAdd(field.value)}
+                              onBlur={() => onOptionAdd(field.value)}
+                            >
+                              <LuPlus className="size-5" />
+                            </Button>
                           </InputButton>
                         )}
                       </FormControl>
@@ -221,30 +258,8 @@ const AddQuestion: FunctionComponent<{
                 <FormField
                   control={form.control}
                   name="answer"
-                  render={({ field }) => (
+                  render={() => (
                     <FormItem>
-                      <FormLabel>Answer</FormLabel>
-                      <FormControl>
-                        <Select
-                          onValueChange={(value) => field.onChange(+value)}
-                          defaultValue={field.value as string}
-                        >
-                          <FormControl>
-                            <SelectTrigger
-                              disabled={form.getValues("options").length <= 0}
-                            >
-                              <SelectValue placeholder="Select correct option" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {form.getValues("options").map((_, idx) => (
-                              <SelectItem key={idx} value={`${idx + 1}`}>
-                                {idx + 1}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}

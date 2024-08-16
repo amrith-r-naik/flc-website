@@ -1,6 +1,6 @@
 "use client";
 
-import { Event } from "@prisma/client";
+import { type Event } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -116,7 +116,10 @@ function Events() {
         {events && events.length > 0 ? (
           <div className=" mx-auto mb-4 grid max-w-7xl grid-cols-1 gap-10 px-5 md:grid-cols-2 xl:grid-cols-3">
             {events.map((event, idx) => (
-              <div className="intro-card before:z-1 relative h-full w-full rounded-2xl p-2 py-3  before:absolute">
+              <div
+                key={idx}
+                className="intro-card before:z-1 relative h-full w-full rounded-2xl p-2 py-3  before:absolute"
+              >
                 <div className="flex flex-col">
                   <div className="flex flex-row items-center justify-between px-4">
                     <div className="relative h-4 w-4">
@@ -188,7 +191,7 @@ function Events() {
                     </div>
                   </div>
                 </div>
-                <img
+                <Image
                   src="/card_bottom.png"
                   alt=""
                   className="absolute bottom-0 left-0 right-0 top-auto w-[100%] opacity-50"

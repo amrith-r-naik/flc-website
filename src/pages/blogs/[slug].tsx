@@ -8,12 +8,12 @@ import NotFound from "../404";
 const BlogSlug = () => {
   const router = useRouter();
 
-  const BlogId = Array.isArray(router.query.slug)
+  const blogId = Array.isArray(router.query.slug)
     ? router.query.slug[0]
     : router.query.slug;
 
-  if (!BlogId) return <NotFound />;
-  return <SlugPage blogId={BlogId} />;
+  if (!blogId) return <NotFound />;
+  return <SlugPage blogId={blogId} />;
 };
 
 export default BlogSlug;

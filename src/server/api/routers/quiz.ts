@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { QuestionType, quizQuestionZ } from "prisma/schemaZ";
+import { QuestionType, quizAnswerZ, quizQuestionZ } from "prisma/schemaZ";
 import { z } from "zod";
 
 import {
@@ -10,6 +10,7 @@ import {
   createQuizResponseZ,
   getQuizResponseByIdZ,
   updateQuizStateZ,
+  getInfiniteQuizByMeZ,
 } from "~/zod/quizZ";
 
 import {
@@ -121,22 +122,86 @@ export const quizRouter = createTRPCRouter({
   getQuizById: protectedProcedure
     .input(getQuizByIdZ)
     .query(async ({ ctx, input }) => {
-      return await ctx.db.quiz.findUniqueOrThrow({
+      const unparsedQuiz = await ctx.db.quiz.findUniqueOrThrow({
         where: { id: input.quizId },
       });
+
+      const { data: parsedQuestions, success } = z
+        .array(quizQuestionZ)
+        .safeParse(unparsedQuiz.questions);
+
+      if (!success)
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Invalid quiz questions",
+        });
+
+      return {
+        ...unparsedQuiz,
+        questions: parsedQuestions,
+      };
     }),
 
   getQuizResponseById: organiserProcedure
     .input(getQuizResponseByIdZ)
     .query(async ({ ctx, input }) => {
-      return await ctx.db.quizResponse.findUniqueOrThrow({
+      const unparsedQuizResponse = await ctx.db.quizResponse.findUniqueOrThrow({
         where: { id: input.responseId },
       });
+
+      const { data: parsedAnswers, success } = z
+        .array(quizAnswerZ)
+        .safeParse(unparsedQuizResponse.answers);
+
+      if (!success)
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Invalid quiz answers",
+        });
+
+      return {
+        ...unparsedQuizResponse,
+        answers: parsedAnswers,
+      };
     }),
 
-  getAllQuizzes: adminProcedure.query(async ({ ctx }) => {
-    return await ctx.db.quiz.findMany();
-  }),
+  getInfiniteQuizByMe: organiserProcedure
+    .input(getInfiniteQuizByMeZ)
+    .query(async ({ ctx, input }) => {
+      const unparsedQuizes = await ctx.db.quiz.findMany({
+        where: {},
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: input.take + 1,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
+      });
+
+      let nextCursor: typeof input.cursor | undefined = undefined;
+
+      const quizzes = unparsedQuizes
+        .map((quiz) => {
+          const { data: parsedQuestions, success } = z
+            .array(quizQuestionZ)
+            .safeParse(quiz.questions);
+          if (success)
+            return {
+              ...quiz,
+              questions: parsedQuestions,
+            };
+        })
+        .filter((quiz) => typeof quiz !== "undefined");
+
+      if (quizzes.length > input.take) {
+        const nextQuiz = quizzes.pop();
+        nextCursor = nextQuiz?.id;
+      }
+
+      return {
+        quizzes,
+        nextCursor,
+      };
+    }),
 
   // Update
   updateQuiz: organiserProcedure
@@ -159,7 +224,7 @@ export const quizRouter = createTRPCRouter({
           title: input.title,
           questions: input.questions,
           timeLimit: input.timeLimit,
-          maxPoints: input.questions?.reduce(
+          maxPoints: input.questions.reduce(
             (acc, question) => acc + question.points,
             0,
           ),

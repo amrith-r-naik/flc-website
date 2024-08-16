@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import { Rowdies } from "next/font/google";
 import { useRouter } from "next/router";
 import React, { type ReactNode, type FunctionComponent } from "react";
 import { Toaster } from "sonner";
@@ -6,12 +7,18 @@ import { Toaster } from "sonner";
 import SignIn from "~/components/auth/signIn";
 import Unauthorized from "~/components/auth/unauthorized";
 import Cursor from "~/components/cursor";
+import Footer from "~/components/footer";
 import AdminLayout from "~/components/layout/adminLayout";
 import Loader from "~/components/loader";
 import NavBar from "~/components/navBar";
 import { useLoading } from "~/hooks";
+import { cn } from "~/lib/utils";
 
-import Footer from "../footer";
+const rowdies = Rowdies({
+  weight: ["700"],
+  subsets: ["latin"],
+  variable: "--font-rowdies",
+});
 
 const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const { pathname } = useRouter();
@@ -26,7 +33,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
       </div>
     );
 
-  if (status === "unauthenticated" && pathname.startsWith("auth"))
+  if (status === "unauthenticated" && !pathname.startsWith("/auth"))
     return <SignIn />;
 
   if (
@@ -41,8 +48,6 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
 
   return (
     <div className="flex h-screen w-screen">
-      <Toaster />
-      <Cursor />
       <div className="flex h-full w-full flex-col">
         <NavBar />
         <main className="flex">
@@ -56,6 +61,8 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         </main>
         <Footer />
       </div>
+      {/* <Cursor /> */}
+      <Toaster />
     </div>
   );
 };

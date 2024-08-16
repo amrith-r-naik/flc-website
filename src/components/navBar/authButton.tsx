@@ -11,37 +11,48 @@ const AuthButton: FunctionComponent = () => {
   const router = useRouter();
   const { data: session } = useSession();
 
-  if (session)
-    return (
-      <Button
-        onClick={async () => {
-          const toastId = toast.loading("Signing out...");
-          signOut({
-            redirect: false,
-          })
-            .then(() => {
-              toast.dismiss(toastId);
-              toast.success("Signed out successfully");
-              void router.push("/");
+  return (
+    <>
+      {session ? (
+        <Button
+          onClick={async () => {
+            const toastId = toast.loading("Signing out...");
+            signOut({
+              redirect: false,
             })
-            .catch((e) => {
-              toast.dismiss(toastId);
-              console.error(e);
-              toast.error("Failed to sign out");
-            });
-        }}
-      >
-        <LogOut size={18} className="mr-2" /> Sign out
-      </Button>
-    );
-  else
-    return (
-      <Button asChild>
-        <Link href="/login">
-          <LogIn size={18} className="mr-2" /> Login
-        </Link>
-      </Button>
-    );
+              .then(() => {
+                toast.dismiss(toastId);
+                toast.success("Signed out successfully");
+                void router.push("/");
+              })
+              .catch((e) => {
+                toast.dismiss(toastId);
+                console.error(e);
+                toast.error("Failed to sign out");
+              });
+          }}
+        >
+          <LogOut size={18} className="mr-2" /> Sign out
+        </Button>
+      ) : (
+        <Button asChild>
+          <Link href="/login">
+            <LogIn size={18} className="mr-2" /> Login
+          </Link>
+        </Button>
+      )}
+      {session?.user.role === "ADMIN" && (
+        <Button asChild>
+          <Link href="/admin">Dashboard</Link>
+        </Button>
+      )}
+      {session?.user.role === "ORGANISER" && (
+        <Button asChild>
+          <Link href="/organiser">Dashboard</Link>
+        </Button>
+      )}
+    </>
+  );
 };
 
 export default AuthButton;

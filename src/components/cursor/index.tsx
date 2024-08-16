@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 
 export default function Cursor() {
   useEffect(() => {
-    console.log("hello");
     const cursor = document.querySelector(".cursor");
     const cursor2 = document.querySelector(".cursor2");
 

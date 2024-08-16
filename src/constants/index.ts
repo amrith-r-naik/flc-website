@@ -1,3 +1,13 @@
+// TODO(Omkar): Add meta data
+export const siteMetaData = {
+  title: "Finite Loop Club",
+  shortTitle: "FLC",
+  name: "Finite Loop Club",
+  email: "",
+  address: "",
+  author: "FLC Tech Team",
+};
+
 export const teamTabs = [
   "Year2017to2020",
   "Year2020to2021",

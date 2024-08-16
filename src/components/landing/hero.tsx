@@ -15,7 +15,7 @@ function Hero() {
           numquam{" "}
         </p>
 
-        <Button className=" hoverableInvisible border-2 border-yellow-400 bg-transparent from-amber-500/50 to-transparent transition-colors delay-150 hover:bg-gradient-to-tr">
+        <Button variant={"ghost"} className="border-2 border-yellow-400">
           <Link href="/register" className="flex items-center gap-2">
             <span>Register</span>
             <ArrowRight size={16} />

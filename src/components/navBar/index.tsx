@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 
 import AuthButton from "~/components/navBar/authButton";
+import SunMoonToggle from "~/components/navBar/sunMoonToggle";
 import { userLinks } from "~/constants";
 
 import Logo from "../logo";
@@ -43,9 +44,10 @@ const Navbar = () => {
           ))}
         </div>
         <div>
+          {/* <SunMoonToggle />  */}
           <ThemeToggleSwitch />
         </div>
-        <div className="hidden md:block">
+        <div className="hidden gap-3 md:flex">
           <AuthButton />
         </div>
 

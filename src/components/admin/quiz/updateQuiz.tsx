@@ -1,8 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { type inferProcedureOutput } from "@trpc/server";
 import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
+
+import { type AppRouter } from "~/server/api/root";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -19,26 +22,30 @@ import { Slider } from "~/components/ui/slider";
 import AddQuestion from "~/components/admin/quiz/addQuestion";
 import QuestionCard from "~/components/admin/quiz/questionCard";
 import { api } from "~/utils/api";
-import { createQuizZ } from "~/zod/quizZ";
+import { updateQuizZ } from "~/zod/quizZ";
 
-const CreateQuiz: FunctionComponent = ({}) => {
-  const createQuiz = api.quiz.createQuiz.useMutation();
+const UpdateQuiz: FunctionComponent<{
+  quiz: inferProcedureOutput<AppRouter["quiz"]["getQuizById"]>;
+}> = ({ quiz }) => {
+  const updateQuiz = api.quiz.updateQuiz.useMutation();
 
-  const formSchema = createQuizZ;
+  const formSchema = updateQuizZ;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      timeLimit: 1,
-      questions: [],
+      quizId: quiz.id,
+      title: quiz.title,
+      timeLimit: quiz.timeLimit,
+      questions: quiz.questions,
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Creating quiz...");
-    createQuiz.mutate(
+    const toastId = toast.loading("Updating quiz...");
+    updateQuiz.mutate(
       {
+        quizId: values.quizId,
         title: values.title,
         questions: values.questions,
         timeLimit: values.timeLimit,
@@ -46,7 +53,7 @@ const CreateQuiz: FunctionComponent = ({}) => {
       {
         onSuccess: () => {
           toast.dismiss(toastId);
-          toast.success("Quiz created successfully");
+          toast.success("Quiz updated successfully");
           form.reset();
         },
         onError: ({ message }) => {
@@ -61,7 +68,7 @@ const CreateQuiz: FunctionComponent = ({}) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className={"space-y-4"}>
         <FormMessage className="flex justify-center text-4xl text-white">
-          Create Quiz
+          Update Quiz
         </FormMessage>
 
         <FormField
@@ -133,10 +140,10 @@ const CreateQuiz: FunctionComponent = ({}) => {
           ))}
         </div>
 
-        <Button type="submit">Create Quiz</Button>
+        <Button type="submit">Update Quiz</Button>
       </form>
     </Form>
   );
 };
 
-export default CreateQuiz;
+export default UpdateQuiz;

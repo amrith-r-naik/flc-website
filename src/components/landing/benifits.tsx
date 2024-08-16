@@ -122,7 +122,7 @@ export function Benifits() {
         “ Why To join us ❞{" "}
       </h3>
 
-      <div className="w-full flex-1 overflow-hidden">
+      <div className="max-w-[100vw] flex-1 overflow-hidden">
         <Marquee pauseOnHover className="[--duration:25s]">
           {firstRow.map((benefit, index) => (
             <ReviewCard key={index} {...benefit} />

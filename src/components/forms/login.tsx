@@ -116,7 +116,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
           <p className="mb-4 text-center text-sm">
             Don&#39;t have an account?
             <strong className="underline">
-              <Link href="/auth/signup">Sign up </Link>{" "}
+              <Link href="/signup">Sign up </Link>
             </strong>
           </p>
         </div>

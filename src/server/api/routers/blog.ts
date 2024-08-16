@@ -1,4 +1,6 @@
 import { TRPCError } from "@trpc/server";
+import { blogImagesZ } from "prisma/schemaZ";
+import { z } from "zod";
 
 import {
   adminProcedure,
@@ -62,16 +64,26 @@ export const blogRouter = createTRPCRouter({
       orderBy: { createdAt: "desc" },
     });
   }),
-  getBlogById: protectedProcedure.input(getBlogsById).query(async ({ ctx, input }) => {
-    return await ctx.db.blog.findMany({
-      where: {
-        id: input.id
-      },
-      include: {
-        User: true
-      }
-    });
-  }),
+
+  getBlogById: protectedProcedure
+    .input(getBlogsById)
+    .query(async ({ ctx, input }) => {
+      const unparsedBlog = await ctx.db.blog.findUniqueOrThrow({
+        where: {
+          id: input.id,
+        },
+        include: {
+          User: true,
+        },
+      });
+
+      const images = z.array(blogImagesZ).safeParse(unparsedBlog.images);
+
+      return {
+        ...unparsedBlog,
+        images: images.success ? images.data : [],
+      };
+    }),
 
   // Update
   updateBlog: protectedProcedure

@@ -23,12 +23,18 @@ const getQuizResponseByIdZ = z.object({
   responseId: z.string(),
 });
 
+const getInfiniteQuizByMeZ = z.object({
+  cursor: z.string().nullish(),
+  take: z.number(),
+});
+
 const updateQuizZ = z.object({
-  quizId: z.string(),
-  title: z.string().optional(),
-  questions: z.array(quizQuestionZ).optional(),
-  timeLimit: z.number().positive().optional(),
-  maxScore: z.number().positive().optional(),
+  quizId: z.string().min(1, { message: "Please select a valid quiz" }),
+  title: z.string().min(3, { message: "Title must be atleast 3 characters" }),
+  questions: z
+    .array(quizQuestionZ)
+    .min(1, { message: "Atleast one question is required" }),
+  timeLimit: z.number().positive(),
 });
 
 const updateQuizStateZ = z.object({
@@ -43,6 +49,7 @@ export {
   createQuizZ,
   createQuizResponseZ,
   getQuizByIdZ,
+  getInfiniteQuizByMeZ,
   getQuizResponseByIdZ,
   updateQuizZ,
   updateQuizStateZ,

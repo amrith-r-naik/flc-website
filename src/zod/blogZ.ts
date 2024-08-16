@@ -1,26 +1,24 @@
 import { BlogState } from "@prisma/client";
+import { blogImagesZ } from "prisma/schemaZ";
 import { z } from "zod";
 
 const createBlogZ = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
-  discription: z.string(),
+  discription: z.string().min(3, "Discription must be at least 3 characters"),
   content: z.string().min(100, "Content must be at least 100 characters"),
-  readTime: z.number(),
-  words: z.number(),
-  images: z.array(z.string().url()).optional(),
+  readTime: z.number().positive(),
+  words: z.number().positive(),
+  images: z.array(blogImagesZ),
 });
 
 const updateBlogZ = z.object({
   blogId: z.string(),
-  title: z.string().min(3, "Title must be at least 3 characters").optional(),
-  discription: z.string().optional(),
-  readTime: z.number().optional(),
-  words: z.number().optional(),
-  content: z
-    .string()
-    .min(100, "Content must be at least 100 characters")
-    .optional(),
-  images: z.array(z.string().url()).optional(),
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  discription: z.string().min(3, "Discription must be at least 3 characters"),
+  content: z.string().min(100, "Content must be at least 100 characters"),
+  readTime: z.number().positive(),
+  words: z.number().positive(),
+  images: z.array(blogImagesZ),
 });
 
 const updateBlogStateZ = z.object({
@@ -33,7 +31,13 @@ const deleteBlogZ = z.object({
 });
 
 const getBlogsById = z.object({
-  id: z.string()
-})
+  id: z.string(),
+});
 
-export { deleteBlogZ, updateBlogStateZ, updateBlogZ, createBlogZ, getBlogsById };
+export {
+  deleteBlogZ,
+  updateBlogStateZ,
+  updateBlogZ,
+  createBlogZ,
+  getBlogsById,
+};

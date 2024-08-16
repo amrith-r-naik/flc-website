@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -35,6 +36,8 @@ interface Props {
 }
 
 const SignUpForm: FunctionComponent<Props> = ({ className }) => {
+  const router = useRouter();
+
   const { data: branches } = api.branch.getAllBranch.useQuery();
 
   const signUp = api.auth.signUp.useMutation();
@@ -69,10 +72,13 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
       {
         onSuccess: ({ emailSent }) => {
           toast.dismiss(toastId);
-          if (emailSent)
+          if (emailSent) {
             toast.success("Verification email sent! Please check your inbox");
-          else
+            void router.push("/");
+          } else {
             toast.success("Signed up successfully! Please verify your email");
+            void router.push("/send-verify-email");
+          }
         },
         onError: (error) => {
           toast.dismiss(toastId);
@@ -138,14 +144,6 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
                     className="size-6 bg-[#494949] sm:size-10"
                   />
                   <InputOTPSlot
-                    index={2}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={2}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
                     index={3}
                     className="size-6 bg-[#494949] sm:size-10"
                   />
@@ -155,10 +153,6 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
                   />
                   <InputOTPSlot
                     index={5}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={6}
                     className="size-6 bg-[#494949] sm:size-10"
                   />
                   <InputOTPSlot
@@ -271,7 +265,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           <p className="mb-4 text-center text-sm">
             Already have an account?
             <strong className="underline">
-              <Link href="/auth/login">LogIn </Link>{" "}
+              <Link href="/auth/login">LogIn </Link>
             </strong>
           </p>
         </div>
