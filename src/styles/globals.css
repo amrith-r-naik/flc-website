@@ -116,7 +116,32 @@
 
   .bg-gradient {
     background: rgb(36, 28, 0);
-    background: radial-gradient(circle at 100%, rgba(136, 112, 3, 0.6), rgba(0, 0, 0, 0) 45%);
+    background: radial-gradient(
+      circle at 100%,
+      rgba(136, 112, 3, 0.6),
+      rgba(0, 0, 0, 0) 45%
+    );
+  }
+
+  .bg-custom-gradient {
+    background: rgb(76, 67, 67);
+    background: linear-gradient(
+      90deg,
+      rgba(76, 67, 67, 1) 0%,
+      rgba(232, 222, 222, 1) 65%,
+      rgba(126, 125, 124, 1) 100%
+    );
+  }
+  .bg-card-gradient {
+    .bg-card-gradient {
+      background: rgb(53, 47, 47);
+      background: linear-gradient(
+        90deg,
+        rgba(76, 67, 67, 1) 0%,
+        rgb(130, 118, 118) 65%,
+        rgba(76, 67, 67, 1) 100%
+      );
+    }
   }
 }
 
@@ -167,7 +192,32 @@ body {
 
   .bg-gradient {
     background: rgb(36, 28, 0);
-    background: radial-gradient(circle at 100%, rgba(136, 112, 3, 0.6), rgba(0, 0, 0, 0) 45%);
+    background: radial-gradient(
+      circle at 100%,
+      rgba(136, 112, 3, 0.6),
+      rgba(0, 0, 0, 0) 45%
+    );
+  }
+
+  .bg-custom-gradient {
+    background: rgb(76, 67, 67);
+    background: linear-gradient(
+      90deg,
+      rgba(76, 67, 67, 1) 0%,
+      rgba(232, 222, 222, 1) 65%,
+      rgba(126, 125, 124, 1) 100%
+    );
+  }
+  .bg-card-gradient {
+    .bg-card-gradient {
+      background: rgb(53, 47, 47);
+      background: linear-gradient(
+        90deg,
+        rgba(76, 67, 67, 1) 0%,
+        rgb(130, 118, 118) 65%,
+        rgba(76, 67, 67, 1) 100%
+      );
+    }
   }
 }
 
@@ -206,5 +256,11 @@ canvas {
 }
 
 .radialgradient {
-  background: radial-gradient(circle at 50% -210%, #fbe737, #f5e74e 50%, #0e0f1100 75%, #0e0f1100 75%);
+  background: radial-gradient(
+    circle at 50% -210%,
+    #fbe737,
+    #f5e74e 50%,
+    #0e0f1100 75%,
+    #0e0f1100 75%
+  );
 }

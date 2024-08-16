@@ -78,7 +78,7 @@ function page() {
           <li
             key={year}
             onClick={() => handleYearClick(year)}
-            className={`cursor-pointer border-b-2 ${year === selectedYear ? "border-white" : "border-transparent"}`}
+            className={`cursor-pointer  ${year === selectedYear ? "bg-custom-gradient rounded-full p-1 text-[#6B003E]" : ""}`}
           >
             {year}
           </li>

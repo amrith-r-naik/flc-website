@@ -26,7 +26,7 @@ const Background = () => {
       autoPlay: true,
       background: {
         color: {
-          value: theme == "dark" ? "#000000" : "#ffffff",
+          value: theme == "dark" ? "#000000" : "#F3D0D7",
         },
         image: "",
         position: "",
@@ -205,7 +205,7 @@ const Background = () => {
           },
         },
         color: {
-          value: "#FFEA00",
+          value: theme == "dark" ? "#ffffff" : "#000000",
           animation: {
             h: {
               count: 0,
