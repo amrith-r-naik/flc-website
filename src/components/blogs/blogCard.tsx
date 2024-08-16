@@ -3,11 +3,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoEyeSharp } from "react-icons/io5";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
+
+import { api } from "~/utils/api";
+
 interface BlogCardProps {
   blog: Blog;
+  admin?: boolean;
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
+const BlogCard: React.FC<BlogCardProps> = ({ blog, admin }) => {
   const dateObj = new Date(blog.createdAt);
   const year = dateObj.getFullYear();
   const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(
@@ -15,6 +28,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
   );
   const day = dateObj.getDate();
 
+  const updateBlog = api.blog.updateBlogState.useMutation();
+  type BlogState = "PUBLISHED" | "DRAFT";
   return (
     <div className="hover:animate-background flex flex-col rounded-xl bg-gray-700 from-gray-700 via-gray-500 to-gray-700 p-0.5 shadow-xl transition hover:bg-gradient-to-r hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s] md:flex-row">
       <div>
@@ -22,7 +37,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
           <Image
             alt="Blog Image"
             className="h-full w-full rounded-xl object-cover"
-            src={""}
+            src={""} // Add your image source here
             width={300}
             height={300}
           />
@@ -44,19 +59,42 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
 
           <Link href={`/blog/${blog.id}`}>
             <p className="line-clamp-3 text-sm/relaxed text-gray-300">
-              {blog.content}
+              {blog.discription}
             </p>
           </Link>
 
           <div className="mt-3 flex items-center gap-2 text-xs text-gray-300">
             <span className="inline-flex items-center gap-1">
               <IoEyeSharp />
-
               <span className="hidden md:inline">views</span>
             </span>
             |{" "}
           </div>
         </div>
+
+        {admin && (
+          <div className="p-4">
+            <Select
+              onValueChange={async (value) => {
+                await updateBlog.mutateAsync({
+                  blogId: blog.id,
+                  blogState: value as BlogState,
+                });
+              }}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select State" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>State</SelectLabel>
+                  <SelectItem value="PUBLISHED">PUBLISHED</SelectItem>
+                  <SelectItem value="DRAFT">DRAFT</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </div>
     </div>
   );
