@@ -9,7 +9,7 @@ function Blogs() {
   const { data: myBlogs } = api.blog.getMyBlogs.useQuery();
 
   return (
-    <Tabs defaultValue="blogs" className="w-full">
+    <Tabs defaultValue="blogs" className="w-full mt-4">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="blogs">Blogs</TabsTrigger>
         <TabsTrigger value="your-blogs">Your Blogs</TabsTrigger>

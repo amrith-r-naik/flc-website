@@ -330,10 +330,13 @@ model FeedbackResponse {
 model Blog {
   id String @id @unique @default(cuid())
 
-  title     String
-  content   String
-  images    Json[] // blogImagesZ
-  blogState BlogState @default(DRAFT)
+  title       String
+  discription String
+  content     String
+  readTime    Int
+  words       Int
+  images      Json[] // blogImagesZ
+  blogState   BlogState @default(DRAFT)
 
   userId Int
   User   User @relation(fields: [userId], references: [id])

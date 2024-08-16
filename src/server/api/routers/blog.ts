@@ -12,6 +12,7 @@ import {
   updateBlogZ,
   deleteBlogZ,
   updateBlogStateZ,
+  getBlogsById,
 } from "~/zod/blogZ";
 
 export const blogRouter = createTRPCRouter({
@@ -22,7 +23,10 @@ export const blogRouter = createTRPCRouter({
       await ctx.db.blog.create({
         data: {
           title: input.title,
+          discription: input.discription,
           content: input.content,
+          readTime: input.readTime,
+          words: input.words,
           images: input.images,
           blogState: "DRAFT",
           User: {
@@ -58,6 +62,16 @@ export const blogRouter = createTRPCRouter({
       orderBy: { createdAt: "desc" },
     });
   }),
+  getBlogById: protectedProcedure.input(getBlogsById).query(async ({ ctx, input }) => {
+    return await ctx.db.blog.findMany({
+      where: {
+        id: input.id
+      },
+      include: {
+        User: true
+      }
+    });
+  }),
 
   // Update
   updateBlog: protectedProcedure
@@ -77,8 +91,11 @@ export const blogRouter = createTRPCRouter({
         where: { id: input.blogId },
         data: {
           title: input.title,
+          discription: input.discription,
           content: input.content,
           images: input.images,
+          readTime: input.readTime,
+          words: input.words,
         },
       });
     }),
