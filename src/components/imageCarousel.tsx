@@ -1,6 +1,6 @@
-import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import React from "react";
 
 interface ImageCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   images: string[];

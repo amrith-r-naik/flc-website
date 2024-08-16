@@ -2,7 +2,6 @@ import { type NextPage } from "next";
 import Image from "next/image";
 import React from "react";
 
-import Background from "~/components/background";
 import SignUpForm from "~/components/forms/signup";
 
 const SignUp: NextPage = () => {

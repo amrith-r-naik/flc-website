@@ -1,6 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState, type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
@@ -8,6 +6,7 @@ import { toast } from "sonner";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
+import { Password } from "~/components/ui/custom/password";
 import {
   Form,
   FormControl,
@@ -16,12 +15,10 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
-import { Password } from "~/components/ui/password";
 
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
-import { ResetPasswordZ } from "~/zod/authZ";
+import { resetPasswordZ } from "~/zod/authZ";
 
 interface Props {
   className?: string;
@@ -30,50 +27,55 @@ interface Props {
 const Resetpassword: FunctionComponent<Props> = ({ className }) => {
   const router = useRouter();
   const { token } = router.query;
-  const [resetPasswordToken, setResetPasswordToken] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [resetPasswordToken, setResetPasswordToken] = useState("");
 
-  const resetPassword = api.auth.resetPassword.useMutation({
-    onSuccess: async () => {
-      toast.success("Password reset successfully!");
-      setLoading(false)
-      router.push('/auth/login')
-    },
-    onError: ({ message }) => {
-      toast.dismiss();
-      toast.error(message);
-    },
+  const resetPassword = api.auth.resetPassword.useMutation();
 
-  })
-  const form = useForm<z.infer<typeof ResetPasswordZ>>({
-    resolver: zodResolver(ResetPasswordZ),
+  const formSchema = resetPasswordZ;
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       token: "",
-      newPassword: ""
+      newPassword: "",
     },
   });
 
   useEffect(() => {
     if (token) {
-        // Handle case where token is an array of strings
-        const tokenString = Array.isArray(token) ? token[0] : token;
-        console.log("token string: ", tokenString);
-        setResetPasswordToken(tokenString!);
+      // Handle case where token is an array of strings
+      const tokenString = Array.isArray(token) ? token[0] : token;
+      console.log("token string: ", tokenString);
+      setResetPasswordToken(tokenString!);
     }
-}, [token]);
+  }, [token]);
 
-useEffect(() => {
+  useEffect(() => {
     if (resetPasswordToken) {
-        console.log("verificationToken: ", resetPasswordToken);
+      console.log("verificationToken: ", resetPasswordToken);
     }
-}, [resetPasswordToken]);
+  }, [resetPasswordToken]);
 
-  const onSubmit = (values: z.infer<typeof ResetPasswordZ>) => {
-    resetPassword.mutate({
-      token: resetPasswordToken,
-      newPassword: values.newPassword ,
-      confirmPassword:values.confirmPassword
-    })
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const toastId = toast.loading("Resetting password...");
+    resetPassword.mutate(
+      {
+        token: resetPasswordToken,
+        newPassword: values.newPassword,
+        confirmPassword: values.confirmPassword,
+      },
+      {
+        onSuccess: () => {
+          toast.dismiss(toastId);
+          toast.success("Password reset successfully!");
+          void router.push("/auth/login");
+        },
+        onError: ({ message }) => {
+          toast.dismiss(toastId);
+          toast.error(message);
+        },
+      },
+    );
   };
 
   return (
@@ -92,7 +94,7 @@ useEffect(() => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
-              <FormControl>
+              <FormControl className="bg-[#494949] ">
                 <Password placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
@@ -105,7 +107,7 @@ useEffect(() => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
-              <FormControl>
+              <FormControl className="bg-[#494949] ">
                 <Password placeholder="Confirm Password" {...field} />
               </FormControl>
               <FormMessage />

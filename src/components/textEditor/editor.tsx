@@ -1,21 +1,17 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
-
-import { api } from "~/utils/api";
-import { type createEventZ } from "~/zod/eventZ";
 
 import { modules, devices } from "./constants";
 
+// Cannot get page data during build as react-quill referd to Document object
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
 });
 
 export default function Editor({
-  eventId,
   id,
-  value,
   FUNC,
 }: {
   eventId?: number;
@@ -45,18 +41,6 @@ export default function Editor({
       FUNC(event);
     }
     console.log(text);
-  };
-
-  // storing content in db
-  const onConfirmEdit = async () => {
-    try {
-      console.log("Event description updated successfully!");
-      alert(
-        `Event description updated successfully! \n id :${eventId ?? "cly358cjt0000whuimrz5so25"}`,
-      );
-    } catch (error) {
-      console.error("Error updating event description:", error);
-    }
   };
 
   // setting size of display when its changed with mouse
@@ -106,7 +90,7 @@ export default function Editor({
             style={{ borderRadius: "0px", border: "none" }}
             onChange={onChange}
             modules={modules}
-            className="m-3 m-auto  border-hidden bg-white text-black sm:m-auto sm:mx-3 sm:w-full md:m-auto   md:w-full lg:w-full"
+            className="m-3  border-hidden bg-white text-black sm:m-auto sm:mx-3 sm:w-full md:m-auto   md:w-full lg:w-full"
           />
         </div>
         <div className="md:2/3 mx-3 flex w-full flex-col justify-between sm:w-[90%] md:m-auto md:w-[90%] md:flex-row lg:m-auto lg:w-1/2">
@@ -165,7 +149,7 @@ export default function Editor({
           <div
             dangerouslySetInnerHTML={{ __html: text }}
             id="display"
-            className="ql-editor  m-auto mb-16 h-screen  resize overflow-auto rounded-sm border border-4 bg-white  text-black"
+            className="ql-editor  m-auto mb-16 h-screen  resize overflow-auto rounded-sm border-4 bg-white  text-black"
             onMouseDown={setSizeOfDisplay}
             style={{ width: displayWidth, height: displayHeight }}
           ></div>

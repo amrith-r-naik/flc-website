@@ -1,20 +1,17 @@
 import { TRPCError } from "@trpc/server";
 
-import { checkOrganiser } from "~/utils/helper";
 import { toggleTeamAttendanceZ, toggleAttendanceZ } from "~/zod/attendanceZ";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import {
+  createTRPCRouter,
+  organiserProcedure,
+  protectedProcedure,
+} from "../trpc";
 
 export const attendanceRouter = createTRPCRouter({
-  toggleAttendance: protectedProcedure
+  toggleAttendance: organiserProcedure
     .input(toggleAttendanceZ)
     .mutation(async ({ ctx, input }) => {
-      await checkOrganiser(
-        ctx.session.user.id,
-        input.eventId,
-        ctx.session.user.role,
-      );
-
       const user = await ctx.db.user.findUnique({
         where: {
           id: input.userId,

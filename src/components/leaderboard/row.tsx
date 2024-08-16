@@ -1,4 +1,5 @@
 import React from "react";
+
 import AvatarCustom from "../avatar";
 
 interface rowProps {
@@ -16,7 +17,7 @@ const Row = ({ name, usn, eventsAttended, xp, className }: rowProps) => {
     >
       <div className="flex flex-1 items-center justify-center gap-2  border-orange-700 py-4">
         <div className="hidden md:block">
-          <AvatarCustom height={40} width={40} />
+          <AvatarCustom src="" height={40} width={40} />
         </div>
         <p className="font-semibol text-center text-xs sm:text-base md:text-lg">
           {name}

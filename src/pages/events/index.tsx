@@ -2,17 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 
-import Card from "~/components/Card";
-import CloudinaryUpload from "~/components/cloudinary/cloudinaryUpload";
-import { uploadTypeEnum } from "~/components/cloudinary/cloudinaryUpload";
 import EventCard from "~/components/eventCard";
-import Loader from "~/components/Loader/Loader";
-import RadioButtons from "~/components/RadioButtons";
+import Loader from "~/components/loader";
 import { api } from "~/utils/api";
 
-import Background from "./ParticlesBackground";
-
-function page() {
+function Events() {
+  const [selectedYear, setSelectedYear] = useState<string>("2024");
   const years: string[] = [
     "2016",
     "2017",
@@ -24,7 +19,6 @@ function page() {
     "2023",
     "2024",
   ];
-  const [selectedYear, setSelectedYear] = useState<string>("2024");
 
   const handleYearClick = (year: string) => {
     setSelectedYear(year);
@@ -36,6 +30,8 @@ function page() {
     error,
   } = api.event.getAllEventsForUser.useQuery({ year: selectedYear });
 
+  console.log(events);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     console.log(selectedYear);
   }, [selectedYear]);
@@ -56,19 +52,6 @@ function page() {
 
   return (
     <>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          overflow: "hidden",
-          zIndex: -1,
-        }}
-      >
-        <Background />
-      </div>
       <div className="flex justify-center">
         <h1 className="text-gradient mt-8 text-7xl font-bold">Events</h1>
       </div>
@@ -87,15 +70,15 @@ function page() {
 
       {events && events.length > 0 ? (
         <div className="mx-auto  mb-4 grid max-w-7xl grid-cols-1 gap-10 px-5 md:grid-cols-2 xl:grid-cols-3">
-          {events.map((event, index) => (
-            <EventCard data={event} />
+          {events.map((event, idx) => (
+            <EventCard key={idx} data={event} />
           ))}
         </div>
       ) : (
         <div className="flex justify-center">No events available</div>
       )}
 
-      {/* 
+      {/*
       <div className="mx-2 mt-8 flex flex-wrap justify-center gap-20 md:mx-8">
         {events && events.length > 0 ? (
           <>
@@ -111,4 +94,4 @@ function page() {
   );
 }
 
-export default page;
+export default Events;

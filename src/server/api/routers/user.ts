@@ -1,11 +1,18 @@
 import { TRPCError } from "@trpc/server";
 
 import { somethingWentWrong } from "~/utils/error";
-import { editProfileZ } from "~/zod/userZ";
+import { editProfileZ, getUserZ } from "~/zod/userZ";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
+  getMe: protectedProcedure.query(async ({ ctx }) => {
+    return (await ctx.db.user.findUnique({
+      where: { id: ctx.session.user.id },
+      include: { Branch: true },
+    }))!;
+  }),
+
   editUser: protectedProcedure
     .input(editProfileZ)
     .mutation(async ({ ctx, input }) => {
@@ -24,30 +31,22 @@ export const userRouter = createTRPCRouter({
       return { status: "success", user };
     }),
 
-  getUser: protectedProcedure.query(async ({ ctx }) => {
+  getUser: protectedProcedure.input(getUserZ).query(async ({ ctx, input }) => {
     try {
-      const user = await ctx.db.user.findUnique({
-        where: { id: ctx.session.user.id },
+      return await ctx.db.user.findUniqueOrThrow({
+        where: { id: input?.userId ?? ctx.session.user.id },
         include: {
           Attendance: true,
           Certificate: true,
           Organiser: true,
           Branch: true,
-          UserFeedback: true,
+          FeedbackResponse: true,
           UserLink: true,
           ActivityPoint: true,
           Team: true,
           QuizResponse: true,
         },
       });
-
-      if (!user)
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "User not found",
-        });
-
-      return user;
     } catch (e) {
       console.log(e);
       somethingWentWrong(e);

@@ -6,7 +6,6 @@ import { api } from "~/utils/api";
 
 export default function Home() {
   const sendVerificationEmail = api.auth.sendVerifyEmail.useMutation();
-  const resetPassword = api.auth.resetPassword.useMutation();
   const verifyEmail = api.auth.verifyEmail.useMutation();
   const signUp = api.auth.signUp.useMutation();
 
@@ -28,8 +27,8 @@ export default function Home() {
         Sign Up
       </button>
       <button
-        onClick={() => {
-          signIn("credentials", {
+        onClick={async () => {
+          await signIn("credentials", {
             email: "rakshithx09@nmamit.in",
             password: "password",
             callbackUrl: "http://localhost:3000/profile",

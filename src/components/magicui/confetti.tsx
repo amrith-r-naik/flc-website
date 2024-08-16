@@ -1,3 +1,9 @@
+import confetti from "canvas-confetti";
+import type {
+  GlobalOptions as ConfettiGlobalOptions,
+  CreateTypes as ConfettiInstance,
+  Options as ConfettiOptions,
+} from "canvas-confetti";
 import type { ReactNode } from "react";
 import React, {
   createContext,
@@ -8,14 +14,8 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import confetti from "canvas-confetti";
-import type {
-  GlobalOptions as ConfettiGlobalOptions,
-  CreateTypes as ConfettiInstance,
-  Options as ConfettiOptions,
-} from "canvas-confetti";
 
-import {  type ButtonProps } from "~/components/ui/button";
+import { type ButtonProps } from "~/components/ui/button";
 
 type Api = {
   fire: (options?: ConfettiOptions) => void;
@@ -32,7 +32,6 @@ export type ConfettiRef = Api | null;
 
 const ConfettiContext = createContext<Api>({} as Api);
 
-// eslint-disable-next-line react/display-name
 const Confetti = forwardRef<ConfettiRef, Props>((props, ref) => {
   const {
     options,
@@ -93,6 +92,7 @@ const Confetti = forwardRef<ConfettiRef, Props>((props, ref) => {
     </ConfettiContext.Provider>
   );
 });
+Confetti.displayName = "Confetti";
 
 interface ConfettiButtonProps extends ButtonProps {
   options?: ConfettiOptions &

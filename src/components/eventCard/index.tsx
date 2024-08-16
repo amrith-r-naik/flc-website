@@ -77,8 +77,7 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
     <div
       onClick={() => router.push(`/event/${data.id}`)}
       data-scroll
-      className={`${styles.card}  bg-custom-gradient shadow-3xl h-full w-full cursor-pointer
-         rounded-2xl p-2 py-3 shadow-white`}
+      className={`${styles.card}  bg-custom-gradient shadow-3xl h-full w-full cursor-pointer rounded-2xl p-2 py-3 shadow-white`}
     >
       <div
         className={`${styles.top_section} bg-custom-gradient flex flex-col shadow-2xl`}

@@ -6,7 +6,6 @@ import { db } from "~/server/db";
 import { compareHashedPassword, getUserByEmail } from "~/utils/auth/auth";
 import { hashToken } from "~/utils/auth/hashToken";
 import { generateTokens } from "~/utils/auth/jwt";
-import { LoginZ } from "~/zod/authZ";
 
 const addVerificationTokenToWhitelist = async ({
   userId,

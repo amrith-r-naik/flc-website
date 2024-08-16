@@ -1,30 +1,32 @@
 import { sendCertificate } from "~/utils/certificationEmail/email";
-import { checkOrganiser, findEventIfExistById } from "~/utils/helper";
 import {
   getAllCertificationsByUserIdZ,
   getCertificationDetailsByIdZ,
   issueCertificateByEventIdZ,
 } from "~/zod/certificate";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, organiserProcedure, publicProcedure } from "../trpc";
 
 export const certificateRouter = createTRPCRouter({
-  issueCertificatesForWinnersAndParticipants: protectedProcedure
+  issueCertificatesForWinnersAndParticipants: organiserProcedure
     .input(issueCertificateByEventIdZ)
     .mutation(async ({ input, ctx }) => {
-      const { eventId } = input;
-      const reqUser = ctx.session.user;
-      await checkOrganiser(reqUser.id, input.eventId, reqUser.role);
+      const event = await ctx.db.event.findUniqueOrThrow({
+        where: { id: input.eventId },
+        include: { Winner: true },
+      });
 
-      const event = await findEventIfExistById(eventId);
-      // Create certificates for each winner and send email
       const winners = await ctx.db.winner.findMany({
-        where: { eventId },
+        where: {
+          Event: {
+            id: input.eventId,
+          },
+        },
         include: {
           Team: {
             include: {
               Members: { select: { id: true, name: true, email: true } },
-            }, // include email
+            },
           },
         },
       });
@@ -53,18 +55,29 @@ export const certificateRouter = createTRPCRouter({
           return certificates;
         }),
       );
-      // Issue for Participents
+
       const teams = await ctx.db.team.findMany({
-        where: { eventId, isConfirmed: true, hasAttended: true },
-        include: { Members: { select: { id: true, name: true, email: true } } },
+        where: {
+          Event: { id: input.eventId },
+          isConfirmed: true,
+          hasAttended: true,
+        },
+
+        include: { Members: true },
       });
 
       const existingCertificates = await ctx.db.certificate.findMany({
-        where: { eventId },
+        where: {
+          Event: {
+            id: input.eventId,
+          },
+        },
       });
+
       const existingUserEventIds = existingCertificates.map(
         (cert) => cert.userId,
       );
+
       const certificates = [];
 
       for (const team of teams) {

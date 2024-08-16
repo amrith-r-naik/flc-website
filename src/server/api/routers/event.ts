@@ -1,7 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { findEventIfExistById } from "~/utils/helper";
 import {
   createEventZ,
   deleteEventZ,
@@ -42,7 +41,10 @@ export const eventRouter = createTRPCRouter({
     .input(updateEventZ)
     .mutation(async ({ ctx, input }) => {
       try {
-        const existingEvent = await findEventIfExistById(input.id ?? "");
+        const existingEvent = await ctx.db.event.findUniqueOrThrow({
+          where: { id: input.id },
+        });
+
         if (existingEvent.state !== "DRAFT") {
           //Can only be edited when in draft
           throw new TRPCError({
@@ -79,7 +81,9 @@ export const eventRouter = createTRPCRouter({
     .input(deleteEventZ)
     .mutation(async ({ ctx, input }) => {
       try {
-        const eventexists = await findEventIfExistById(input.eventId);
+        const eventexists = await ctx.db.event.findUniqueOrThrow({
+          where: { id: input.eventId },
+        });
 
         if (eventexists.state !== "DRAFT") {
           throw new Error("Event can't be deleted unless in draft");
@@ -115,7 +119,9 @@ export const eventRouter = createTRPCRouter({
     .input(toggleEventLegacyZ)
     .mutation(async ({ input, ctx }) => {
       try {
-        const event = await findEventIfExistById(input.eventId);
+        const event = await ctx.db.event.findUniqueOrThrow({
+          where: { id: input.eventId },
+        });
         await ctx.db.event.update({
           where: { id: input.eventId },
           data: {

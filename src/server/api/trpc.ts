@@ -133,6 +133,27 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
   });
 });
 
+export const organiserProcedure = t.procedure.use(({ ctx, next }) => {
+  if (!ctx.session || !ctx.session.user)
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+
+  if (
+    ctx.session.user.role !== "ORGANISER" &&
+    ctx.session.user.role !== "ADMIN"
+  )
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Only admins can perform this action",
+    });
+
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable and ensures `user` is an ORGANISER or ADMIN
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
+
 export const adminProcedure = t.procedure.use(({ ctx, next }) => {
   if (!ctx.session || !ctx.session.user)
     throw new TRPCError({ code: "UNAUTHORIZED" });

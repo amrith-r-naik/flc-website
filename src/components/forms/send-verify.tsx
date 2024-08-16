@@ -17,7 +17,7 @@ import { Input } from "~/components/ui/input";
 
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
-import { verifyEmailFormZ } from "~/zod/formSchemaZ";
+import { sendVerifyEmailZ } from "~/zod/authZ";
 
 interface Props {
   className?: string;
@@ -26,7 +26,7 @@ interface Props {
 const SendVerifyEmailForm: FunctionComponent<Props> = ({ className }) => {
   const sendVerificationEmail = api.auth.sendVerifyEmail.useMutation();
 
-  const formSchema = verifyEmailFormZ;
+  const formSchema = sendVerifyEmailZ;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,16 +36,18 @@ const SendVerifyEmailForm: FunctionComponent<Props> = ({ className }) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const toastId = toast.loading("Sending verification email");
     sendVerificationEmail.mutate(
       {
         email: values.email,
       },
       {
         onSuccess: () => {
-          toast.success("Verification email sent successfully");
-          toast.info("Please check your email");
+          toast.dismiss(toastId);
+          toast.success("Verification email sent! Please check your email");
         },
         onError: ({ message }) => {
+          toast.dismiss(toastId);
           toast.error(message);
         },
       },

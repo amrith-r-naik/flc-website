@@ -1,5 +1,11 @@
 import { z } from "zod";
 
+const getUserZ = z
+  .object({
+    userId: z.number().or(z.nan().transform(() => undefined)),
+  })
+  .optional();
+
 const editProfileZ = z.object({
   id: z.number(),
   name: z.string().optional(),
@@ -10,4 +16,4 @@ const editProfileZ = z.object({
   image: z.string().optional(),
 });
 
-export { editProfileZ };
+export { editProfileZ, getUserZ };
