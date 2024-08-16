@@ -9,14 +9,16 @@ function Blogs() {
   const { data: myBlogs } = api.blog.getMyBlogs.useQuery();
 
   return (
-    <Tabs defaultValue="blogs" className="w-full mt-4">
+    <Tabs defaultValue="blogs" className="mt-4 w-full">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="blogs">Blogs</TabsTrigger>
         <TabsTrigger value="your-blogs">Your Blogs</TabsTrigger>
       </TabsList>
       <TabsContent value="blogs">
         <div className="content-container flex flex-col gap-6">
-          {blogs?.map((blog, index) => <BlogCard key={index} blog={blog} />)}
+          {blogs?.map((blog, index) => (
+            <BlogCard key={index} blog={blog} admin={false} />
+          ))}
         </div>
       </TabsContent>
       <TabsContent value="your-blogs">
@@ -24,7 +26,9 @@ function Blogs() {
           <div className="mb-4">
             <Button>Add Blog</Button>
           </div>
-          {myBlogs?.map((blog, index) => <BlogCard key={index} blog={blog} />)}
+          {myBlogs?.map((blog, index) => (
+            <BlogCard key={index} blog={blog} admin={false} />
+          ))}
         </div>
       </TabsContent>
     </Tabs>
