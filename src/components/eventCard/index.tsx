@@ -97,7 +97,7 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
             <div
               className={`${
                 styles.social_media
-              } items-center text-center font-bold uppercase text-[#6B003E] ${
+              } items-center rounded-full  text-center font-bold uppercase text-[#6B003E] ${
                 data.category?.toLowerCase() === "non_technical"
                   ? "text-[0.9rem]"
                   : "text-[1.05rem]"
@@ -126,7 +126,7 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
         className={`flex w-full flex-col items-center justify-center gap-3 pt-3`}
       >
         <span
-          className={`text-bg-card-gradient flex w-fit items-center justify-center px-2 text-center text-xl text-white `}
+          className={`text-bg-card-gradient flex w-fit items-center justify-center px-2 text-center text-xl text-[#6B003E] `}
         >
           {data.name}
         </span>
@@ -134,7 +134,7 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
           {getEventAttributes().map((attr, i) =>
             attr.name ? (
               <div
-                className="bg-card-gradient flex w-full items-center gap-2 rounded-full border border-[#FF94D2]/40 p-1 px-2 text-left "
+                className=" flex w-full items-center gap-2 rounded-full bg-[#7e7d7c] p-1 px-2 text-left "
                 key={i}
               >
                 <attr.Icon />
@@ -149,7 +149,7 @@ const EventCard = ({ data }: { data: Partial<Event> }) => {
         </div>
         <div className="w-full">
           <Link href={`/event/${data.id}`}>
-            <button className="bg-card-gradient mt-0 flex w-full shrink-0 items-center justify-center gap-2 rounded-full  border border-[#FF94D2]/40 py-2 text-lg capitalize text-white transition-all duration-300 hover:scale-[1.02] hover:brightness-75">
+            <button className=" mt-0 flex w-full shrink-0 items-center justify-center gap-2 rounded-full border  border-[#FF94D2]/40 bg-[#7e7d7c] py-2 text-lg capitalize text-white transition-all duration-300 hover:scale-[1.02] hover:bg-[#7e7d7c]">
               <IoIosPlayCircle />
               <span className="z-10 text-white brightness-100"> Register</span>
             </button>
