@@ -1,157 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
-export default function Cursor() {
+import CursorClass from "~/components/cursor/Cursor";
+
+const Cursor = () => {
+  const cursorRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const cursor = document.querySelector(".cursor");
-    const cursor2 = document.querySelector(".cursor2");
+    new CursorClass();
+  });
 
-    const handleMouseMove = (e: MouseEvent) => {
-      cursor?.setAttribute(
-        "style",
-        `top: ${e.clientY}px; left: ${e.clientX}px;`,
-      );
-      cursor2?.setAttribute(
-        "style",
-        `top: ${e.clientY}px; left: ${e.clientX}px;`,
-      );
-    };
+  // useEffect(() => {
+  //   const onMouseMove = (e: MouseEvent) => {
+  //     if (!cursorRef.current) return;
+  //     cursorRef.current.style.top = `${e.clientY}px`;
+  //     cursorRef.current.style.left = `${e.clientX}px`;
+  //   };
 
-    const handleMouseEnter = () => {
-      cursor?.classList.add("scale-up");
-      cursor2?.classList.add("scale-down");
-    };
+  //   window.addEventListener("mousemove", onMouseMove);
 
-    const handleMouseLeave = () => {
-      cursor?.classList.remove("scale-up");
-      cursor2?.classList.remove("scale-down");
-    };
-
-    const makeInvisible = () => {
-      cursor?.classList.add("invisible");
-      cursor2?.classList.add("invisible");
-    };
-    const makeVisible = () => {
-      setTimeout(() => {
-        cursor?.classList.remove("invisible");
-        cursor2?.classList.remove("invisible");
-      }, 200); // 200 milliseconds = 0.2 seconds
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-
-    const hoverableElements = document.querySelectorAll(".hoverable");
-    const hoverInvisibleElements = document.querySelectorAll(
-      ".hoverableInvisible",
-    );
-
-    hoverableElements.forEach((element) => {
-      element.addEventListener("mouseenter", handleMouseEnter);
-      element.addEventListener("mouseleave", handleMouseLeave);
-    });
-
-    hoverInvisibleElements.forEach((element) => {
-      element.addEventListener("mouseenter", makeInvisible);
-      element.addEventListener("mouseleave", makeVisible);
-    });
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      hoverableElements.forEach((element) => {
-        element.removeEventListener("mouseenter", handleMouseEnter);
-        element.removeEventListener("mouseleave", handleMouseLeave);
-      });
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("mousemove", onMouseMove);
+  //   };
+  // });
 
   return (
-    <div>
-      <style>
-        {`
-        * {
-          cursor: none;
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
+    <>
+      <style jsx>{`
+        #cursor.is-locked {
+          transition-property: width, height, left, top, border-radius;
         }
 
-        h1 {
-          font-family: Montserrat;
-          font-size: 40px;
+        #cursor.cursor--text {
+          background: #008fff;
+          width: 3px !important;
+          border-radius: 2px !important;
         }
-
-        a {
-          font-family: Montserrat;
-          position: relative;
-          text-decoration: none;
-        }
-
-        a:after {
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 2px;
-          display: white;
-          margin-top: 0px;
-          left: 0%;
-          transition: width .3s ease;
-        }
-
-        a:hover:after {
-          width: 100%;
-          left: 0%;
-        }
-
-        .cursor {
-          width: 20px;
-          height: 20px;
-          border-radius: 100%;
-          border: 0px solid white;
-          transition: all 200ms ease-out;
-          position: fixed;
-          pointer-events: none;
-          left: 0;
-          top: 0;
-          transform: translate(-50%, -50%);
-        }
-
-        .cursor2 {
-          width: 20px;
-          height: 20px;
-          margin:auto;
-          border-radius: 100%;
-          background-color: white;
-          opacity: .3;
-          position: fixed;
-          transform: translate(-50%, -50%);
-          pointer-events: none;
-          transition: width .3s, height .3s, opacity .3s;
-        }
-
-        .hover {
-          background-color: red;
-          opacity: 0.5;
-        }
-
-        .scale-up {
-          transform: translate(-50%, -50%) scale(1);
-          box-shadow: 0 0 20px 30px rgba(255, 255, 255, 0.5); /* Thicker shadow */
-
-        }
-
-        .scale-down {
-          transform: translate(-50%, -50%) scale(0.5);
-
-        }
-
-        .cursorinnerhover {
-          width: 50px;
-          height: 50px;
-          opacity: .5;
-        }`}
-      </style>
-
-      <div className="cursor z-50"></div>
-      <div className="cursor2 z-50"></div>
-    </div>
+      `}</style>
+      <div
+        id="cursor"
+        className="pointer-events-none absolute z-[99999] size-9 -translate-x-2/4 -translate-y-2/4 rounded-full bg-[#c8c8ff91] transition-all duration-100 ease-out"
+      />
+    </>
   );
-}
+};
+
+export default Cursor;

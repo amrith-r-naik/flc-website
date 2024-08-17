@@ -37,3 +37,5 @@ export const userLinks = [
   { label: "Blogs", url: "/blogs" },
   { label: "Team", url: "/team" },
 ];
+
+const navLinks = [];
