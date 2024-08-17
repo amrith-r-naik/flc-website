@@ -7,7 +7,6 @@ import SunMoonToggle from "~/components/navBar/sunMoonToggle";
 import { userLinks } from "~/constants";
 
 import Logo from "../logo";
-import ThemeToggleSwitch from "../themeToggleSwitch/index.tsx";
 import MobileNav from "./mobileNav";
 
 const Navbar = () => {
@@ -16,8 +15,7 @@ const Navbar = () => {
   const activePath = userLinks.find((link) => link.url === router.pathname);
 
   return (
-    <nav className="sticky left-0 top-0 z-40 flex  min-h-8 w-full items-center border border-border  bg-primary-foreground/5  bg-clip-padding px-[8%] py-3 backdrop-blur-lg backdrop-filter sm:px-[6%] sm:py-5 ">
-      {" "}
+    <nav className="fixed top-0 z-40 flex min-h-16 w-full items-center justify-center border-b border-border bg-primary-foreground/5 bg-clip-padding backdrop-blur-lg backdrop-filter sm:px-[6%] sm:py-5 ">
       <Link href="/" className="flex cursor-pointer items-center">
         <Logo />
         <p className="ml-3 hidden text-sm font-bold lg:block  lg:text-2xl">
@@ -43,10 +41,9 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <div>
-          {/* <SunMoonToggle />  */}
-          <ThemeToggleSwitch />
-        </div>
+
+        <SunMoonToggle />
+
         <div className="hidden gap-3 md:flex">
           <AuthButton />
         </div>

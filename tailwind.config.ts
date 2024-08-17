@@ -19,6 +19,44 @@ const config = {
       },
     },
     extend: {
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        marquee: "marquee var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+        orbit: "orbit calc(var(--duration)*1s) linear infinite",
+      },
+      backgroundImage: {
+        "glassy-gradient":
+          "linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(48, 25, 52, 0.8), rgba(20, 20, 20, 0.8))",
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        "toggle-moon": `
+          3em 2.5em 0 0em #d9fbff inset,
+          rgba(255, 255, 255, 0.1) 0em -7em 0 -4.5em,
+          rgba(255, 255, 255, 0.1) 3em 7em 0 -4.5em,
+          rgba(255, 255, 255, 0.1) 2em 13em 0 -4em,
+          rgba(255, 255, 255, 0.1) 6em 2em 0 -4.1em,
+          rgba(255, 255, 255, 0.1) 8em 8em 0 -4.5em,
+          rgba(255, 255, 255, 0.1) 6em 13em 0 -4.5em,
+          rgba(255, 255, 255, 0.1) -4em 7em 0 -4.5em,
+          rgba(255, 255, 255, 0.1) -1em 10em 0 -4.5em`,
+        "toggle-sun": `
+          3em 3em 0 5em #fff inset,
+          0 -5em 0 -2.7em #fff,
+          3.5em -3.5em 0 -3em #fff,
+          5em 0 0 -2.7em #fff,
+          3.5em 3.5em 0 -3em #fff,
+          0 5em 0 -2.7em #fff,
+          -3.5em 3.5em 0 -3em #fff,
+          -5em 0 0 -2.7em #fff,
+          -3.5em -3.5em 0 -3em #fff`,
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -54,11 +92,6 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -87,16 +120,11 @@ const config = {
           },
         },
       },
-      backgroundImage: {
-        "glassy-gradient":
-          "linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(48, 25, 52, 0.8), rgba(20, 20, 20, 0.8))",
+      rotate: {
+        75: "75deg",
       },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        marquee: "marquee var(--duration) linear infinite",
-        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
-        orbit: "orbit calc(var(--duration)*1s) linear infinite",
+      transitionDuration: {
+        400: "400ms",
       },
     },
   },

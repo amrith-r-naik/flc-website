@@ -8,32 +8,23 @@ import Hero from "~/components/landing/hero";
 import Projects from "~/components/landing/project";
 import Roadmap from "~/components/landing/roadmap";
 import TechStack from "~/components/landing/techStack";
+import { cn } from "~/lib/utils";
 
 export default function Home() {
   const { theme } = useTheme();
 
   return (
     <main className="flex flex-col items-stretch">
-      <div>
-        {theme === "dark" && (
-          <video
-            src="waves.webm"
-            autoPlay
-            muted
-            loop
-            className="absolute top-[45%] -z-10 w-full dark:bg-black md:top-[22%]"
-          />
+      <video
+        src="waves.webm"
+        autoPlay
+        muted
+        loop
+        className={cn(
+          "absolute top-[45%] -z-10 w-full bg-gradient-to-t from-transparent via-yellow-500 to-transparent dark:bg-black dark:bg-none md:top-[22%]",
+          theme === "dark" ? "brightness-100" : "brightness-75",
         )}
-        {theme === "light" && (
-          <video
-            src="waves.webm"
-            autoPlay
-            muted
-            loop
-            className="absolute top-[45%] -z-10 w-full bg-gradient-to-t from-transparent via-yellow-500 to-transparent brightness-75 md:top-[22%]"
-          />
-        )}
-      </div>
+      />
       <Hero />
       <div className="bg-gradient">
         <AboutFLC />
