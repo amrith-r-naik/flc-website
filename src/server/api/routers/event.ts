@@ -138,17 +138,10 @@ export const eventRouter = createTRPCRouter({
     }),
 
   //Retrieve
-  getAllEvents: publicProcedure.query(async ({ ctx }) => {
+  getLegacyEvents: publicProcedure.query(async ({ ctx }) => {
     return ctx.db.event.findMany({
       where: {
-        AND: [
-          {
-            state: "PUBLISHED",
-          },
-          {
-            isLegacy: true,
-          },
-        ],
+        isLegacy: true,
       },
       include: {
         ActivityPoint: true,
@@ -156,6 +149,22 @@ export const eventRouter = createTRPCRouter({
       },
       orderBy: {
         fromDate: "desc",
+      },
+    });
+  }),
+
+  getPublishedEvents: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db.event.findMany({
+      where: {
+        AND: [
+          {
+            state: "PUBLISHED",
+          },
+        ],
+      },
+      include: {
+        ActivityPoint: true,
+        Organiser: true,
       },
     });
   }),

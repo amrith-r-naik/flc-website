@@ -88,20 +88,10 @@ const DesktopVersion: FunctionComponent<{
     <div
       className={`CardsContainer absolute left-1/2 h-full w-full -translate-x-1/2 gap-2 pb-4 pt-24 lg:w-[70vw] ${className}`}
     >
-      {/* Left Divs */}
       <div className="min-w-1/2 flex flex-col gap-2">
-        {/* Top card */}
         <div className="TopCard text-white-200 flex h-2/3 flex-col justify-evenly gap-3 rounded-lg border-2 border-border bg-card px-4">
           <div className="flex items-center justify-center self-center">
-            {/* Profile Photo holder */}
             <div className="profileImage h-32 w-48 rounded-full border-4 border-white drop-shadow-md  ">
-              {/* <Image
-                  src={user?.image as unknown as string}
-                  alt="Profile Image"
-                  fill
-                  className="rounded-full object-cover"
-                /> */}
-              {/* CLOUDINARY WORKS properly here */}
               <fieldset className="mb-[15px] flex items-center self-center text-foreground">
                 <CldUploadWidget
                   signatureEndpoint="/api/cloudinary/sign"
@@ -109,12 +99,8 @@ const DesktopVersion: FunctionComponent<{
                     const { info } = result;
                     const { secure_url: imageUrl } =
                       info as CloudinaryUploadWidgetInfo;
-
-                    //deleting from cloudinary server
                     void deleteFromCloudinary(user.image as unknown as string);
-
                     if (imageUrl) {
-                      // update our db with result
                       try {
                         void updateProfile.mutateAsync({
                           id: user.id,
@@ -130,17 +116,16 @@ const DesktopVersion: FunctionComponent<{
                   {({ open }) => (
                     <>
                       <Image
-                        src={user.image ?? ""}
+                        src={user.image ?? "/My_photo_suit.jpg"}
                         alt={"Profile Image"}
                         width={100}
                         height={100}
                         className="m-auto rounded-full object-cover"
                       />
-
                       <div
                         className="absolute h-full  rounded-full bg-black/45"
                         onClick={() => open()}
-                      ></div>
+                      />
                       <Pencil
                         className="absolute left-1/2 -translate-x-[14px]"
                         width={28}
@@ -151,7 +136,6 @@ const DesktopVersion: FunctionComponent<{
                 </CldUploadWidget>
               </fieldset>
             </div>
-            {/* Name Position & QR Div */}
             <div className="flex w-full flex-col items-center gap-2">
               <p className="text-2xl font-bold text-white"> {user?.name}</p>
               <p className="text-sm text-primary contrast-[0.55]">
@@ -177,7 +161,6 @@ const DesktopVersion: FunctionComponent<{
                     </Dialog.Content>
                   </Dialog.Portal>
                 </Dialog.Root>
-
                 <Dialog.Root>
                   <Dialog.Trigger className="flex items-center gap-1 rounded-sm border border-white border-opacity-10 bg-white bg-opacity-5 px-2 text-xs">
                     Edit<Pencil className="w-3"></Pencil>
@@ -192,8 +175,6 @@ const DesktopVersion: FunctionComponent<{
                         Make changes to your profile here. Click save when
                         you&apos;re done.
                       </Dialog.Description>
-                      {/* CLOUDINARY */}
-
                       <fieldset className="mb-[15px] flex items-center gap-5">
                         <label
                           className="w-[90px] text-right text-[15px] text-primary"
@@ -228,19 +209,6 @@ const DesktopVersion: FunctionComponent<{
                           defaultValue={user?.phone}
                         />
                       </fieldset>
-                      {/*  <fieldset className="mb-[15px] flex items-center gap-5">
-                          <label
-                            className="w-[90px] text-right text-[15px] text-primary"
-                            htmlFor="name"
-                          >
-                            Branch
-                          </label>
-                          <input
-                            className="shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-                            id="branch"
-                            defaultValue=""
-                          />
-                        </fieldset> */}
                       <fieldset className="mb-[15px] flex items-center gap-5">
                         <label
                           className="w-[90px] text-right text-[15px] text-primary"
@@ -258,7 +226,6 @@ const DesktopVersion: FunctionComponent<{
                           }}
                         />
                       </fieldset>
-
                       <Dialog.Close asChild>
                         <button
                           onClick={async () => {
@@ -283,8 +250,6 @@ const DesktopVersion: FunctionComponent<{
               </div>
             </div>
           </div>
-
-          {/* Phone & Email div */}
           <div className="flex flex-col gap-3">
             <div className="flex flex-col">
               <p className="text-white-200 text-sm">Phone</p>
@@ -296,8 +261,6 @@ const DesktopVersion: FunctionComponent<{
             </div>
           </div>
         </div>
-
-        {/* Bottom Events Card */}
         <div className="BottomCard2 text-white-200 flex h-1/3 flex-col gap-2 overflow-hidden rounded-lg border-2 border-border border-opacity-50 bg-card p-2 pr-0 backdrop-blur-[32px] backdrop-filter">
           <p className="EventsHeading text-md self-center font-bold text-white">
             My Events
@@ -305,33 +268,23 @@ const DesktopVersion: FunctionComponent<{
           <ImageCarousel images={images} />
         </div>
       </div>
-
-      {/* Right Div */}
       <div className="RightDiv flex h-full w-full flex-col justify-between gap-2 overflow-auto rounded-lg border-2 border-border bg-card p-4">
         <div className="BioSection flex flex-col">
           <p className="text-sm text-white">Bio</p>
           <p className=" text-white-200 min-h-24">{user?.bio}</p>
         </div>
-
-        {/* Year & Branch */}
         <div className="YearBranchSection flex flex-col">
           <p className="text-sm text-white">Year & Branch</p>
           <p className="text-white-200">{`${user?.year} - ${user?.Branch.name}`}</p>
         </div>
-
-        {/* Activity Point */}
         <div className="ActivityPoint Section flex flex-col">
           <p className="text-sm text-white">Activity Point</p>
           <p className="text-white-200">{user?.totalActivityPoints}</p>
         </div>
-
-        {/* Attendance */}
         <div className="Attendance Section order-2 flex flex-col">
           <p className="text-sm text-white">Attendance</p>
           <p className="text-white-200">{attendance}%</p>
         </div>
-
-        {/* Certificates */}
         <div className="Attendance Section order-2 flex flex-col gap-2">
           <p className="text-sm text-white">Certificates</p>
           <div className="CertificatesCard text-white-200 h-[25vh] w-full overflow-hidden pr-0 backdrop-blur-[32px] backdrop-filter">

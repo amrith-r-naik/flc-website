@@ -1,25 +1,63 @@
+import { useTheme } from "next-themes";
 import Link from "next/link";
-import { type FunctionComponent } from "react";
+import { FunctionComponent } from "react";
+
+import { Button } from "~/components/ui/button";
+
+import Particles from "~/components/magicui/particles";
+
+const getParticleColor = (isDarkMode: boolean) =>
+  isDarkMode ? "#fff" : "#000";
 
 const Error: FunctionComponent = () => {
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
+
   return (
-    <section className="flex min-h-screen items-center justify-center">
-      <div className="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+      <Particles
+        className="absolute inset-0 z-0"
+        quantity={300}
+        staticity={50}
+        ease={50}
+        size={2}
+        color={getParticleColor(isDarkMode)}
+      />
+
+      <div className="relative z-10 mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
         <div className="mx-auto max-w-screen-sm text-center">
-          <h1 className="gradient mb-4 bg-gradient-to-r from-yellow-500 to-red-500 bg-clip-text text-9xl font-extrabold tracking-tight text-transparent dark:from-yellow-400 dark:to-red-400 lg:text-[10rem]">
-            404
-          </h1>
-          <p className="mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white md:text-4xl">
-            Oops! Page not found.
+          <div className="my-8 grid grid-cols-3 items-center justify-items-center gap-4 sm:mx-28 md:mx-28 lg:mx-28">
+            <div className="bg-[radial-gradient(circle,_#facc15,_#f87171)] bg-clip-text text-9xl font-extrabold tracking-tight text-transparent dark:bg-[radial-gradient(circle,_#423966,_#100020)]">
+              4
+            </div>
+            <div
+              className={`relative flex h-24 w-24 transform items-center justify-center rounded-full border-b-4 border-r-4 border-t-4 border-transparent ${
+                isDarkMode
+                  ? "shadow-[0_0_7px_#e7f1a3a2 border-b-white border-r-white border-t-white bg-[radial-gradient(circle,_#423966,_#100020)]"
+                  : "border-b-gray-500 border-r-gray-500 border-t-gray-500 bg-[radial-gradient(circle,_#facc15,_#f87171)] shadow-[0_0_7px_#e7f1a3a2]"
+              }`}
+            >
+              <div
+                className={`absolute h-12 w-32 rotate-[-45deg] animate-pulse rounded-[50%] border-b-4 border-l-2 border-r-2 border-t-0 border-solid ${
+                  isDarkMode ? "border-[#fafafa]" : "border-gray-500"
+                }`}
+              />
+            </div>
+            <div className="bg-[radial-gradient(circle,_#facc15,_#f87171)] bg-clip-text text-9xl font-extrabold tracking-tight text-transparent dark:bg-[radial-gradient(circle,_#423966,_#100020)]">
+              4
+            </div>
+          </div>
+
+          <p className="my-4 animate-pulse text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+            Oops! Page not found
           </p>
-          <p className="mb-8 text-lg font-light text-gray-500 dark:text-gray-400">
-            Sorry, the page you’re looking for doesn’t exist. But don’t worry,
-            you can find plenty of things on our homepage.
+          <p className="my-8 text-lg text-gray-500 dark:text-gray-400">
+            What are you doing here? Did you get lost? No worries, just head
+            back to our homepage and we’ll get you back on track!
           </p>
+
           <Link href="/">
-            <span className="inline-flex items-center justify-center rounded-lg bg-yellow-500 px-6 py-3 text-center text-lg font-medium text-white hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 dark:focus:ring-yellow-900">
-              Back to Homepage
-            </span>
+            <Button>Back to Homepage</Button>
           </Link>
         </div>
       </div>

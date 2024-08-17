@@ -3,13 +3,13 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ReactLenis } from "lenis/react";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import { ThemeProvider } from "next-themes";
 import { type AppType } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 import Layout from "~/components/layout";
 import { siteMetaData } from "~/constants";
+import { ThemeProvider } from "~/context/themeContext";
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
@@ -29,7 +29,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return (
     <SessionProvider session={session}>
-      <ThemeProvider defaultTheme="dark" attribute="class">
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        themes={["light", "dark"]}
+      >
         <ReactLenis root>
           <Head>
             <title>{title}</title>

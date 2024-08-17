@@ -15,9 +15,19 @@ const Leaderboard = () => {
     gsap.from(".rankbar", { y: 100, height: 0, delay: 0.2, stagger: 0.2 });
     gsap.from(".row", { x: -50, opacity: 0, stagger: 0.2 });
   });
+
   return (
-    <main className="h-[150vh] w-[100%]  space-y-6">
-      <div className="banner flex w-[100%] flex-col gap-20 overflow-hidden rounded-b-[70px] border border-border bg-[#282828] pt-12 sm:h-[38vh] sm:flex-row sm:gap-0 sm:pt-0">
+    <div className="h-[150vh] w-[100%]  space-y-6 bg-[#100020]">
+      <div
+        style={{
+          background:
+            "radial-gradient(50% 70.31% at 50% 0%, rgb(184 148 255 / 33%) 0%, rgba(126, 61, 255, 0) 100%), rgb(21 0 59 / 80%)",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
+          height: "282px",
+        }}
+        className="banner flex w-full flex-col gap-20 overflow-hidden rounded-b-[70px] border border-border bg-cover pt-12 sm:h-[38vh] sm:flex-row sm:gap-0 sm:pt-0"
+      >
         {/* left half of banner */}
         <div className="flex w-full items-center  justify-center border-orange-50 sm:h-full sm:w-1/2 ">
           <div className="flex flex-col items-center space-y-1 sm:block">
@@ -53,7 +63,15 @@ const Leaderboard = () => {
       {/* grid section of page */}
       <main className="mx-auto h-[30rem] w-[95%]  space-y-2 border-border lg:w-4/5 ">
         {/*below div Grid banner */}
-        <div className="flex w-full rounded-lg border-2 border-border bg-accent">
+        <div
+          style={{
+            background:
+              "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+          }}
+          className="flex w-full rounded-lg border-2 border-border"
+        >
           <p className="flex-1  py-4 text-center text-xs font-semibold sm:text-lg md:text-xl">
             Name
           </p>
@@ -104,7 +122,7 @@ const Leaderboard = () => {
           xp={200}
         />
       </main>
-    </main>
+    </div>
   );
 };
 

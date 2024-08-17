@@ -7,13 +7,17 @@ import { useRef } from "react";
 
 import { Button } from "~/components/ui/button";
 
+import EventCard from "~/components/events/card";
 import { api } from "~/utils/api";
 
-import EventCard from "../eventCard";
 import Loader from "../loader";
 
 function Events() {
-  const { data: events, isLoading, error } = api.event.getAllEvents.useQuery();
+  const {
+    data: events,
+    isLoading,
+    error,
+  } = api.event.getLegacyEvents.useQuery();
 
   const ref = useRef(null);
   useGSAP(() => {
@@ -68,7 +72,7 @@ function Events() {
         {events && events.length > 0 ? (
           <div className="mx-auto  mb-4 grid w-full max-w-7xl grid-cols-1 gap-4  md:grid-cols-3 ">
             {events.map((event, idx) => (
-              <EventCard key={idx} data={event} />
+              <EventCard key={idx} event={event} />
             ))}
           </div>
         ) : (
