@@ -84,8 +84,8 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
           ) : (
             children
           )}
+          <Footer />
         </main>
-        <Footer />
       </div>
     </div>
   );
