@@ -65,10 +65,10 @@ const Leaderboard = () => {
         {/*below div Grid banner */}
         <div style={{
           background:
-            "radial-gradient(50% 70.31% at 50% 0%, rgba(126, 61, 255, 0.16) 0%, rgba(126, 61, 255, 0) 100%),rgb(18 0 51 / 80%);",
+            "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)" ,
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
-        }} className="flex w-full rounded-lg border-2 border-border bg-accent">
+        }} className="flex w-full rounded-lg border-2 border-border">
           <p className="flex-1  py-4 text-center text-xs font-semibold sm:text-lg md:text-xl">
             Name
           </p>
