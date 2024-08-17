@@ -51,6 +51,8 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         if (s?.ok) {
           toast.success("Logged in successfully");
           void router.push(`/profile`);
+        } else {
+          toast.error("Failed to log in! You sure about your credentials?");
         }
       })
       .catch((e) => {

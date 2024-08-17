@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import React, { useEffect, useState, type FunctionComponent } from "react";
+import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
@@ -20,14 +20,11 @@ import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import { resetPasswordZ } from "~/zod/authZ";
 
-interface Props {
+const Resetpassword: FunctionComponent<{
+  token: string;
   className?: string;
-}
-
-const Resetpassword: FunctionComponent<Props> = ({ className }) => {
+}> = ({ className, token }) => {
   const router = useRouter();
-  const { token } = router.query;
-  const [resetPasswordToken, setResetPasswordToken] = useState("");
 
   const resetPassword = api.auth.resetPassword.useMutation();
 
@@ -36,43 +33,29 @@ const Resetpassword: FunctionComponent<Props> = ({ className }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      token: "",
+      token: token,
       newPassword: "",
     },
   });
-
-  useEffect(() => {
-    if (token) {
-      // Handle case where token is an array of strings
-      const tokenString = Array.isArray(token) ? token[0] : token;
-      console.log("token string: ", tokenString);
-      setResetPasswordToken(tokenString!);
-    }
-  }, [token]);
-
-  useEffect(() => {
-    if (resetPasswordToken) {
-      console.log("verificationToken: ", resetPasswordToken);
-    }
-  }, [resetPasswordToken]);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     const toastId = toast.loading("Resetting password...");
     resetPassword.mutate(
       {
-        token: resetPasswordToken,
+        token: values.token,
         newPassword: values.newPassword,
         confirmPassword: values.confirmPassword,
       },
       {
         onSuccess: () => {
           toast.dismiss(toastId);
-          toast.success("Password reset successfully!");
-          void router.push("/auth/login");
+          toast.success("Password reset successful!");
+          void router.push("/login");
         },
         onError: ({ message }) => {
           toast.dismiss(toastId);
           toast.error(message);
+          void router.push("/login");
         },
       },
     );
