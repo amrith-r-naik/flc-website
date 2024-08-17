@@ -91,7 +91,7 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel className="text-white dark:text-white">Name</FormLabel>
               <FormControl className="bg-[#494949]">
                 <Input placeholder="Name" {...field} disabled />
               </FormControl>
@@ -105,7 +105,9 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
           name="email"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Email
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <Input placeholder="Email" {...field} disabled />
               </FormControl>
@@ -117,24 +119,18 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
           control={form.control}
           name="phone"
           render={({ field }) => (
-            <FormItem className="flex-1 rounded-lg p-2 sm:p-4">
-              <FormLabel>Phone</FormLabel>
+            <FormItem className="flex-1 rounded-lg">
+              <FormLabel className="text-white dark:text-white">
+                Phone
+              </FormLabel>
               <FormControl className="bg-[#494949]">
-                <InputOTP maxLength={10} {...field} disabled>
+                <InputOTP maxLength={10} {...field}>
                   <InputOTPSlot
                     index={0}
                     className="size-6 bg-[#494949] sm:size-10"
                   />
                   <InputOTPSlot
                     index={1}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={2}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={2}
                     className="size-6 bg-[#494949] sm:size-10"
                   />
                   <InputOTPSlot
@@ -151,10 +147,6 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
                   />
                   <InputOTPSlot
                     index={5}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={6}
                     className="size-6 bg-[#494949] sm:size-10"
                   />
                   <InputOTPSlot
@@ -179,14 +171,15 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
             </FormItem>
           )}
         />
-
         <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
           <FormField
             control={form.control}
             name="branch"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Branch</FormLabel>
+                <FormLabel className="text-white dark:text-white">
+                  Branch
+                </FormLabel>
                 <FormControl className="bg-[#494949]">
                   <Input placeholder="Branch" {...field} disabled />
                 </FormControl>
@@ -199,7 +192,9 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
             name="year"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Graduation Year</FormLabel>
+                <FormLabel className="text-white dark:text-white">
+                  Graduation Year
+                </FormLabel>
                 <FormControl className="bg-[#494949]">
                   <Input placeholder="Graduation Year" {...field} disabled />
                 </FormControl>
@@ -214,7 +209,9 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
           name="reasonToJoin"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Why do you want to join FLC?</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Why do you want to join FLC?
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <Textarea placeholder="Answer" rows={3} {...field} />
               </FormControl>
@@ -227,7 +224,9 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
           name="expectations"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>What are your expectations from FLC?</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                What are your expectations from FLC?
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <Textarea placeholder="Answer" rows={3} {...field} />
               </FormControl>
@@ -240,7 +239,9 @@ const RegisterForm: FunctionComponent<Props> = ({ className }) => {
           name="contribution"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>How would you contribute to FLC?</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                How would you contribute to FLC?
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <Textarea placeholder="Answer" rows={3} {...field} />
               </FormControl>

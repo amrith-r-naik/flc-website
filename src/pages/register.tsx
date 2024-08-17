@@ -6,14 +6,11 @@ import RegisterForm from "~/components/forms/register";
 function Index() {
   return (
     <>
-      {/* <div className="z-0">
-        <Background />
-      </div> */}
-      <div className="radialgradient flex min-h-screen gap-10">
+      <div className="radialgradient1  flex min-h-screen gap-10">
         <div className="sm:my-15 my-10 flex w-full flex-col items-center gap-8 sm:gap-16 lg:mx-24 lg:flex-row">
           <div className="order-2 w-full flex-col md:w-4/5 lg:order-1 lg:w-1/2">
             <div className="px-6 sm:px-10">
-              <h1 className="flex justify-start text-2xl sm:text-4xl">
+              <h1 className="flex justify-start text-2xl text-white sm:text-4xl">
                 Finite Loop Club
               </h1>
 

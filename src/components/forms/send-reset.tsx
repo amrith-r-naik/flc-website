@@ -62,7 +62,7 @@ const SendResetForm = ({ className }: { className?: string }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-white dark:text-white">Email</FormLabel>
               <FormControl>
                 <Input placeholder="Email" {...field} />
               </FormControl>
@@ -72,7 +72,7 @@ const SendResetForm = ({ className }: { className?: string }) => {
         />
 
         <div className="flex justify-center">
-          <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
+          <Button className="hover:bg-yellow-300s bg-yellow-300" type="submit">
             Submit
           </Button>
         </div>

@@ -84,7 +84,7 @@ const Resetpassword: FunctionComponent<Props> = ({ className }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-8 ")}
       >
-        <FormMessage className="flex justify-center text-center text-3xl text-white ">
+        <FormMessage className="flex justify-center text-center text-2xl text-white sm:text-3xl ">
           Reset password
         </FormMessage>
 
@@ -93,7 +93,9 @@ const Resetpassword: FunctionComponent<Props> = ({ className }) => {
           name="newPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Password
+              </FormLabel>
               <FormControl className="bg-[#494949] ">
                 <Password placeholder="Password" {...field} />
               </FormControl>
@@ -106,7 +108,9 @@ const Resetpassword: FunctionComponent<Props> = ({ className }) => {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Confirm Password
+              </FormLabel>
               <FormControl className="bg-[#494949] ">
                 <Password placeholder="Confirm Password" {...field} />
               </FormControl>
