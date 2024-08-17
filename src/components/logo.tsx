@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const Logo = () => (
-  <div className="relative h-12 w-12 md:h-12 md:w-12">
+  <div className="relative size-12">
     <Image
       src="/unnamed.png"
       fill

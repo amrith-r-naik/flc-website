@@ -13,6 +13,16 @@ const AuthButton: FunctionComponent = () => {
 
   return (
     <>
+      {session?.user.role === "ADMIN" && (
+        <Button asChild>
+          <Link href="/dashboard/admin">Dashboard</Link>
+        </Button>
+      )}
+      {session?.user.role === "ORGANISER" && (
+        <Button asChild>
+          <Link href="/dashboard/organiser">Dashboard</Link>
+        </Button>
+      )}
       {session ? (
         <Button
           onClick={async () => {
@@ -39,16 +49,6 @@ const AuthButton: FunctionComponent = () => {
           <Link href="/login">
             <LogIn size={18} className="mr-2" /> Login
           </Link>
-        </Button>
-      )}
-      {session?.user.role === "ADMIN" && (
-        <Button asChild>
-          <Link href="/admin">Dashboard</Link>
-        </Button>
-      )}
-      {session?.user.role === "ORGANISER" && (
-        <Button asChild>
-          <Link href="/organiser">Dashboard</Link>
         </Button>
       )}
     </>

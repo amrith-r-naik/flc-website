@@ -21,7 +21,7 @@ const Profile = () => {
   if (!user) return null;
 
   return (
-    <main className="top-0 -z-10 h-screen w-screen overflow-x-hidden bg-background ">
+    <main className="top-0 -z-10 h-screen w-screen overflow-x-hidden">
       <MobileVersion className="absolute sm:hidden" user={user} />
       <DesktopVersion className="hidden sm:flex" user={user} />
     </main>

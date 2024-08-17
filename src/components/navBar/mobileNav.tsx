@@ -11,7 +11,7 @@ import {
   SheetTrigger,
 } from "~/components/ui/sheet";
 
-import { userLinks } from "~/constants";
+import { userNavItems } from "~/constants";
 
 import Logo from "../logo";
 import AuthButton from "./authButton";
@@ -40,18 +40,18 @@ function MobileNav() {
           <div className="flex h-[calc(100vh-72px)] flex-col justify-between overflow-y-auto p-2 ">
             <section className="flex h-full flex-col gap-6 pt-5 text-black">
               <div className="flex flex-col gap-8 sm:hidden">
-                {userLinks.map((link) => (
-                  <SheetClose asChild key={link.url}>
+                {userNavItems.map((link) => (
+                  <SheetClose asChild key={link.link}>
                     <Link
                       className="group space-y-0.5 text-foreground"
-                      href={link.url}
+                      href={link.link}
                     >
                       <p className="px-0.5 text-sm font-bold md:text-base">
-                        {link.label}
+                        {link.name}
                       </p>
                       <span
                         className={`${
-                          activePath === link.url ? "max-w-full" : "max-w-0"
+                          activePath === link.link ? "max-w-full" : "max-w-0"
                         } block h-0.5 bg-white transition-all duration-500 group-hover:max-w-full`}
                       ></span>
                     </Link>

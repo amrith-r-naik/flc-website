@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@radix-ui/themes";
+import { type NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,7 +15,7 @@ import { api } from "~/utils/api";
 
 import NotFound from "../404";
 
-const EventSlug = () => {
+const EventsSlug: NextPage = () => {
   const router = useRouter();
   const id = Array.isArray(router.query.slug)
     ? router.query.slug[0]
@@ -141,4 +142,4 @@ const EventSlug = () => {
   );
 };
 
-export default EventSlug;
+export default EventsSlug;

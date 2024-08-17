@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import EventCard from "~/components/eventCard";
-import Loader from "~/components/loader";
+import EventCard from "~/components/events/card";
 import { api } from "~/utils/api";
 
 function Events() {
@@ -20,77 +19,76 @@ function Events() {
     "2024",
   ];
 
-  const handleYearClick = (year: string) => {
-    setSelectedYear(year);
-  };
+  const handleYearClick = (year: string) => setSelectedYear(year);
 
-  const {
-    data: events,
-    isLoading,
-    error,
-  } = api.event.getAllEventsForUser.useQuery({ year: selectedYear });
+  const { data: events } = api.event.getAllEventsForUser.useQuery({
+    year: selectedYear,
+  });
 
-  console.log(events);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    console.log(selectedYear);
-  }, [selectedYear]);
+    document.getElementById("cards")!.onmousemove = (e) => {
+      for (const card of document.getElementsByClassName("intro-card")) {
+        const rect = card.getBoundingClientRect(),
+          x = e.clientX - rect.left,
+          y = e.clientY - rect.top;
 
-  if (isLoading) {
-    return (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Loader />
-      </div>
-    );
-  }
-  if (events) {
-    console.log(events);
-  }
-  if (error) {
-    return <div>Error loading events</div>;
-  }
+        (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
+        (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
+      }
+    };
+  });
 
   return (
-    <>
-      <div className="flex justify-center">
-        <h1 className="text-gradient mt-8 text-7xl font-bold">Events</h1>
-      </div>
+    <div className="relative bottom-0 top-0 min-h-screen  pb-2 font-sans">
+      <style jsx>{`
+        .intro-card::before {
+          background: radial-gradient(
+            600px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 255, 255, 0.56),
+            transparent 40%
+          );
+          z-index: 3;
+        }
 
-      <ul className="flex flex-wrap items-center justify-center gap-4 py-12">
-        {years.map((year) => (
-          <li
-            key={year}
-            onClick={() => handleYearClick(year)}
-            className={`cursor-pointer  ${year === selectedYear ? "bg-custom-gradient rounded-full p-1 text-[#6B003E]" : ""}`}
-          >
-            {year}
-          </li>
-        ))}
-      </ul>
-
-      {events && events.length > 0 ? (
-        <div className="mx-auto  mb-4 grid max-w-7xl grid-cols-1 gap-10 px-5 md:grid-cols-2 xl:grid-cols-3">
-          {events.map((event, idx) => (
-            <EventCard key={idx} data={event} />
-          ))}
+        .intro-card::after {
+          background: radial-gradient(
+            600px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 255, 255, 0.1),
+            transparent 40%
+          );
+          z-index: 1;
+        }
+      `}</style>
+      <div className="event-bg"></div>
+      <div className="line-break"></div>
+      <div id="cards" className="h-full w-full text-white">
+        <div className="flex justify-center">
+          <h1 className="events-heading mt-8 text-7xl font-bold">Events</h1>
         </div>
-      ) : (
-        <div className="flex justify-center">No events available</div>
-      )}
 
-      {/*
-      <div className="mx-2 mt-8 flex flex-wrap justify-center gap-20 md:mx-8">
+        <ul className="flex flex-wrap items-center justify-center gap-4 py-12">
+          {years.map((year) => (
+            <li
+              key={year}
+              onClick={() => handleYearClick(year)}
+              className={` cursor-pointer  ${year === selectedYear ? "border-b-2 border-white p-1 text-white" : "events-heading"}`}
+            >
+              {year}
+            </li>
+          ))}
+        </ul>
+
         {events && events.length > 0 ? (
-          <>
-            {events.map((event, index) => (
-              <Card key={index} event={event} />
+          <div className=" mx-auto mb-4 grid max-w-7xl grid-cols-1 gap-10 px-5 md:grid-cols-2 xl:grid-cols-3">
+            {events.map((event, idx) => (
+              <EventCard key={idx} event={event} />
             ))}
-          </>
+          </div>
         ) : (
-          <div>No events available</div>
+          <div className=" flex justify-center">No events available</div>
         )}
-      </div> */}
-    </>
+      </div>
+    </div>
   );
 }
 
