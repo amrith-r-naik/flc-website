@@ -132,17 +132,8 @@ const MobileVersion: FunctionComponent<{
     <div
       className={`CardsContainer bottom-0 flex w-full flex-col gap-2 p-4 ${className}`}
     >
-      {/* Top card */}
       <div className="TopCard text-white-200 rounded-lg border-2 border-border bg-card">
-        {/* Profile Photo holder */}
         <div className="profileImage absolute left-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-border drop-shadow-md  ">
-          {/* <Image
-              src="/My_photo_suit.jpg"
-              alt="Profile Image"
-              fill
-              className="rounded-full object-cover"
-            /> */}
-          {/* CLOUDINARY WORKS properly here */}
           <fieldset className="mb-[15px] flex w-[100px] items-center self-center text-foreground">
             <CldUploadWidget
               signatureEndpoint="/api/cloudinary/sign"
@@ -150,10 +141,7 @@ const MobileVersion: FunctionComponent<{
                 const { info } = result;
                 const { secure_url: imageUrl } =
                   info as CloudinaryUploadWidgetInfo;
-
-                //deleting from cloudinary server
                 void deleteFromCloudinary(user.image as unknown as string);
-
                 if (imageUrl) {
                   try {
                     void updateProfile.mutateAsync({
@@ -170,14 +158,13 @@ const MobileVersion: FunctionComponent<{
               {({ open }) => (
                 <>
                   <Image
-                    src={user.image ?? ""}
+                    src={user.image ?? "/My_photo_suit.jpg"}
                     alt={"ur profile picture"}
                     width={100}
                     height={100}
                     onClick={() => open()}
                     className=" m-auto h-full  border-spacing-10 overflow-hidden rounded-full border-4 border-primary object-cover"
-                  ></Image>
-                  <div className="absolute h-full  rounded-full bg-black/45"></div>
+                  />
                   <Pencil
                     className="absolute left-1/2 -translate-x-[14px]"
                     width={28}
@@ -189,7 +176,6 @@ const MobileVersion: FunctionComponent<{
           </fieldset>
         </div>
 
-        {/* QR and Edit Options */}
         <div className="absolute flex w-full justify-between px-2 py-2">
           <Dialog.Root>
             <Dialog.Trigger className="rounded-sm border border-white border-opacity-10 bg-white bg-opacity-5 px-2 text-xs">
@@ -258,21 +244,6 @@ const MobileVersion: FunctionComponent<{
                     defaultValue={user?.phone}
                   />
                 </fieldset>
-                {/*  <fieldset className="mb-[15px] flex items-center gap-5">
-                    <label
-                      className="w-[90px] text-right text-[15px] text-primary"
-                      htmlFor="name"
-                    >
-                      Bio
-                    </label>
-                    <input
-                      className="shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] bg-black bg-opacity-10 px-[10px] text-xs leading-none text-primary shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-                      id="bio"
-                      defaultValue={user?.bio || ""}
-                      value={bio}
-                      onChange={(e) => {setBio(e.target.value)}}
-                    />
-                  </fieldset> */}
                 <fieldset className="mb-[15px] flex items-center gap-5">
                   <label
                     className="w-[90px] text-right text-[15px] text-primary"
@@ -312,16 +283,11 @@ const MobileVersion: FunctionComponent<{
             </Dialog.Portal>
           </Dialog.Root>
         </div>
-
-        {/* Card Body */}
         <div className="mt-16 flex w-full flex-col gap-3 overflow-scroll px-4 pb-2">
-          {/* Name and Position Div */}
           <div className="flex w-full flex-col items-center">
             <p className="text-2xl font-bold text-white">{user?.name}</p>
             <p className="text-sm text-primary contrast-[0.55]">Member</p>
           </div>
-
-          {/* Phone & Email div */}
           <div className="flex flex-col gap-3">
             <div className="flex flex-col">
               <p className="text-white-200 text-sm">Phone</p>
@@ -332,8 +298,6 @@ const MobileVersion: FunctionComponent<{
               <p className="text-white">nnm22gg070@nmamit.in</p>
             </div>
           </div>
-
-          {/* See more */}
           <div
             className="SeeMoreOption flex items-center justify-center gap-1 text-sm text-card-foreground"
             onClick={() => {
@@ -343,42 +307,30 @@ const MobileVersion: FunctionComponent<{
             <p>See more</p>
             <ChevronDown size={16} className="translate-y-[1px]" />
           </div>
-
-          {/* Bio */}
           <div className="BioSection hidden  flex-col">
             <p className="text-white-200 text-sm">Bio</p>
             <p className=" text-white">{user?.bio}</p>
           </div>
-
-          {/* Year & Branch */}
           <div className="YearBranchSection hidden flex-col">
             <p className="text-white-200 text-sm">Year & Branch</p>
             <p className="text-white">3rd - Computer Science</p>
           </div>
-
-          {/* Activity Point */}
           <div className="ActivityPoint Section hidden flex-col">
             <p className="text-white-200 text-sm">Activity Point</p>
             <p className="text-white">70</p>
           </div>
-
-          {/* Attendance */}
           <div className="Attendance Section order-2 hidden flex-col">
             <p className="text-white-200 text-sm">Attendance</p>
             <p className="text-white">{attendance}%</p>
           </div>
         </div>
       </div>
-
-      {/* Certificates */}
       <p className="CertificatesHeading text-white-200 ml-2 hidden text-sm font-medium">
         Certificates
       </p>
       <div className="CertificatesCard text-white-200 hidden h-[25vh] w-full overflow-hidden rounded-lg border-2 border-border border-opacity-50 bg-card p-2 pr-0 backdrop-blur-[32px] backdrop-filter">
         <ImageCarousel images={images} />
       </div>
-
-      {/* Bottom Events Card */}
       <p className="EventsHeading BottomCard text-white-200 -mb-1 ml-2 text-sm font-medium">
         My Events
       </p>
