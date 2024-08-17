@@ -50,7 +50,6 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     <div className="flex h-screen w-screen">
       <div className="flex h-full w-full flex-col">
         <NavBar />
-        <main className="flex">
           {loading ? (
             <div className="flex size-full items-center justify-center">
               <Loader />
@@ -58,7 +57,6 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
           ) : (
             children
           )}
-        </main>
         <Footer />
       </div>
       {/* <Cursor /> */}
