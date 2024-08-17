@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import Background from "~/components/background/particles";
 import BlurFade from "~/components/magicui/blur-fade";
 import BoxReveal from "~/components/magicui/box-reveal";
 import { ConfettiButton } from "~/components/magicui/confetti";
@@ -16,7 +17,20 @@ const images = [
 export function BlurFadeDemo() {
   return (
     <>
-      <section id="photos" className="bg-gradientpx-4 py-8">
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          zIndex: -1,
+        }}
+      >
+        <Background />
+      </div>
+      <section id="photos" className="bg-gradient-to-b from-[#e0d4961a] via-[#f5efc1] to-[#e0d4961a]  px-4 py-8">
         <div className="p-4">
           <div className="mb-8 space-y-4 text-left">
             <BoxReveal boxColor={"#5046e6"} duration={0.5}>

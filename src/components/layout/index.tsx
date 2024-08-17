@@ -32,9 +32,9 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         <Loader />
       </div>
     );
-
+/* 
   if (status === "unauthenticated" && !pathname.startsWith("/auth"))
-    return <SignIn />;
+    return <SignIn />; */
 
   if (
     status === "authenticated" &&

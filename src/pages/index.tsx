@@ -3,6 +3,7 @@ import { useTheme } from "next-themes";
 import AboutFLC from "~/components/landing/aboutFLC";
 import Benifits from "~/components/landing/benifits";
 import Events from "~/components/landing/event";
+
 import Hackfest from "~/components/landing/hackfest";
 import Hero from "~/components/landing/hero";
 import Projects from "~/components/landing/project";
@@ -21,8 +22,9 @@ export default function Home() {
         muted
         loop
         className={cn(
-          "absolute top-[45%] -z-10 w-full bg-gradient-to-t from-transparent via-yellow-500 to-transparent dark:bg-black dark:bg-none md:top-[22%]",
-          theme === "dark" ? "brightness-100" : "brightness-75",
+          "absolute top-[45%] -z-10 w-full bg-gradient-to-t from-[#ffffff] via-[#efd17bc7] to-[#ffed951a] dark:bg-black dark:bg-none md:top-[22%]",
+          theme === "dark" ? "brightness-100" : "brightness-75 ",
+
         )}
       />
       <Hero />
@@ -33,9 +35,9 @@ export default function Home() {
       <Hackfest />
       <div className="bg-gradient">
         <Projects />
-        <div>
+        <div >
           <h1 className="subheading p-4 text-center">
-            “ Technology Stack Our Club Works With ❞
+          “ Technology Stack Our Club Works With  ❞ 
           </h1>
           <TechStack />
         </div>
