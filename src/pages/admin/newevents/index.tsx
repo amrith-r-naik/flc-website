@@ -191,10 +191,10 @@ function Events() {
                     </div>
                   </div>
                 </div>
-                <Image
+                <img
                   src="/card_bottom.png"
                   alt=""
-                  className="absolute bottom-0 left-0 right-0 top-auto w-[100%] opacity-50"
+                  className="absolute bottom-0 left-0 right-0 top-auto w-full opacity-50"
                 />
               </div>
             ))}
