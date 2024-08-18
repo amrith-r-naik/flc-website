@@ -6,14 +6,15 @@ const getUserZ = z
   })
   .optional();
 
-const editProfileZ = z.object({
+const editUserZ = z.object({
   id: z.number(),
   name: z.string().optional(),
   bio: z.string().optional(),
   phone: z.string().optional(),
-  year: z.string().optional(),
-  position: z.string().optional(),
-  image: z.string().optional(),
 });
 
-export { editProfileZ, getUserZ };
+const editUserImageZ = z.object({
+  image: z.string(),
+});
+
+export { editUserZ, editUserImageZ, getUserZ };

@@ -39,7 +39,7 @@ const Resetpassword: FunctionComponent<{
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Resetting password...");
+    toast.loading("Resetting password...");
     resetPassword.mutate(
       {
         token: values.token,
@@ -48,12 +48,12 @@ const Resetpassword: FunctionComponent<{
       },
       {
         onSuccess: () => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.success("Password reset successful!");
           void router.push("/login");
         },
         onError: ({ message }) => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.error(message);
           void router.push("/login");
         },

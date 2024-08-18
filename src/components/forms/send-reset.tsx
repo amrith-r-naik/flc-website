@@ -33,18 +33,18 @@ const SendResetForm = ({ className }: { className?: string }) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Sending verification email...");
+    toast.loading("Sending verification email...");
     sendPasswordResetEmail.mutate(
       {
         email: values.email,
       },
       {
         onSuccess: () => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.success("Verification email sent! Please check your email");
         },
         onError: ({ message }) => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.error(message);
         },
       },
@@ -62,7 +62,9 @@ const SendResetForm = ({ className }: { className?: string }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white dark:text-white">Email</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Email
+              </FormLabel>
               <FormControl>
                 <Input placeholder="Email" {...field} />
               </FormControl>

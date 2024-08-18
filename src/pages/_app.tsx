@@ -17,8 +17,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  // Set the title of the page dynamically
   const { pathname } = useRouter();
+
+  // Set the title of the page dynamically
   const title = `${
     pathname === "/"
       ? "Home | "

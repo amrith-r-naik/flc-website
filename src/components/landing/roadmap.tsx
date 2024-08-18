@@ -99,7 +99,6 @@ const Card: FC<CardProps> = ({ heading, image, description, link }) => {
   );
 };
 
-// Roadmap component with GSAP animation
 const Roadmap: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
 
