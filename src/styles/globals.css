@@ -166,39 +166,6 @@
       background-clip: text;
     }
 
-    .intro-card {
-      background: radial-gradient(50% 70.31% at 50% 0%, rgba(126, 61, 255, 0.16) 0%, rgba(126, 61, 255, 0) 100%),
-        rgba(11, 1, 29, 0.8);
-    }
-
-    .intro-card:before {
-      content: "";
-      box-sizing: border-box;
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 15px;
-      padding: 1px;
-      background: linear-gradient(
-          105.43deg,
-          rgba(168, 128, 255, 0) 25.1%,
-          rgba(168, 128, 255, 0.32) 72.57%,
-          rgba(168, 128, 255, 0) 102.57%
-        ),
-        linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
-      -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-    }
-
     .card-button {
       background: radial-gradient(57.38% 100% at 50% 0%, rgba(168, 128, 255, 0.12) 0%, rgba(168, 128, 255, 0) 100%),
         rgba(255, 255, 255, 0.05);
@@ -387,38 +354,6 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .intro-card {
-    background: radial-gradient(50% 70.31% at 50% 0%, rgba(126, 61, 255, 0.16) 0%, rgba(126, 61, 255, 0) 100%),
-      rgba(11, 1, 29, 0.8);
-  }
-
-  .intro-card:before {
-    content: "";
-    box-sizing: border-box;
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 15px;
-    padding: 1px;
-    background: linear-gradient(
-        105.43deg,
-        rgba(168, 128, 255, 0) 25.1%,
-        rgba(168, 128, 255, 0.32) 72.57%,
-        rgba(168, 128, 255, 0) 102.57%
-      ),
-      linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-  }
 
   .card-button {
     background: radial-gradient(57.38% 100% at 50% 0%, rgba(168, 128, 255, 0.12) 0%, rgba(168, 128, 255, 0) 100%),
@@ -562,25 +497,10 @@ canvas {
   opacity: 0.3;
 }
 
-
 .radialgradient {
-  background: radial-gradient(
-    circle at 50% -180%,
-    #800080, 
-    #4b0082 50%,
-    #0e0f11 75%,
-    #000000 100% 
-  );
+  background: radial-gradient(circle at 50% -180%, #800080, #4b0082 50%, #0e0f11 75%, #000000 100%);
 }
 
 .radialgradient1 {
-  background: radial-gradient(
-    circle at 50% -220%,
-    #800080, 
-    #4b0082 50%,
-    #0e0f11 75%,
-    #000000 100% 
-  );
+  background: radial-gradient(circle at 50% -220%, #800080, #4b0082 50%, #0e0f11 75%, #000000 100%);
 }
-
-

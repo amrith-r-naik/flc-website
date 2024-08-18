@@ -5,8 +5,7 @@ const Cursor = () => {
 
   useEffect(() => {
     const onTouchStart = () => {
-      if (!cursorRef.current) return;
-      cursorRef.current.style.display = "none";
+      if (cursorRef.current) cursorRef.current.style.display = "none";
     };
     window.addEventListener("touchstart", onTouchStart);
     return () => window.removeEventListener("touchstart", onTouchStart);
@@ -69,7 +68,7 @@ const Cursor = () => {
   return (
     <div
       ref={cursorRef}
-      className="pointer-events-none fixed z-[99999] size-5 -translate-x-2/4 -translate-y-2/4 rounded-full bg-[#c8c8ff91] transition-all duration-100 ease-out"
+      className="pointer-events-none fixed z-[99999] size-8 -translate-x-2/4 -translate-y-2/4 rounded-full bg-[#c8c8ff91] transition-all duration-100 ease-out"
     />
   );
 };

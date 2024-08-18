@@ -58,7 +58,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Signing up...");
+    toast.loading("Signing up...");
     signUp.mutate(
       {
         branchId: values.branchId,
@@ -71,7 +71,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
       },
       {
         onSuccess: ({ emailSent }) => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           if (emailSent) {
             toast.success("Verification email sent! Please check your inbox");
             void router.push("/");
@@ -81,7 +81,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           }
         },
         onError: (error) => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.error(error.message);
         },
       },
@@ -138,46 +138,13 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
               </FormLabel>
               <FormControl className="bg-[#494949]">
                 <InputOTP maxLength={10} {...field}>
-                  <InputOTPSlot
-                    index={0}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={1}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={2}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={3}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={4}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={5}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={6}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={7}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={8}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={9}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
+                  {Array.from({ length: 10 }).map((_, idx) => (
+                    <InputOTPSlot
+                      key={idx}
+                      index={idx}
+                      className="size-6 bg-[#494949] sm:size-10"
+                    />
+                  ))}
                 </InputOTP>
               </FormControl>
               <FormMessage />

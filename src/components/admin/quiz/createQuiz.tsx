@@ -36,7 +36,7 @@ const CreateQuiz: FunctionComponent = ({}) => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Creating quiz...");
+    toast.loading("Creating quiz...");
     createQuiz.mutate(
       {
         title: values.title,
@@ -45,12 +45,12 @@ const CreateQuiz: FunctionComponent = ({}) => {
       },
       {
         onSuccess: () => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.success("Quiz created successfully");
           form.reset();
         },
         onError: ({ message }) => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.error(message);
         },
       },

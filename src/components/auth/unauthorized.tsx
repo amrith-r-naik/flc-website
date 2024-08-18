@@ -48,17 +48,17 @@ const Unauthorized: FunctionComponent<Props> = ({ user }) => {
             <CardFooter>
               <Button
                 onClick={async () => {
-                  const toastId = toast.loading("Signing out...");
+                  toast.loading("Signing out...");
                   signOut({
                     redirect: false,
                   })
                     .then(() => {
-                      toast.dismiss(toastId);
+                      toast.dismiss();
                       toast.success("Signed out successfully");
                       void router.push("/");
                     })
                     .catch((e) => {
-                      toast.dismiss(toastId);
+                      toast.dismiss();
                       console.error(e);
                       toast.error("Failed to sign out");
                     });

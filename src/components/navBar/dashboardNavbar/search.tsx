@@ -47,7 +47,7 @@ const Search: FunctionComponent = () => {
   });
 
   return (
-    <>
+    <div className="flex flex-1 justify-center md:grow-0">
       <Button
         variant={"outline"}
         className="w-full flex-row justify-between rounded-lg bg-transparent md:w-52 lg:w-72"
@@ -107,7 +107,7 @@ const Search: FunctionComponent = () => {
           <CommandSeparator />
         </CommandList>
       </CommandDialog>
-    </>
+    </div>
   );
 };
 

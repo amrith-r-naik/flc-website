@@ -40,14 +40,14 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Logging in...");
+    toast.loading("Logging in...");
     signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
     })
-      .then((s) => {
-        toast.dismiss(toastId);
+      .then(async (s) => {
+        toast.dismiss();
         if (s?.ok) {
           toast.success("Logged in successfully");
           void router.push(`/profile`);
@@ -56,7 +56,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         }
       })
       .catch((e) => {
-        toast.dismiss(toastId);
+        toast.dismiss();
         console.error(e);
         toast.error("Failed to log in");
       });

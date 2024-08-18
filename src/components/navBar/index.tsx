@@ -16,7 +16,7 @@ const Navbar: FunctionComponent = ({}) => {
 
   return (
     // NOTE: If h or py changes, update in <Layout/> as well
-    <nav className="fixed top-0 z-50 flex w-full items-center justify-center border-0 border-b border-border px-20 py-4 backdrop-blur-lg backdrop-filter">
+    <nav className="fixed top-0 z-50 flex w-full items-center justify-center border-0 border-b border-black px-20 py-4 backdrop-blur-lg backdrop-filter dark:border-white">
       <Link href="/" className="flex cursor-pointer items-center gap-3">
         <Logo />
         <p className="hidden font-bold lg:block lg:text-2xl">
@@ -45,9 +45,7 @@ const Navbar: FunctionComponent = ({}) => {
 
         <SunMoonToggle />
 
-        <div className="hidden gap-3 md:flex">
-          <AuthButton />
-        </div>
+        <AuthButton />
 
         <MobileNav />
       </div>

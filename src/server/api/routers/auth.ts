@@ -22,7 +22,7 @@ import { somethingWentWrong } from "~/utils/error";
 import {
   sendPasswordResetEmail,
   sendVerificationEmail,
-} from "~/utils/nodemailer/nodemailer";
+} from "~/utils/nodemailer";
 import {
   signUpZ,
   resetPasswordZ,

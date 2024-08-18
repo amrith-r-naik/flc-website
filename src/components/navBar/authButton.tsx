@@ -7,18 +7,20 @@ import { toast } from "sonner";
 
 import { Button } from "~/components/ui/button";
 
-const AuthButton: FunctionComponent = () => {
+const AuthButton: FunctionComponent<{ inDashboard?: boolean }> = ({
+  inDashboard = false,
+}) => {
   const router = useRouter();
   const { data: session } = useSession();
 
   return (
-    <>
-      {session?.user.role === "ADMIN" && (
+    <div className="hidden gap-3 md:flex">
+      {!inDashboard && session?.user.role === "ADMIN" && (
         <Button asChild>
           <Link href="/dashboard/admin">Dashboard</Link>
         </Button>
       )}
-      {session?.user.role === "ORGANISER" && (
+      {!inDashboard && session?.user.role === "ORGANISER" && (
         <Button asChild>
           <Link href="/dashboard/organiser">Dashboard</Link>
         </Button>
@@ -26,17 +28,17 @@ const AuthButton: FunctionComponent = () => {
       {session ? (
         <Button
           onClick={async () => {
-            const toastId = toast.loading("Signing out...");
+            toast.loading("Signing out...");
             signOut({
               redirect: false,
             })
               .then(() => {
-                toast.dismiss(toastId);
+                toast.dismiss();
                 toast.success("Signed out successfully");
                 void router.push("/");
               })
               .catch((e) => {
-                toast.dismiss(toastId);
+                toast.dismiss();
                 console.error(e);
                 toast.error("Failed to sign out");
               });
@@ -51,7 +53,7 @@ const AuthButton: FunctionComponent = () => {
           </Link>
         </Button>
       )}
-    </>
+    </div>
   );
 };
 
