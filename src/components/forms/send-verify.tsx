@@ -65,7 +65,7 @@ const SendVerifyEmailForm: FunctionComponent<Props> = ({ className }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-white dark:text-white">Email</FormLabel>
               <FormControl>
                 <Input placeholder="Email" {...field} />
               </FormControl>
