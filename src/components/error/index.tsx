@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { FunctionComponent } from "react";
+import { type FunctionComponent } from "react";
 
 import { Button } from "~/components/ui/button";
 
@@ -27,13 +27,13 @@ const Error: FunctionComponent = () => {
       <div className="relative z-10 mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
         <div className="mx-auto max-w-screen-sm text-center">
           <div className="my-8 grid grid-cols-3 items-center justify-items-center gap-4 sm:mx-28 md:mx-28 lg:mx-28">
-            <div className="bg-[radial-gradient(circle,_#facc15,_#f87171)] bg-clip-text text-9xl font-extrabold tracking-tight text-transparent dark:bg-[radial-gradient(circle,_#423966,_#100020)]">
+            <div className="bg-[radial-gradient(circle,_#facc15,_#f87171)] bg-clip-text text-9xl font-extrabold tracking-tight text-transparent dark:bg-[radial-gradient(circle,_#fff,_#423966)]">
               4
             </div>
             <div
               className={`relative flex h-24 w-24 transform items-center justify-center rounded-full border-b-4 border-r-4 border-t-4 border-transparent ${
                 isDarkMode
-                  ? "shadow-[0_0_7px_#e7f1a3a2 border-b-white border-r-white border-t-white bg-[radial-gradient(circle,_#423966,_#100020)]"
+                  ? "shadow-[0_0_7px_#e7f1a3a2 border-b-white border-r-white border-t-white bg-[radial-gradient(circle,_#fff,_#423966)]"
                   : "border-b-gray-500 border-r-gray-500 border-t-gray-500 bg-[radial-gradient(circle,_#facc15,_#f87171)] shadow-[0_0_7px_#e7f1a3a2]"
               }`}
             >
@@ -43,7 +43,7 @@ const Error: FunctionComponent = () => {
                 }`}
               />
             </div>
-            <div className="bg-[radial-gradient(circle,_#facc15,_#f87171)] bg-clip-text text-9xl font-extrabold tracking-tight text-transparent dark:bg-[radial-gradient(circle,_#423966,_#100020)]">
+            <div className="bg-[radial-gradient(circle,_#facc15,_#f87171)] bg-clip-text text-9xl font-extrabold tracking-tight text-transparent dark:bg-[radial-gradient(circle,_#fff,_#423966)]">
               4
             </div>
           </div>

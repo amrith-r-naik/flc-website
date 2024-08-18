@@ -47,7 +47,7 @@ const EventCard: FunctionComponent<{
   };
 
   return (
-    <div className="intro-card before:z-1 relative h-full w-full rounded-2xl p-2 py-3  before:absolute">
+    <>
       <div className="flex flex-col">
         <div className="flex flex-row items-center justify-between px-4">
           <div className="relative h-4 w-4">
@@ -117,7 +117,7 @@ const EventCard: FunctionComponent<{
         width={50}
         className="absolute bottom-0 left-0 right-0 top-auto w-[100%] opacity-50"
       />
-    </div>
+    </>
   );
 };
 

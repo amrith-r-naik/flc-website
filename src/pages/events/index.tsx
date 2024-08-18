@@ -41,6 +41,48 @@ function Events() {
   return (
     <div className="relative bottom-0 top-0 min-h-screen  pb-2 font-sans">
       <style jsx>{`
+        .grid-card:before {
+          content: "";
+          box-sizing: border-box;
+          position: absolute;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 10.5px;
+          padding: 1px;
+          background: linear-gradient(
+              105.43deg,
+              rgba(168, 128, 255, 0) 25.1%,
+              rgba(168, 128, 255, 0.32) 72.57%,
+              rgba(168, 128, 255, 0) 102.57%
+            ),
+            linear-gradient(
+              0deg,
+              rgba(255, 255, 255, 0.1),
+              rgba(255, 255, 255, 0.1)
+            );
+          -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+        }
+
+        .intro-card::before,
+        .intro-card::after {
+          border-radius: inherit;
+          content: "";
+          height: 100%;
+          left: 0px;
+          opacity: 0;
+          position: absolute;
+          top: 0px;
+          transition: opacity 500ms;
+          width: 100%;
+        }
+
         .intro-card::before {
           background: radial-gradient(
             600px circle at var(--mouse-x) var(--mouse-y),
@@ -57,6 +99,14 @@ function Events() {
             transparent 40%
           );
           z-index: 1;
+        }
+
+        .intro-card:hover::before {
+          opacity: 1;
+        }
+
+        .intro-card:hover::after {
+          opacity: 1;
         }
       `}</style>
       <div className="event-bg"></div>
@@ -81,7 +131,12 @@ function Events() {
         {events && events.length > 0 ? (
           <div className=" mx-auto mb-4 grid max-w-7xl grid-cols-1 gap-10 px-5 md:grid-cols-2 xl:grid-cols-3">
             {events.map((event, idx) => (
-              <EventCard key={idx} event={event} />
+              <div
+                key={idx}
+                className="intro-card relative h-full w-full rounded-2xl p-2 py-3 before:absolute before:z-[9999] after:absolute after:z-[9999]"
+              >
+                <EventCard event={event} />
+              </div>
             ))}
           </div>
         ) : (

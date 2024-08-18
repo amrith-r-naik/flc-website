@@ -54,6 +54,16 @@ const config = {
       destination: "/auth/send-reset-email",
       permanent: true,
     },
+    {
+      source: "/verify-email",
+      destination: "/auth/verify-email",
+      permanent: true,
+    },
+    {
+      source: "/reset-password",
+      destination: "/auth/reset-password",
+      permanent: true,
+    },
   ],
   transpilePackages: ["geist", "gsap"],
 };
