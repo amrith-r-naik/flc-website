@@ -167,13 +167,14 @@ const TeamDialog: React.FC<TeamDialogProps> = ({
   };
 
   useEffect(() => {
-    if (paymentStatus) {
-      toast.success("You can register now!");
+    if (!teamData) {
+      if (paymentStatus) {
+        toast.success("You can register now!");
+      }
     }
   }, [paymentStatus]);
 
   const handlePaymentSuccess = () => {
-    // Refetch payment status when payment is successful
     paymentStatusQuery.refetch();
   };
 
@@ -184,7 +185,8 @@ const TeamDialog: React.FC<TeamDialogProps> = ({
       </DialogTrigger>
       {isAFLCMember && (
         <Button className="card-button z-20" onClick={handleRegister}>
-          Register
+          {teamConfirmed && "View Team"}
+          {!teamConfirmed && "Create Team"}
         </Button>
       )}
       {!isAFLCMember && !paymentStatus && (
@@ -198,7 +200,8 @@ const TeamDialog: React.FC<TeamDialogProps> = ({
 
       {!isAFLCMember && paymentStatus && (
         <Button className="card-button z-20" onClick={handleRegister}>
-          Register Now
+          {teamConfirmed && "View Team"}
+          {!teamConfirmed && "Create Team"}
         </Button>
       )}
 
