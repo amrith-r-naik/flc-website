@@ -52,6 +52,27 @@ export const userRouter = createTRPCRouter({
       somethingWentWrong(e);
     }
   }),
+
+  isAFLCMember: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.db.user.findFirst({
+      where: {
+        id: ctx.session.user.id,
+      },
+    });
+
+    if (user) {
+      return user.role === "MEMBER"
+        ? {
+            userId: user.id,
+            status: true,
+          }
+        : {
+            userId: user.id,
+            status: false,
+          };
+    }
+  }),
+
   getUserEvents: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.db.user.findUnique({
       where: { id: ctx.session.user.id },

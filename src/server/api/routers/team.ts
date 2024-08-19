@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 
+import { getEventByIdZ } from "~/zod/eventZ";
 import {
   confirmTeamZ,
   createTeamZ,
@@ -7,6 +8,7 @@ import {
   getTeamByIdZ,
   joinTeamZ,
   leaveTeamZ,
+  RemoveFromTeamZ,
 } from "~/zod/teamZ";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
@@ -30,7 +32,6 @@ export const teamRouter = createTRPCRouter({
             },
           ],
         },
-        select: {},
       });
 
       if (inTeam)
@@ -45,6 +46,11 @@ export const teamRouter = createTRPCRouter({
           Event: {
             connect: {
               id: input.eventId,
+            },
+          },
+          Leader: {
+            connect: {
+              id: ctx.session.user.id, // Leader ID to connect
             },
           },
           Members: {
@@ -74,7 +80,6 @@ export const teamRouter = createTRPCRouter({
             },
           ],
         },
-        select: {},
       });
 
       if (inTeam)
@@ -167,6 +172,50 @@ export const teamRouter = createTRPCRouter({
       });
     }),
 
+  removeFromTeam: protectedProcedure
+    .input(RemoveFromTeamZ)
+    .mutation(async ({ ctx, input }) => {
+      const team = await ctx.db.team.findUnique({
+        where: {
+          id: input.teamId,
+        },
+        select: {
+          isConfirmed: true,
+          Event: {
+            select: {
+              id: true,
+              isLegacy: true,
+            },
+          },
+        },
+      });
+
+      if (!team)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Team not found",
+        });
+
+      if (team.isConfirmed || team.Event.isLegacy)
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "You cannot leave this team anymore!",
+        });
+
+      await ctx.db.team.update({
+        where: {
+          id: input.teamId,
+        },
+        data: {
+          Members: {
+            disconnect: {
+              id: input.userId,
+            },
+          },
+        },
+      });
+    }),
+
   deleteTeam: protectedProcedure
     .input(deleteTeamZ)
     .mutation(async ({ ctx, input }) => {
@@ -245,6 +294,44 @@ export const teamRouter = createTRPCRouter({
           isConfirmed: true,
         },
       });
+    }),
+
+  inATeamOfEvent: protectedProcedure
+    .input(getEventByIdZ)
+    .query(async ({ ctx, input }) => {
+      const team = await ctx.db.team.findFirst({
+        where: {
+          AND: [
+            {
+              eventId: input.eventId,
+            },
+            {
+              Members: {
+                some: {
+                  id: ctx.session.user.id,
+                },
+              },
+            },
+          ],
+        },
+        include: {
+          Members: true,
+          Leader: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+
+      const isLeader: boolean = team?.Leader.id === ctx.session.user.id;
+
+      if (!team) return null;
+      return {
+        ...team,
+        isLeader,
+        userId: ctx.session.user.id,
+      };
     }),
 
   // Retrieve
