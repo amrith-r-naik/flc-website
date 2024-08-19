@@ -29,7 +29,7 @@ model User {
   year  String
   role  Role    @default(USER)
 
-  bio                 String?
+  bio                 String    @default("")
   position            String?
   memberSince         DateTime?
   totalActivityPoints Int       @default(0)

@@ -40,14 +40,14 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Logging in...");
+    toast.loading("Logging in...");
     signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
     })
-      .then((s) => {
-        toast.dismiss(toastId);
+      .then(async (s) => {
+        toast.dismiss();
         if (s?.ok) {
           toast.success("Logged in successfully");
           void router.push(`/profile`);
@@ -56,7 +56,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         }
       })
       .catch((e) => {
-        toast.dismiss(toastId);
+        toast.dismiss();
         console.error(e);
         toast.error("Failed to log in");
       });
@@ -76,7 +76,9 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Email
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <Input placeholder="Email" {...field} />
               </FormControl>
@@ -89,7 +91,9 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Password
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <Password placeholder="Password" {...field} />
               </FormControl>
@@ -100,25 +104,19 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         <div className="!mt-2 flex justify-between text-sm">
           <Link
             href="/send-reset-email"
-            className="text-muted-foreground underline"
+            className="text-muted-foreground text-white underline dark:text-white "
           >
             Forgot password
-          </Link>
-          <Link
-            href="/send-verify-email"
-            className="text-muted-foreground underline"
-          >
-            Verify email
           </Link>
         </div>
         <div className="flex  flex-col justify-center gap-2">
           <Button className="bg-purple-700 hover:bg-purple-700" type="submit">
             Submit
           </Button>
-          <p className="mb-4 text-center text-sm">
+          <p className="mb-4 text-center text-sm text-white dark:text-white">
             Don&#39;t have an account?
             <strong className="underline">
-              <Link href="/signup">Sign up </Link>
+              <Link href="/signup"> Signup </Link>
             </strong>
           </p>
         </div>

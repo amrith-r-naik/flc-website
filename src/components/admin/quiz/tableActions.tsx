@@ -42,10 +42,13 @@ import {
 } from "~/components/ui/select";
 
 import { type QuizDataRow } from "~/components/admin/quiz/tableColumns";
+import { useRefetchContext } from "~/context/refetchContext";
 import { api } from "~/utils/api";
 import { updateQuizStateZ } from "~/zod/quizZ";
 
 const Actions: FunctionComponent<{ quiz: QuizDataRow }> = ({ quiz }) => {
+  const { executeRefetch } = useRefetchContext("quiz");
+
   const router = useRouter();
 
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -64,7 +67,7 @@ const Actions: FunctionComponent<{ quiz: QuizDataRow }> = ({ quiz }) => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Updating quiz state...");
+    toast.loading("Updating quiz state...");
     updateState.mutate(
       {
         quizId: values.quizId,
@@ -72,13 +75,14 @@ const Actions: FunctionComponent<{ quiz: QuizDataRow }> = ({ quiz }) => {
       },
       {
         onSuccess: () => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.success("Quiz state updated successfully");
+          executeRefetch();
           updateState.reset();
           setDialogOpen(false);
         },
         onError: ({ message }) => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.error(message);
           setDialogOpen(false);
         },

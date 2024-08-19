@@ -42,7 +42,7 @@ const UpdateQuiz: FunctionComponent<{
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Updating quiz...");
+    toast.loading("Updating quiz...");
     updateQuiz.mutate(
       {
         quizId: values.quizId,
@@ -52,12 +52,12 @@ const UpdateQuiz: FunctionComponent<{
       },
       {
         onSuccess: () => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.success("Quiz updated successfully");
           form.reset();
         },
         onError: ({ message }) => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.error(message);
         },
       },

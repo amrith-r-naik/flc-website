@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
 import {
@@ -15,13 +16,13 @@ const positions = ["Winner", "Runner-Up", "Second Runner-Up"];
 const SlugPage: React.FC = () => {
   const [isSolo, setIsSolo] = useState(true);
   const [selectedTeamName, setSelectedTeamName] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [selectedRegNumber, setSelectedRegNumber] = useState<
     string | undefined
   >(undefined);
   const [selectedPosition, setSelectedPosition] = useState<string | undefined>(
-    undefined
+    undefined,
   );
 
   const [winners, setWinners] = useState({
@@ -68,10 +69,7 @@ const SlugPage: React.FC = () => {
           <Label htmlFor="position" className="text-right">
             Position
           </Label>
-          <Select
-            value={selectedPosition}
-            onValueChange={setSelectedPosition}
-          >
+          <Select value={selectedPosition} onValueChange={setSelectedPosition}>
             <SelectTrigger className="p-2">
               <Button variant="outline">
                 {selectedPosition ?? "Select Position"}
@@ -167,15 +165,23 @@ const SlugPage: React.FC = () => {
             <tbody>
               <tr>
                 <td className="border border-gray-300 px-4 py-2">Winner</td>
-                <td className="border border-gray-300 px-4 py-2">{winners.winner}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {winners.winner}
+                </td>
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2">Runner-Up</td>
-                <td className="border border-gray-300 px-4 py-2">{winners.runnerUp}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {winners.runnerUp}
+                </td>
               </tr>
               <tr>
-                <td className="border border-gray-300 px-4 py-2">Second Runner-Up</td>
-                <td className="border border-gray-300 px-4 py-2">{winners.secondRunnerUp}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  Second Runner-Up
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {winners.secondRunnerUp}
+                </td>
               </tr>
             </tbody>
           </table>

@@ -20,10 +20,10 @@ const SunMoonToggle: FunctionComponent = () => {
         }}
       >
         <div
-          className={`duration-400 absolute block rounded-full transition-all ease-in-out ${
+          className={`absolute block rounded-full transition-all duration-400 ease-in-out ${
             isDay
-              ? "shadow-toggle-sun left-[18em] top-[4.5em] size-[7em] rotate-0 bg-white"
-              : "-rotate-75 shadow-toggle-moon left-[3em] top-[3em] size-[10em] bg-[#423966]"
+              ? "left-[18em] top-[4.5em] size-[7em] rotate-0 bg-white shadow-toggle-sun"
+              : "left-[3em] top-[3em] size-[10em] -rotate-75 bg-[#423966] shadow-toggle-moon"
           }`}
         />
       </div>

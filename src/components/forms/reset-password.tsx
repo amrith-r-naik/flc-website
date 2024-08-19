@@ -39,7 +39,7 @@ const Resetpassword: FunctionComponent<{
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Resetting password...");
+    toast.loading("Resetting password...");
     resetPassword.mutate(
       {
         token: values.token,
@@ -48,12 +48,12 @@ const Resetpassword: FunctionComponent<{
       },
       {
         onSuccess: () => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.success("Password reset successful!");
           void router.push("/login");
         },
         onError: ({ message }) => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.error(message);
           void router.push("/login");
         },
@@ -67,7 +67,7 @@ const Resetpassword: FunctionComponent<{
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-8 ")}
       >
-        <FormMessage className="flex justify-center text-center text-3xl text-white ">
+        <FormMessage className="flex justify-center text-center text-2xl text-white sm:text-3xl ">
           Reset password
         </FormMessage>
 
@@ -76,7 +76,9 @@ const Resetpassword: FunctionComponent<{
           name="newPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Password
+              </FormLabel>
               <FormControl className="bg-[#494949] ">
                 <Password placeholder="Password" {...field} />
               </FormControl>
@@ -89,7 +91,9 @@ const Resetpassword: FunctionComponent<{
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Confirm Password
+              </FormLabel>
               <FormControl className="bg-[#494949] ">
                 <Password placeholder="Confirm Password" {...field} />
               </FormControl>

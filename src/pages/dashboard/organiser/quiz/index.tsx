@@ -7,13 +7,16 @@ import { Button } from "~/components/ui/button";
 
 import Table from "~/components/admin/quiz/table";
 import ToolBar from "~/components/utils/toolbar";
+import { RefetchProvider } from "~/context/refetchContext";
 
 const AdminQuiz: NextPage = () => {
   const router = useRouter();
 
   return (
     <div className="container">
-      <Table />
+      <RefetchProvider uid="quiz">
+        <Table />
+      </RefetchProvider>
 
       <ToolBar>
         <Button

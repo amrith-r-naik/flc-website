@@ -1,9 +1,10 @@
 import { FacebookIcon, InstagramIcon, MailIcon, PhoneIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { type FunctionComponent } from "react";
 
 import footerWave from "~/assets/images/footerwave.svg";
+import { cn } from "~/lib/utils";
 
 const socialLinks = [
   {
@@ -42,9 +43,9 @@ export const footLinks = [
   { name: "Shipping", link: "/shipping" },
 ];
 
-function Footer() {
+const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
   return (
-    <footer className="relative  mt-60 bg-[#FCAF3C] text-black">
+    <footer className={cn(className, "relative mt-60 bg-[#FCAF3C] text-black")}>
       <Image
         width={800}
         height={200}
@@ -82,6 +83,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

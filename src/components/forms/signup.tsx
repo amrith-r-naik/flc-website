@@ -58,7 +58,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const toastId = toast.loading("Signing up...");
+    toast.loading("Signing up...");
     signUp.mutate(
       {
         branchId: values.branchId,
@@ -71,7 +71,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
       },
       {
         onSuccess: ({ emailSent }) => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           if (emailSent) {
             toast.success("Verification email sent! Please check your inbox");
             void router.push("/");
@@ -81,7 +81,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           }
         },
         onError: (error) => {
-          toast.dismiss(toastId);
+          toast.dismiss();
           toast.error(error.message);
         },
       },
@@ -102,7 +102,10 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> Name</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                {" "}
+                Name
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <Input placeholder="Name" {...field} />
               </FormControl>
@@ -115,7 +118,9 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Email
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <Input placeholder="Email" {...field} />
               </FormControl>
@@ -128,49 +133,18 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           name="phone"
           render={({ field }) => (
             <FormItem className="flex-1 rounded-lg">
-              <FormLabel>Phone</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Phone
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <InputOTP maxLength={10} {...field}>
-                  <InputOTPSlot
-                    index={0}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={1}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={2}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={3}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={4}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={5}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={6}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={7}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={8}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
-                  <InputOTPSlot
-                    index={9}
-                    className="size-6 bg-[#494949] sm:size-10"
-                  />
+                  {Array.from({ length: 10 }).map((_, idx) => (
+                    <InputOTPSlot
+                      key={idx}
+                      index={idx}
+                      className="size-6 bg-[#494949] sm:size-10"
+                    />
+                  ))}
                 </InputOTP>
               </FormControl>
               <FormMessage />
@@ -183,7 +157,9 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
             name="branchId"
             render={({ field }) => (
               <FormItem className=" min-w-52">
-                <FormLabel>Branch</FormLabel>
+                <FormLabel className="text-white dark:text-white">
+                  Branch
+                </FormLabel>
                 <FormControl className="bg-[#494949]">
                   <ComboBox
                     data={branches ?? []}
@@ -201,7 +177,9 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
             name="year"
             render={({ field }) => (
               <FormItem className="min-w-52">
-                <FormLabel>Graduation Year</FormLabel>
+                <FormLabel className="text-white dark:text-white">
+                  Graduation Year
+                </FormLabel>
                 <FormControl>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="bg-[#494949]">
@@ -236,7 +214,9 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Password
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <Password placeholder="Password" {...field} />
               </FormControl>
@@ -249,7 +229,9 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel className="text-white dark:text-white">
+                Confirm Password
+              </FormLabel>
               <FormControl className="bg-[#494949]">
                 <Password placeholder="Confirm Password" {...field} />
               </FormControl>
@@ -262,10 +244,10 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           <Button className="bg-purple-800" type="submit">
             Submit
           </Button>
-          <p className="mb-4 text-center text-sm">
+          <p className="mb-4 text-center text-sm text-white dark:text-white">
             Already have an account?
             <strong className="underline">
-              <Link href="/auth/login">LogIn </Link>
+              <Link href="/auth/login"> LogIn </Link>
             </strong>
           </p>
         </div>

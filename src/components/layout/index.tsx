@@ -28,13 +28,14 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
 
   const loading = useLoading();
 
-  if (status === "loading")
+  if (status === "loading" || loading)
     return (
       <div className="flex h-screen w-screen items-center justify-center">
         <Loader />
       </div>
     );
 
+  // Protected routes
   if (
     status === "unauthenticated" &&
     pathname.startsWith("/dashboard") &&
@@ -42,18 +43,14 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   )
     return <SignIn />;
 
+  // Protected routes with special previlages
   if (
     status === "authenticated" &&
-    pathname.startsWith("/dashboard/organiser") &&
-    session.user.role !== "ORGANISER" &&
-    session.user.role !== "ADMIN"
-  )
-    return <Unauthorized user={session.user} />;
-
-  if (
-    status === "authenticated" &&
-    pathname.startsWith("/dashboard/admin") &&
-    session.user.role !== "ADMIN"
+    ((pathname.startsWith("/dashboard/organiser") &&
+      session.user.role !== "ORGANISER" &&
+      session.user.role !== "ADMIN") ||
+      (pathname.startsWith("/dashboard/admin") &&
+        session.user.role !== "ADMIN"))
   )
     return <Unauthorized user={session.user} />;
 
@@ -65,28 +62,19 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
       className={cn(
         rowdies.className,
         theme === "light" || (theme === "system" && systemTheme === "light")
-          ? "bg-white"
+          ? "bg-yellow-50"
           : "bg-[#100020]",
-        "flex h-screen w-screen cursor-none",
+        "relative h-fit min-h-screen w-screen cursor-default transition-all md:cursor-none",
       )}
     >
+      <NavBar />
+      <main className="flex h-fit min-h-full w-full flex-col pt-[calc(4rem_+_1rem)]">
+        {children}
+      </main>
+      <Footer className="z-50" />
+
       <Cursor />
       <Toaster />
-
-      <div className="flex h-full w-full flex-col ">
-        <NavBar />
-
-        <main className={cn("pt-[calc(4rem_+_1rem)]")}>
-          {loading ? (
-            <div className="flex size-full items-center justify-center">
-              <Loader />
-            </div>
-          ) : (
-            children
-          )}
-          <Footer />
-        </main>
-      </div>
     </div>
   );
 };
