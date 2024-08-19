@@ -14,15 +14,17 @@ import CopyBtn from "~/components/utils/copyBtn";
 import { api } from "~/utils/api";
 
 import NotFound from "../404";
+import TeamDialog from "./team";
 
 const EventsSlug: NextPage = () => {
+  const isAFLCMember = api.user.isAFLCMember.useQuery().data;
   const router = useRouter();
   const id = Array.isArray(router.query.slug)
     ? router.query.slug[0]
     : router.query.slug;
 
   const path = usePathname();
-  const url = `http://localhost:3000/event/${path}`;
+  const url = `http://localhost:3000/events/${path}`;
   console.log(path);
   console.log(id);
 
@@ -59,11 +61,11 @@ const EventsSlug: NextPage = () => {
   const formattedDate = fromDate.toLocaleString("en-US", options);
 
   return (
-    <main className="mb-1 mt-16 flex w-[100%] flex-col items-center justify-start space-y-4">
-      <section className="  flex w-[90%] flex-col  rounded-3xl border border-border bg-accent sm:flex-row md:w-[85%] lg:w-[75%] xl:w-[60%]">
+    <main className=" mb-1 mt-16 flex w-[100%] flex-col items-center justify-start space-y-4 font-sans">
+      <section className="intro-card  relative flex w-[90%]  flex-col overflow-hidden rounded-2xl border border-border bg-accent sm:flex-row md:w-[85%] lg:w-[75%] xl:w-[60%] ">
         <div className="flex    shrink justify-start overflow-hidden">
           <Image
-            className="w-full rounded-t-3xl sm:w-[300px] sm:rounded-s-3xl sm:rounded-tr-none lg:w-[400px] "
+            className="z-50 w-full rounded-t-3xl sm:w-[300px] sm:rounded-s-3xl sm:rounded-tr-none lg:w-[400px]"
             src={event.imgSrc ?? "/assets/image.png"}
             alt="event"
             width={300}
@@ -71,10 +73,14 @@ const EventsSlug: NextPage = () => {
           />
         </div>
         <div className="flex-1 space-y-4  p-8">
-          <p className="text-5xl font-bold  md:text-6xl">{event?.name} </p>
+          <p className="events-heading text-5xl  font-bold md:text-6xl">
+            {event?.name}{" "}
+          </p>
+
           <p className="text-base font-medium sm:text-lg">
             Date: {formattedDate}
           </p>
+
           <p className="text-base font-medium">Venue : {event.venue}</p>
           <p className="text-sm font-medium sm:text-base">
             Organisers :{" "}
@@ -84,27 +90,36 @@ const EventsSlug: NextPage = () => {
           </p>
 
           <div className="mt-4 flex items-center gap-8">
-            <p className="text-lg font-bold">
-              Entry fee: Rs
-              {event.amount > 0 ? ` ${event.amount}/-` : " FREE"}{" "}
-            </p>
-            <Button
-              asChild
-              className="rounded border border-border bg-white  px-3 py-2 font-bold hover:bg-white/5"
-            >
-              <Link
-                href="/"
-                className="flex gap-3  text-sm font-light text-black no-underline"
-              >
-                Register
-              </Link>
-            </Button>
+            {!isAFLCMember?.status && (
+              <p className="text-lg font-bold">
+                Entry fee: Rs
+                {event.amount > 0 ? ` ${event.amount}/-` : " FREE"}{" "}
+              </p>
+            )}
+
+            {isAFLCMember !== undefined && (
+              <TeamDialog
+                eventId={event.id}
+                maxTeamSize={event.maxTeamSize}
+                isAFLCMember={isAFLCMember.status}
+                amount={event.amount}
+                eventName={event.name}
+                userId={isAFLCMember.userId}
+              />
+            )}
           </div>
         </div>
+        <Image
+          src="/card_bottom.png"
+          alt=""
+          height={50}
+          width={50}
+          className="absolute bottom-0 left-0 right-0 top-auto w-[100%] opacity-50"
+        />
       </section>
 
-      <section className=" mx-auto flex w-[90%] flex-col gap-4 rounded-3xl border border-border bg-accent p-8 sm:flex-row md:w-[85%]  lg:w-[75%]  xl:w-[60%]">
-        <div className="space-y-4" style={{ flex: 2 }}>
+      <section className="intro-card relative mx-auto flex w-[90%] flex-col gap-4 overflow-hidden rounded-2xl border border-border bg-accent p-8 sm:flex-row md:w-[85%]  lg:w-[75%]  xl:w-[60%]">
+        <div className="space-y-4 " style={{ flex: 2 }}>
           <h1 className="text-3xl font-bold ">Description</h1>
           {/* <p>{event.description}</p> */}
           <p className="font-extralight">{event.description}</p>
@@ -116,7 +131,7 @@ const EventsSlug: NextPage = () => {
               : "Register Now!"}
           </h1>
           <div className="relative px-2 pb-6 pt-2">
-            {event.selectedImages?.map((image, index) => (
+            {event.selectedImages?.map((image: any, index) => (
               <AvatarCustom
                 key={index}
                 height={40}
@@ -129,7 +144,7 @@ const EventsSlug: NextPage = () => {
           <h1 className="mb-2 mt-8 text-xl font-medium">Share with a friend</h1>
           <div className="flex gap-2 ">
             <input
-              className="flex-1 rounded-lg p-1 text-xs"
+              className="card-attributes flex-1 rounded-lg p-1.5 text-xs"
               type="text"
               value={url}
               disabled

@@ -60,6 +60,8 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  TeamLeader Team[] @relation("leaderOfTeam")
 }
 
 model VerificationToken {
@@ -183,6 +185,9 @@ model Team {
 
   eventId Int
   Event   Event @relation(fields: [eventId], references: [id])
+
+  leaderId Int
+  Leader   User @relation("leaderOfTeam", fields: [leaderId], references: [id])
 
   Members User[]
   Winner  Winner?

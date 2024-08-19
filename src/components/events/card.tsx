@@ -98,7 +98,7 @@ const EventCard: FunctionComponent<{
             ))}
           </div>
           <div className="w-full">
-            <Link href={`/event/${event.id}`}>
+            <Link href={`/events/${event.id}`}>
               <button className="card-button mt-0 flex w-full shrink-0 items-center justify-center gap-2 rounded-full border  border-[#FF94D2]/40 bg-[#7e7d7c] py-2 text-lg capitalize text-white transition-all duration-300 hover:scale-[1.02] ">
                 <IoIosPlayCircle />
                 <span className="z-10 text-white brightness-100">

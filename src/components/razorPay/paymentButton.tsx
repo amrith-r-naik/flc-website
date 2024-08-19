@@ -9,6 +9,7 @@ type PropType = {
   amount: number;
   userId: number;
   name: string;
+  onPaymentSuccess?: (response: any) => void;
 };
 
 function loadScript(src: string) {
@@ -25,9 +26,24 @@ function loadScript(src: string) {
   });
 }
 
-export default function Payment({ amount, userId, name }: PropType) {
+export default function Payment({
+  amount,
+  userId,
+  name,
+  onPaymentSuccess,
+}: PropType) {
   const [isRazorpayLoaded, setIsRazorpayLoaded] = useState(false);
-  const savePayment = api.payment.createPayment.useMutation();
+  const savePayment = api.payment.createPayment.useMutation({
+    onSuccess: (data) => {
+      console.log("Payment saved successfully", data);
+      if (onPaymentSuccess) {
+        onPaymentSuccess(data); // Execute the passed callback function
+      }
+    },
+    onError: (error) => {
+      console.error("Error saving payment", error);
+    },
+  });
 
   async function displayRazorpay() {
     if (!isRazorpayLoaded) {
@@ -65,11 +81,11 @@ export default function Payment({ amount, userId, name }: PropType) {
   }
 
   return (
-    <div className="App">
+    <div className="App ">
       <header className="App-header">
         <button
           onClick={displayRazorpay}
-          className="rounded-md bg-white p-2 text-black"
+          className="card-button rounded-md bg-white p-2 text-black"
         >
           Pay now
         </button>
