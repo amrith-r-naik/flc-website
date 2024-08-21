@@ -9,7 +9,7 @@ import SpaceBG from "~/components/layout/spaceBG";
 const SignIn: FunctionComponent = () => {
   const router = useRouter();
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-full">
       <SpaceBG>
         <div className="flex size-full items-center justify-center">
           <Button

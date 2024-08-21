@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import { Rowdies } from "next/font/google";
 import { useRouter } from "next/router";
-import React, { type ReactNode, type FunctionComponent } from "react";
+import { type FunctionComponent, type ReactNode } from "react";
 import { Toaster } from "sonner";
 
 import SignIn from "~/components/auth/signIn";
@@ -30,7 +30,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
 
   if (status === "loading" || loading)
     return (
-      <div className="flex h-screen w-screen items-center justify-center">
+      <div className="flex min-h-screen w-screen items-center justify-center">
         <Loader />
       </div>
     );
@@ -64,11 +64,11 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         theme === "light" || (theme === "system" && systemTheme === "light")
           ? "bg-yellow-50"
           : "bg-[#100020]",
-        "relative h-fit min-h-screen w-screen cursor-default transition-all md:cursor-none",
+        "relative h-fit min-h-screen w-full cursor-default overflow-clip transition-all md:cursor-none",
       )}
     >
       <NavBar />
-      <main className="flex h-fit min-h-full w-full flex-col pt-[calc(4rem_+_1rem)]">
+      <main className="dark flex h-fit min-h-full w-full flex-col pt-[calc(4rem_+_1rem)]">
         {children}
       </main>
       <Footer className="z-50" />

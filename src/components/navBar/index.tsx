@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { type FunctionComponent } from "react";
+import { type FunctionComponent } from "react";
 
 import AuthButton from "~/components/navBar/authButton";
-import SunMoonToggle from "~/components/navBar/sunMoonToggle";
 import { userNavItems } from "~/constants";
 
 import Logo from "../logo";
@@ -43,7 +42,7 @@ const Navbar: FunctionComponent = ({}) => {
           ))}
         </div>
 
-        <SunMoonToggle />
+        {/*<SunMoonToggle />*/}
 
         <AuthButton />
 
