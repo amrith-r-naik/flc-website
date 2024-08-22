@@ -34,7 +34,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
         attribute="class"
         defaultTheme="system"
         enableSystem
-        themes={["light", "dark"]}
+        // themes={["light", "dark"]}
+        themes={["dark"]}
       >
         <ReactLenis root>
           <Head>

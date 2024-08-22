@@ -39,7 +39,7 @@ function Events() {
   if (isLoading) {
     return (
       <section
-        className="flex  min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
+        className="mx-auto  flex min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
         ref={ref}
       >
         <h3 className="subheading text-center font-semibold">
@@ -48,7 +48,7 @@ function Events() {
         <p className="text-center">
           Enrich your skills and knowledge with tons of events and workshops
         </p>
-        <div className="flex h-screen w-screen items-center justify-center">
+        <div className="flex h-screen w-full items-center justify-center">
           <Loader />
         </div>
 
@@ -103,7 +103,7 @@ function Events() {
         <p>
           Enrich your skills and knowledge with tons of events and workshops
         </p>
-        <div className="flex h-screen w-screen items-center justify-center">
+        <div className="flex h-screen w-full items-center justify-center">
           <Loader />
         </div>
 

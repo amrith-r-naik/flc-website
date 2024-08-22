@@ -1,7 +1,5 @@
 import { type FC } from "react";
 
-import Footer from "~/components/footer";
-
 const ContactUs: FC = () => {
   return (
     <>
@@ -53,8 +51,6 @@ const ContactUs: FC = () => {
             </ul>
           </section>
         </main>
-
-        <Footer />
       </div>
     </>
   );

@@ -3,7 +3,7 @@
 import { type Event } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosPlayCircle } from "react-icons/io";
 
 /* import { PublishedEventsQuery } from "../../generated/generated"; */
@@ -13,7 +13,6 @@ import {
   IoPersonOutline,
 } from "react-icons/io5";
 
-import EventCard from "~/components/eventCard";
 import Loader from "~/components/loader";
 import { api } from "~/utils/api";
 
@@ -80,7 +79,7 @@ function Events() {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center">
+      <div className="flex h-screen w-full items-center justify-center">
         <Loader />
       </div>
     );

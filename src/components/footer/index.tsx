@@ -1,51 +1,63 @@
-import { FacebookIcon, InstagramIcon, MailIcon, PhoneIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { type FunctionComponent } from "react";
+import {
+  AiOutlineInstagram,
+  AiOutlineFacebook,
+  AiOutlineLinkedin,
+  AiOutlineMail,
+  AiOutlinePhone,
+} from "react-icons/ai";
 
 import footerWave from "~/assets/images/footerwave.svg";
 import { cn } from "~/lib/utils";
 
-const socialLinks = [
+export const social = [
   {
-    name: "instagram",
-    image: InstagramIcon,
-    url: "https://www.instagram.com/finiteloop_club_nmamit/",
+    link: "https://www.instagram.com/finiteloop_club_nmamit/",
+    icon: <AiOutlineInstagram className="h-7 w-7 hover:-translate-y-1" />,
+    name: "Instagram",
   },
   {
-    name: "facebook",
-    image: FacebookIcon,
-    url: "https://www.facebook.com/FiniteLoopClub.Nmamit/",
+    link: "https://www.facebook.com/FiniteLoopClub.Nmamit/",
+    icon: <AiOutlineFacebook className="h-7 w-7 hover:-translate-y-1" />,
+    name: "Facebook",
   },
   {
-    name: "phone",
-    image: PhoneIcon,
-    url: "tel:8197903771",
+    link: "https://www.linkedin.com/showcase/finite-loop-club",
+    icon: <AiOutlineLinkedin className="h-7 w-7 hover:-translate-y-1" />,
+    name: "LinkedIn",
   },
   {
-    name: "mail",
-    image: MailIcon,
-    url: "mailto:finiteloopclub@gmail.com",
+    link: "mailto:finiteloopclub@gmail.com",
+    icon: <AiOutlineMail className="h-7 w-7 hover:-translate-y-1" />,
+    name: "E-mail",
+  },
+  {
+    link: "tel:8197903771",
+    icon: <AiOutlinePhone className="h-7 w-7 hover:-translate-y-1" />,
+    name: "Call Us",
   },
 ];
 
 export const Links = [
   { name: "Home", link: "/" },
+  { name: "Gallery", link: "/gallery" },
   { name: "Events", link: "/events" },
-  { name: "Team", link: "/team" },
+  { name: "Blogs", link: "/blogs" },
 ];
 
 export const footLinks = [
-  { name: "Privacy", link: "/privacy-policy" },
-  { name: "Terms and Conditions", link: "/terms" },
-  { name: "Refund & Cancellation", link: "/refund" },
-  { name: "Contact us", link: "/contact-us" },
-  { name: "Shipping", link: "/shipping" },
+  { name: "Privacy", link: "/docs/privacy-policy" },
+  { name: "Terms and Conditions", link: "/docs/terms" },
+  { name: "Refund & Cancellation", link: "/docs/refund" },
+  { name: "Contact us", link: "/docs/contact-us" },
+  { name: "Shipping", link: "/docs/shipping" },
 ];
 
 const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
   return (
-    <footer className={cn(className, "relative mt-60 bg-[#FCAF3C] text-black")}>
+    <footer className={cn(className, "relative mt-60 bg-[#100020]")}>
       <Image
         width={800}
         height={200}
@@ -54,32 +66,68 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
         src={footerWave as string}
         alt="footer wave"
       />
-      <div className="content-container space-y-8">
-        <h1 className="text-center text-4xl font-bold">FiniteLoop</h1>
 
-        <ul className="flex flex-wrap justify-center gap-6">
-          {socialLinks.map((link) => (
-            <Link href={link.url} key={link.name}>
-              <link.image />
-            </Link>
-          ))}
-        </ul>
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="flex flex-col items-center md:items-start">
+            <Image
+              src="/assets/flc_logo.png"
+              width={100}
+              height={100}
+              alt="flc_logo"
+              priority
+            />
+            <a className="events-heading mt-3 flex cursor-pointer items-center text-lg md:text-xl">
+              Finite Loop Club
+            </a>
+            <p className="events-heading mt-3 text-center md:text-left">
+              NMAM Institute of Technology, Nitte, SH1, Karkala, Karnataka,
+              KARKALA, NMAMIT 574110, IN
+            </p>
+          </div>
 
-        <nav>
-          <ul className="flex flex-wrap justify-center gap-6">
-            {footLinks.map((link) => (
-              <li key={link.name}>
-                <Link href={link.link} className="">
+          <div className="line-break flex flex-col items-center py-28 md:items-end ">
+            <ul className="mb-6 flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8">
+              {Links.map((link, index) => (
+                <li key={index}>
+                  <Link
+                    href={link.link}
+                    className="events-heading transition hover:text-gray-200/75"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <ul className="mb-6 flex justify-center gap-4 md:gap-6 lg:gap-8">
+              {social.map((link, index) => (
+                <li key={index}>
+                  <Link href={link.link}>
+                    <span className="sr-only">{link.name}</span>
+                    {link.icon}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <hr className="border-gray-700" />
+        <div className="mt-4 flex flex-col items-center gap-4">
+          <ul className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8">
+            {footLinks.map((link, index) => (
+              <li key={index}>
+                <Link
+                  href={link.link}
+                  className="events-heading transition hover:text-gray-200/75"
+                >
                   {link.name}
                 </Link>
               </li>
             ))}
           </ul>
-        </nav>
-
-        <hr className="border-current" />
-        <p className="text-center">copyright @2024</p>
-        <p className="text-center">Made With 💙 By Flc Tech Team</p>
+        </div>
       </div>
     </footer>
   );

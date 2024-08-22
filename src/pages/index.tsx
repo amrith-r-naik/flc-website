@@ -13,15 +13,15 @@ export default function Home() {
   const { theme } = useTheme();
 
   return (
-    <main className="flex flex-col items-stretch">
-      <div className="h-screen w-screen bg-gradient-to-t from-[#ffffff] via-[#efd17bc7] to-[#ffed951a] dark:bg-none" />
+    <main className="flex flex-col ">
+      <div className="min-h-screen w-full bg-gradient-to-t from-[#ffffff] via-[#efd17bc7] to-[#ffed951a] dark:bg-none" />
       <video
         src="waves.webm"
         autoPlay
         muted
         loop
         className={cn(
-          "absolute top-[45%] w-screen md:top-0",
+          "absolute top-[30rem] w-full md:top-[20rem] lg:top-[10rem] xl:top-32  2xl:top-24",
           theme === "dark" ? "brightness-100" : "brightness-75 ",
         )}
       />
