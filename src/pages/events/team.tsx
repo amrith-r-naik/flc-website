@@ -201,11 +201,11 @@ const TeamDialog: React.FC<TeamDialogProps> = ({
       {!isAFLCMember && paymentStatus && (
         <Button className="card-button z-20" onClick={handleRegister}>
           {teamConfirmed && "View Team"}
-          {!teamConfirmed && "Create Team"}
+          {!teamConfirmed && "Register"}
         </Button>
       )}
 
-      <DialogContent className="intro-card w-[90%] border-none  sm:mx-0 sm:w-[40%]">
+      <DialogContent className="intro-card w-[90%] border-none !opacity-100  sm:mx-0 sm:w-[40%]">
         <DialogClose asChild>
           <button
             className="absolute right-1.5 top-1.5 z-30 p-1.5 text-gray-600 hover:text-white"

@@ -108,6 +108,13 @@ export const teamRouter = createTRPCRouter({
           message: "Team not found",
         });
 
+      if (team && team.Event.id != input.eventId) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Team does not belong to this event",
+        });
+      }
+
       if (team._count.Members >= team.Event.maxTeamSize)
         throw new TRPCError({
           code: "BAD_REQUEST",

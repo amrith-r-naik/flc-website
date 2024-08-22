@@ -11,6 +11,7 @@ import EventCard from "~/components/events/card";
 import { api } from "~/utils/api";
 
 import Loader from "../loader";
+import { RadialCard } from "../utils/radialCard";
 
 function Events() {
   const {
@@ -70,9 +71,15 @@ function Events() {
           Enrich your skills and knowledge with tons of events and workshops
         </p>
         {events && events.length > 0 ? (
-          <div className="mx-auto  mb-4 grid w-full max-w-7xl grid-cols-1 gap-4  md:grid-cols-3 ">
+          <div className="mx-auto  mb-4 grid w-full max-w-7xl columns-3 gap-4 ">
             {events.map((event, idx) => (
-              <EventCard key={idx} event={event} />
+              <RadialCard
+                key={idx}
+                className="relative h-full w-fit rounded-2xl p-2 py-3"
+                withGlow
+              >
+                <EventCard event={event} />
+              </RadialCard>
             ))}
           </div>
         ) : (

@@ -26,10 +26,7 @@ export default function Home() {
         )}
       />
       <Hero />
-      <AboutFLC />
-      <Roadmap />
-      <Hackfest />
-      <Projects />
+
       <Events />
       <Benifits />
     </main>
