@@ -32,7 +32,7 @@
 
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
-    --font-rowdies: "Rowdies", sans-serif;
+    --font-inter: "Inter", sans-serif;
   }
   .dark {
     --primary: 50 98% 64%;
@@ -141,6 +141,55 @@
       rgb(130, 118, 118) 65%,
       rgba(76, 67, 67, 1) 100%
     );
+  }
+
+  .grid_card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: radial-gradient(
+        50% 70.31% at 50% 0%,
+        rgba(126, 61, 255, 0.04) 0%,
+        rgba(126, 61, 255, 0) 100%
+      ),
+      rgba(11, 1, 29, 0.01);
+    backdrop-filter: blur(8.5px);
+    border-radius: 12px;
+  }
+
+  .grid-card:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10.5px;
+    padding: 1px;
+    background: linear-gradient(
+        105.43deg,
+        rgba(168, 128, 255, 0) 25.1%,
+        rgba(168, 128, 255, 0.32) 72.57%,
+        rgba(168, 128, 255, 0) 102.57%
+      ),
+      linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .grid-card::before {
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.56),
+      transparent 40%
+    );
+    z-index: 3;
   }
 
   .event-bg {
@@ -371,6 +420,55 @@ body {
       rgba(136, 112, 3, 0.6),
       rgba(0, 0, 0, 0) 45%
     );
+  }
+
+  .grid_card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: radial-gradient(
+        50% 70.31% at 50% 0%,
+        rgba(126, 61, 255, 0.04) 0%,
+        rgba(126, 61, 255, 0) 100%
+      ),
+      rgba(11, 1, 29, 0.01);
+    backdrop-filter: blur(8.5px);
+    border-radius: 12px;
+  }
+
+  .grid-card::before {
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.56),
+      transparent 40%
+    );
+    z-index: 3;
+  }
+
+  .grid-card:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10.5px;
+    padding: 1px;
+    background: linear-gradient(
+        105.43deg,
+        rgba(168, 128, 255, 0) 25.1%,
+        rgba(168, 128, 255, 0.32) 72.57%,
+        rgba(168, 128, 255, 0) 102.57%
+      ),
+      linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
   }
 
   .bg-custom-gradient {

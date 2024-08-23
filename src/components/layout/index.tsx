@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
-import { Rowdies } from "next/font/google";
+import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 import { type FunctionComponent, type ReactNode } from "react";
 import { Toaster } from "sonner";
@@ -15,10 +15,10 @@ import NavBar from "~/components/navBar";
 import { useLoading } from "~/hooks";
 import { cn } from "~/lib/utils";
 
-const rowdies = Rowdies({
-  weight: ["700"],
+const rowdies = Inter({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-rowdies",
+  variable: "--font-inter",
 });
 
 const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
@@ -63,7 +63,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         rowdies.className,
         theme === "light" || (theme === "system" && systemTheme === "light")
           ? "bg-yellow-50"
-          : "bg-[#100020]",
+          : "bg-[#0b011d]",
         "relative h-fit min-h-screen w-full cursor-default overflow-clip transition-all md:cursor-none",
       )}
     >
