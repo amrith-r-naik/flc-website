@@ -56,7 +56,7 @@ const Team = () => {
     <>
       <div className="top-0 flex flex-col items-center pt-24">
         <div className="my-10 flex w-full flex-col items-center md:my-20">
-          <div className="titleContainer flex items-center justify-center gap-4">
+          <div className="font-title flex items-center justify-center gap-4">
             <h1 className="meet mb-3 text-2xl font-bold text-primary md:text-4xl">
               MEET
             </h1>
@@ -119,6 +119,7 @@ const Team = () => {
           className="mt-8 flex w-full justify-center pb-24"
         >
           <div className="grid gap-4 gap-y-24 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {/* TODO: integrate backend */}
             {Array.from({ length: 10 }).map((_, idx) => (
               <MemberCard
                 key={idx}

@@ -84,10 +84,7 @@ export default function handler(req: NextApiRequest) {
                 height: "120px",
               }}
               height={0}
-              src={
-                image ??
-                `${env.NEXT_PUBLIC_CANONICAL_URL}assets/images/flc_logo_crop.png`
-              }
+              src={`${env.NEXT_PUBLIC_CANONICAL_URL}assets/images/flc_logo_crop.png`}
               alt="Finite Loop Club"
             />
             <div

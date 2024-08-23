@@ -109,7 +109,7 @@ const InnerEditUserForm: FunctionComponent<{
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 p-4"
+            className="space-y-8 px-4 md:px-0"
           >
             <DialogDrawerHeader>
               <DialogDrawerTitle>Edit User</DialogDrawerTitle>

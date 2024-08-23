@@ -64,7 +64,7 @@ const InnerProfileImage = forwardRef<HTMLDivElement, { user: User }>(
                     src={user.image}
                     alt={"Profile Image"}
                     fill
-                    className="object-fit rounded-full"
+                    className="rounded-full object-fill object-center"
                   />
                 )}
               </div>

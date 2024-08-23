@@ -1,6 +1,5 @@
 import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
-import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 import { type FunctionComponent, type ReactNode } from "react";
 import { Toaster } from "sonner";
@@ -14,12 +13,6 @@ import Loader from "~/components/loader";
 import NavBar from "~/components/navBar";
 import { useLoading } from "~/hooks";
 import { cn } from "~/lib/utils";
-
-const rowdies = Inter({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
 
 const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const { pathname } = useRouter();
@@ -37,8 +30,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   // Protected routes
   if (
     status === "unauthenticated" &&
-    pathname.startsWith("/dashboard") &&
-    pathname.startsWith("/profile")
+    (pathname.startsWith("/dashboard") || pathname.startsWith("/profile"))
   )
     return <SignIn />;
 
@@ -59,12 +51,11 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   return (
     <div
       className={cn(
-        rowdies.className,
         theme === "light" || (theme === "system" && systemTheme === "light")
           ? "bg-yellow-50"
           : "bg-[#0b011d]",
         "relative h-fit min-h-screen w-full overflow-clip transition-all",
-        // "cursor-default md:cursor-none",
+        "cursor-default md:cursor-none",
       )}
     >
       <NavBar />
@@ -72,7 +63,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         {children}
       </main>
       <Footer className="z-50" />
-      {/* <Cursor /> */}
+      <Cursor />
       <Toaster />
     </div>
   );

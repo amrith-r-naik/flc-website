@@ -21,6 +21,8 @@ const config = {
     extend: {
       fontFamily: {
         "bebas-neue": ['"Bebas Neue"', "sans-serif"],
+        title: ["Rowdies", "sans-serif"],
+        "sub-heading": ["Rowdies", "sans-serif"],
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -131,10 +133,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("@tailwindcss/aspect-ratio"),
-  ],
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;
 
 export default config;

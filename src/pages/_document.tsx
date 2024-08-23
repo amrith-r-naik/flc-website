@@ -11,16 +11,6 @@ export default function Document() {
         <meta name="email" content={siteMetaData.email} />
         <meta name="address" content={siteMetaData.address} />
         <meta name="author" content={siteMetaData.author} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
-          rel="stylesheet"
-        />
       </Head>
       <body>
         <Main />

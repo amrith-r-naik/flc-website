@@ -76,7 +76,6 @@ const TeamDialog: FunctionComponent<{
         <Payment
           amount={amount}
           name={eventName}
-          userId={123}
           onPaymentSuccess={() => {
             void refetchPaymentStatus();
           }}

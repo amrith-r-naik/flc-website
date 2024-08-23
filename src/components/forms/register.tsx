@@ -20,6 +20,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 
+import Payment from "~/components/razorPay/paymentButton";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import { registerZ } from "~/zod/authZ";
@@ -231,21 +232,7 @@ const InnerRegisterForm: FunctionComponent<{
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="paymentProof"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-white dark:text-white">
-                Payment Proof
-              </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Textarea placeholder="Answer" rows={3} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <Payment amount={1} name="" />
 
         <div className="flex justify-center">
           <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">

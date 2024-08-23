@@ -52,7 +52,9 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
           toast.success("Logged in successfully");
           void router.push(`/profile`);
         } else {
-          toast.error("Failed to log in! You sure about your credentials?");
+          toast.error(
+            s?.error ?? "Failed to log in! You sure about your credentials?",
+          );
         }
       })
       .catch((e) => {

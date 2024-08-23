@@ -69,13 +69,20 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
               alt="flc_logo"
               priority
             />
-            <a className="events-heading mt-3 flex items-center text-lg md:text-xl">
+            <a className="font-sub-heading events-heading mb-3 mt-3 flex items-center text-lg md:text-xl">
               Finite Loop Club
             </a>
-            <p className="events-heading mb-6 mt-3 text-center md:text-left">
-              NMAM Institute of Technology, Nitte, SH1, Karkala, Karnataka,
-              KARKALA, NMAMIT 574110, IN
-            </p>
+            <div className="mb-4">
+              <p className="events-heading text-center md:text-left">
+                NMAM Institute of Technology
+              </p>
+              <p className="events-heading text-center md:text-left">
+                Nitte, SH1, Karkala
+              </p>
+              <p className="events-heading text-center md:text-left">
+                Karnataka, 574110, IN
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col justify-end md:items-end ">
