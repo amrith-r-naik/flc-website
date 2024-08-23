@@ -142,7 +142,7 @@ export function Benifits() {
           />
         </div>
         <div className="grid-card relative col-span-1 row-span-1 row-start-9 row-end-10 flex items-center justify-center overflow-hidden rounded-2xl  px-2 text-lg sm:row-start-5 sm:row-end-6 lg:col-start-4 lg:col-end-5 lg:row-start-4 lg:row-end-5">
-          <div className="relative h-[70%] w-[95%] sm:h-[40%] sm:w-[85%]">
+          <div className="relative h-[70%] w-[95%] sm:h-[40%] sm:w-[97%]">
             <Image src="/assets/images/flc_logo.png" alt="" fill />
           </div>
           <Image
