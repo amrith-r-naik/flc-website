@@ -48,18 +48,23 @@ const EventsSlug: NextPage = () => {
   if (status === "error") return <NotFound />;
 
   return (
-    <main className=" mb-1 mt-16 flex w-[100%] flex-col items-center justify-start space-y-4 font-sans">
-      <section className="intro-card  relative flex w-[90%]  flex-col overflow-hidden rounded-2xl border border-border bg-accent sm:flex-row md:w-[85%] lg:w-[75%] xl:w-[60%] ">
-        <div className="flex    shrink justify-start overflow-hidden">
-          <Image
-            className="z-50 w-full rounded-t-3xl sm:w-[300px] sm:rounded-s-3xl sm:rounded-tr-none lg:w-[400px]"
-            src={event.imgSrc ?? "/assets/image.png"}
-            alt="event"
-            width={300}
-            height={5}
-          />
+    <main className="container mb-1 mt-16 flex w-[100%] flex-col items-center justify-start space-y-4 font-sans">
+      <section className="intro-card relative flex h-96 w-full flex-col overflow-hidden rounded-2xl border border-border bg-accent sm:flex-row">
+        <div className="w-2/5">
+          <div className="relative h-full w-full">
+            <Image
+              className="object-cover object-center"
+              src={
+                event.imgSrc && event.imgSrc.length > 0
+                  ? event.imgSrc
+                  : "/assets/images/eventFallback.png"
+              }
+              alt="event"
+              fill
+            />
+          </div>
         </div>
-        <div className="flex-1 space-y-4 p-8">
+        <div className="w-3/5 space-y-4 p-8">
           <p className="events-heading text-5xl  font-bold md:text-6xl">
             {event?.name}{" "}
           </p>
@@ -103,10 +108,13 @@ const EventsSlug: NextPage = () => {
         />
       </section>
 
-      <section className="intro-card relative mx-auto flex w-[90%] flex-col gap-4 overflow-hidden rounded-2xl border border-border bg-accent p-8 sm:flex-row md:w-[85%]  lg:w-[75%]  xl:w-[60%]">
+      <section className="intro-card relative mx-auto flex  w-full flex-col gap-4 overflow-hidden rounded-2xl border border-border bg-accent p-8 sm:flex-row">
         <div className="space-y-4 " style={{ flex: 2 }}>
           <h1 className="text-3xl font-bold ">Description</h1>
-          <p className="font-extralight">{event.description}</p>
+          <p
+            className="font-extralight"
+            dangerouslySetInnerHTML={{ __html: event.description ?? "" }}
+          />
         </div>
         <div className="b" style={{ flex: 1 }}>
           <h1 className="text-xl font-medium">

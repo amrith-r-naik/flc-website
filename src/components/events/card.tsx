@@ -51,26 +51,29 @@ const EventCard: FunctionComponent<{
       <div className="max-w-sm overflow-hidden">
         <div className="flex flex-col">
           <div className="flex flex-row items-center justify-between px-4">
-            <div className="relative h-4 w-4">
+            <div className="relative size-8">
               <Image
-                src="/favicon.ico" /* replace it with flc logo */
+                src="/assets/images/flc_logo_crop.png"
                 alt={"Incridea Logo"}
                 fill
-                className="z-0 h-full w-full object-fill text-white"
+                className="object-cover object-center"
               />
             </div>
             <div className="events-heading">{event.category}</div>
           </div>
           <div className="relative py-2">
             <div className="line-break"></div>
-            <div className={`rounded-xl object-fill px-2`}>
+            <div className="aspect-square relative mx-auto h-full w-full object-fill px-2">
               {
                 <Image
-                  src={event.imgSrc ?? "/assets/sample.png"}
-                  alt={"Image"}
-                  width={250}
-                  height={250}
-                  className="z-0 h-full w-full rounded-xl object-fill text-white"
+                  src={
+                    event.imgSrc && event.imgSrc.length > 0
+                      ? event.imgSrc
+                      : "/assets/images/eventFallback.png"
+                  }
+                  alt="Event image"
+                  fill
+                  className="object-cover object-center"
                 />
               }
             </div>

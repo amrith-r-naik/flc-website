@@ -1,3 +1,5 @@
+import fs from "fs";
+import handlebars from "handlebars";
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
@@ -10,48 +12,45 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendVerificationEmail = async (
+const sendVerificationEmail = async (
   email: string,
   url: string,
   name: string,
 ) => {
-  async function main() {
-    await transporter.sendMail({
-      from: '"Finite Loop Club" <flc@nmamit.in>',
-      to: email,
-      subject: "Verify your email",
-      text: `Hi ${name}`,
-      html: `<p>click <a href="${url}">here </a> to verify your email</p>`,
-    });
-  }
-
-  await main().catch((error) => {
-    console.error(error);
-    throw error;
+  const html = fs.readFileSync("src/templates/emailVerification.html", "utf-8");
+  const template = handlebars.compile(html);
+  const htmlToSend = template({
+    url: url,
+  });
+  const res = await transporter.sendMail({
+    from: '"Finite Loop Club" <flc@nmamit.in>',
+    to: email,
+    subject: "Verify your email",
+    text: `Hi ${name}`,
+    html: htmlToSend,
   });
 };
 
-export const sendPasswordResetEmail = async (
+const sendPasswordResetEmail = async (
   email: string,
   url: string,
   name: string,
 ) => {
-  async function main() {
-    await transporter.sendMail({
-      from: '"Finite Loop Club" <flc@nmamit.in>',
-      to: email,
-      subject: "Reset your password",
-      text: `Hi ${name}`,
-      html: `<p>click <a href="${url}">here </a> to reset your password</p>`,
-    });
-  }
-
-  await main().catch((error) => {
-    console.error(error);
-    throw error;
+  const html = fs.readFileSync("src/templates/passwordReset.html", "utf-8");
+  const template = handlebars.compile(html);
+  const htmlToSend = template({
+    url: url,
+  });
+  const res = await transporter.sendMail({
+    from: '"Finite Loop Club" <flc@nmamit.in>',
+    to: email,
+    subject: "Reset your password",
+    text: `Hi ${name}`,
+    html: htmlToSend,
   });
 };
-export const sendCertificationIsuueForEmail = async (
+
+const sendCertificationIsuueForEmail = async (
   email: string,
   certificationType: string,
   eventName: string,
@@ -71,4 +70,10 @@ export const sendCertificationIsuueForEmail = async (
     console.error(error);
     throw error;
   });
+};
+
+export {
+  sendVerificationEmail,
+  sendPasswordResetEmail,
+  sendCertificationIsuueForEmail,
 };

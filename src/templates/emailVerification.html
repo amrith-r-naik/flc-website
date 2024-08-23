@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <!-- <script src="https://cdn.tailwindcss.com/3.0.0?plugins=typography@0.5.0"></script> -->
+
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <title>Verify Email</title>
+  </head>
+  <body class="h-screen w-screen">
+    <div
+      class="mx-auto mt-40 flex w-1/2 flex-col rounded-sm border-4 shadow-2xl"
+    >
+      <img
+        src="/public/assets/images/flc_logo.png"
+        alt="lopo"
+        height="500px"
+        width="500px"
+      />
+      <div class="h-32 w-full bg-blue-500"></div>
+      <div>
+        <h1 class="text-7xl">Email Verification</h1>
+        <p>
+          Hi {{name}}, we just need to verify your email address before you can
+        </p>
+        <a
+          href="{{url}}"
+          style="background: #3b0764"
+          class="rounded-lg px-6 py-3 text-white"
+        >
+          Verify my email address
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

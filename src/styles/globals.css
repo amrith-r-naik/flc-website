@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rowdies:wght@300;400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,7 +41,6 @@
     --border: 0 31% 100%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
-    --font-inter: "Inter", sans-serif;
   }
 
   .dark {

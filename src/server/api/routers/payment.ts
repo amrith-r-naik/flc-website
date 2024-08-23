@@ -10,7 +10,7 @@ export const payment = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       return await ctx.db.payment.create({
         data: {
-          userId: input.userId,
+          userId: ctx.session.user.id,
           paymentName: input.payment_name,
           razorpayPaymentId: input.razorpay_payment_id,
           razorpayOrderId: input.razorpay_order_id,
