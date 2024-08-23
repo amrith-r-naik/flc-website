@@ -16,7 +16,7 @@ export function Benifits() {
         What is in it for you?
       </p>
       <div className="mb-4 mt-32 flex  items-center justify-center sm:mb-24 sm:mt-0">
-        <h1 className="events-heading z-10  py-2 pt-14 text-7xl sm:py-2 xl:text-8xl">
+        <h1 className="events-heading z-10  py-2 pt-14 text-7xl font-semibold sm:py-2 xl:text-8xl">
           Benefits.
         </h1>
       </div>

@@ -7,15 +7,18 @@ function Hero() {
   return (
     <section className="absolute z-50 grid min-h-[70vh] w-full place-content-center ">
       <div className="content-container space-y-6  text-center">
-        <h1 className="bg-gradient-to-r from-[#F0C78E] to-[#E98F81] bg-clip-text text-4xl font-extrabold text-transparent sm:text-5xl md:text-5xl lg:text-7xl">
+        <h1 className="bg-gradient-to-r from-[#F0C78E] to-[#E98F81] bg-clip-text font-sans text-4xl font-bold text-transparent sm:text-5xl md:text-5xl lg:text-7xl">
           ❝ FINITE LOOP CLUB ❞
         </h1>
-        <p className="mx-auto max-w-sm text-center md:text-xl">
+        <p className="mx-auto max-w-sm text-center font-thin md:text-xl">
           We are a Coding club of NMAMIT aiming at Realizing the idea and
           Inspiring the next!
         </p>
 
-        <Button variant={"ghost"} className="border-2 border-yellow-400">
+        <Button
+          variant={"ghost"}
+          className="z-40 rounded-full border-yellow-400 bg-[#0b011d] shadow-inner shadow-yellow-200"
+        >
           <Link href="/register" className="flex items-center gap-2">
             <span>Register</span>
             <ArrowRight size={16} />

@@ -42,8 +42,8 @@ function Events() {
         className="mx-auto  flex min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
         ref={ref}
       >
-        <h3 className="subheading text-center font-semibold">
-          “ Events & WorkShop ❞
+        <h3 className="events-heading text-center font-semibold">
+          Events & WorkShop
         </h3>
         <p className="text-center">
           Enrich your skills and knowledge with tons of events and workshops
@@ -64,8 +64,8 @@ function Events() {
         className="flex  min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
         ref={ref}
       >
-        <h3 className="subheading text-center font-semibold">
-          Events & WorkShop
+        <h3 className="events-heading text-center font-sans text-4xl font-bold">
+          Events & WorkShops
         </h3>
         <p className="text-center">
           Enrich your skills and knowledge with tons of events and workshops
