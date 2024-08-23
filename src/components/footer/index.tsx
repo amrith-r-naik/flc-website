@@ -9,7 +9,6 @@ import {
   AiOutlinePhone,
 } from "react-icons/ai";
 
-import footerWave from "~/assets/images/footerwave.svg";
 import { cn } from "~/lib/utils";
 
 export const social = [
@@ -57,18 +56,14 @@ export const footLinks = [
 
 const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
   return (
-    <footer className={cn(className, "relative mt-60 bg-[#100020]")}>
-      <Image
-        width={800}
-        height={200}
-        priority={false}
-        className="absolute bottom-[99%] z-30 w-full object-cover md:bottom-[70%] md:-z-10"
-        src={footerWave as string}
-        alt="footer wave"
-      />
-
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+    <footer
+      className={cn(
+        className,
+        "line-break relative z-auto !h-auto  bg-[#100020]",
+      )}
+    >
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="flex flex-col items-center md:items-start">
             <Image
               src="/assets/flc_logo.png"
@@ -77,17 +72,17 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
               alt="flc_logo"
               priority
             />
-            <a className="events-heading mt-3 flex cursor-pointer items-center text-lg md:text-xl">
+            <a className="events-heading mt-3 flex items-center text-lg md:text-xl">
               Finite Loop Club
             </a>
-            <p className="events-heading mt-3 text-center md:text-left">
+            <p className="events-heading mb-6 mt-3 text-center md:text-left">
               NMAM Institute of Technology, Nitte, SH1, Karkala, Karnataka,
               KARKALA, NMAMIT 574110, IN
             </p>
           </div>
 
-          <div className="line-break flex flex-col items-center py-28 md:items-end ">
-            <ul className="mb-6 flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8">
+          <div className="flex flex-col justify-end md:items-end ">
+            <ul className="mb-6 flex flex-wrap justify-center gap-4 md:gap-6">
               {Links.map((link, index) => (
                 <li key={index}>
                   <Link
@@ -100,7 +95,7 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
               ))}
             </ul>
 
-            <ul className="mb-6 flex justify-center gap-4 md:gap-6 lg:gap-8">
+            <ul className="mb-6 flex justify-center gap-4 md:gap-6">
               {social.map((link, index) => (
                 <li key={index}>
                   <Link href={link.link}>
@@ -114,8 +109,8 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
         </div>
 
         <hr className="border-gray-700" />
-        <div className="mt-4 flex flex-col items-center gap-4">
-          <ul className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8">
+        <div className="flex flex-col items-center gap-4 pt-4">
+          <ul className="flex flex-wrap justify-center gap-4 text-sm md:gap-6">
             {footLinks.map((link, index) => (
               <li key={index}>
                 <Link
