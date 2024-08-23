@@ -13,7 +13,6 @@ import {
 
 import { userNavItems } from "~/constants";
 
-import Logo from "../logo";
 import AuthButton from "./authButton";
 
 function MobileNav() {
@@ -29,7 +28,6 @@ function MobileNav() {
           <div className="mt-4 flex items-center justify-between p-2 ">
             <SheetClose asChild>
               <Link href="/" className="flex cursor-pointer items-center">
-                <Logo />
                 <p className="ml-3  text-sm font-bold md:block md:text-2xl">
                   Finite-Loop-Club
                 </p>

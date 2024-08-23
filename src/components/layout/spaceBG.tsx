@@ -22,7 +22,7 @@ const SpaceBG: FunctionComponent<Props> = ({ children }) => {
   useEffect(() => {
     initParticlesEngine(async (engine) => await loadSlim(engine))
       .then(() => setInit(true))
-      .catch((e) => console.log(e));
+      .catch(console.error);
   }, []);
 
   const options: ISourceOptions = useMemo(

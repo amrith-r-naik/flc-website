@@ -299,7 +299,7 @@ const QuizPage: FunctionComponent<{ quizId: string }> = ({ quizId }) => {
               <div className="m-4 flex flex-row items-center justify-center gap-1">
                 <div>
                   <Image
-                    src="/unnamed.png"
+                    src="/assets/images/flc_logo_crop.png"
                     alt="Finite Loop Club Logo"
                     width={70}
                     height={70}

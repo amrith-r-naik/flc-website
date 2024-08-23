@@ -1,4 +1,7 @@
+import { type inferProcedureOutput } from "@trpc/server";
 import { useState } from "react";
+
+import { type AppRouter } from "~/server/api/root";
 
 import { type RazorpayOrderResponse } from "~/pages/api/payment/create";
 
@@ -9,7 +12,9 @@ type PropType = {
   amount: number;
   userId: number;
   name: string;
-  onPaymentSuccess?: (response: any) => void;
+  onPaymentSuccess?: (
+    response: inferProcedureOutput<AppRouter["payment"]["createPayment"]>,
+  ) => void;
 };
 
 function loadScript(src: string) {

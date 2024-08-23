@@ -29,13 +29,13 @@ const InnerLeftPanel = forwardRef<
       ref={ref}
       className={cn(
         className,
-        "flex flex-col items-center justify-evenly gap-3 rounded-lg border-2 border-border bg-card p-10",
+        "relative flex flex-col items-center justify-evenly gap-3 rounded-lg border-2 border-border bg-card p-10",
       )}
     >
-      <div className="flex items-center justify-center gap-5">
+      <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
         <ProfileImage />
         <div className="flex w-full flex-col items-center justify-center gap-4">
-          <p className="text-3xl">{user.name}</p>
+          <p className="text-center text-3xl">{user.name}</p>
           <p className="text-sm opacity-60">
             FLC Position - {user.position ?? "None"}
           </p>
@@ -50,7 +50,7 @@ const InnerLeftPanel = forwardRef<
           </div>
         </div>
       </div>
-      <div className="mx-10 flex flex-col gap-3 self-start text-lg first:*:*:opacity-60">
+      <div className="mx-0 flex flex-col gap-3 self-start text-lg first:*:*:opacity-60 md:mx-10">
         <div>
           <p>Phone</p>
           <p>{user.phone}</p>

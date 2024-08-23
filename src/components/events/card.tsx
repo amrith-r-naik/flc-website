@@ -78,8 +78,8 @@ const EventCard: FunctionComponent<{
           </div>
         </div>
         <div className="relative z-50">
-          <div className="event-bg "></div>
-          <div className=" flex flex-col items-center justify-center gap-3 pt-3">
+          <div className="event-bg" />
+          <div className="flex flex-col items-center justify-center gap-3 pt-3">
             <span
               className={`events-heading flex w-fit items-center justify-center px-2 text-center text-xl  `}
             >

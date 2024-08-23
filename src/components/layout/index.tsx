@@ -25,7 +25,6 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const { pathname } = useRouter();
   const { status, data: session } = useSession();
   const { theme, systemTheme } = useTheme();
-
   const loading = useLoading();
 
   if (status === "loading" || loading)
@@ -64,7 +63,8 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         theme === "light" || (theme === "system" && systemTheme === "light")
           ? "bg-yellow-50"
           : "bg-[#0b011d]",
-        "relative h-fit min-h-screen w-full cursor-default overflow-clip transition-all md:cursor-none",
+        "relative h-fit min-h-screen w-full overflow-clip transition-all",
+        // "cursor-default md:cursor-none",
       )}
     >
       <NavBar />
@@ -72,8 +72,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         {children}
       </main>
       <Footer className="z-50" />
-
-      <Cursor />
+      {/* <Cursor /> */}
       <Toaster />
     </div>
   );

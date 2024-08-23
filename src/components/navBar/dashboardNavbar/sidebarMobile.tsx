@@ -11,7 +11,6 @@ import {
   SheetTrigger,
 } from "~/components/ui/sheet";
 
-import Logo from "~/components/logo";
 import { adminNavItems } from "~/constants";
 
 const MobileNav = () => {
@@ -24,7 +23,6 @@ const MobileNav = () => {
         <SheetContent side="left" className="border-none">
           <div className="mt-4 flex items-center justify-between p-2">
             <Link href="/" className="flex cursor-pointer items-center">
-              <Logo />
               <p className="ml-3 text-sm font-bold md:block md:text-2xl">
                 Admin Dashboard
               </p>

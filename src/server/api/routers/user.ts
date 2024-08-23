@@ -1,9 +1,15 @@
 import { TRPCError } from "@trpc/server";
 
-import { somethingWentWrong } from "~/utils/error";
-import { editUserZ, editUserImageZ, getUserZ } from "~/zod/userZ";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { somethingWentWrong } from "~/utils/error";
+import {
+  editUserZ,
+  editUserImageZ,
+  getUserZ,
+  addUserLinkZ,
+  deleteUserLinkZ,
+} from "~/zod/userZ";
 
 export const userRouter = createTRPCRouter({
   editUser: protectedProcedure
@@ -23,6 +29,53 @@ export const userRouter = createTRPCRouter({
         data: { image: input.image },
       });
     }),
+
+  addUserLink: protectedProcedure
+    .input(addUserLinkZ)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.userLink.create({
+        data: {
+          linkName: input.linkName,
+          url: input.url,
+          User: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
+        },
+      });
+    }),
+
+  removeUserLink: protectedProcedure
+    .input(deleteUserLinkZ)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.userLink.delete({
+        where: { id: input.linkId },
+      });
+    }),
+
+  getLeaderboard: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.user.findMany({
+      select: {
+        name: true,
+        email: true,
+        image: true,
+        totalActivityPoints: true,
+        _count: {
+          select: {
+            Team: {
+              where: {
+                hasAttended: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        totalActivityPoints: "desc",
+      },
+    });
+  }),
 
   getUser: protectedProcedure.input(getUserZ).query(async ({ ctx, input }) => {
     try {
@@ -47,26 +100,6 @@ export const userRouter = createTRPCRouter({
     } catch (e) {
       console.log(e);
       somethingWentWrong(e);
-    }
-  }),
-
-  isAFLCMember: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.db.user.findFirst({
-      where: {
-        id: ctx.session.user.id,
-      },
-    });
-
-    if (user) {
-      return user.role === "MEMBER"
-        ? {
-            userId: user.id,
-            status: true,
-          }
-        : {
-            userId: user.id,
-            status: false,
-          };
     }
   }),
 

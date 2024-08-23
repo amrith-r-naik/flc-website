@@ -16,4 +16,4 @@ const InputButton = React.forwardRef<HTMLInputElement, InputProps>(
 );
 InputButton.displayName = "InputButton";
 
-export default InputButton;
+export { InputButton };

@@ -29,6 +29,10 @@ const config = {
         protocol: "https",
         hostname: "cdn.filepicker.io",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
   reactStrictMode: true,

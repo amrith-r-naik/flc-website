@@ -1,6 +1,5 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import React, { useRef, useState } from "react";
 
 import MemberCard from "~/components/team/memberCard";
@@ -9,7 +8,6 @@ import { teamTabs } from "~/constants";
 const Team = () => {
   const [toggleState, setToggleState] = useState(5); //Default year is 2024-25
 
-  gsap.registerPlugin(useGSAP, ScrollTrigger);
   useGSAP(() => {
     // Title animation when screen width > 1024px
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -56,7 +54,7 @@ const Team = () => {
 
   return (
     <>
-      <div className="absolute top-0 flex h-screen w-screen flex-col items-center overflow-y-scroll bg-background pt-24">
+      <div className="top-0 flex flex-col items-center pt-24">
         <div className="my-10 flex w-full flex-col items-center md:my-20">
           <div className="titleContainer flex items-center justify-center gap-4">
             <h1 className="meet mb-3 text-2xl font-bold text-primary md:text-4xl">
@@ -72,18 +70,17 @@ const Team = () => {
           <p className="text-lg text-foreground">Dynamic and Agile</p>
         </div>
 
-        {/* The horizontal list of years (when widow width > md) */}
         <ul className="hidden flex-wrap justify-center md:flex">
-          {teamTabs.map((tab, index) => (
-            <li key={index}>
+          {teamTabs.map((tab, idx) => (
+            <li key={idx}>
               <a
                 onClick={() => {
-                  setToggleState(index);
+                  setToggleState(idx);
                   onYearChange();
                 }}
                 className="relative block cursor-pointer p-4"
               >
-                {toggleState === index ? (
+                {toggleState === idx ? (
                   <span className="absolute inset-x-0 -bottom-px h-px w-full bg-primary"></span>
                 ) : null}
                 <div className="flex items-center justify-center">
@@ -96,22 +93,20 @@ const Team = () => {
           ))}
         </ul>
 
-        {/* A dropdown(select) of year for smaller screens */}
-        {/* UI needs to corrected */}
         <div className="flex w-full items-center justify-center md:hidden">
           <select
             className="rounded-md border-2 border-border bg-card px-3 py-1 text-white"
             value={toggleState}
           >
-            {teamTabs.map((year, index) => (
+            {teamTabs.map((year, idx) => (
               <option
                 className="text-center text-xs text-white"
-                key={index}
+                key={idx}
                 onClick={() => {
-                  setToggleState(index);
+                  setToggleState(idx);
                   onYearChange();
                 }}
-                value={index}
+                value={idx}
               >
                 {year.replace("Year", "").replace("to", " - ")}
               </option>
@@ -119,69 +114,21 @@ const Team = () => {
           </select>
         </div>
 
-        {/* Member Cards Container */}
         <div
           ref={cardsContainer}
           className="mt-8 flex w-full justify-center pb-24"
         >
           <div className="grid gap-4 gap-y-24 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {/* Iterate and display the cards here */}
-            <MemberCard
-              src="/images/GalaxyTexture.jpg"
-              name="Amrith R Naik"
-              role="Developer"
-              github="flkajdfl"
-              linkedin="ldjfl"
-            />
-            <MemberCard
-              src="/images/GalaxyTexture.jpg"
-              name="Amrith R Naik"
-              role="Developer"
-              github="flkajdfl"
-              linkedin="ldjfl"
-            />
-            <MemberCard
-              src="/images/GalaxyTexture.jpg"
-              name="Amrith R Naik"
-              role="Developer"
-              github="flkajdfl"
-              linkedin="ldjfl"
-            />
-            <MemberCard
-              src="/images/GalaxyTexture.jpg"
-              name="Amrith R Naik"
-              role="Developer"
-              github="flkajdfl"
-              linkedin="ldjfl"
-            />
-            <MemberCard
-              src="/images/GalaxyTexture.jpg"
-              name="Amrith R Naik"
-              role="Developer"
-              github="flkajdfl"
-              linkedin="ldjfl"
-            />
-            <MemberCard
-              src="/images/GalaxyTexture.jpg"
-              name="Amrith R Naik"
-              role="Developer"
-              github="flkajdfl"
-              linkedin="ldjfl"
-            />
-            <MemberCard
-              src="/images/GalaxyTexture.jpg"
-              name="Amrith R Naik"
-              role="Developer"
-              github="flkajdfl"
-              linkedin="ldjfl"
-            />
-            <MemberCard
-              src="/images/GalaxyTexture.jpg"
-              name="Amrith R Naik"
-              role="Developer"
-              github="flkajdfl"
-              linkedin="ldjfl"
-            />
+            {Array.from({ length: 10 }).map((_, idx) => (
+              <MemberCard
+                key={idx}
+                src="/images/galaxyTexture.jpg"
+                name="Amrith R Naik"
+                role="Developer"
+                github="flkajdfl"
+                linkedin="ldjfl"
+              />
+            ))}
           </div>
         </div>
       </div>

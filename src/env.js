@@ -32,6 +32,7 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
+    NEXT_PUBLIC_CANONICAL_URL: z.string().url(),
     NEXT_PUBLIC_CLOUDINARY_API_KEY: z.string(),
     NEXT_PUBLIC_CLOUDINARY_API_SECRET: z.string(),
     NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: z.string(),
@@ -46,6 +47,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
+    NEXT_PUBLIC_CANONICAL_URL: process.env.NEXT_PUBLIC_CANONICAL_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,

@@ -28,6 +28,16 @@ export const userNavItems: NavItem[] = [
     name: "Blogs",
     link: "/blogs",
   },
+  {
+    type: "both",
+    name: "Leaderboard",
+    link: "/leaderboard",
+  },
+  {
+    type: "both",
+    name: "Team",
+    link: "/team",
+  },
 ];
 
 export const organiserNavItems: NavItem[] = [

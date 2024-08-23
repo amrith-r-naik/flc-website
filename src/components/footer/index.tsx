@@ -39,7 +39,7 @@ export const social = [
   },
 ];
 
-export const Links = [
+export const links = [
   { name: "Home", link: "/" },
   { name: "Gallery", link: "/gallery" },
   { name: "Events", link: "/events" },
@@ -47,20 +47,17 @@ export const Links = [
 ];
 
 export const footLinks = [
-  { name: "Privacy", link: "/docs/privacy-policy" },
-  { name: "Terms and Conditions", link: "/docs/terms" },
-  { name: "Refund & Cancellation", link: "/docs/refund" },
-  { name: "Contact us", link: "/docs/contact-us" },
-  { name: "Shipping", link: "/docs/shipping" },
+  { name: "Privacy", link: "/privacy-policy" },
+  { name: "Terms and Conditions", link: "/terms" },
+  { name: "Refund & Cancellation", link: "/refund" },
+  { name: "Contact us", link: "/contact-us" },
+  { name: "Shipping", link: "/shipping" },
 ];
 
 const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
   return (
     <footer
-      className={cn(
-        className,
-        "line-break relative z-auto !h-auto  bg-[#100020]",
-      )}
+      className={cn(className, "line-break relative !h-auto bg-[#100020]")}
     >
       <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2">
@@ -83,7 +80,7 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
 
           <div className="flex flex-col justify-end md:items-end ">
             <ul className="mb-6 flex flex-wrap justify-center gap-4 md:gap-6">
-              {Links.map((link, index) => (
+              {links.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.link}

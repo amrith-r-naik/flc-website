@@ -17,4 +17,13 @@ const editUserImageZ = z.object({
   image: z.string(),
 });
 
-export { editUserZ, editUserImageZ, getUserZ };
+const addUserLinkZ = z.object({
+  linkName: z.string().min(3, "Name must be at least 3 characters"),
+  url: z.string().url(),
+});
+
+const deleteUserLinkZ = z.object({
+  linkId: z.string(),
+});
+
+export { editUserZ, addUserLinkZ, editUserImageZ, getUserZ, deleteUserLinkZ };

@@ -8,12 +8,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model WebsiteSettings {
+model CMS {
   id String @id @default(cuid())
 
   gallery Json[] // galleryZ
   about   String
   contact String
+}
+
+model Core {
+  id String @id @default(cuid())
 }
 
 model User {
@@ -178,7 +182,7 @@ model Organiser {
 }
 
 model Team {
-  id          Int     @id @default(autoincrement())
+  id          String  @id @default(cuid())
   name        String
   isConfirmed Boolean @default(false)
   hasAttended Boolean @default(false)
@@ -220,8 +224,8 @@ model Winner {
   eventId Int
   Event   Event @relation(fields: [eventId], references: [id])
 
-  teamId Int  @unique
-  Team   Team @relation(fields: [teamId], references: [id])
+  teamId String @unique
+  Team   Team   @relation(fields: [teamId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -353,9 +357,7 @@ model Blog {
 // enums
 enum Role {
   USER
-  MEMBER
   ORGANISER
-  CORE
   ADMIN
 }
 

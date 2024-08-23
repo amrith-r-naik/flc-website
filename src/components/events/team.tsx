@@ -1,9 +1,6 @@
-"use client";
-
 import { Button } from "@radix-ui/themes";
 import { X } from "lucide-react";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { type FunctionComponent, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import {
@@ -20,188 +17,75 @@ import Payment from "~/components/razorPay/paymentButton";
 import CopyBtn from "~/components/utils/copyBtn";
 import { api } from "~/utils/api";
 
-interface TeamDialogProps {
+const TeamDialog: FunctionComponent<{
   amount: number;
   eventId: number;
   maxTeamSize: number;
-  isAFLCMember: boolean;
   eventName: string;
-  userId: number;
-}
+}> = ({ eventId, maxTeamSize, amount, eventName }) => {
+  const [open, setOpen] = useState<boolean>(false);
 
-const TeamDialog: React.FC<TeamDialogProps> = ({
-  eventId,
-  maxTeamSize,
-  isAFLCMember,
-  amount,
-  eventName,
-  userId,
-}) => {
   const [isCreatingTeam, setIsCreatingTeam] = useState(false);
   const [isJoiningTeam, setIsJoiningTeam] = useState(false);
-  const [teamId, setTeamId] = useState<number | null>(null);
+  const [teamId, setTeamId] = useState<string | null>(null);
   const [isTeamLeader, setIsTeamLeader] = useState(false);
   const [teamConfirmed, setTeamConfirmed] = useState(false);
   const [teamName, setTeamName] = useState("");
-  const paymentStatusQuery = api.payment.checkEventPayment.useQuery(
-    { eventName },
-    {
-      refetchOnMount: "always",
-      refetchOnReconnect: "always",
-      enabled: !isAFLCMember,
-    },
-  );
 
-  const paymentStatus = paymentStatusQuery.data;
-
-  const handleRegister = () => {
-    document.getElementById("dialogTrigger")?.click();
-  };
+  const { data: paymentStatus, refetch: refetchPaymentStatus } =
+    api.payment.checkEventPayment.useQuery(
+      { eventName },
+      {
+        refetchOnMount: "always",
+        refetchOnReconnect: "always",
+      },
+    );
 
   const { data: teamData, refetch: refetchTeamData } =
     api.team.inATeamOfEvent.useQuery({ eventId });
 
-  const joinTeamMutation = api.team.jointeam.useMutation({
-    onSuccess: () => {
-      refetchTeamData();
-    },
-    onError: (error) => {
-      throw error.message;
-    },
-  });
-
-  const confirmTeam = api.team.confirmTeam.useMutation({
-    onSuccess: () => {
-      toast.success("Team Confirmed");
-      setTeamConfirmed(true);
-    },
-  });
-
-  const joinTeam = async () => {
-    if (teamId) {
-      try {
-        await joinTeamMutation.mutateAsync({ eventId, teamId });
-      } catch (error: any) {
-        toast.error(error);
-        console.error("Error joining team:", error);
-      }
-    } else {
-      toast.error("Please enter a valid team ID.");
-    }
-  };
-
-  const removeMemberFromTeamMutation = api.team.removeFromTeam.useMutation({
-    onSuccess: () => {
-      refetchTeamData();
-    },
-  });
+  const joinTeam = api.team.jointeam.useMutation();
+  const confirmTeam = api.team.confirmTeam.useMutation();
+  const leaveTeam = api.team.leaveTeam.useMutation();
+  const createTeam = api.team.createTeam.useMutation();
+  const removeFromTeam = api.team.removeFromTeam.useMutation();
 
   useEffect(() => {
-    if (teamData?.isConfirmed) {
-      setTeamConfirmed(true);
-    }
+    if (teamData?.isConfirmed) setTeamConfirmed(true);
   }, [teamData?.isConfirmed]);
 
   useEffect(() => {
-    if (teamData) {
-      setIsTeamLeader(teamData?.isLeader);
-      setTeamId(teamData.id);
-    }
+    if (!teamData) return;
+    setIsTeamLeader(teamData?.isLeader);
+    setTeamId(teamData.id);
   }, [teamData]);
 
-  const createTeam = api.team.createTeam.useMutation({
-    onSuccess: () => {
-      refetchTeamData();
-      toast.success("Team created successfully!");
-    },
-    onError: (error) => {
-      throw error.message;
-    },
-  });
-
-  const handleCreateTeam = async () => {
-    if (teamName) {
-      try {
-        await createTeam.mutateAsync({ eventId, teamName });
-      } catch (error: any) {
-        toast.error(error);
-      }
-    } else {
-      toast.error("Please enter a valid team name.");
-    }
-  };
-
-  const handleConfirmTeam = () => {
-    if (teamData?.id) {
-      confirmTeam.mutate({ teamId: teamData?.id });
-    }
-  };
-
   useEffect(() => {
-    console.log(userId, isAFLCMember, amount, eventName);
-  }, []);
-
-  const removeMemberFromTeam = (id: number) => () => {
-    removeMemberFromTeamMutation.mutate({ teamId: teamData?.id!, userId: id });
-  };
-
-  const leaveTeam = api.team.leaveTeam.useMutation({
-    onSuccess: () => {
-      refetchTeamData();
-      toast.success("left team successfully!");
-    },
-    onError: (error) => {
-      throw error.message;
-    },
-  });
-  const leaveTeamHandle = async () => {
-    if (teamId) {
-      try {
-        await leaveTeam.mutateAsync({ teamId: teamId });
-      } catch (error: any) {
-        toast.error(error);
-      }
-    } else {
-      toast.error("Couldnt remove you from team");
-    }
-  };
-
-  useEffect(() => {
-    if (!teamData) {
-      if (paymentStatus) {
-        toast.success("You can register now!");
-      }
-    }
+    if (!teamData && paymentStatus) toast.success("You can register now!");
   }, [paymentStatus]);
 
-  const handlePaymentSuccess = () => {
-    paymentStatusQuery.refetch();
-  };
-
   return (
-    <Dialog>
-      <DialogTrigger asChild className="z-20">
-        <Button id="dialogTrigger" className="hidden" />
-      </DialogTrigger>
-      {isAFLCMember && (
-        <Button className="card-button z-20" onClick={handleRegister}>
-          {teamConfirmed && "View Team"}
-          {!teamConfirmed && "Create Team"}
+    <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
+      <DialogTrigger asChild>
+        <Button className="card-button z-20">
+          {teamConfirmed ? "View Team" : "Create Team"}
         </Button>
-      )}
-      {!isAFLCMember && !paymentStatus && (
+      </DialogTrigger>
+
+      {!paymentStatus && (
         <Payment
           amount={amount}
           name={eventName}
-          userId={userId}
-          onPaymentSuccess={handlePaymentSuccess}
+          userId={123}
+          onPaymentSuccess={() => {
+            void refetchPaymentStatus();
+          }}
         />
       )}
 
-      {!isAFLCMember && paymentStatus && (
-        <Button className="card-button z-20" onClick={handleRegister}>
-          {teamConfirmed && "View Team"}
-          {!teamConfirmed && "Register"}
+      {paymentStatus && (
+        <Button className="card-button z-20" onClick={() => setOpen(true)}>
+          {teamConfirmed ? "View Team" : "Register"}
         </Button>
       )}
 
@@ -218,8 +102,8 @@ const TeamDialog: React.FC<TeamDialogProps> = ({
           <>
             <DialogTitle>Join | Create Team</DialogTitle>
             <DialogDescription>
-              Choose whether you'd like to create a new team or join an existing
-              one.
+              Choose whether you&apos;d like to create a new team or join an
+              existing one.
             </DialogDescription>
 
             <div className="flex flex-col gap-4">
@@ -252,7 +136,23 @@ const TeamDialog: React.FC<TeamDialogProps> = ({
                     <button
                       className="card-button mt-4 text-xs"
                       style={{ padding: "0.1rem 0.5rem" }}
-                      onClick={handleCreateTeam}
+                      onClick={() => {
+                        toast.loading("Creating team...");
+                        createTeam.mutate(
+                          { eventId: eventId, teamName: teamName },
+                          {
+                            onSuccess: () => {
+                              void refetchTeamData();
+                              toast.dismiss();
+                              toast.success("Team successfully created");
+                            },
+                            onError: ({ message }) => {
+                              toast.dismiss();
+                              toast.error(message);
+                            },
+                          },
+                        );
+                      }}
                     >
                       Create
                     </button>
@@ -272,14 +172,30 @@ const TeamDialog: React.FC<TeamDialogProps> = ({
                   <Input
                     placeholder="Enter Team ID"
                     className="card-attributes"
-                    value={teamId ? teamId.toString() : ""}
-                    onChange={(e) => setTeamId(Number(e.target.value) || null)}
+                    value={teamId ?? ""}
+                    onChange={(e) => setTeamId(e.target.value)}
                   />
                   <div className="flex justify-between">
                     <button
                       className="card-button mt-4 text-xs"
                       style={{ padding: "0.1rem 0.5rem" }}
-                      onClick={joinTeam}
+                      onClick={() => {
+                        if (teamId) {
+                          joinTeam.mutate(
+                            { eventId, teamId },
+                            {
+                              onSuccess: () => {
+                                void refetchTeamData();
+                              },
+                              onError: (error) => {
+                                throw error.message;
+                              },
+                            },
+                          );
+                        } else {
+                          toast.error("Please enter a valid team ID.");
+                        }
+                      }}
                     >
                       Join
                     </button>
@@ -331,7 +247,16 @@ const TeamDialog: React.FC<TeamDialogProps> = ({
                     isTeamLeader &&
                     member.id != teamData.userId && (
                       <button
-                        onClick={removeMemberFromTeam(member.id)}
+                        onClick={() => () => {
+                          removeFromTeam.mutate(
+                            { teamId: teamData.id, userId: member.id },
+                            {
+                              onSuccess: () => {
+                                void refetchTeamData();
+                              },
+                            },
+                          );
+                        }}
                         className="z-30"
                       >
                         <p className="rounded-lg border px-1 text-xs text-white hover:bg-red-600">
@@ -343,7 +268,30 @@ const TeamDialog: React.FC<TeamDialogProps> = ({
                   {!teamConfirmed &&
                     !isTeamLeader &&
                     member.id === teamData.userId && (
-                      <button onClick={leaveTeamHandle} className="z-30">
+                      <button
+                        onClick={() => {
+                          if (teamId) {
+                            toast.loading("Leaving team...");
+                            leaveTeam.mutate(
+                              { teamId: teamId },
+                              {
+                                onSuccess: () => {
+                                  toast.dismiss();
+                                  void refetchTeamData();
+                                  toast.success("Left team successfully!");
+                                },
+                                onError: ({ message }) => {
+                                  toast.dismiss();
+                                  toast.error(message);
+                                },
+                              },
+                            );
+                          } else {
+                            toast.error("Couldnt remove you from team");
+                          }
+                        }}
+                        className="z-30"
+                      >
                         <p className="rounded-lg border px-1 text-xs text-white hover:bg-red-600">
                           Leave Team
                         </p>
@@ -357,10 +305,25 @@ const TeamDialog: React.FC<TeamDialogProps> = ({
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-red-600">
                   <span className="font-bold">Warning: </span>Proceed to confirm
-                  only when all the team members have joined. You won't be able
-                  to add or delete more members after.
+                  only when all the team members have joined. You won&apos;t be
+                  able to add or delete more members after.
                 </p>
-                <Button className="card-button " onClick={handleConfirmTeam}>
+                <Button
+                  className="card-button "
+                  onClick={() => {
+                    if (teamData?.id) {
+                      confirmTeam.mutate(
+                        { teamId: teamData?.id },
+                        {
+                          onSuccess: () => {
+                            toast.success("Team Confirmed");
+                            setTeamConfirmed(true);
+                          },
+                        },
+                      );
+                    }
+                  }}
+                >
                   Confirm Team
                 </Button>
               </div>
