@@ -137,11 +137,23 @@
   );
 }
 
-.grid-card {
+/* .grid-card {
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: radial-gradient(
       50% 70.31% at 50% 0%,
       rgba(126, 61, 255, 0.04) 0%,
+      rgba(126, 61, 255, 0) 100%
+    ),
+    rgba(11, 1, 29, 0.01);
+  backdrop-filter: blur(8.5px);
+  border-radius: 12px;
+} */
+
+.grid-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: radial-gradient(
+      50% 70.31% at 50% 0%,
+      rgba(255, 153, 255, 0.2) 0%, /* Brighter and more opaque */
       rgba(126, 61, 255, 0) 100%
     ),
     rgba(11, 1, 29, 0.01);
