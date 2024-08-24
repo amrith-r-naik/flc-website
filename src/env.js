@@ -24,6 +24,8 @@ export const env = createEnv({
     ),
     SMTP_GMAIL: z.string(),
     SMTP_PASSWORD: z.string(),
+    RAZORPAY_API_KEY_ID: z.string(),
+    RAZORPAY_SECRET: z.string(),
   },
 
   /**
@@ -36,9 +38,7 @@ export const env = createEnv({
     NEXT_PUBLIC_CLOUDINARY_API_KEY: z.string(),
     NEXT_PUBLIC_CLOUDINARY_API_SECRET: z.string(),
     NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: z.string(),
-    NEXT_PUBLIC_PRODUCT_INSTANCE_ID: z.string(),
-    NEXT_PUBLIC_SCHEME_ID: z.string(),
-    NEXT_PUBLIC_SECRET: z.string(),
+    NEXT_PUBLIC_RAZORPAY_API_KEY_ID: z.string(),
   },
 
   /**
@@ -59,10 +59,10 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
     NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME:
       process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    NEXT_PUBLIC_PRODUCT_INSTANCE_ID:
-      process.env.NEXT_PUBLIC_PRODUCT_INSTANCE_ID,
-    NEXT_PUBLIC_SCHEME_ID: process.env.NEXT_PUBLIC_SCHEME_ID,
-    NEXT_PUBLIC_SECRET: process.env.NEXT_PUBLIC_SECRET,
+    RAZORPAY_API_KEY_ID: process.env.RAZORPAY_API_KEY_ID,
+    NEXT_PUBLIC_RAZORPAY_API_KEY_ID:
+      process.env.NEXT_PUBLIC_RAZORPAY_API_KEY_ID,
+    RAZORPAY_SECRET: process.env.RAZORPAY_SECRET,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

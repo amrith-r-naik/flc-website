@@ -13,19 +13,27 @@ import { RadialCard } from "~/components/utils/radialCard";
 import { cn } from "~/lib/utils";
 import { type User, useUser } from "~/store";
 
-const LeftBottomPanel = forwardRef<HTMLDivElement, { className?: string }>(
-  ({ className }, ref) => {
-    const { user } = useUser();
-    if (!user) return null;
-    return <InnerLeftBottomPanel ref={ref} className={className} user={user} />;
-  },
-);
-LeftBottomPanel.displayName = "LeftBottomPanel";
-
-const InnerLeftBottomPanel = forwardRef<
+const BottomPanel = forwardRef<
   HTMLDivElement,
-  { className?: string; user: User }
->(({ className, user }, ref) => {
+  { className?: string; notMine: boolean }
+>(({ className, notMine }, ref) => {
+  const { user } = useUser();
+  if (!user) return null;
+  return (
+    <InnerBottomPanel
+      ref={ref}
+      className={className}
+      user={user}
+      notMine={notMine}
+    />
+  );
+});
+BottomPanel.displayName = "BottomPanel";
+
+const InnerBottomPanel = forwardRef<
+  HTMLDivElement,
+  { className?: string; user: User; notMine: boolean }
+>(({ className, user, notMine }, ref) => {
   const images = user.Team.reduce(
     (acc, team) => (team.Event.imgSrc ? [...acc, team.Event.imgSrc] : acc),
     [] as string[],
@@ -35,7 +43,7 @@ const InnerLeftBottomPanel = forwardRef<
       ref={ref}
       className={cn(
         className,
-        "flex flex-col items-center gap-5 overflow-hidden rounded-lg border-2 border-border border-opacity-50 bg-card p-10 backdrop-blur-[32px] backdrop-filter",
+        "flex flex-col items-center gap-5 overflow-hidden rounded-lg border-opacity-50 bg-card p-10 backdrop-blur-[32px] backdrop-filter",
       )}
     >
       <p className="text-lg font-bold">My Events</p>
@@ -57,6 +65,6 @@ const InnerLeftBottomPanel = forwardRef<
     </RadialCard>
   );
 });
-InnerLeftBottomPanel.displayName = "InnerLeftBottomPanel";
+InnerBottomPanel.displayName = "InnerBottomPanel";
 
-export default LeftBottomPanel;
+export default BottomPanel;

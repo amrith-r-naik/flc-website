@@ -30,7 +30,9 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   // Protected routes
   if (
     status === "unauthenticated" &&
-    (pathname.startsWith("/dashboard") || pathname.startsWith("/profile"))
+    (pathname.startsWith("/dashboard") ||
+      pathname.startsWith("/profile") ||
+      pathname.startsWith("/register"))
   )
     return <SignIn />;
 

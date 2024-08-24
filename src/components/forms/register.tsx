@@ -3,12 +3,20 @@ import { type inferProcedureOutput } from "@trpc/server";
 import { useRouter } from "next/router";
 import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
+import { LuLogOut } from "react-icons/lu";
 import { toast } from "sonner";
 import { z } from "zod";
 
 import { type AppRouter } from "~/server/api/root";
 
 import { Button } from "~/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import {
   Form,
   FormControl,
@@ -20,7 +28,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 
-import Payment from "~/components/razorPay/paymentButton";
+import PaymentButton from "~/components/razorPay/paymentButton";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import { registerZ } from "~/zod/authZ";
@@ -32,7 +40,46 @@ const RegisterForm: FunctionComponent<{
 }> = ({ className }) => {
   const { data: user } = api.user.getUser.useQuery();
   if (!user) return null;
+  if (user.memberSince) return <AlreadyMember user={user} />;
   return <InnerRegisterForm className={className} user={user} />;
+};
+
+const AlreadyMember: FunctionComponent<{
+  user: inferProcedureOutput<AppRouter["user"]["getUser"]>;
+}> = ({ user }) => {
+  const router = useRouter();
+  return (
+    <Card className="backdrop-blur-sm">
+      <CardHeader>
+        <CardTitle>Already a Member</CardTitle>
+      </CardHeader>
+      <CardContent className="flex max-w-prose flex-col gap-3">
+        <div>
+          Thank you for showing interest in registering, but you seem to be a
+          member already
+        </div>
+        <div>
+          If you think this is an error, verify that you are signed in with the
+          correct account.
+        </div>
+        <div>
+          You are currently signed in as{" "}
+          <span className="font-bold">{user.name}</span> (
+          <span className="font-bold">{user.email}</span>).
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button
+          onClick={() => {
+            router.back();
+          }}
+        >
+          <LuLogOut className="mr-2 size-5" />
+          Go Back
+        </Button>
+      </CardFooter>
+    </Card>
+  );
 };
 
 const InnerRegisterForm: FunctionComponent<{
@@ -49,10 +96,7 @@ const InnerRegisterForm: FunctionComponent<{
     phone: z.string(),
     branch: z.string(),
     year: z.string(),
-    reasonToJoin: registerZ.shape.reasonToJoin,
-    expectations: registerZ.shape.expectations,
-    contribution: registerZ.shape.contribution,
-    paymentProof: registerZ.shape.paymentProof,
+    ...registerZ.shape,
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -66,7 +110,9 @@ const InnerRegisterForm: FunctionComponent<{
       reasonToJoin: "",
       expectations: "",
       contribution: "",
-      paymentProof: "",
+      paymentId:
+        user.Payment.find((payment) => payment.paymentType === "MEMBERSHIP")
+          ?.id ?? "",
     },
   });
 
@@ -77,13 +123,13 @@ const InnerRegisterForm: FunctionComponent<{
         reasonToJoin: values.reasonToJoin,
         expectations: values.expectations,
         contribution: values.contribution,
-        paymentProof: values.paymentProof,
+        paymentId: values.paymentId,
       },
       {
         onSuccess: () => {
           toast.dismiss();
           toast.success("Registered to FLC successfully!");
-          void router.push("/profile");
+          setTimeout(() => void router.push("/profile"), 1000);
         },
         onError: ({ message }) => {
           toast.dismiss();
@@ -108,8 +154,13 @@ const InnerRegisterForm: FunctionComponent<{
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-white dark:text-white">Name</FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Input placeholder="Name" {...field} disabled />
+              <FormControl>
+                <Input
+                  className="bg-[#494949]"
+                  placeholder="Name"
+                  {...field}
+                  disabled
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -124,8 +175,13 @@ const InnerRegisterForm: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 Email
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Input placeholder="Email" {...field} disabled />
+              <FormControl>
+                <Input
+                  className="bg-[#494949]"
+                  placeholder="Email"
+                  {...field}
+                  disabled
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -139,8 +195,13 @@ const InnerRegisterForm: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 Phone
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <InputOTP maxLength={10} {...field} disabled>
+              <FormControl>
+                <InputOTP
+                  className="bg-[#494949]"
+                  maxLength={10}
+                  {...field}
+                  disabled
+                >
                   {Array.from({ length: 10 }).map((_, index) => (
                     <InputOTPSlot
                       key={index}
@@ -163,8 +224,13 @@ const InnerRegisterForm: FunctionComponent<{
                 <FormLabel className="text-white dark:text-white">
                   Branch
                 </FormLabel>
-                <FormControl className="bg-[#494949]">
-                  <Input placeholder="Branch" {...field} disabled />
+                <FormControl>
+                  <Input
+                    className="bg-[#494949]"
+                    placeholder="Branch"
+                    {...field}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -178,8 +244,13 @@ const InnerRegisterForm: FunctionComponent<{
                 <FormLabel className="text-white dark:text-white">
                   Graduation Year
                 </FormLabel>
-                <FormControl className="bg-[#494949]">
-                  <Input placeholder="Graduation Year" {...field} disabled />
+                <FormControl>
+                  <Input
+                    className="bg-[#494949]"
+                    placeholder="Graduation Year"
+                    {...field}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -195,8 +266,13 @@ const InnerRegisterForm: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 Why do you want to join FLC?
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Textarea placeholder="Answer" rows={3} {...field} />
+              <FormControl>
+                <Textarea
+                  className="bg-[#494949]"
+                  placeholder="Answer"
+                  rows={3}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -210,8 +286,13 @@ const InnerRegisterForm: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 What are your expectations from FLC?
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Textarea placeholder="Answer" rows={3} {...field} />
+              <FormControl>
+                <Textarea
+                  className="bg-[#494949]"
+                  placeholder="Answer"
+                  rows={3}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -225,14 +306,45 @@ const InnerRegisterForm: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 How would you contribute to FLC?
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Textarea placeholder="Answer" rows={3} {...field} />
+              <FormControl>
+                <Textarea
+                  className="bg-[#494949]"
+                  placeholder="Answer"
+                  rows={3}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Payment amount={1} name="" />
+        <FormField
+          control={form.control}
+          name="paymentId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-white dark:text-white">
+                Membership Fees (₹400 + 2% razorpay fee)
+              </FormLabel>
+              <FormControl>
+                {field.value ? (
+                  <Input className="bg-[#494949]" disabled {...field} />
+                ) : (
+                  <PaymentButton
+                    className="flex"
+                    paymentType="MEMBERSHIP"
+                    description="Club Membership"
+                    onSuccess={(paymentId) =>
+                      form.setValue("paymentId", paymentId)
+                    }
+                    onFailure={() => toast.error("Payment failed")}
+                  />
+                )}
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <div className="flex justify-center">
           <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">

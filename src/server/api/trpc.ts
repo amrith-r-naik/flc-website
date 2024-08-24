@@ -122,8 +122,8 @@ export const publicProcedure = t.procedure;
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user)
-    throw new TRPCError({ code: "UNAUTHORIZED" });
+  if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+  if (!ctx.session.user) throw new TRPCError({ code: "UNAUTHORIZED" });
 
   return next({
     ctx: {
@@ -134,8 +134,8 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
 });
 
 export const organiserProcedure = t.procedure.use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user)
-    throw new TRPCError({ code: "UNAUTHORIZED" });
+  if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+  if (!ctx.session.user) throw new TRPCError({ code: "UNAUTHORIZED" });
 
   if (
     ctx.session.user.role !== "ORGANISER" &&
@@ -155,8 +155,8 @@ export const organiserProcedure = t.procedure.use(({ ctx, next }) => {
 });
 
 export const adminProcedure = t.procedure.use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user)
-    throw new TRPCError({ code: "UNAUTHORIZED" });
+  if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+  if (!ctx.session.user) throw new TRPCError({ code: "UNAUTHORIZED" });
 
   if (ctx.session.user.role !== "ADMIN")
     throw new TRPCError({

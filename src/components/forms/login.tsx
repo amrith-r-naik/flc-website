@@ -50,7 +50,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         toast.dismiss();
         if (s?.ok) {
           toast.success("Logged in successfully");
-          void router.push(`/profile`);
+          setTimeout(() => void router.push(`/profile`), 1000);
         } else {
           toast.error(
             s?.error ?? "Failed to log in! You sure about your credentials?",
@@ -81,8 +81,12 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
               <FormLabel className="text-white dark:text-white">
                 Email
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Input placeholder="Email" {...field} />
+              <FormControl>
+                <Input
+                  className="bg-[#494949]"
+                  placeholder="Email"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -96,8 +100,12 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
               <FormLabel className="text-white dark:text-white">
                 Password
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Password placeholder="Password" {...field} />
+              <FormControl>
+                <Password
+                  className="bg-[#494949]"
+                  placeholder="Password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

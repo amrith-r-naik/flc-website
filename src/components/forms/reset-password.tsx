@@ -50,12 +50,12 @@ const Resetpassword: FunctionComponent<{
         onSuccess: () => {
           toast.dismiss();
           toast.success("Password reset successful!");
-          void router.push("/login");
+          setTimeout(() => void router.push("/login"), 1000);
         },
         onError: ({ message }) => {
           toast.dismiss();
           toast.error(message);
-          void router.push("/login");
+          setTimeout(() => void router.push("/login"), 1000);
         },
       },
     );
@@ -79,8 +79,12 @@ const Resetpassword: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 Password
               </FormLabel>
-              <FormControl className="bg-[#494949] ">
-                <Password placeholder="Password" {...field} />
+              <FormControl>
+                <Password
+                  className="bg-[#494949]"
+                  placeholder="Password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -94,8 +98,12 @@ const Resetpassword: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 Confirm Password
               </FormLabel>
-              <FormControl className="bg-[#494949] ">
-                <Password placeholder="Confirm Password" {...field} />
+              <FormControl>
+                <Password
+                  className="bg-[#494949]"
+                  placeholder="Confirm Password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

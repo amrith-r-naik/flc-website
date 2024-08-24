@@ -8,7 +8,7 @@ import {
   protectedProcedure,
 } from "../trpc";
 
-export const attendanceRouter = createTRPCRouter({
+const attendanceRouter = createTRPCRouter({
   toggleAttendance: organiserProcedure
     .input(toggleAttendanceZ)
     .mutation(async ({ ctx, input }) => {
@@ -114,3 +114,5 @@ export const attendanceRouter = createTRPCRouter({
     return (attendedEvents.length / totalEvents) * 100;
   }),
 });
+
+export default attendanceRouter;

@@ -58,8 +58,8 @@ const registerZ = z.object({
   contribution: z.string().min(10, {
     message: "Answer should be atleast 10 characters",
   }),
-  paymentProof: z.string().min(10, {
-    message: "Answer should be atleast 10 characters",
+  paymentId: z.string().min(1, {
+    message: "Payment ID is required",
   }),
 });
 

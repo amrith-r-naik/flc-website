@@ -13,27 +13,43 @@ import {
   CarouselPrevious,
 } from "~/components/ui/carousel";
 import { Input } from "~/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 
 import { RadialCard } from "~/components/utils/radialCard";
+import { userLinkNames } from "~/constants";
 import { useRefetchContext } from "~/context/refetchContext";
 import { cn } from "~/lib/utils";
 import { type User, useUser } from "~/store";
 import { api } from "~/utils/api";
 import { addUserLinkZ } from "~/zod/userZ";
 
-const RightPanel = forwardRef<HTMLDivElement, { className?: string }>(
-  ({ className }, ref) => {
-    const { user } = useUser();
-    if (!user) return null;
-    return <InnerRightPanel ref={ref} className={className} user={user} />;
-  },
-);
-RightPanel.displayName = "RightPanel";
-
-const InnerRightPanel = forwardRef<
+const RightTopPanel = forwardRef<
   HTMLDivElement,
-  { className?: string; user: User }
->(({ className, user }, ref) => {
+  { className?: string; notMine: boolean }
+>(({ className, notMine }, ref) => {
+  const { user } = useUser();
+  if (!user) return null;
+  return (
+    <InnerRightTopPanel
+      ref={ref}
+      className={className}
+      user={user}
+      notMine={notMine}
+    />
+  );
+});
+RightTopPanel.displayName = "RightTopPanel";
+
+const InnerRightTopPanel = forwardRef<
+  HTMLDivElement,
+  { className?: string; user: User; notMine: boolean }
+>(({ className, user, notMine }, ref) => {
   const { executeRefetch } = useRefetchContext("user");
 
   const [userLink, setUserLink] = useState<{ url: string; linkName: string }>({
@@ -54,16 +70,11 @@ const InnerRightPanel = forwardRef<
       ref={ref}
       className={cn(
         className,
-        "flex h-full flex-col justify-between gap-5 overflow-auto rounded-lg border-2 border-border bg-card p-10",
+        "flex h-full flex-col justify-between gap-5 overflow-auto rounded-lg bg-card p-10",
       )}
     >
-      <div className="flex h-1/5 flex-col items-center rounded-lg border p-5">
-        <p className="text-lg font-bold">Bio</p>
-        <p>{user.bio}</p>
-      </div>
-
-      <div className="flex flex-col gap-5 first:*:*:opacity-60">
-        <div>
+      <div className="grid grid-cols-2 gap-5 first:*:*:opacity-60">
+        <div className="col-span-2">
           <p>Year & Branch</p>
           <p>
             {user.year} - {user.Branch.name}
@@ -87,44 +98,63 @@ const InnerRightPanel = forwardRef<
               <Button variant={"outline"} className="w-full" asChild>
                 <Link href={link.url}>{link.linkName}</Link>
               </Button>
-              <Button
-                variant={"outline"}
-                className="p-2"
-                onClick={() => {
-                  toast.loading("Removing Link...");
-                  removeUserLink.mutate(
-                    {
-                      linkId: link.id,
-                    },
-                    {
-                      onSuccess: () => {
-                        executeRefetch();
-                        toast.dismiss();
-                        toast.success("Link removed successfully");
+              {!notMine && (
+                <Button
+                  variant={"outline"}
+                  className="p-2"
+                  onClick={() => {
+                    toast.loading("Removing Link...");
+                    removeUserLink.mutate(
+                      {
+                        linkId: link.id,
                       },
-                      onError: ({ message }) => {
-                        toast.dismiss();
-                        toast.error(message);
+                      {
+                        onSuccess: () => {
+                          executeRefetch();
+                          toast.dismiss();
+                          toast.success("Link removed successfully");
+                        },
+                        onError: ({ message }) => {
+                          toast.dismiss();
+                          toast.error(message);
+                        },
                       },
-                    },
-                  );
-                }}
-              >
-                <LuTrash2 className="size-5 text-red-500" />
-              </Button>
+                    );
+                  }}
+                >
+                  <LuTrash2 className="size-5 text-red-500" />
+                </Button>
+              )}
             </div>
           ))}
         </div>
-        {user.UserLink.length < 4 && (
+        {!notMine && user.UserLink.length < 4 && (
           <div className="flex gap-1">
-            <Input
-              className="w-1/2"
-              placeholder="Name"
+            <Select
               value={userLink.linkName}
-              onChange={(e) =>
-                setUserLink((prev) => ({ ...prev, linkName: e.target.value }))
+              onValueChange={(value) =>
+                setUserLink((prev) => ({ ...prev, linkName: value }))
               }
-            />
+            >
+              <SelectTrigger className="w-1/2">
+                <SelectValue placeholder="Link Name" />
+              </SelectTrigger>
+              <SelectContent>
+                {userLinkNames
+                  .filter((userLinkName) =>
+                    user.UserLink.length > 0
+                      ? user.UserLink.find(
+                          (userLink) => userLink.linkName !== userLinkName,
+                        )
+                      : true,
+                  )
+                  .map((linkName, idx) => (
+                    <SelectItem key={idx} value={linkName}>
+                      {linkName}
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
             <Input
               className="w-1/2"
               placeholder="URL"
@@ -168,7 +198,7 @@ const InnerRightPanel = forwardRef<
         )}
       </div>
 
-      <div className="flex h-1/3 flex-col items-center gap-5 rounded-lg border p-5">
+      <div className="flex h-1/2 flex-col items-center gap-5 rounded-lg border border-white/10 p-5">
         <p className="text-lg font-bold">Certificates</p>
         {images.length > 0 ? (
           <Carousel>
@@ -189,6 +219,6 @@ const InnerRightPanel = forwardRef<
     </RadialCard>
   );
 });
-InnerRightPanel.displayName = "InnerRightPanel";
+InnerRightTopPanel.displayName = "InnerRightTopPanel";
 
-export default RightPanel;
+export default RightTopPanel;

@@ -11,7 +11,7 @@ import {
   deleteUserLinkZ,
 } from "~/zod/userZ";
 
-export const userRouter = createTRPCRouter({
+const userRouter = createTRPCRouter({
   editUser: protectedProcedure
     .input(editUserZ)
     .mutation(async ({ ctx, input }) => {
@@ -80,7 +80,9 @@ export const userRouter = createTRPCRouter({
   getUser: protectedProcedure.input(getUserZ).query(async ({ ctx, input }) => {
     try {
       return await ctx.db.user.findUniqueOrThrow({
-        where: { id: input?.userId ?? ctx.session.user.id },
+        where: {
+          id: input?.userId ?? ctx.session.user.id,
+        },
         include: {
           Attendance: true,
           Certificate: true,
@@ -95,6 +97,7 @@ export const userRouter = createTRPCRouter({
             },
           },
           QuizResponse: true,
+          Payment: true,
         },
       });
     } catch (e) {
@@ -125,3 +128,5 @@ export const userRouter = createTRPCRouter({
     return userEvents;
   }),
 });
+
+export default userRouter;

@@ -2,7 +2,7 @@ import { addOrganiserZ, removeOrganiserZ } from "~/zod/organiserZ";
 
 import { adminProcedure, createTRPCRouter } from "../trpc";
 
-export const organiserRouter = createTRPCRouter({
+const organiserRouter = createTRPCRouter({
   addOrganiser: adminProcedure
     .input(addOrganiserZ)
     .mutation(async ({ ctx, input }) => {
@@ -24,3 +24,5 @@ export const organiserRouter = createTRPCRouter({
       });
     }),
 });
+
+export default organiserRouter;

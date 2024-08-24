@@ -17,7 +17,7 @@ import {
   getBlogsById,
 } from "~/zod/blogZ";
 
-export const blogRouter = createTRPCRouter({
+const blogRouter = createTRPCRouter({
   // Create
   createBlog: adminProcedure
     .input(createBlogZ)
@@ -143,3 +143,5 @@ export const blogRouter = createTRPCRouter({
       });
     }),
 });
+
+export default blogRouter;

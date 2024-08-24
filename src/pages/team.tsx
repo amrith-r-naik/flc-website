@@ -56,7 +56,7 @@ const Team = () => {
     <>
       <div className="top-0 flex flex-col items-center pt-24">
         <div className="my-10 flex w-full flex-col items-center md:my-20">
-          <div className="font-title flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-4 font-title">
             <h1 className="meet mb-3 text-2xl font-bold text-primary md:text-4xl">
               MEET
             </h1>

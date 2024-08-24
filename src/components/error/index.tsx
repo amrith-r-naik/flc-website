@@ -6,9 +6,6 @@ import { Button } from "~/components/ui/button";
 
 import Particles from "~/components/magicui/particles";
 
-const getParticleColor = (isDarkMode: boolean) =>
-  isDarkMode ? "#fff" : "#000";
-
 const Error: FunctionComponent = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
@@ -21,7 +18,7 @@ const Error: FunctionComponent = () => {
         staticity={50}
         ease={50}
         size={2}
-        color={getParticleColor(isDarkMode)}
+        color={isDarkMode ? "#fff" : "#000"}
       />
 
       <div className="relative z-10 mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
@@ -53,7 +50,7 @@ const Error: FunctionComponent = () => {
           </p>
           <p className="my-8 text-lg text-gray-500 dark:text-gray-400">
             What are you doing here? Did you get lost? No worries, just head
-            back to our homepage and we’ll get you back on track!
+            back to our homepage and we&apos;ll get you back on track!
           </p>
 
           <Link href="/">

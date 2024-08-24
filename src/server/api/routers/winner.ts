@@ -6,7 +6,7 @@ import {
 
 import { createTRPCRouter, organiserProcedure } from "../trpc";
 
-export const winnerRouter = createTRPCRouter({
+const winnerRouter = createTRPCRouter({
   //Mutations
   makeTeamWinner: organiserProcedure
     .input(makeTeamWinnerZ)
@@ -56,3 +56,5 @@ export const winnerRouter = createTRPCRouter({
       return sortedWinners;
     }),
 });
+
+export default winnerRouter;

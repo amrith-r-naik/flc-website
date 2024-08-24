@@ -49,8 +49,8 @@ const EventsSlug: NextPage = () => {
 
   return (
     <main className="container mb-1 mt-16 flex w-[100%] flex-col items-center justify-start space-y-4 font-sans">
-      <section className="intro-card relative flex h-96 w-full flex-col overflow-hidden rounded-2xl border border-border bg-accent sm:flex-row">
-        <div className="w-2/5">
+      <section className="intro-card relative flex h-96 w-full flex-col overflow-hidden rounded-2xl border border-border bg-accent md:flex-row">
+        <div className="w-full md:w-2/5">
           <div className="relative h-full w-full">
             <Image
               className="object-cover object-center"
@@ -64,7 +64,7 @@ const EventsSlug: NextPage = () => {
             />
           </div>
         </div>
-        <div className="w-3/5 space-y-4 p-8">
+        <div className="w-full space-y-4 p-8 md:w-3/5">
           <p className="events-heading text-5xl  font-bold md:text-6xl">
             {event?.name}{" "}
           </p>
