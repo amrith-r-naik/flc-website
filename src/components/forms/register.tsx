@@ -110,7 +110,9 @@ const InnerRegisterForm: FunctionComponent<{
       reasonToJoin: "",
       expectations: "",
       contribution: "",
-      paymentId: "",
+      paymentId:
+        user.Payment.find((payment) => payment.paymentType === "MEMBERSHIP")
+          ?.id ?? "",
     },
   });
 
@@ -127,7 +129,7 @@ const InnerRegisterForm: FunctionComponent<{
         onSuccess: () => {
           toast.dismiss();
           toast.success("Registered to FLC successfully!");
-          router.push("/profile").catch(console.error);
+          setTimeout(() => void router.push("/profile"), 1000);
         },
         onError: ({ message }) => {
           toast.dismiss();
@@ -152,8 +154,13 @@ const InnerRegisterForm: FunctionComponent<{
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-white dark:text-white">Name</FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Input placeholder="Name" {...field} disabled />
+              <FormControl>
+                <Input
+                  className="bg-[#494949]"
+                  placeholder="Name"
+                  {...field}
+                  disabled
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -168,8 +175,13 @@ const InnerRegisterForm: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 Email
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Input placeholder="Email" {...field} disabled />
+              <FormControl>
+                <Input
+                  className="bg-[#494949]"
+                  placeholder="Email"
+                  {...field}
+                  disabled
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -183,8 +195,13 @@ const InnerRegisterForm: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 Phone
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <InputOTP maxLength={10} {...field} disabled>
+              <FormControl>
+                <InputOTP
+                  className="bg-[#494949]"
+                  maxLength={10}
+                  {...field}
+                  disabled
+                >
                   {Array.from({ length: 10 }).map((_, index) => (
                     <InputOTPSlot
                       key={index}
@@ -207,8 +224,13 @@ const InnerRegisterForm: FunctionComponent<{
                 <FormLabel className="text-white dark:text-white">
                   Branch
                 </FormLabel>
-                <FormControl className="bg-[#494949]">
-                  <Input placeholder="Branch" {...field} disabled />
+                <FormControl>
+                  <Input
+                    className="bg-[#494949]"
+                    placeholder="Branch"
+                    {...field}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -222,8 +244,13 @@ const InnerRegisterForm: FunctionComponent<{
                 <FormLabel className="text-white dark:text-white">
                   Graduation Year
                 </FormLabel>
-                <FormControl className="bg-[#494949]">
-                  <Input placeholder="Graduation Year" {...field} disabled />
+                <FormControl>
+                  <Input
+                    className="bg-[#494949]"
+                    placeholder="Graduation Year"
+                    {...field}
+                    disabled
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -239,8 +266,13 @@ const InnerRegisterForm: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 Why do you want to join FLC?
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Textarea placeholder="Answer" rows={3} {...field} />
+              <FormControl>
+                <Textarea
+                  className="bg-[#494949]"
+                  placeholder="Answer"
+                  rows={3}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -254,8 +286,13 @@ const InnerRegisterForm: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 What are your expectations from FLC?
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Textarea placeholder="Answer" rows={3} {...field} />
+              <FormControl>
+                <Textarea
+                  className="bg-[#494949]"
+                  placeholder="Answer"
+                  rows={3}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -269,19 +306,44 @@ const InnerRegisterForm: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 How would you contribute to FLC?
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Textarea placeholder="Answer" rows={3} {...field} />
+              <FormControl>
+                <Textarea
+                  className="bg-[#494949]"
+                  placeholder="Answer"
+                  rows={3}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        <PaymentButton
-          paymentType="MEMBERSHIP"
-          description="Club Membership"
-          onSuccess={(paymentId) => form.setValue("paymentId", paymentId)}
-          onFailure={() => toast.error("Payment failed")}
+        <FormField
+          control={form.control}
+          name="paymentId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-white dark:text-white">
+                Membership Fees (₹400 + 2% razorpay fee)
+              </FormLabel>
+              <FormControl>
+                {field.value ? (
+                  <Input className="bg-[#494949]" disabled {...field} />
+                ) : (
+                  <PaymentButton
+                    className="flex"
+                    paymentType="MEMBERSHIP"
+                    description="Club Membership"
+                    onSuccess={(paymentId) =>
+                      form.setValue("paymentId", paymentId)
+                    }
+                    onFailure={() => toast.error("Payment failed")}
+                  />
+                )}
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
 
         <div className="flex justify-center">

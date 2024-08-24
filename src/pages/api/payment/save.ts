@@ -12,24 +12,35 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const session = await getServerAuthSession({ req, res });
-  if (!session) return res.status(401);
+  if (!session) {
+    res.status(401).send("Unauthorized");
+    return;
+  }
 
-  const { success, data: body } = savePaymentInputZ.safeParse(req.body);
-  if (!success) return res.status(400);
+  const { success: bodySuccess, data: bodyData } = savePaymentInputZ.safeParse(
+    req.body,
+  );
+  if (!bodySuccess) {
+    res.status(400).send("Invalid input");
+    return;
+  }
 
   const generatedSignature = crypto
     .createHmac("sha256", env.RAZORPAY_API_KEY_ID)
-    .update(body.razorpayOrderId + "|" + body.razorpayPaymentId)
+    .update(bodyData.razorpayOrderId + "|" + bodyData.razorpayPaymentId)
     .digest("hex");
+
+  console.log("generatedSignature", generatedSignature);
+  console.log("razorpaySignature", bodyData.razorpaySignature);
 
   const paymentRes = await db.payment.create({
     data: {
-      paymentType: body.paymentType,
-      paymentName: body.paymentName,
-      razorpayOrderId: body.razorpayOrderId,
-      razorpayPaymentId: body.razorpayPaymentId,
-      razorpaySignature: body.razorpaySignature,
-      verified: generatedSignature === body.razorpaySignature,
+      paymentType: bodyData.paymentType,
+      paymentName: bodyData.paymentName,
+      razorpayOrderId: bodyData.razorpayOrderId,
+      razorpayPaymentId: bodyData.razorpayPaymentId,
+      razorpaySignature: bodyData.razorpaySignature,
+      verified: generatedSignature === bodyData.razorpaySignature,
       User: {
         connect: {
           id: session.user.id,
@@ -44,7 +55,10 @@ export default async function handler(
       paymentDbId: paymentRes.id,
       paymentRazopayId: paymentRes.razorpayPaymentId,
     });
-  if (!paymentSuccess) return res.status(500);
+  if (!paymentSuccess) {
+    res.status(500).send("Something went wrong");
+    return;
+  }
 
-  return res.status(200).json(payment);
+  res.status(200).json(payment);
 }

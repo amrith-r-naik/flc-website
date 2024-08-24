@@ -1,5 +1,6 @@
 import { CheckCheck, Copy } from "lucide-react";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 const CopyBtn = ({ value }: { value?: string }) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -10,6 +11,7 @@ const CopyBtn = ({ value }: { value?: string }) => {
     }
     setIsCopied(true);
     await navigator.clipboard.writeText(value);
+    toast.success("Copied to clipboard");
     setTimeout(() => {
       setIsCopied(false);
     }, 1000);
