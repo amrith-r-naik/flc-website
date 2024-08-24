@@ -79,8 +79,12 @@ const Resetpassword: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 Password
               </FormLabel>
-              <FormControl className="bg-[#494949] ">
-                <Password placeholder="Password" {...field} />
+              <FormControl>
+                <Password
+                  className="bg-[#494949]"
+                  placeholder="Password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -94,8 +98,12 @@ const Resetpassword: FunctionComponent<{
               <FormLabel className="text-white dark:text-white">
                 Confirm Password
               </FormLabel>
-              <FormControl className="bg-[#494949] ">
-                <Password placeholder="Confirm Password" {...field} />
+              <FormControl>
+                <Password
+                  className="bg-[#494949]"
+                  placeholder="Confirm Password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

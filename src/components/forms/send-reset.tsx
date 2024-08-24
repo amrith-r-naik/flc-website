@@ -66,7 +66,11 @@ const SendResetForm = ({ className }: { className?: string }) => {
                 Email
               </FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <Input
+                  className="bg-[#494949]"
+                  placeholder="Email"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

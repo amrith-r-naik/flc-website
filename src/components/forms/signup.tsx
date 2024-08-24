@@ -106,8 +106,8 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
                 {" "}
                 Name
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Input placeholder="Name" {...field} />
+              <FormControl>
+                <Input className="bg-[#494949]" placeholder="Name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -121,8 +121,12 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
               <FormLabel className="text-white dark:text-white">
                 Email
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Input placeholder="Email" {...field} />
+              <FormControl>
+                <Input
+                  className="bg-[#494949] "
+                  placeholder="Email"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -136,8 +140,8 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
               <FormLabel className="text-white dark:text-white">
                 Phone
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <InputOTP maxLength={10} {...field}>
+              <FormControl>
+                <InputOTP className="bg-[#494949]" maxLength={10} {...field}>
                   {Array.from({ length: 10 }).map((_, idx) => (
                     <InputOTPSlot
                       key={idx}
@@ -160,8 +164,9 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
                 <FormLabel className="text-white dark:text-white">
                   Branch
                 </FormLabel>
-                <FormControl className="bg-[#494949]">
+                <FormControl>
                   <ComboBox
+                    className="bg-[#494949]"
                     data={branches ?? []}
                     value={field.value}
                     setValue={field.onChange}
@@ -217,8 +222,12 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
               <FormLabel className="text-white dark:text-white">
                 Password
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Password placeholder="Password" {...field} />
+              <FormControl>
+                <Password
+                  className="bg-[#494949]"
+                  placeholder="Password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -232,8 +241,12 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
               <FormLabel className="text-white dark:text-white">
                 Confirm Password
               </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Password placeholder="Confirm Password" {...field} />
+              <FormControl>
+                <Password
+                  className="bg-[#494949]"
+                  placeholder="Confirm Password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

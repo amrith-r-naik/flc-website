@@ -97,6 +97,7 @@ const userRouter = createTRPCRouter({
             },
           },
           QuizResponse: true,
+          Payment: true,
         },
       });
     } catch (e) {

@@ -278,6 +278,7 @@ const authRouter = createTRPCRouter({
           id: ctx.session.user.id,
         },
         data: {
+          position: "MEMBER",
           memberSince: new Date(),
           reasonToJoin: input.reasonToJoin,
           expectations: input.expectations,

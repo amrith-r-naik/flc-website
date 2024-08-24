@@ -24,10 +24,19 @@ const teamTabs = [
   "Faculty",
 ];
 
+const userLinkNames = [
+  "Instagram",
+  "LinkedIn",
+  "GitHub",
+  "Portfolio",
+  "Leetcode",
+];
+
 export {
   userNavItems,
   organiserNavItems,
   adminNavItems,
+  userLinkNames,
   teamTabs,
   siteMetaData,
 };
