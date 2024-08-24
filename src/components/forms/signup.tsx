@@ -74,10 +74,10 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           toast.dismiss();
           if (emailSent) {
             toast.success("Verification email sent! Please check your inbox");
-            void router.push("/");
+            setTimeout(() => void router.push("/"), 1000);
           } else {
             toast.success("Signed up successfully! Please verify your email");
-            void router.push("/send-verify-email");
+            setTimeout(() => void router.push("/send-verify-email"), 1000);
           }
         },
         onError: (error) => {

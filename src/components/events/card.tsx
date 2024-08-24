@@ -63,7 +63,7 @@ const EventCard: FunctionComponent<{
           </div>
           <div className="relative py-2">
             <div className="line-break"></div>
-            <div className="aspect-square relative mx-auto h-full w-full object-fill px-2">
+            <div className="relative mx-auto aspect-square h-full w-full object-fill px-2">
               {
                 <Image
                   src={

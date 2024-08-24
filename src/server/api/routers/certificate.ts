@@ -7,7 +7,7 @@ import {
 
 import { createTRPCRouter, organiserProcedure, publicProcedure } from "../trpc";
 
-export const certificateRouter = createTRPCRouter({
+const certificateRouter = createTRPCRouter({
   issueCertificatesForWinnersAndParticipants: organiserProcedure
     .input(issueCertificateByEventIdZ)
     .mutation(async ({ input, ctx }) => {
@@ -127,3 +127,5 @@ export const certificateRouter = createTRPCRouter({
       return certificates;
     }),
 });
+
+export default certificateRouter;

@@ -50,7 +50,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         toast.dismiss();
         if (s?.ok) {
           toast.success("Logged in successfully");
-          void router.push(`/profile`);
+          setTimeout(() => void router.push(`/profile`), 1000);
         } else {
           toast.error(
             s?.error ?? "Failed to log in! You sure about your credentials?",

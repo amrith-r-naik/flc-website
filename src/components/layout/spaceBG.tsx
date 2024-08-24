@@ -30,7 +30,7 @@ const SpaceBG: FunctionComponent<Props> = ({ children }) => {
       background: {
         color:
           theme === "dark" || (theme === "system" && systemTheme === "dark")
-            ? "#09090b"
+            ? "#0b011d"
             : "#ffffff",
       },
       fpsLimit: 60,

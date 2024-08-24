@@ -17,7 +17,7 @@ import {
   protectedProcedure,
 } from "../trpc";
 
-export const feedbackRouter = createTRPCRouter({
+const feedbackRouter = createTRPCRouter({
   // Create
   createFeedback: organiserProcedure
     .input(createFeedbackZ)
@@ -164,3 +164,5 @@ export const feedbackRouter = createTRPCRouter({
       });
     }),
 });
+
+export default feedbackRouter;

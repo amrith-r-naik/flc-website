@@ -13,7 +13,7 @@ import {
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
-export const teamRouter = createTRPCRouter({
+const teamRouter = createTRPCRouter({
   createTeam: protectedProcedure
     .input(createTeamZ)
     .mutation(async ({ ctx, input }) => {
@@ -355,3 +355,5 @@ export const teamRouter = createTRPCRouter({
       });
     }),
 });
+
+export default teamRouter;

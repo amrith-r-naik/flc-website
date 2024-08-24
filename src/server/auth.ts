@@ -32,46 +32,53 @@ declare module "next-auth" {
   interface User {
     accessToken: string;
     refreshToken: string;
-    id?: number;
-    name?: string | null;
-    email?: string | null;
+    id: number;
+    name: string;
+    email: string;
     image?: string | null;
+    phone: string;
     role: Role;
   }
 
   interface AdapterUser {
     accessToken: string;
     refreshToken: string;
-    id?: number;
-    name?: string | null;
-    email?: string | null;
+    id: number;
+    name: string;
+    email: string;
     image?: string | null;
+    phone: string;
     role: Role;
   }
 
-  interface Session extends DefaultSession {
-    user: DefaultSession["user"] & {
+  interface Session {
+    user: {
       id: number;
+      name: string;
+      email: string;
+      image?: string | null;
       role: Role;
+      phone: string;
       accessToken: string;
       refreshToken: string;
     };
     accessToken: string;
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 declare module "next-auth/jwt" {
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface JWT {
+    id: number;
+    name: string;
+    email: string;
+    image?: string | null;
+    role: Role;
+    phone: string;
+
     iat: number;
     exp: number;
-    role: Role;
     accessToken: string;
     refreshToken: string;
   }
@@ -93,19 +100,24 @@ export const authOptions: NextAuthOptions = {
           name: user.name,
           email: user.email,
           role: user.role,
+          phone: user.phone,
           accessToken: user.accessToken,
           refreshToken: user.refreshToken,
           iat: Math.floor(Date.now() / 1000),
           exp: getRefreshTokenExpiry(user.refreshToken),
         };
         return token;
-      } else if (trigger === "update" && session) {
+      }
+
+      if (trigger === "update" && session) {
         token = {
           ...token,
           accessToken: session.accessToken,
         };
         return token;
-      } else if (isJwtExpired(String(token.accessToken))) {
+      }
+
+      if (isJwtExpired(String(token.accessToken))) {
         const [newAccessToken, newRefreshToken] = await rotateTokens(
           String(token.refreshToken),
         );
@@ -117,19 +129,19 @@ export const authOptions: NextAuthOptions = {
             exp: getRefreshTokenExpiry(newRefreshToken),
           };
           if (token.accessToken === newAccessToken) return token;
-          else return null;
-        } else {
-          return null;
         }
+        return null;
       }
+
       return token;
     },
     async session({ session, token, trigger }) {
       if (token.sub && session.user) {
-        session.user.id = parseInt(token.sub); // HOPE this doesnt break
+        session.user.id = token.id;
         session.user.name = token.name;
-        session.user.email = token.email!;
+        session.user.email = token.email;
         session.user.role = token.role;
+        session.user.phone = token.phone;
         session.accessToken = token.accessToken;
       }
       return session;

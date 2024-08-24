@@ -20,7 +20,7 @@ import {
   protectedProcedure,
 } from "../trpc";
 
-export const quizRouter = createTRPCRouter({
+const quizRouter = createTRPCRouter({
   // Create
   createQuiz: organiserProcedure
     .input(createQuizZ)
@@ -261,3 +261,5 @@ export const quizRouter = createTRPCRouter({
       });
     }),
 });
+
+export default quizRouter;

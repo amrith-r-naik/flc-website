@@ -2,8 +2,7 @@ import { createBranchZ, deleteBranchZ } from "~/zod/branchZ";
 
 import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 
-//switch to protectedProcedure after auth is done
-export const branchRouter = createTRPCRouter({
+const branchRouter = createTRPCRouter({
   getAllBranch: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.branch.findMany({
       select: {
@@ -34,3 +33,5 @@ export const branchRouter = createTRPCRouter({
       });
     }),
 });
+
+export default branchRouter;

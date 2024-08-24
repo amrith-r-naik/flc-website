@@ -7,7 +7,7 @@ import {
 
 import { adminProcedure, createTRPCRouter } from "../trpc";
 
-export const activityPointsRouter = createTRPCRouter({
+const activityPointsRouter = createTRPCRouter({
   createActivityForEventZ: adminProcedure
     .input(createActivityForEventZ)
     .mutation(async ({ ctx, input }) => {
@@ -108,3 +108,5 @@ export const activityPointsRouter = createTRPCRouter({
       });
     }),
 });
+
+export default activityPointsRouter;

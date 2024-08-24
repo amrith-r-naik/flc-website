@@ -50,12 +50,12 @@ const Resetpassword: FunctionComponent<{
         onSuccess: () => {
           toast.dismiss();
           toast.success("Password reset successful!");
-          void router.push("/login");
+          setTimeout(() => void router.push("/login"), 1000);
         },
         onError: ({ message }) => {
           toast.dismiss();
           toast.error(message);
-          void router.push("/login");
+          setTimeout(() => void router.push("/login"), 1000);
         },
       },
     );

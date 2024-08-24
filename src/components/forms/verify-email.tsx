@@ -22,12 +22,12 @@ const VerifyEmailForm: FunctionComponent<{
         onSuccess: () => {
           toast.dismiss();
           toast.success("Email verified successfully!");
-          void router.push("/login");
+          setTimeout(() => void router.push("/login"), 1000);
         },
         onError: ({ message }) => {
           toast.dismiss();
           toast.error(message);
-          void router.push("/send-verify-email");
+          setTimeout(() => void router.push("/send-verify-email"), 1000);
         },
       },
     );

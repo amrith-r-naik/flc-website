@@ -69,7 +69,7 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
               alt="flc_logo"
               priority
             />
-            <a className="font-sub-heading events-heading mb-3 mt-3 flex items-center text-lg md:text-xl">
+            <a className="events-heading mb-3 mt-3 flex items-center font-sub-heading text-lg md:text-xl">
               Finite Loop Club
             </a>
             <div className="mb-4">

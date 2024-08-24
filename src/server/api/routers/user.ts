@@ -11,7 +11,7 @@ import {
   deleteUserLinkZ,
 } from "~/zod/userZ";
 
-export const userRouter = createTRPCRouter({
+const userRouter = createTRPCRouter({
   editUser: protectedProcedure
     .input(editUserZ)
     .mutation(async ({ ctx, input }) => {
@@ -125,3 +125,5 @@ export const userRouter = createTRPCRouter({
     return userEvents;
   }),
 });
+
+export default userRouter;

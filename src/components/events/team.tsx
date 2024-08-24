@@ -74,10 +74,14 @@ const TeamDialog: FunctionComponent<{
 
       {!paymentStatus && (
         <Payment
-          amount={amount}
-          name={eventName}
-          onPaymentSuccess={() => {
+          paymentType="EVENT"
+          amountInINR={amount}
+          description="Event Registration"
+          onSuccess={() => {
             void refetchPaymentStatus();
+          }}
+          onFailure={() => {
+            toast.error("Payment failed!");
           }}
         />
       )}

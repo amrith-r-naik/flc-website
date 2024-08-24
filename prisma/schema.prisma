@@ -253,10 +253,13 @@ model Certificate {
 }
 
 model Payment {
-  id                String @id @default(cuid())
-  paymentName       String
-  razorpayPaymentId String
+  id          String      @id @default(cuid())
+  paymentName String
+  verified    Boolean     @default(false)
+  paymentType PaymentType
+
   razorpayOrderId   String
+  razorpayPaymentId String
   razorpaySignature String
 
   userId Int
@@ -266,6 +269,7 @@ model Payment {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, razorpayPaymentId])
+  @@index([userId, razorpayPaymentId])
 }
 
 model Quiz {
@@ -369,6 +373,11 @@ enum EventCategory {
 }
 
 // type enums
+enum PaymentType {
+  MEMBERSHIP
+  EVENT
+}
+
 enum EventType {
   SOLO
   TEAM
