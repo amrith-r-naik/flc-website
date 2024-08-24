@@ -80,7 +80,9 @@ const userRouter = createTRPCRouter({
   getUser: protectedProcedure.input(getUserZ).query(async ({ ctx, input }) => {
     try {
       return await ctx.db.user.findUniqueOrThrow({
-        where: { id: input?.userId ?? ctx.session.user.id },
+        where: {
+          id: input?.userId ?? ctx.session.user.id,
+        },
         include: {
           Attendance: true,
           Certificate: true,

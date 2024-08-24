@@ -137,7 +137,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token, trigger }) {
       if (token.sub && session.user) {
-        session.user.id = token.id;
+        session.user.id = parseInt(token.sub);
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.role = token.role;
