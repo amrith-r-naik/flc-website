@@ -1,11 +1,17 @@
 import { TRPCError } from "@trpc/server";
 
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+
 import { somethingWentWrong } from "~/utils/error";
-import { editUserZ, editUserImageZ, getUserZ } from "~/zod/userZ";
+import {
+  editUserZ,
+  editUserImageZ,
+  getUserZ,
+  addUserLinkZ,
+  deleteUserLinkZ,
+} from "~/zod/userZ";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
-
-export const userRouter = createTRPCRouter({
+const userRouter = createTRPCRouter({
   editUser: protectedProcedure
     .input(editUserZ)
     .mutation(async ({ ctx, input }) => {
@@ -24,10 +30,59 @@ export const userRouter = createTRPCRouter({
       });
     }),
 
+  addUserLink: protectedProcedure
+    .input(addUserLinkZ)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.userLink.create({
+        data: {
+          linkName: input.linkName,
+          url: input.url,
+          User: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
+        },
+      });
+    }),
+
+  removeUserLink: protectedProcedure
+    .input(deleteUserLinkZ)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.userLink.delete({
+        where: { id: input.linkId },
+      });
+    }),
+
+  getLeaderboard: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.user.findMany({
+      select: {
+        name: true,
+        email: true,
+        image: true,
+        totalActivityPoints: true,
+        _count: {
+          select: {
+            Team: {
+              where: {
+                hasAttended: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        totalActivityPoints: "desc",
+      },
+    });
+  }),
+
   getUser: protectedProcedure.input(getUserZ).query(async ({ ctx, input }) => {
     try {
       return await ctx.db.user.findUniqueOrThrow({
-        where: { id: input?.userId ?? ctx.session.user.id },
+        where: {
+          id: input?.userId ?? ctx.session.user.id,
+        },
         include: {
           Attendance: true,
           Certificate: true,
@@ -72,3 +127,5 @@ export const userRouter = createTRPCRouter({
     return userEvents;
   }),
 });
+
+export default userRouter;

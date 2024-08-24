@@ -8,6 +8,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import Layout from "~/components/layout";
+import SEOLayout from "~/components/layout/seo";
 import { siteMetaData } from "~/constants";
 import { ThemeProvider } from "~/context/themeContext";
 import "~/styles/globals.css";
@@ -32,7 +33,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
+        defaultTheme="dark"
         enableSystem
         themes={["light", "dark"]}
       >
@@ -40,9 +41,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
           <Head>
             <title>{title}</title>
           </Head>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <SEOLayout>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </SEOLayout>
           <Analytics />
           <SpeedInsights />
         </ReactLenis>

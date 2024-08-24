@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 
+import { getEventByIdZ } from "~/zod/eventZ";
 import {
   confirmTeamZ,
   createTeamZ,
@@ -7,11 +8,12 @@ import {
   getTeamByIdZ,
   joinTeamZ,
   leaveTeamZ,
+  RemoveFromTeamZ,
 } from "~/zod/teamZ";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
-export const teamRouter = createTRPCRouter({
+const teamRouter = createTRPCRouter({
   createTeam: protectedProcedure
     .input(createTeamZ)
     .mutation(async ({ ctx, input }) => {
@@ -30,7 +32,6 @@ export const teamRouter = createTRPCRouter({
             },
           ],
         },
-        select: {},
       });
 
       if (inTeam)
@@ -45,6 +46,11 @@ export const teamRouter = createTRPCRouter({
           Event: {
             connect: {
               id: input.eventId,
+            },
+          },
+          Leader: {
+            connect: {
+              id: ctx.session.user.id, // Leader ID to connect
             },
           },
           Members: {
@@ -74,7 +80,6 @@ export const teamRouter = createTRPCRouter({
             },
           ],
         },
-        select: {},
       });
 
       if (inTeam)
@@ -102,6 +107,13 @@ export const teamRouter = createTRPCRouter({
           code: "NOT_FOUND",
           message: "Team not found",
         });
+
+      if (team && team.Event.id != input.eventId) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Team does not belong to this event",
+        });
+      }
 
       if (team._count.Members >= team.Event.maxTeamSize)
         throw new TRPCError({
@@ -161,6 +173,50 @@ export const teamRouter = createTRPCRouter({
           Members: {
             disconnect: {
               id: ctx.session.user.id,
+            },
+          },
+        },
+      });
+    }),
+
+  removeFromTeam: protectedProcedure
+    .input(RemoveFromTeamZ)
+    .mutation(async ({ ctx, input }) => {
+      const team = await ctx.db.team.findUnique({
+        where: {
+          id: input.teamId,
+        },
+        select: {
+          isConfirmed: true,
+          Event: {
+            select: {
+              id: true,
+              isLegacy: true,
+            },
+          },
+        },
+      });
+
+      if (!team)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Team not found",
+        });
+
+      if (team.isConfirmed || team.Event.isLegacy)
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "You cannot leave this team anymore!",
+        });
+
+      await ctx.db.team.update({
+        where: {
+          id: input.teamId,
+        },
+        data: {
+          Members: {
+            disconnect: {
+              id: input.userId,
             },
           },
         },
@@ -247,6 +303,44 @@ export const teamRouter = createTRPCRouter({
       });
     }),
 
+  inATeamOfEvent: protectedProcedure
+    .input(getEventByIdZ)
+    .query(async ({ ctx, input }) => {
+      const team = await ctx.db.team.findFirst({
+        where: {
+          AND: [
+            {
+              eventId: input.eventId,
+            },
+            {
+              Members: {
+                some: {
+                  id: ctx.session.user.id,
+                },
+              },
+            },
+          ],
+        },
+        include: {
+          Members: true,
+          Leader: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+
+      const isLeader: boolean = team?.Leader.id === ctx.session.user.id;
+
+      if (!team) return null;
+      return {
+        ...team,
+        isLeader,
+        userId: ctx.session.user.id,
+      };
+    }),
+
   // Retrieve
   getTeamById: protectedProcedure
     .input(getTeamByIdZ)
@@ -261,3 +355,5 @@ export const teamRouter = createTRPCRouter({
       });
     }),
 });
+
+export default teamRouter;

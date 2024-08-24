@@ -50,9 +50,11 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         toast.dismiss();
         if (s?.ok) {
           toast.success("Logged in successfully");
-          void router.push(`/profile`);
+          setTimeout(() => void router.push(`/profile`), 1000);
         } else {
-          toast.error("Failed to log in! You sure about your credentials?");
+          toast.error(
+            s?.error ?? "Failed to log in! You sure about your credentials?",
+          );
         }
       })
       .catch((e) => {
@@ -68,7 +70,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-8 ")}
       >
-        <FormMessage className="flex justify-center text-4xl text-white">
+        <FormMessage className="flex justify-center text-4xl font-bold text-white">
           Login
         </FormMessage>
         <FormField
@@ -110,7 +112,10 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
           </Link>
         </div>
         <div className="flex  flex-col justify-center gap-2">
-          <Button className="bg-purple-700 hover:bg-purple-700" type="submit">
+          <Button
+            className="bg-purple-700 font-bold text-white hover:bg-purple-900"
+            type="submit"
+          >
             Submit
           </Button>
           <p className="mb-4 text-center text-sm text-white dark:text-white">

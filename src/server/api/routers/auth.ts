@@ -34,7 +34,7 @@ import {
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
-export const authRouter = createTRPCRouter({
+const authRouter = createTRPCRouter({
   signUp: publicProcedure.input(signUpZ).mutation(async ({ ctx, input }) => {
     if (ctx.session)
       throw new TRPCError({
@@ -314,3 +314,5 @@ const sendVerificationEmailMutation: (email: string) => Promise<void> = async (
 
   await sendVerificationEmail(existingUser.email, url, existingUser.name);
 };
+
+export default authRouter;

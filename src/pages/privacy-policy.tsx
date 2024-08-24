@@ -1,4 +1,4 @@
-import DocumentPage from "~/components/documentation";
+import DocumentPage from "~/components/docs";
 
 const contactUsSections = [
   {

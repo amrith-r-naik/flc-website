@@ -1,10 +1,11 @@
 import Image from "next/image";
 import React from "react";
 
-import sampleImage from "~/assets/images/sample.jpg";
-import AvatarGroup from "~/components/avatarGroup";
+import { Card, CardContent } from "~/components/ui/card";
+import { AvatarGroup } from "~/components/ui/custom/avatar-group";
 
-import { Card, CardContent } from "../../ui/card";
+import sampleImage from "~/assets/images/sample.jpg";
+
 import styles from "./styles.module.css";
 
 interface EventCardProps {
@@ -33,12 +34,7 @@ const EventCard = ({
             {title}
           </h1>
           <div className="mt-2 flex flex-col items-center gap-y-1">
-            <AvatarGroup
-              height={20}
-              width={20}
-              urls={["/img/1", "/img/2", "/img/3"]}
-              className=""
-            />
+            <AvatarGroup images={[]} />
             {registrations > 100 ? (
               <h1 className=" font-inter text-[10px] font-bold">100+ teams</h1>
             ) : (

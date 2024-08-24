@@ -4,13 +4,13 @@ import React, { type ReactNode, type FunctionComponent } from "react";
 
 import { Button } from "~/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog";
+  DialogDrawer,
+  DialogDrawerContent,
+  DialogDrawerDescription,
+  DialogDrawerHeader,
+  DialogDrawerTitle,
+  DialogDrawerTrigger,
+} from "~/components/ui/custom/dialog-drawer";
 
 import { cn } from "~/lib/utils";
 import { type User, useUser } from "~/store";
@@ -36,27 +36,29 @@ const InnerQRCode: FunctionComponent<{
 }> = ({ user, className, children }) => {
   if (!user.memberSince) return null;
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button className="bg-white">{children}</Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="text-center">Your QR Code</DialogTitle>
-          <DialogDescription className="text-center">
+    <DialogDrawer>
+      <DialogDrawerTrigger asChild>
+        <Button className={cn(className, "bg-white")}>{children}</Button>
+      </DialogDrawerTrigger>
+      <DialogDrawerContent>
+        <DialogDrawerHeader className="space-y-4">
+          <DialogDrawerTitle className="text-center">
+            Your QR Code
+          </DialogDrawerTitle>
+          <DialogDrawerDescription className="text-center">
             {idToPid(user.id, format(user.memberSince, "yy"))}
-          </DialogDescription>
+          </DialogDrawerDescription>
           <QRCodeSVG
             value={idToPid(user.id, format(user.memberSince, "yy"))}
             size={130}
             bgColor="transparent"
             color="#ffffff"
             fgColor="#ffffff"
-            className={cn(className, "size-52 self-center")}
+            className={"mx-auto size-52"}
           />
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+        </DialogDrawerHeader>
+      </DialogDrawerContent>
+    </DialogDrawer>
   );
 };
 

@@ -43,8 +43,8 @@ const InnerLeftBottomPanel = forwardRef<
         <Carousel>
           <CarouselContent>
             {images.map((image, idx) => (
-              <CarouselItem key={idx}>
-                <Image src={image} alt={image} />
+              <CarouselItem key={idx} className="relative size-40">
+                <Image src={image} alt={image} fill />
               </CarouselItem>
             ))}
           </CarouselContent>

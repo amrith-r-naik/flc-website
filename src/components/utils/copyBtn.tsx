@@ -18,7 +18,7 @@ const CopyBtn = ({ value }: { value?: string }) => {
   const Icon = isCopied ? CheckCheck : Copy;
 
   return (
-    <button onClick={onCopy} disabled={!value || isCopied}>
+    <button onClick={onCopy} disabled={!value || isCopied} className="z-50">
       <Icon className="h-4 w-4" />
     </button>
   );

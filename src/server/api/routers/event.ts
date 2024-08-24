@@ -18,7 +18,7 @@ import {
   publicProcedure,
 } from "../trpc";
 
-export const eventRouter = createTRPCRouter({
+const eventRouter = createTRPCRouter({
   createEvent: adminProcedure
     .input(createEventZ)
     .mutation(async ({ ctx, input }) => {
@@ -310,3 +310,5 @@ export const eventRouter = createTRPCRouter({
       return { ...event, teamCount, selectedImages: images };
     }),
 });
+
+export default eventRouter;

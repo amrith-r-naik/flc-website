@@ -1,20 +1,18 @@
-import { blogRouter } from "~/server/api/routers/blog";
+import activityPointsRouter from "~/server/api/routers/activitypoints";
+import attendanceRouter from "~/server/api/routers/attendance";
+import authRouter from "~/server/api/routers/auth";
+import blogRouter from "~/server/api/routers/blog";
+import branchRouter from "~/server/api/routers/branch";
+import certificateRouter from "~/server/api/routers/certificate";
+import eventRouter from "~/server/api/routers/event";
+import feedbackRouter from "~/server/api/routers/feedback";
+import organiserRouter from "~/server/api/routers/organiser";
+import paymentRouter from "~/server/api/routers/payment";
+import quizRouter from "~/server/api/routers/quiz";
+import teamRouter from "~/server/api/routers/team";
+import userRouter from "~/server/api/routers/user";
+import winnerRouter from "~/server/api/routers/winner";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
-
-import { activityPointsRouter } from "./routers/activitypoints";
-import { attendanceRouter } from "./routers/attendance";
-import { authRouter } from "./routers/auth";
-import { branchRouter } from "./routers/branch";
-import { certificateRouter } from "./routers/certificate";
-import { eventRouter } from "./routers/event";
-import { feedbackRouter } from "./routers/feedback";
-import { organiserRouter } from "./routers/organiser";
-import { payment } from "./routers/payment";
-import { quizRouter } from "./routers/quiz";
-import { teamRouter } from "./routers/team";
-import { userRouter } from "./routers/user";
-import { userLinkRouter } from "./routers/userLink";
-import { winnerRouter } from "./routers/winner";
 
 /**
  * This is the primary router for your server.
@@ -32,8 +30,7 @@ export const appRouter = createTRPCRouter({
   activitypoints: activityPointsRouter,
   organiser: organiserRouter,
   branch: branchRouter,
-  userLink: userLinkRouter,
-  payment: payment,
+  payment: paymentRouter,
   quiz: quizRouter,
   blog: blogRouter,
   user: userRouter,

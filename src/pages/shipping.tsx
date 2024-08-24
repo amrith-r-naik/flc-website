@@ -1,7 +1,5 @@
 import { type FC } from "react";
 
-import Footer from "~/components/footer";
-
 const Shipping: FC = () => {
   return (
     <>
@@ -43,8 +41,6 @@ const Shipping: FC = () => {
             </div>
           </section>
         </main>
-
-        <Footer />
       </div>
     </>
   );

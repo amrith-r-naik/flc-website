@@ -8,12 +8,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model WebsiteSettings {
+model CMS {
   id String @id @default(cuid())
 
   gallery Json[] // galleryZ
   about   String
   contact String
+}
+
+model Core {
+  id String @id @default(cuid())
 }
 
 model User {
@@ -60,6 +64,8 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  TeamLeader Team[] @relation("leaderOfTeam")
 }
 
 model VerificationToken {
@@ -176,13 +182,16 @@ model Organiser {
 }
 
 model Team {
-  id          Int     @id @default(autoincrement())
+  id          String  @id @default(cuid())
   name        String
   isConfirmed Boolean @default(false)
   hasAttended Boolean @default(false)
 
   eventId Int
   Event   Event @relation(fields: [eventId], references: [id])
+
+  leaderId Int
+  Leader   User @relation("leaderOfTeam", fields: [leaderId], references: [id])
 
   Members User[]
   Winner  Winner?
@@ -215,8 +224,8 @@ model Winner {
   eventId Int
   Event   Event @relation(fields: [eventId], references: [id])
 
-  teamId Int  @unique
-  Team   Team @relation(fields: [teamId], references: [id])
+  teamId String @unique
+  Team   Team   @relation(fields: [teamId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -244,10 +253,13 @@ model Certificate {
 }
 
 model Payment {
-  id                String @id @default(cuid())
-  paymentName       String
-  razorpayPaymentId String
+  id          String      @id @default(cuid())
+  paymentName String
+  verified    Boolean     @default(false)
+  paymentType PaymentType
+
   razorpayOrderId   String
+  razorpayPaymentId String
   razorpaySignature String
 
   userId Int
@@ -257,6 +269,7 @@ model Payment {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, razorpayPaymentId])
+  @@index([userId, razorpayPaymentId])
 }
 
 model Quiz {
@@ -348,9 +361,7 @@ model Blog {
 // enums
 enum Role {
   USER
-  MEMBER
   ORGANISER
-  CORE
   ADMIN
 }
 
@@ -362,6 +373,11 @@ enum EventCategory {
 }
 
 // type enums
+enum PaymentType {
+  MEMBERSHIP
+  EVENT
+}
+
 enum EventType {
   SOLO
   TEAM

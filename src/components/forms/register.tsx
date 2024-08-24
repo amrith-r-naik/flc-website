@@ -3,12 +3,20 @@ import { type inferProcedureOutput } from "@trpc/server";
 import { useRouter } from "next/router";
 import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
+import { LuLogOut } from "react-icons/lu";
 import { toast } from "sonner";
 import { z } from "zod";
 
 import { type AppRouter } from "~/server/api/root";
 
 import { Button } from "~/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import {
   Form,
   FormControl,
@@ -20,6 +28,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 
+import PaymentButton from "~/components/razorPay/paymentButton";
 import { cn } from "~/lib/utils";
 import { api } from "~/utils/api";
 import { registerZ } from "~/zod/authZ";
@@ -31,7 +40,46 @@ const RegisterForm: FunctionComponent<{
 }> = ({ className }) => {
   const { data: user } = api.user.getUser.useQuery();
   if (!user) return null;
+  if (user.memberSince) return <AlreadyMember user={user} />;
   return <InnerRegisterForm className={className} user={user} />;
+};
+
+const AlreadyMember: FunctionComponent<{
+  user: inferProcedureOutput<AppRouter["user"]["getUser"]>;
+}> = ({ user }) => {
+  const router = useRouter();
+  return (
+    <Card className="backdrop-blur-sm">
+      <CardHeader>
+        <CardTitle>Already a Member</CardTitle>
+      </CardHeader>
+      <CardContent className="flex max-w-prose flex-col gap-3">
+        <div>
+          Thank you for showing interest in registering, but you seem to be a
+          member already
+        </div>
+        <div>
+          If you think this is an error, verify that you are signed in with the
+          correct account.
+        </div>
+        <div>
+          You are currently signed in as{" "}
+          <span className="font-bold">{user.name}</span> (
+          <span className="font-bold">{user.email}</span>).
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button
+          onClick={() => {
+            router.back();
+          }}
+        >
+          <LuLogOut className="mr-2 size-5" />
+          Go Back
+        </Button>
+      </CardFooter>
+    </Card>
+  );
 };
 
 const InnerRegisterForm: FunctionComponent<{
@@ -48,10 +96,7 @@ const InnerRegisterForm: FunctionComponent<{
     phone: z.string(),
     branch: z.string(),
     year: z.string(),
-    reasonToJoin: registerZ.shape.reasonToJoin,
-    expectations: registerZ.shape.expectations,
-    contribution: registerZ.shape.contribution,
-    paymentProof: registerZ.shape.paymentProof,
+    ...registerZ.shape,
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -65,7 +110,7 @@ const InnerRegisterForm: FunctionComponent<{
       reasonToJoin: "",
       expectations: "",
       contribution: "",
-      paymentProof: "",
+      paymentId: "",
     },
   });
 
@@ -76,13 +121,13 @@ const InnerRegisterForm: FunctionComponent<{
         reasonToJoin: values.reasonToJoin,
         expectations: values.expectations,
         contribution: values.contribution,
-        paymentProof: values.paymentProof,
+        paymentId: values.paymentId,
       },
       {
         onSuccess: () => {
           toast.dismiss();
           toast.success("Registered to FLC successfully!");
-          void router.push("/profile");
+          router.push("/profile").catch(console.error);
         },
         onError: ({ message }) => {
           toast.dismiss();
@@ -231,20 +276,12 @@ const InnerRegisterForm: FunctionComponent<{
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="paymentProof"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-white dark:text-white">
-                Payment Proof
-              </FormLabel>
-              <FormControl className="bg-[#494949]">
-                <Textarea placeholder="Answer" rows={3} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+
+        <PaymentButton
+          paymentType="MEMBERSHIP"
+          description="Club Membership"
+          onSuccess={(paymentId) => form.setValue("paymentId", paymentId)}
+          onFailure={() => toast.error("Payment failed")}
         />
 
         <div className="flex justify-center">

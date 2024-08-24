@@ -92,7 +92,7 @@ const RadialCard = forwardRef<
           className,
           "radialCard",
           withGlow &&
-            "before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:z-10 before:box-border before:size-full before:content-normal before:rounded-[15px] before:p-px before:opacity-0 before:transition-opacity before:duration-500 after:absolute after:left-0 after:top-0 after:z-10 after:size-full after:rounded-[inherit] after:opacity-0 after:transition-opacity after:duration-500 after:contain-none hover:before:opacity-100 hover:after:opacity-100",
+            "before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:z-10 before:box-border before:size-full before:content-normal before:rounded-[15px] before:p-px before:opacity-60 before:transition-opacity before:duration-500 after:absolute after:left-0 after:top-0 after:z-10 after:size-full after:rounded-[inherit] after:opacity-0 after:transition-opacity after:duration-500 after:contain-none hover:before:opacity-100 hover:after:opacity-100",
         )}
       >
         {children}

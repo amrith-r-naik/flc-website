@@ -6,7 +6,7 @@ const toggleAttendanceZ = z.object({
 });
 
 const toggleTeamAttendanceZ = z.object({
-  teamId: z.number(),
+  teamId: z.string(),
   eventId: z.number(),
 });
 

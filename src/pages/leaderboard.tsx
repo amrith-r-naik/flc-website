@@ -1,126 +1,129 @@
-"use client";
-
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { type NextPage } from "next";
+import { useRef } from "react";
+
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 
 import RankBars from "~/components/leaderboard/rank-bars";
-import Row from "~/components/leaderboard/row";
+import { api } from "~/utils/api";
 
 gsap.registerPlugin(useGSAP);
 
-const Leaderboard = () => {
+const Leaderboard: NextPage = () => {
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const rankBarsRef = useRef<HTMLDivElement>(null);
+  const rowsRef = useRef<HTMLTableSectionElement>(null);
+
+  const { data: users } = api.user.getLeaderboard.useQuery();
+
   useGSAP(() => {
-    gsap.from([".banner"], { height: 0 });
-    gsap.from(".hero", { x: -1000, opacity: 0, delay: 0.2 });
-    gsap.from(".rankbar", { y: 100, height: 0, delay: 0.2, stagger: 0.2 });
-    gsap.from(".row", { x: -50, opacity: 0, stagger: 0.2 });
+    gsap.from(bannerRef.current, {
+      height: 0,
+    });
+
+    gsap.from(heroRef.current, {
+      x: -1000,
+      opacity: 0,
+      delay: 0.2,
+    });
+
+    rankBarsRef.current?.childNodes.forEach((rankBar, i) => {
+      gsap.from(rankBar, {
+        y: 100,
+        opacity: 0,
+        delay: 0.1 + i * 0.1,
+      });
+    });
+
+    rowsRef.current?.childNodes.forEach((row, i) => {
+      gsap.from(row, {
+        x: i % 2 ? -50 : 50,
+        opacity: 0,
+        delay: 0.1 + i * 0.1,
+      });
+    });
   });
 
   return (
-    <div className="h-[150vh] w-[100%]  space-y-6 bg-[#100020]">
-      <div
+    <div className="w-full space-y-8 bg-[#100020] pb-20">
+      <header
         style={{
           background:
             "radial-gradient(50% 70.31% at 50% 0%, rgb(184 148 255 / 33%) 0%, rgba(126, 61, 255, 0) 100%), rgb(21 0 59 / 80%)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-          height: "282px",
         }}
-        className="banner flex w-full flex-col gap-20 overflow-hidden rounded-b-[70px] border border-border bg-cover pt-12 sm:h-[38vh] sm:flex-row sm:gap-0 sm:pt-0"
+        ref={bannerRef}
+        className="flex h-72 w-full flex-col gap-20 overflow-hidden rounded-b-[70px] border border-border bg-cover pt-12 backdrop-blur-lg sm:flex-row sm:gap-0 sm:pt-0"
       >
-        {/* left half of banner */}
-        <div className="flex w-full items-center  justify-center border-orange-50 sm:h-full sm:w-1/2 ">
-          <div className="flex flex-col items-center space-y-1 sm:block">
-            <h1 className="hero text-4xl font-bold md:text-5xl lg:text-7xl">
-              Leaderboard
-            </h1>
-            <p className="hero text-lg font-semibold">
-              participate in events to earn XP!
-            </p>
-          </div>
-        </div>
-
-        {/* right half of banner */}
-        <div className="flex flex-1 items-end justify-center gap-16 sm:h-full">
-          <RankBars
-            className="rankbar h-[75px] sm:h-[110px] md:h-[140px]"
-            size={140}
-            rank={2}
-          />
-          <RankBars
-            className="rankbar h-[130px]  sm:h-[165px] md:h-[200px]"
-            size={200}
-            rank={1}
-          />
-          <RankBars
-            className="rankbar h-[50px] sm:h-[85px] md:h-[100px]"
-            size={100}
-            rank={3}
-          />
-        </div>
-      </div>
-
-      {/* grid section of page */}
-      <main className="mx-auto h-[30rem] w-[95%]  space-y-2 border-border lg:w-4/5 ">
-        {/*below div Grid banner */}
         <div
-          style={{
-            background:
-              "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
-          }}
-          className="flex w-full rounded-lg border-2 border-border"
+          ref={heroRef}
+          className="flex h-1/6 w-full flex-col items-center justify-center gap-4 md:h-full md:w-1/2"
         >
-          <p className="flex-1  py-4 text-center text-xs font-semibold sm:text-lg md:text-xl">
-            Name
-          </p>
-          <p className="flex-1  py-4 text-center text-xs font-semibold sm:text-lg md:text-xl">
-            USN
-          </p>
-          <p className="flex-1  text-wrap py-4 text-center text-xs font-semibold sm:text-lg md:text-xl">
-            Events Attended
-          </p>
-          <p className="flex-1  py-4 text-center text-xs font-semibold sm:text-lg md:text-xl">
-            XP
+          <h1 className="text-5xl font-bold lg:text-7xl">Leaderboard</h1>
+          <p className="text-base font-semibold md:text-lg">
+            Participate in events to earn XP!
           </p>
         </div>
+        <div
+          ref={rankBarsRef}
+          className="flex h-5/6 w-full items-end justify-center gap-14 md:h-full md:w-1/2 md:gap-16"
+        >
+          <RankBars user={users?.[0]} className="order-2" rank="GOLD" />
+          <RankBars user={users?.[1]} className="order-1" rank="SILVER" />
+          <RankBars user={users?.[2]} className="order-3" rank="BRONZE" />
+        </div>
+      </header>
 
-        <Row
-          usn="NNM22CS139"
-          className="row"
-          name="rakshithx09"
-          eventsAttended={50}
-          xp={200}
-        />
-        <Row
-          usn="NNM22CS139"
-          className="row"
-          name="rakshithx09"
-          eventsAttended={50}
-          xp={200}
-        />
-        <Row
-          usn="NNM22CS139"
-          className="row"
-          name="rakshithx09"
-          eventsAttended={50}
-          xp={200}
-        />
-        <Row
-          usn="NNM22CS139"
-          className="row"
-          name="rakshithx09"
-          eventsAttended={50}
-          xp={200}
-        />
-        <Row
-          usn="NNM22CS139"
-          className="row"
-          name="rakshithx09"
-          eventsAttended={50}
-          xp={200}
-        />
+      <main className="mx-auto w-[95%] lg:w-4/5 ">
+        <table className="w-full border-separate border-spacing-y-2">
+          <thead>
+            <tr
+              style={{
+                background:
+                  "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
+              }}
+              className="rounded-lg text-center text-xs backdrop-blur-lg *:w-1/4 *:border-y-2 *:border-border *:py-4  first:*:rounded-l-lg first:*:border-l last:*:rounded-r-lg last:*:border-r sm:text-lg md:text-xl"
+            >
+              <th>Name</th>
+              <th>USN</th>
+              <th>Events Attended</th>
+              <th>XP</th>
+            </tr>
+          </thead>
+          <tbody ref={rowsRef}>
+            {users ? (
+              users.map((user, idx) => (
+                <tr
+                  key={idx}
+                  className="text-center text-xs *:border-y-2 *:border-border *:py-4 first:*:rounded-l-lg first:*:border-l last:*:rounded-r-lg last:*:border-r md:text-lg"
+                >
+                  <td className="flex items-center justify-center gap-2">
+                    <Avatar className="hidden md:block">
+                      <AvatarImage
+                        src={user.image ?? "https://github.com/shadcn.png"}
+                      />
+                      <AvatarFallback>PP</AvatarFallback>
+                    </Avatar>
+                    {user.name}
+                  </td>
+                  <td>{user.email.split("@")[0]?.toUpperCase() ?? "N/A"}</td>
+                  <td>{user._count.Team}</td>
+                  <td>{user.totalActivityPoints}xp</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={4}
+                  className="rounded-l-lg rounded-r-lg border-y-2 border-l border-r border-border py-4 text-center text-xs md:text-lg"
+                >
+                  No users
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </main>
     </div>
   );

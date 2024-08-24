@@ -22,7 +22,7 @@ const SpaceBG: FunctionComponent<Props> = ({ children }) => {
   useEffect(() => {
     initParticlesEngine(async (engine) => await loadSlim(engine))
       .then(() => setInit(true))
-      .catch((e) => console.log(e));
+      .catch(console.error);
   }, []);
 
   const options: ISourceOptions = useMemo(
@@ -30,7 +30,7 @@ const SpaceBG: FunctionComponent<Props> = ({ children }) => {
       background: {
         color:
           theme === "dark" || (theme === "system" && systemTheme === "dark")
-            ? "#09090b"
+            ? "#0b011d"
             : "#ffffff",
       },
       fpsLimit: 60,

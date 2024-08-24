@@ -38,13 +38,13 @@ function Hackfest() {
 
   return (
     <section
-      className="bg-gradient min-h-[80vh] w-full rounded-2xl  border border-yellow-700 p-2 md:mt-4 md:p-8  "
+      className="bg-gradient mx-4 min-h-[80vh]  rounded-2xl border border-yellow-700 p-2 md:mt-4 md:p-8"
       ref={ref}
     >
       <h3 className="subheading mb-12 mt-6 text-center">
         “ HackFest:Our FlagShip Event ❞
       </h3>
-      <div className=" grid h-full w-full flex-grow grid-cols-1 items-center justify-items-center gap-4 md:grid-cols-2">
+      <div className=" grid h-full w-full grid-cols-1 items-center justify-items-center gap-4 md:grid-cols-2">
         <div className="space-y-4 p-2">
           <p className="max-w-lg">
             “ NMAM Institute of Technology presents a three-day National Tech

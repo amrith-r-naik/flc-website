@@ -12,13 +12,16 @@ const Profile: FunctionComponent = () => {
   const rightPanelRef = useRef<HTMLDivElement>(null);
 
   return (
-    <main className="container my-10 mb-52 h-screen w-full">
+    <main className="container my-10 h-auto min-h-screen w-full md:h-screen">
       <RadialCardWrapper className="flex size-full flex-col gap-5 md:flex-row">
-        <div className="flex w-1/2 flex-col gap-5">
+        <div className="flex w-full flex-col gap-5 md:w-1/2">
           <LeftTopPanel ref={leftTopPanelRef} className="h-2/3" />
           <LeftBottomPanel ref={leftBottomPanelRef} className="h-1/3" />
         </div>
-        <RightPanel ref={rightPanelRef} className="w-1/2" />
+        <RightPanel
+          ref={rightPanelRef}
+          className="hidden w-full md:flex md:w-1/2"
+        />
       </RadialCardWrapper>
     </main>
   );

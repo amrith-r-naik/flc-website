@@ -11,6 +11,7 @@ import EventCard from "~/components/events/card";
 import { api } from "~/utils/api";
 
 import Loader from "../loader";
+import { RadialCard } from "../utils/radialCard";
 
 function Events() {
   const {
@@ -38,16 +39,16 @@ function Events() {
   if (isLoading) {
     return (
       <section
-        className="flex  min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
+        className="mx-auto  flex min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
         ref={ref}
       >
-        <h3 className="subheading text-center font-semibold">
-          “ Events & WorkShop ❞
+        <h3 className="events-heading text-center font-semibold">
+          Events & WorkShop
         </h3>
         <p className="text-center">
           Enrich your skills and knowledge with tons of events and workshops
         </p>
-        <div className="flex h-screen w-screen items-center justify-center">
+        <div className="flex h-screen w-full items-center justify-center">
           <Loader />
         </div>
 
@@ -63,16 +64,22 @@ function Events() {
         className="flex  min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
         ref={ref}
       >
-        <h3 className="subheading text-center font-semibold">
-          Events & WorkShop
+        <h3 className="events-heading text-center font-sans text-4xl font-bold">
+          Events & WorkShops
         </h3>
         <p className="text-center">
           Enrich your skills and knowledge with tons of events and workshops
         </p>
         {events && events.length > 0 ? (
-          <div className="mx-auto  mb-4 grid w-full max-w-7xl grid-cols-1 gap-4  md:grid-cols-3 ">
+          <div className="mx-auto  mb-4 grid w-full max-w-7xl columns-3 gap-4 ">
             {events.map((event, idx) => (
-              <EventCard key={idx} event={event} />
+              <RadialCard
+                key={idx}
+                className="relative h-full w-fit rounded-2xl p-2 py-3"
+                withGlow
+              >
+                <EventCard event={event} />
+              </RadialCard>
             ))}
           </div>
         ) : (
@@ -96,7 +103,7 @@ function Events() {
         <p>
           Enrich your skills and knowledge with tons of events and workshops
         </p>
-        <div className="flex h-screen w-screen items-center justify-center">
+        <div className="flex h-screen w-full items-center justify-center">
           <Loader />
         </div>
 

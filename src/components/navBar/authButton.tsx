@@ -35,7 +35,7 @@ const AuthButton: FunctionComponent<{ inDashboard?: boolean }> = ({
               .then(() => {
                 toast.dismiss();
                 toast.success("Signed out successfully");
-                void router.push("/");
+                setTimeout(() => void router.push("/"), 1000);
               })
               .catch((e) => {
                 toast.dismiss();

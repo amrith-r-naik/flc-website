@@ -7,13 +7,13 @@ import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog";
+  DialogDrawer,
+  DialogDrawerContent,
+  DialogDrawerFooter,
+  DialogDrawerHeader,
+  DialogDrawerTitle,
+  DialogDrawerTrigger,
+} from "~/components/ui/custom/dialog-drawer";
 import {
   Form,
   FormControl,
@@ -26,22 +26,29 @@ import { Input } from "~/components/ui/input";
 import { InputOTP, InputOTPSlot } from "~/components/ui/input-otp";
 import { Textarea } from "~/components/ui/textarea";
 
+import { cn } from "~/lib/utils";
 import { type User, useUser } from "~/store";
 import { api } from "~/utils/api";
 import { editUserZ } from "~/zod/userZ";
 
-const EditUserForm: FunctionComponent<{ children: ReactNode }> = ({
-  children,
-}) => {
+const EditUserForm: FunctionComponent<{
+  children: ReactNode;
+  className?: string;
+}> = ({ children, className }) => {
   const { user } = useUser();
   if (!user) return null;
-  return <InnerEditUserForm user={user}>{children}</InnerEditUserForm>;
+  return (
+    <InnerEditUserForm user={user} className={className}>
+      {children}
+    </InnerEditUserForm>
+  );
 };
 
 const InnerEditUserForm: FunctionComponent<{
   children: ReactNode;
+  className?: string;
   user: User;
-}> = ({ children, user }) => {
+}> = ({ children, className, user }) => {
   const { data: session } = useSession();
 
   const [open, setOpen] = useState(false);
@@ -86,22 +93,27 @@ const InnerEditUserForm: FunctionComponent<{
   if (!session) return null;
 
   return (
-    <Dialog
+    <DialogDrawer
       open={open}
       onOpenChange={(open) => {
         setOpen(open);
         form.reset();
       }}
     >
-      <DialogTrigger asChild>
-        <Button className="relative bg-white">{children}</Button>
-      </DialogTrigger>
-      <DialogContent>
+      <DialogDrawerTrigger asChild>
+        <Button className={cn(className, "relative bg-white")}>
+          {children}
+        </Button>
+      </DialogDrawerTrigger>
+      <DialogDrawerContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <DialogHeader>
-              <DialogTitle>Edit User</DialogTitle>
-            </DialogHeader>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-8 px-4 md:px-0"
+          >
+            <DialogDrawerHeader>
+              <DialogDrawerTitle>Edit User</DialogDrawerTitle>
+            </DialogDrawerHeader>
 
             <FormField
               control={form.control}
@@ -147,13 +159,13 @@ const InnerEditUserForm: FunctionComponent<{
               )}
             />
 
-            <DialogFooter>
+            <DialogDrawerFooter>
               <Button type="submit">Edit</Button>
-            </DialogFooter>
+            </DialogDrawerFooter>
           </form>
         </Form>
-      </DialogContent>
-    </Dialog>
+      </DialogDrawerContent>
+    </DialogDrawer>
   );
 };
 

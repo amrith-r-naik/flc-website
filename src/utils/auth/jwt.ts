@@ -111,18 +111,17 @@ const isJwtExpired = (token: string) => {
 
   if (decoded && typeof decoded === "object") {
     const decodedToken: jwt.JwtPayload = decoded;
-    console.log(decodedToken);
+    // console.log(decodedToken);
 
     if (decodedToken?.exp) {
       const adjustedExpiry = decodedToken.exp ?? 0;
-      console.log("Current time (with buffer):", currentTime + 60);
-      console.log("Token expiry time:", adjustedExpiry);
+      // console.log("Current time (with buffer):", currentTime + 60);
+      // console.log("Token expiry time:", adjustedExpiry);
       if (adjustedExpiry < currentTime) {
-        console.log("TOKEN EXPIRED");
-
+        // console.log("TOKEN EXPIRED");
         return true;
       }
-      console.log("NOT EXPIRED");
+      // console.log("NOT EXPIRED");
 
       return false;
     }
@@ -153,13 +152,12 @@ const generateTokens = (user: { id: number }, jti: string) => {
 };
 
 const rotateTokens = async (token: string) => {
-  console.log("refreshing token", token);
+  // console.log("refreshing token", token);
 
   const tokens = await refreshToken(token);
-  if (tokens) {
-    return [tokens.accessToken, tokens.refreshToken];
-  }
-  console.log("refreshToken failed");
+  if (tokens) return [tokens.accessToken, tokens.refreshToken];
+
+  // console.log("refreshToken failed");
   return [null, null];
 };
 
@@ -178,7 +176,7 @@ const refreshToken = async (token: string) => {
       refreshToken,
       secrets.JWT_REFRESH_SECRET,
     ) as jwt.JwtPayload;
-    console.log("Payload", payload);
+    // console.log("Payload", payload);
 
     const savedRefreshedToken = await findRefreshTokenById(payload.jti!);
 

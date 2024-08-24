@@ -6,7 +6,7 @@ import { LuCheck, LuMinus, LuPlus, LuTrash2 } from "react-icons/lu";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
-import InputButton from "~/components/ui/custom/input-button";
+import { InputButton } from "~/components/ui/custom/input-button";
 import {
   Dialog,
   DialogContent,

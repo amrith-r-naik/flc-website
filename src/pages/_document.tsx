@@ -4,11 +4,7 @@ import { siteMetaData } from "~/constants";
 
 export default function Document() {
   return (
-    <Html
-      lang="en"
-      // suppressHydrationWarning
-      // suppressContentEditableWarning
-    >
+    <Html lang="en" suppressHydrationWarning suppressContentEditableWarning>
       {/* Title of the page is being set in _app.tsx */}
       <Head>
         <meta name="name" content={siteMetaData.name} />

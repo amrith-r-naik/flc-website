@@ -1,29 +1,34 @@
 import { z } from "zod";
 
 const createTeamZ = z.object({
-  eventId: z.number(),
+  eventId: z.number().int(),
   teamName: z.string(),
 });
 
 const joinTeamZ = z.object({
-  eventId: z.number(),
-  teamId: z.number(),
+  eventId: z.number().int(),
+  teamId: z.string(),
 });
 
 const leaveTeamZ = z.object({
-  teamId: z.number(),
+  teamId: z.string(),
+});
+
+const RemoveFromTeamZ = z.object({
+  teamId: z.string(),
+  userId: z.number(),
 });
 
 const deleteTeamZ = z.object({
-  teamId: z.number(),
+  teamId: z.string(),
 });
 
 const confirmTeamZ = z.object({
-  teamId: z.number(),
+  teamId: z.string(),
 });
 
 const getTeamByIdZ = z.object({
-  teamId: z.number(),
+  teamId: z.string(),
 });
 
 export {
@@ -33,4 +38,5 @@ export {
   deleteTeamZ,
   confirmTeamZ,
   getTeamByIdZ,
+  RemoveFromTeamZ,
 };

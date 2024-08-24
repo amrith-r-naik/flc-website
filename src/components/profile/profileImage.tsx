@@ -8,6 +8,8 @@ import React, { forwardRef } from "react";
 import { LuPencil } from "react-icons/lu";
 import { toast } from "sonner";
 
+import { useRefetchContext } from "~/context/refetchContext";
+import { cn } from "~/lib/utils";
 import { type User, useUser } from "~/store";
 import { api } from "~/utils/api";
 import { deleteFromCloudinary } from "~/utils/cloudinary";
@@ -21,12 +23,13 @@ ProfileImage.displayName = "ProfileImage";
 
 const InnerProfileImage = forwardRef<HTMLDivElement, { user: User }>(
   ({ user }, ref) => {
+    const { executeRefetch } = useRefetchContext("user");
     const editUserImage = api.user.editUserImage.useMutation();
 
     return (
       <div
         ref={ref}
-        className="relative size-32 rounded-full border-4 border-white text-foreground drop-shadow-md"
+        className="relative size-36 min-h-36 min-w-36 rounded-full border-4 border-white text-foreground drop-shadow-md"
       >
         <CldUploadWidget
           signatureEndpoint="/api/cloudinary/sign"
@@ -41,6 +44,7 @@ const InnerProfileImage = forwardRef<HTMLDivElement, { user: User }>(
               },
               {
                 onSuccess: () => {
+                  executeRefetch();
                   toast.dismiss();
                   toast.success("Profile picture changed");
                 },
@@ -54,17 +58,23 @@ const InnerProfileImage = forwardRef<HTMLDivElement, { user: User }>(
         >
           {({ open }) => (
             <>
-              <div className="relative size-32">
+              <div className="relative size-full">
                 {user.image && (
                   <Image
                     src={user.image}
                     alt={"Profile Image"}
-                    className="rounded-full object-cover"
+                    fill
+                    className="rounded-full object-fill object-center"
                   />
                 )}
               </div>
               <div
-                className="absolute left-0 top-0 flex size-full items-center justify-center rounded-full bg-gray-50/10"
+                className={cn(
+                  user.image
+                    ? "bg-none hover:bg-gray-50/5"
+                    : "bg-gray-50/10 hover:bg-gray-50/15",
+                  "absolute left-0 top-0 flex size-full items-center justify-center rounded-full",
+                )}
                 onClick={() => open()}
               >
                 <LuPencil className="size-5" />

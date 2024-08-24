@@ -25,7 +25,7 @@ const Unauthorized: FunctionComponent<Props> = ({ user }) => {
   const router = useRouter();
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-full">
       <SpaceBG>
         <div className="flex size-full items-center justify-center p-3">
           <Card className="backdrop-blur-sm">
@@ -55,7 +55,7 @@ const Unauthorized: FunctionComponent<Props> = ({ user }) => {
                     .then(() => {
                       toast.dismiss();
                       toast.success("Signed out successfully");
-                      void router.push("/");
+                      setTimeout(() => void router.push("/"), 1000);
                     })
                     .catch((e) => {
                       toast.dismiss();

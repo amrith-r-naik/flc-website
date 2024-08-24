@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const makeTeamWinnerZ = z.object({
   eventId: z.number(),
-  teamId: z.number(),
+  teamId: z.string(),
   winnerType: z.nativeEnum(WinnerType),
 });
 

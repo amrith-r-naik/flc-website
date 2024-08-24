@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { type FunctionComponent, useEffect, useRef } from "react";
 
-const Cursor = () => {
+const Cursor: FunctionComponent = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

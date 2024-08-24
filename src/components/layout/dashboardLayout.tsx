@@ -17,7 +17,7 @@ const AdminLayout: FunctionComponent<{
         theme === "light" || (theme === "system" && systemTheme === "light")
           ? "bg-white"
           : "bg-[#100020]",
-        "relative flex h-fit min-h-screen w-screen transition-all",
+        "relative flex h-fit min-h-screen w-full transition-all",
       )}
     >
       <AdminSidebar />

@@ -48,75 +48,80 @@ const EventCard: FunctionComponent<{
 
   return (
     <>
-      <div className="flex flex-col">
-        <div className="flex flex-row items-center justify-between px-4">
-          <div className="relative h-4 w-4">
-            <Image
-              src="/favicon.ico" /* replace it with flc logo */
-              alt={"Incridea Logo"}
-              fill
-              className="z-0 h-full w-full object-fill text-white"
-            />
-          </div>
-          <div className="events-heading">{event.category}</div>
-        </div>
-        <div className="relative py-2">
-          <div className="line-break"></div>
-          <div className={`rounded-xl object-fill px-2`}>
-            {
+      <div className="max-w-sm overflow-hidden">
+        <div className="flex flex-col">
+          <div className="flex flex-row items-center justify-between px-4">
+            <div className="relative size-8">
               <Image
-                src={event.imgSrc ?? "/assets/sample.png"}
-                alt={"Image"}
-                width={250}
-                height={250}
-                className="z-0 h-full w-full rounded-xl object-fill text-white"
+                src="/assets/images/flc_logo_crop.png"
+                alt={"Incridea Logo"}
+                fill
+                className="object-cover object-center"
               />
-            }
+            </div>
+            <div className="events-heading">{event.category}</div>
           </div>
-          <div className="line-break"></div>
-        </div>
-      </div>
-      <div className="relative z-50">
-        <div className="event-bg "></div>
-        <div className=" flex flex-col items-center justify-center gap-3 pt-3">
-          <span
-            className={`events-heading flex w-fit items-center justify-center px-2 text-center text-xl  `}
-          >
-            {event.name}
-          </span>
-          <div className="flex h-[6rem] w-full flex-col items-start justify-center gap-2 px-1 py-2 text-white md:w-full">
-            {getEventAttributes(event).map((attr, i) => (
-              <div
-                className="card-attributes flex w-full items-center gap-2 rounded-full  p-1 px-2 text-left "
-                key={i}
-              >
-                <attr.Icon />
-                <span className="events-heading truncate text-sm">
-                  {attr.text}
-                </span>
-              </div>
-            ))}
-          </div>
-          <div className="w-full">
-            <Link href={`/event/${event.id}`}>
-              <button className="card-button mt-0 flex w-full shrink-0 items-center justify-center gap-2 rounded-full border  border-[#FF94D2]/40 bg-[#7e7d7c] py-2 text-lg capitalize text-white transition-all duration-300 hover:scale-[1.02] ">
-                <IoIosPlayCircle />
-                <span className="z-10 text-white brightness-100">
-                  {" "}
-                  Register
-                </span>
-              </button>
-            </Link>
+          <div className="relative py-2">
+            <div className="line-break"></div>
+            <div className="relative mx-auto aspect-square h-full w-full object-fill px-2">
+              {
+                <Image
+                  src={
+                    event.imgSrc && event.imgSrc.length > 0
+                      ? event.imgSrc
+                      : "/assets/images/eventFallback.png"
+                  }
+                  alt="Event image"
+                  fill
+                  className="object-cover object-center"
+                />
+              }
+            </div>
+            <div className="line-break"></div>
           </div>
         </div>
+        <div className="relative z-50">
+          <div className="event-bg" />
+          <div className="flex flex-col items-center justify-center gap-3 pt-3">
+            <span
+              className={`events-heading flex w-fit items-center justify-center px-2 text-center text-xl  `}
+            >
+              {event.name}
+            </span>
+            <div className="flex h-[6rem] w-full flex-col items-start justify-center gap-2 px-1 py-2 text-white md:w-full">
+              {getEventAttributes(event).map((attr, i) => (
+                <div
+                  className="card-attributes flex w-full items-center gap-2 rounded-full  p-1 px-2 text-left "
+                  key={i}
+                >
+                  <attr.Icon />
+                  <span className="events-heading truncate text-sm">
+                    {attr.text}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="w-full">
+              <Link href={`/events/${event.id}`}>
+                <button className="card-button mt-0 flex w-full shrink-0 items-center justify-center gap-2 rounded-full border  border-[#FF94D2]/40 bg-[#7e7d7c] py-2 text-lg capitalize text-white transition-all duration-300 hover:scale-[1.02] ">
+                  <IoIosPlayCircle />
+                  <span className="z-50 text-white brightness-100">
+                    {" "}
+                    Register
+                  </span>
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <Image
+          src="/card_bottom.png"
+          alt=""
+          height={50}
+          width={50}
+          className="absolute bottom-0 left-0 right-0 top-auto w-[100%] opacity-50"
+        />
       </div>
-      <Image
-        src="/card_bottom.png"
-        alt=""
-        height={50}
-        width={50}
-        className="absolute bottom-0 left-0 right-0 top-auto w-[100%] opacity-50"
-      />
     </>
   );
 };
