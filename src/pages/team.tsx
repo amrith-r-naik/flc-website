@@ -30,7 +30,7 @@ const Team = () => {
       });
       gsap.from(".titleContainer", {
         width: "100vw",
-        height: "80vh",
+        height: "70vh",
         paddingBottom: "30vh",
         gap: 60,
         ease: "power1.out",
@@ -56,15 +56,9 @@ const Team = () => {
     <>
       <div className="top-0 flex flex-col items-center pt-24">
         <div className="my-10 flex w-full flex-col items-center md:my-20">
-          <div className="flex items-center justify-center gap-4 font-title">
-            <h1 className="meet mb-3 text-2xl font-bold text-primary md:text-4xl">
-              MEET
-            </h1>
-            <h1 className="the mb-3 text-2xl font-bold text-primary md:text-4xl">
-              THE
-            </h1>
-            <h1 className="team mb-3 text-2xl font-bold text-primary md:text-4xl">
-              TEAM
+          <div className="titleContainer flex items-center justify-center gap-4 font-title">
+            <h1 className="meet mb-3 h-full bg-gradient-to-r from-amber-200 to-[#E98F81] bg-clip-text pt-10 text-2xl font-bold text-transparent md:text-4xl">
+              MEET THE TEAM
             </h1>
           </div>
           <p className="text-lg text-foreground">Dynamic and Agile</p>
