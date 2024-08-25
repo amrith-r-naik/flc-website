@@ -126,7 +126,7 @@ const Roadmap: FC = () => {
   );
 
   return (
-    <section className="min-h-[80vh] md:mt-10 space-y-16 p-2 md:p-10 mb-2">
+    <section className="min-h-[100vh] md:mt-10 space-y-16 p-2 md:p-10 mb-2">
       <div ref={ref}>
         <div className="text-center">
           <h1 className="font-title py-2 pt-14 text-3xl font-bold sm:py-2 xl:text-6xl">

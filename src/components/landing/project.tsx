@@ -111,7 +111,7 @@ function Projects() {
     style={{
       background: "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
     }}
-    className=" mt-12 flex min-h-[80vh] flex-col items-center gap-4 p-2 md:p-10">
+    className=" mt-12 flex min-h-[100vh] flex-col items-center gap-4 p-2 md:p-10">
 <div ref={ref}>
       <h1 className="text-center z-10 font-title pt-14 text-3xl font-bold sm:py-2 xl:text-6xl">
         “ Projects ❞
