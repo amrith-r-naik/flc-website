@@ -25,7 +25,7 @@ export default function Home() {
       <Hero />
       <Events />
       <Benifits />
-      {/* <TechStack /> */}
+      <TechStack />
     </main>
   );
 }
