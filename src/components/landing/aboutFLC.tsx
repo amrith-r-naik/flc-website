@@ -30,7 +30,6 @@ function AboutUs() {
   useEffect(() => {
     if (inView && !hasAnimated && containerRef.current) {
       gsap.fromTo(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         containerRef.current.children,
         { y: 50, opacity: 0 },
         {

@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 // export namespace Enum {
-//   export const QuestionType : {
-//     MCQ: "MCQ",
-//     TEXT: "TEXT",
-//   };
-//   export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
+// export const QuestionType : {
+//  MCQ: "MCQ",
+//  TEXT: "TEXT",
+// };
+// export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
 // }
 // type QuestionTypeT = Enum.QuestionType;
 

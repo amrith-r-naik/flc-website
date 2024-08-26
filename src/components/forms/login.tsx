@@ -31,12 +31,9 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const { data: user, refetch: refetchUser } = api.user.getUser.useQuery(
-    void null,
-    {
-      enabled: !!session,
-    },
-  );
+  const { refetch: refetchUser } = api.user.getUser.useQuery(void null, {
+    enabled: !!session,
+  });
 
   const formSchema = loginZ;
 
@@ -59,7 +56,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         toast.dismiss();
         if (s?.ok) {
           toast.success("Logged in successfully");
-          await refetchUser();
+          const { data: user } = await refetchUser();
           if (user?.paymentId)
             setTimeout(() => void router.push(`/profile`), 1000);
           else setTimeout(() => void router.push(`/register`), 1000);

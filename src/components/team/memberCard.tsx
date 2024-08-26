@@ -30,7 +30,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
       glareEnable={true}
     >
       <div
-        className={`${styles.rised} cardContent  absolute left-3 top-3 rounded-md bg-black/60 p-2 px-4 text-xs font-semibold text-primary`}
+        className={`${styles.rised} cardContent absolute left-3 top-3 rounded-md bg-black/60 p-2 px-4 text-xs font-semibold text-primary`}
       >
         {role}
       </div>
@@ -43,13 +43,13 @@ const MemberCard: React.FC<MemberCardProps> = ({
       />
 
       <div
-        className={`${styles.rised} cardContent  absolute -bottom-8 w-full rounded-t-lg p-2 px-4 text-center font-semibold text-white`}
+        className={`${styles.rised} cardContent absolute -bottom-8 w-full rounded-t-lg p-2 px-4 text-center font-semibold text-white`}
       >
         {name}
       </div>
 
       <div
-        className={`${styles.rised2} cardContent  absolute -bottom-11 flex w-full justify-center gap-4`}
+        className={`${styles.rised2} cardContent absolute -bottom-11 flex w-full justify-center gap-4`}
       >
         <Link href={linkedin}>
           <Linkedin height={20} width={20} color="grey" />

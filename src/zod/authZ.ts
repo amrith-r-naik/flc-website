@@ -10,6 +10,7 @@ const signUpZ = z
       .email({
         message: "Email is required",
       })
+      // NOTE: please change in userZ.ts as well
       .refine((email) => !email.endsWith("@nmamit.in"), {
         message: "Use your personal email",
       }),

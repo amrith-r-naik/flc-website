@@ -46,7 +46,7 @@ export default function SideBar({
   }
 
   return (
-    <div className="sticky z-40  w-fit px-4">
+    <div className="sticky z-40 w-fit px-4">
       <div className="leading-8">
         <button onClick={close} className="text-right text-white">
           <svg
@@ -72,7 +72,7 @@ export default function SideBar({
           Setup
         </div>
         <div
-          className="he w-[200px] cursor-pointer  px-2 "
+          className="he w-[200px] cursor-pointer px-2 "
           onClick={openProject}
         >
           Project

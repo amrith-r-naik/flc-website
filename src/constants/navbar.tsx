@@ -13,21 +13,21 @@ export const userNavItems: NavItem[] = [
     name: "Home",
     link: "/",
   },
-  {
-    type: "both",
-    name: "Gallery",
-    link: "/gallery",
-  },
+  // {
+  //  type: "both",
+  //  name: "Gallery",
+  //  link: "/gallery",
+  // },
   {
     type: "both",
     name: "Events",
     link: "/events",
   },
-  {
-    type: "both",
-    name: "Blogs",
-    link: "/blogs",
-  },
+  // {
+  //  type: "both",
+  //  name: "Blogs",
+  //  link: "/blogs",
+  // },
   {
     type: "both",
     name: "Leaderboard",

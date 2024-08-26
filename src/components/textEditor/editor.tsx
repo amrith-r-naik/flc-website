@@ -80,7 +80,7 @@ export default function Editor({
         />
       </Head>
 
-      <div className="mt-12   ">
+      <div className="mt-12 ">
         <div className="rounded-md bg-white p-1">
           <ReactQuill
             theme="snow"
@@ -90,11 +90,11 @@ export default function Editor({
             style={{ borderRadius: "0px", border: "none" }}
             onChange={onChange}
             modules={modules}
-            className="m-3  border-hidden bg-white text-black sm:m-auto sm:mx-3 sm:w-full md:m-auto   md:w-full lg:w-full"
+            className="m-3 border-hidden bg-white text-black sm:m-auto sm:mx-3 sm:w-full md:m-auto md:w-full lg:w-full"
           />
         </div>
         <div className="md:2/3 mx-3 flex w-full flex-col justify-between sm:w-[90%] md:m-auto md:w-[90%] md:flex-row lg:m-auto lg:w-1/2">
-          <div className="md m-3 ml-0  flex-1 rounded-md bg-slate-700 p-3 text-white">
+          <div className="md m-3 ml-0 flex-1 rounded-md bg-slate-700 p-3 text-white">
             <label htmlFor="toggle">Preview content on other devices</label>
             <input
               type="checkbox"
@@ -106,11 +106,11 @@ export default function Editor({
           </div>
 
           {/* <button
-            onClick={onConfirmEdit}
-            className="m-3 mr-0 flex-1 content-center rounded-md bg-slate-700 p-3 text-white"
-          >
-            Confirm Edit
-          </button> */}
+   onClick={onConfirmEdit}
+   className="m-3 mr-0 flex-1 content-center rounded-md bg-slate-700 p-3 text-white"
+   >
+   Confirm Edit
+   </button> */}
         </div>
       </div>
 
@@ -149,7 +149,7 @@ export default function Editor({
           <div
             dangerouslySetInnerHTML={{ __html: text }}
             id="display"
-            className="ql-editor  m-auto mb-16 h-screen  resize overflow-auto rounded-sm border-4 bg-white  text-black"
+            className="ql-editor m-auto mb-16 h-screen resize overflow-auto rounded-sm border-4 bg-white text-black"
             onMouseDown={setSizeOfDisplay}
             style={{ width: displayWidth, height: displayHeight }}
           ></div>

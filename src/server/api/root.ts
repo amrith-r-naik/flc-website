@@ -46,6 +46,6 @@ export type AppRouter = typeof appRouter;
  * @example
  * const trpc = createCaller(createContext);
  * const res = await trpc.post.all();
- *       ^? Post[]
+ * ^? Post[]
  */
 export const createCaller = createCallerFactory(appRouter);
