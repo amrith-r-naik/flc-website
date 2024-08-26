@@ -1,12 +1,10 @@
 import { useTheme } from "next-themes";
 
 import AboutUs from "~/components/landing/aboutFLC";
-import Benifits from "~/components/landing/benifits";
+import Benefits from "~/components/landing/benefits";
 import Events from "~/components/landing/event";
 import Hackfest from "~/components/landing/hackfest";
 import Hero from "~/components/landing/hero";
-import Projects from "~/components/landing/project";
-import Roadmap from "~/components/landing/roadmap";
 import TechStack from "~/components/landing/techStack";
 import { cn } from "~/lib/utils";
 
@@ -33,7 +31,7 @@ export default function Home() {
       {/* <Roadmap/> */}
       <Hackfest />
       <TechStack />
-      <Benifits />
+      <Benefits />
     </main>
   );
 }

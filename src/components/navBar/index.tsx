@@ -21,7 +21,7 @@ const Navbar: FunctionComponent = ({}) => {
           <Image src="/assets/images/flc_logo_crop.png" alt="Logo" fill />
         </div>
         <p className="hidden font-bold lg:block lg:text-2xl">
-          Finite-Loop-Club
+          Finite Loop Club
         </p>
       </Link>
       <div className="ml-auto flex items-center gap-8 ">

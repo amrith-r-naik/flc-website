@@ -41,6 +41,7 @@ export default function FadeIn({
       },
     );
   }, [ref]);
+
   return (
     <div className={className} ref={ref} {...div}>
       {children}

@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { type FunctionComponent } from "react";
@@ -20,6 +20,7 @@ import {
 import { Input } from "~/components/ui/input";
 
 import { cn } from "~/lib/utils";
+import { api } from "~/utils/api";
 import { loginZ } from "~/zod/authZ";
 
 interface Props {
@@ -28,6 +29,14 @@ interface Props {
 
 const LoginForm: FunctionComponent<Props> = ({ className }) => {
   const router = useRouter();
+  const { data: session } = useSession();
+
+  const { data: user, refetch: refetchUser } = api.user.getUser.useQuery(
+    void null,
+    {
+      enabled: !!session,
+    },
+  );
 
   const formSchema = loginZ;
 
@@ -50,7 +59,10 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         toast.dismiss();
         if (s?.ok) {
           toast.success("Logged in successfully");
-          setTimeout(() => void router.push(`/profile`), 1000);
+          await refetchUser();
+          if (user?.paymentId)
+            setTimeout(() => void router.push(`/profile`), 1000);
+          else setTimeout(() => void router.push(`/register`), 1000);
         } else {
           toast.error(
             s?.error ?? "Failed to log in! You sure about your credentials?",
