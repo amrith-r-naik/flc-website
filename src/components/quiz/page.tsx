@@ -294,8 +294,8 @@ const QuizPage: FunctionComponent<{ quizId: string }> = ({ quizId }) => {
         </div>
       ) : (
         <>
-          <div className="flex h-screen flex-col items-center justify-center  p-4">
-            <div className="sapce-y-12 mx-auto mb-6 rounded-xl bg-gradient-to-br from-blue-800 via-yellow-400 to-blue-500 p-10 text-center  shadow-2xl md:w-[800px] ">
+          <div className="flex h-screen flex-col items-center justify-center p-4">
+            <div className="sapce-y-12 mx-auto mb-6 rounded-xl bg-gradient-to-br from-blue-800 via-yellow-400 to-blue-500 p-10 text-center shadow-2xl md:w-[800px] ">
               <div className="m-4 flex flex-row items-center justify-center gap-1">
                 <div>
                   <Image

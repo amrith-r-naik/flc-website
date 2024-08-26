@@ -33,7 +33,7 @@ BottomPanel.displayName = "BottomPanel";
 const InnerBottomPanel = forwardRef<
   HTMLDivElement,
   { className?: string; user: User; notMine: boolean }
->(({ className, user, notMine }, ref) => {
+>(({ className, user }, ref) => {
   const images = user.Team.reduce(
     (acc, team) => (team.Event.imgSrc ? [...acc, team.Event.imgSrc] : acc),
     [] as string[],

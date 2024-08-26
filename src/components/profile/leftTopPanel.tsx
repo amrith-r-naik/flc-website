@@ -1,6 +1,7 @@
 import { Pencil } from "lucide-react";
+import { signOut } from "next-auth/react";
 import React, { forwardRef } from "react";
-import { LuQrCode, LuShare2 } from "react-icons/lu";
+import { LuLogOut, LuShare2 } from "react-icons/lu";
 import { toast } from "sonner";
 
 import NotFound from "~/pages/404";
@@ -41,7 +42,7 @@ const InnerLeftPanel = forwardRef<
       ref={ref}
       className={cn(
         className,
-        "relative flex flex-col items-center justify-evenly gap-3 rounded-lg  bg-card p-10",
+        "relative flex flex-col items-center justify-evenly gap-3 rounded-lg bg-card p-10",
       )}
     >
       <Button
@@ -56,23 +57,32 @@ const InnerLeftPanel = forwardRef<
       >
         <LuShare2 className="size-8" />
       </Button>
-      <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
+      <div className="flex flex-col items-center justify-center gap-10 md:flex-row">
         <ProfileImage notMine={notMine} />
         <div className="flex w-full flex-col items-center justify-center gap-4">
-          <p className="text-center text-3xl">{user.name}</p>
+          <div className="text-center text-3xl">
+            <p className="inline">{user.name}</p>
+            {!notMine && (
+              <EditUserForm>
+                <Pencil className="ml-2 size-5"></Pencil>
+              </EditUserForm>
+            )}
+          </div>
           <p className="text-sm opacity-60">
             FLC Position - {user.position ?? "None"}
           </p>
           <div className="flex gap-5">
-            <QRCode>
-              QR
-              <LuQrCode className="ml-2 size-5" />
-            </QRCode>
-            {!notMine && (
-              <EditUserForm>
-                Edit<Pencil className="ml-2 size-5"></Pencil>
-              </EditUserForm>
-            )}
+            <QRCode />
+            <Button
+              onClick={() =>
+                signOut({
+                  redirect: false,
+                })
+              }
+            >
+              Sign out
+              <LuLogOut className="ml-2 size-5" />
+            </Button>
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model CMS {
+model Cms {
   id String @id @default(cuid())
 
   gallery Json[] // galleryZ
@@ -18,6 +18,9 @@ model CMS {
 
 model Core {
   id String @id @default(cuid())
+
+  faculty       Json[] // facultyZ
+  officeBearers Json[] // officeBearerZ
 }
 
 model User {
@@ -47,9 +50,12 @@ model User {
 
   UserLink UserLink[]
   Blog     Blog[]
-  Payment  Payment[]
+
+  paymentId String?  @unique
+  Payment   Payment? @relation(fields: [paymentId], references: [id])
 
   Attendance Attendance[]
+  TeamLeader Team[]       @relation("leaderOfTeam")
   Team       Team[]
   Organiser  Organiser[]
 
@@ -64,8 +70,6 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  TeamLeader Team[] @relation("leaderOfTeam")
 }
 
 model VerificationToken {
@@ -124,7 +128,8 @@ model ActivityPoint {
 
   eventId Int?
   Event   Event? @relation(fields: [eventId], references: [id])
-  User    User[]
+
+  User User[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -146,7 +151,9 @@ model Event {
   maxTeams    Int       @default(0)
   minTeamSize Int       @default(1)
   maxTeamSize Int       @default(1)
-  amount      Int       @default(0)
+
+  flcAmount    Int @default(0)
+  nonFlcAmount Int @default(0)
 
   state    EventState @default(DRAFT)
   isLegacy Boolean    @default(false)
@@ -195,6 +202,9 @@ model Team {
 
   Members User[]
   Winner  Winner?
+
+  paymentId String?  @unique
+  Payment   Payment? @relation(fields: [paymentId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -253,8 +263,10 @@ model Certificate {
 }
 
 model Payment {
-  id          String      @id @default(cuid())
+  id          String @id @default(cuid())
   paymentName String
+  amount      Int
+
   verified    Boolean     @default(false)
   paymentType PaymentType
 
@@ -262,14 +274,11 @@ model Payment {
   razorpayPaymentId String
   razorpaySignature String
 
-  userId Int
-  User   User @relation(fields: [userId], references: [id])
+  User User?
+  Team Team?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@unique([userId, razorpayPaymentId])
-  @@index([userId, razorpayPaymentId])
 }
 
 model Quiz {

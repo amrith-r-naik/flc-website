@@ -1,10 +1,9 @@
-import { LogIn, LogOut } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { LogIn } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { type FunctionComponent } from "react";
-import { toast } from "sonner";
 
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import AvatarIcon from "../avatar";
@@ -13,7 +12,6 @@ import DropDown from "../dropdown";
 const AuthButton: FunctionComponent<{ inDashboard?: boolean }> = ({
   inDashboard = false,
 }) => {
-  const router = useRouter();
   const { data: session } = useSession();
 
   return (

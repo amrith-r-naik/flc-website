@@ -4,7 +4,7 @@ import AddGallery from "~/components/admin/gallery/add-gallery";
 
 const AddImage = () => {
   return (
-    <div className="w-full space-y-4  bg-[#373A40] p-8">
+    <div className="w-full space-y-4 bg-[#373A40] p-8">
       <h1 className="text-xl font-extrabold ">Add Gallery</h1>
       <AddGallery />
     </div>

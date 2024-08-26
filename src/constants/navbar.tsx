@@ -15,24 +15,24 @@ export const userNavItems: NavItem[] = [
     Icon:<Home />,
     link: "/",
   },
-  {
-    type: "both",
-    name: "Gallery",
-    link: "/gallery",
-    Icon:<Image />
-  },
+  // {
+  //  type: "both",
+  //  name: "Gallery",
+  //  link: "/gallery",
+  //  Icon:<Image />
+  // },
   {
     type: "both",
     name: "Events",
     link: "/events",
     Icon:<CalendarDays />
   },
-  {
-    type: "both",
-    name: "Blogs",
-    link: "/blogs",
-    Icon:<StickyNote />
-  },
+  // {
+  //  type: "both",
+  //  name: "Blogs",
+  //  link: "/blogs",
+  //  Icon:<StickyNote />,
+  // },
   {
     type: "both",
     name: "Leaderboard",

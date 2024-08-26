@@ -42,9 +42,10 @@ function Events() {
         className="mx-auto  flex min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
         ref={ref}
       >
-        <h3 className="events-heading text-center font-semibold">
-          Events & WorkShop
-        </h3>
+        <h1 className="py-2 pt-14 font-title text-3xl font-bold sm:py-2 xl:text-6xl">
+          “Events & WorkShop ❞
+        </h1>
+
         <p className="text-center">
           Enrich your skills and knowledge with tons of events and workshops
         </p>
@@ -64,9 +65,10 @@ function Events() {
         className="flex  min-h-[80vh]  w-full flex-col items-center gap-4 p-2  md:p-10 "
         ref={ref}
       >
-        <h3 className="events-heading text-center font-sans text-4xl font-bold">
-          Events & WorkShops
-        </h3>
+        <h1 className="py-2 pt-14 font-title text-3xl font-bold sm:py-2 xl:text-6xl">
+          “Events & WorkShop ❞
+        </h1>
+
         <p className="text-center">
           Enrich your skills and knowledge with tons of events and workshops
         </p>
@@ -97,10 +99,11 @@ function Events() {
         className="content-container bg-gradient flex min-h-[80vh] w-full flex-col items-center  gap-4 "
         ref={ref}
       >
-        <h3 className=" subheading text-center  font-semibold">
-          Events & WorkShop
-        </h3>
-        <p>
+        <h1 className="py-2 pt-14 font-title text-3xl font-bold sm:py-2 xl:text-6xl">
+          “Events & WorkShop ❞
+        </h1>
+
+        <p className="text-center font-sub-heading ">
           Enrich your skills and knowledge with tons of events and workshops
         </p>
         <div className="flex h-screen w-full items-center justify-center">

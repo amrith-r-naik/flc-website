@@ -76,6 +76,7 @@ const TeamDialog: FunctionComponent<{
         <Payment
           paymentType="EVENT"
           amountInINR={amount}
+          teamId={""}
           description="Event Registration"
           onSuccess={() => {
             void refetchPaymentStatus();

@@ -6,7 +6,7 @@ export default function Setup() {
       <br /> <br />{" "}
       <h2 className="mb-3 flex justify-between">
         <div>1. Setup</div>{" "}
-        <div className="right-0 inline  w-fit text-sm">
+        <div className="right-0 inline w-fit text-sm">
           {" "}
           <div>time:30-40 mins</div>
           <div>data: 300mbs </div>
@@ -69,11 +69,11 @@ export default function Setup() {
           width="70%"
           height="640"
           className="m-auto"
-          //   allowfullscreen
-          //   frameborder="0"
+          // allowfullscreen
+          // frameborder="0"
         ></iframe>
         <div className="Note p-3">
-          <div className="text-red-800  ">Note</div>
+          <div className="text-red-800 ">Note</div>
 
           <div className="text ml-3 rounded-md bg-slate-300 p-2 ">
             When it comes to installing softwares in general, Keep these points
