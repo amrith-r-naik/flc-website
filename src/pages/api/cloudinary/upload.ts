@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import type { NextApiRequest, NextApiResponse } from "next";
-import { v2 as cloudinary, UploadApiResponse, type SignApiOptions } from "cloudinary";
+import { v2 as cloudinary,type UploadApiResponse, type  SignApiOptions } from "cloudinary";
 import { IncomingForm } from "formidable";
 import fs from "fs";
 import util from "util";
@@ -34,7 +34,7 @@ export default async function handler(
       return res.status(500).json({ error: "Error parsing the file" });
     }
 
-    const file = files.file?.[0] as never; // Extract the file from the parsed data
+    const file = files.file?.[0] ; // Extract the file from the parsed data
 
     if (!file) {
       console.error("No file uploaded");
@@ -53,7 +53,7 @@ export default async function handler(
 
       const uploadResult = await cloudinary.uploader.upload(file.filepath, {
         folder: folder!="/"?folder:"", 
-        public_id: file.originalFilename as string, 
+        public_id: file.originalFilename as unknown as string, 
       });
       res.status(200).json({ url: uploadResult.secure_url });
      

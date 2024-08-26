@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FolderIcon, { type CloudinaryResource, type CloudinaryResponse, createPathArray } from './folderIcon';
 import Options from './options';
-import Image from 'next/image';
+import Images from "./images"
 export default function Dashboard() {
   const [folders, setFolders] = useState<{ name: string; path: string; external_id: string }[]>([]);
   const [rootPath,setRootPath]=useState<string>("/");
@@ -123,17 +123,19 @@ export default function Dashboard() {
         {/* {JSON.stringify(images)} */}
         <ul className="grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-5">
         {images?.map(image => (
-  <li key={image.public_id} className="overflow-hidden">
-    <Image
-      // Add the thumbnail transformation to the secure_url
-      src={`${image.secure_url.replace('/image/upload/', '/image/upload/c_thumb,w_200,g_face/')}`}
-      alt={image.public_id}
-      width={200} // Match the width with the thumbnail transformation
-      height={Math.floor((200 / image.width) * image.height)} // Adjust height proportionally
-      className="object-cover w-full h-full"
-    />
-  </li>
-))}
+          <li key={image.public_id} className="overflow-hidden">
+            
+            <Images image={image} fetchImagesByPathOfFolder={fetchImagesByPathOfFolder}></Images>
+            {/* <Image
+              // Add the thumbnail transformation to the secure_url
+              src={`${image.secure_url.replace('/image/upload/', '/image/upload/c_thumb,w_200,g_face/')}`}
+              alt={image.public_id}
+              width={200} // Match the width with the thumbnail transformation
+              height={Math.floor((200 / image.width) * image.height)} // Adjust height proportionally
+              className="object-cover w-full h-full"
+            /> */}
+          </li>
+        ))}
     </ul>
 
     {images.length==0&&(<div className='text-center m-auto mt-28'>No images here</div>)}       
