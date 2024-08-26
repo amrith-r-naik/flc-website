@@ -25,11 +25,11 @@ export default function Home() {
         )}
       />
       <Hero />
-      <AboutUs />
+      {/* <AboutUs /> */}
       <Events />
       {/* <Projects/> */}
       {/* <Roadmap/> */}
-      <Hackfest />
+      {/* <Hackfest /> */}
       <TechStack />
       <Benefits />
     </main>

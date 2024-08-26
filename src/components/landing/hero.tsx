@@ -16,7 +16,7 @@ function Hero() {
     <section className="absolute min-h-screen w-full place-content-center text-center ">
       <div className="relative -translate-y-[10vh] space-y-6 md:space-y-9 xl:space-y-12">
         <h1 className="bg-gradient-to-r from-amber-200 to-[#E98F81] bg-clip-text font-title text-4xl font-bold text-transparent sm:text-6xl md:text-[4.05rem] lg:text-[5.25rem] xl:text-9xl">
-          ❝FINITE LOOP CLUB❞
+          FINITE LOOP CLUB
         </h1>
         <p className="mx-auto max-w-lg px-4 text-center font-sub-heading font-thin sm:text-lg md:max-w-xl md:text-xl lg:max-w-5xl lg:text-3xl">
           We are a Coding club of NMAMIT aiming at Realizing the idea and

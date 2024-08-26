@@ -10,11 +10,11 @@ import FadeIn from "../fadeIn";
 
 const Benefits: NextPage = () => {
   return (
-    <section className="relative z-50 mb-20 mt-20 flex flex-col items-center justify-center px-4 pb-4 font-sans sm:mb-44 sm:h-[145vh] sm:px-8 md:px-16 xl:px-36">
+    <section className="relative  z-50 mb-20 mt-20 flex flex-col items-center justify-center px-4 pb-4 font-sans sm:mb-44 sm:h-[145vh] sm:px-8 md:px-16 lg:max-h-[1048px] xl:px-36">
       <div className="line-break "></div>
       <div className="event-bg "></div>
       <p
-        className=" absolute bottom-auto left-1/2 right-0 top-36 w-max -translate-x-1/2 px-2 text-center text-[2rem] text-transparent sm:top-24 md:top-14 md:block md:text-[5.25rem] lg:visible lg:text-8xl xl:text-9xl"
+        className=" absolute bottom-auto left-1/2 right-0 top-28 w-max -translate-x-1/2 px-2 text-center text-[2rem] text-transparent sm:top-24 md:top-14 md:block md:text-[5.25rem] lg:visible lg:text-8xl xl:text-9xl"
         style={{
           WebkitTextStroke: "3px #201E43",
         }}
@@ -22,11 +22,11 @@ const Benefits: NextPage = () => {
         What is in it for you?
       </p>
       <div className="mb-16 mt-4 flex items-center justify-center sm:mb-24">
-        <h1 className="events-heading z-10 py-2 pt-14 text-7xl font-semibold sm:py-2 xl:text-8xl">
+        <h1 className="z-10 py-2 pt-14 font-title text-3xl font-bold sm:py-2 md:text-7xl xl:text-8xl">
           Benefits
         </h1>
       </div>
-      <div className="z-1 grid h-full w-full grid-cols-2 grid-rows-10 gap-4 sm:grid-cols-4 sm:grid-rows-5 lg:grid-cols-5 lg:grid-rows-4 ">
+      <div className="z-1 mx-auto grid h-full w-full max-w-screen-xl grid-cols-2 grid-rows-10 gap-4 sm:grid-cols-4 sm:grid-rows-5 lg:grid-cols-5 lg:grid-rows-4">
         <FadeIn
           direction="left"
           delay={0.1}
