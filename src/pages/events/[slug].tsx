@@ -85,7 +85,7 @@ const EventsSlug: NextPage = () => {
             {!user?.memberSince && (
               <p className="text-lg font-bold">
                 Entry fee: Rs
-                {event.amount > 0 ? ` ${event.amount}/-` : " FREE"}{" "}
+                {event.flcAmount > 0 ? ` ${event.flcAmount}/-` : " FREE"}{" "}
               </p>
             )}
 
@@ -93,7 +93,7 @@ const EventsSlug: NextPage = () => {
               <TeamDialog
                 eventId={event.id}
                 maxTeamSize={event.maxTeamSize}
-                amount={event.amount}
+                amount={event.flcAmount}
                 eventName={event.name}
               />
             )}

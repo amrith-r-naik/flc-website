@@ -1,6 +1,6 @@
 import { Pencil } from "lucide-react";
 import React, { forwardRef } from "react";
-import { LuQrCode, LuShare2 } from "react-icons/lu";
+import { LuShare2 } from "react-icons/lu";
 import { toast } from "sonner";
 
 import NotFound from "~/pages/404";
@@ -64,10 +64,7 @@ const InnerLeftPanel = forwardRef<
             FLC Position - {user.position ?? "None"}
           </p>
           <div className="flex gap-5">
-            <QRCode>
-              QR
-              <LuQrCode className="ml-2 size-5" />
-            </QRCode>
+            <QRCode />
             {!notMine && (
               <EditUserForm>
                 Edit<Pencil className="ml-2 size-5"></Pencil>

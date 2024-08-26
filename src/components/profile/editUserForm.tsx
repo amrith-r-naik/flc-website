@@ -26,6 +26,7 @@ import { Input } from "~/components/ui/input";
 import { InputOTP, InputOTPSlot } from "~/components/ui/input-otp";
 import { Textarea } from "~/components/ui/textarea";
 
+import { useRefetchContext } from "~/context/refetchContext";
 import { cn } from "~/lib/utils";
 import { type User, useUser } from "~/store";
 import { api } from "~/utils/api";
@@ -49,6 +50,8 @@ const InnerEditUserForm: FunctionComponent<{
   className?: string;
   user: User;
 }> = ({ children, className, user }) => {
+  const { executeRefetch } = useRefetchContext("user");
+
   const { data: session } = useSession();
 
   const [open, setOpen] = useState(false);
@@ -80,6 +83,7 @@ const InnerEditUserForm: FunctionComponent<{
         onSuccess: () => {
           toast.dismiss();
           toast.success("Profile updated successfully");
+          executeRefetch();
           setOpen(false);
         },
         onError: (error) => {

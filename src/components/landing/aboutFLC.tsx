@@ -1,16 +1,18 @@
-
 "use client";
+
 /* eslint-disable */
-import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
-import Hf from "~/assets/images/hackfest[1].png";
+import { useEffect, useState, useRef } from "react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
-import members from "~/assets/icons/members.png";
+
 import events from "~/assets/icons/events.png";
+import members from "~/assets/icons/members.png";
 import wk from "~/assets/icons/workshop1.png";
+import Hf from "~/assets/images/hackfest[1].png";
+
 gsap.registerPlugin(ScrollTrigger);
 
 function AboutUs() {
@@ -23,10 +25,10 @@ function AboutUs() {
       }
     },
   });
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (inView && !hasAnimated) {
+    if (inView && !hasAnimated && containerRef.current) {
       gsap.fromTo(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         containerRef.current.children,
@@ -37,7 +39,7 @@ function AboutUs() {
           duration: 1,
           ease: "power3.out",
           stagger: 0.3,
-        }
+        },
       );
     }
   }, [inView, hasAnimated]);
@@ -65,7 +67,7 @@ function AboutUs() {
           end: "top 60%",
           toggleActions: "play none none none",
         },
-      }
+      },
     );
 
     gsap.fromTo(
@@ -84,7 +86,7 @@ function AboutUs() {
           start: "top 100%",
           toggleActions: "play none none none",
         },
-      }
+      },
     );
 
     gsap.fromTo(
@@ -105,57 +107,66 @@ function AboutUs() {
           start: "top 100%",
           toggleActions: "play none none none",
         },
-      }
+      },
     );
   }, []);
 
   return (
     <section
-      className="mx-4 min-h-[70vh] rounded-2xl p-1 md:mt-4 md:p-6 mb-8"
+      className="mx-4 mb-8 min-h-[70vh] rounded-2xl p-1 md:mt-4 md:p-6"
       ref={sectionRef}
     >
       <h1
-        className="text-center mb-8 z-10 font-title py-2 pt-12 text-2xl font-bold sm:py-2 xl:text-5xl"
+        className="z-10 mb-8 py-2 pt-12 text-center font-title text-2xl font-bold sm:py-2 xl:text-5xl"
         ref={headingRef}
       >
         “ FINITELOOP: The best Coding Club of NMAMIT ❞
       </h1>
 
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col gap-4 md:flex-row">
         <div
-          className="p-2 md:p-4 rounded-lg shadow-xl border border-gray-50 flex flex-col md:w-1/2"
+          className="flex flex-col rounded-lg border border-gray-50 p-2 shadow-xl md:w-1/2 md:p-4"
           ref={leftContainerRef}
         >
           <Image
             alt="FiniteLoop"
             src={Hf}
-            className="rounded-lg object-cover w-full h-auto"
+            className="h-auto w-full rounded-lg object-cover"
             width={450}
             height={550}
           />
-          <div className="mt-2 p-4 text-justify text-sm md:text-xl font-sub-heading font-thin">
+          <div className="mt-2 p-4 text-justify font-sub-heading text-sm font-thin md:text-xl">
             <p>
-              Finite Loop is a Coding Club, which aims to give a good perspective
-              of development, and encourages students to realize their ideas. We
-              encourage students to participate in competitive programming and
-              thus, inspire the next.
+              Finite Loop is a Coding Club, which aims to give a good
+              perspective of development, and encourages students to realize
+              their ideas. We encourage students to participate in competitive
+              programming and thus, inspire the next.
             </p>
-            <ul className="list-disc list-inside mt-2">
+            <ul className="mt-2 list-inside list-disc">
               <li>Collaborative projects to build innovative solutions.</li>
               <li>Workshops and events to enhance technical skills.</li>
-              <li>Opportunities to participate in hackathons and competitions.</li>
+              <li>
+                Opportunities to participate in hackathons and competitions.
+              </li>
             </ul>
           </div>
 
-          <div ref={ref} className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 text-center relative md:p-4">
-            <div ref={containerRef} className="text-lg sm:text-xl xl:text-2xl relative flex items-center justify-center">
+          <div
+            ref={ref}
+            className="relative mt-8 grid grid-cols-1 gap-6 text-center sm:grid-cols-2 md:p-4 lg:grid-cols-3"
+          >
+            <div
+              ref={containerRef}
+              className="relative flex items-center justify-center text-lg sm:text-xl xl:text-2xl"
+            >
               <div
                 style={{
-                  background: "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
+                  background:
+                    "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
                 }}
-                className="text-white rounded-lg p-6 shadow-lg h-48 w-full flex flex-col items-center relative"
+                className="relative flex h-48 w-full flex-col items-center rounded-lg p-6 text-white shadow-lg"
               >
-                <div className="flex items-center mb-2">
+                <div className="mb-2 flex items-center">
                   <Image
                     src={members}
                     alt="Active Members Logo"
@@ -164,7 +175,7 @@ function AboutUs() {
                     className="rounded-full"
                   />
                   <div className="ml-4 flex flex-col items-center">
-                    <div className="font-bold text-4xl xl:text-5xl">
+                    <div className="text-4xl font-bold xl:text-5xl">
                       {hasAnimated ? <CountUp end={300} duration={2} /> : "0"}+
                     </div>
                   </div>
@@ -173,14 +184,15 @@ function AboutUs() {
               </div>
             </div>
 
-            <div className="text-lg sm:text-xl xl:text-2xl relative flex items-center justify-center">
+            <div className="relative flex items-center justify-center text-lg sm:text-xl xl:text-2xl">
               <div
                 style={{
-                  background: "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
+                  background:
+                    "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
                 }}
-                className="text-white rounded-lg p-6 shadow-lg h-48 w-full flex flex-col items-center relative"
+                className="relative flex h-48 w-full flex-col items-center rounded-lg p-6 text-white shadow-lg"
               >
-                <div className="flex items-center mb-2">
+                <div className="mb-2 flex items-center">
                   <Image
                     src={events}
                     alt="Events Organized Logo"
@@ -189,7 +201,7 @@ function AboutUs() {
                     className="rounded-full"
                   />
                   <div className="ml-4 flex flex-col items-center">
-                    <div className="font-bold text-4xl xl:text-5xl">
+                    <div className="text-4xl font-bold xl:text-5xl">
                       {hasAnimated ? <CountUp end={30} duration={2} /> : "0"}+
                     </div>
                   </div>
@@ -198,14 +210,15 @@ function AboutUs() {
               </div>
             </div>
 
-            <div className="text-lg sm:text-xl xl:text-2xl relative flex items-center justify-center">
+            <div className="relative flex items-center justify-center text-lg sm:text-xl xl:text-2xl">
               <div
                 style={{
-                  background: "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
+                  background:
+                    "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
                 }}
-                className="text-white rounded-lg p-6 shadow-lg h-48 w-full flex flex-col items-center relative"
+                className="relative flex h-48 w-full flex-col items-center rounded-lg p-6 text-white shadow-lg"
               >
-                <div className="flex items-center mb-3">
+                <div className="mb-3 flex items-center">
                   <Image
                     src={wk}
                     alt="Workshops Conducted Logo"
@@ -214,7 +227,7 @@ function AboutUs() {
                     className="rounded-full"
                   />
                   <div className="ml-4 flex flex-col items-center">
-                    <div className="font-bold text-4xl xl:text-5xl">
+                    <div className="text-4xl font-bold xl:text-5xl">
                       {hasAnimated ? <CountUp end={10} duration={2} /> : "0"}+
                     </div>
                   </div>
@@ -225,23 +238,25 @@ function AboutUs() {
           </div>
         </div>
 
-        <div className="flex flex-col space-y-2 md:w-1/2" ref={rightContainerRef}>
-          <div className="p-2 rounded-lg shadow-lg border border-white flex justify-center items-center">
+        <div
+          className="flex flex-col space-y-2 md:w-1/2"
+          ref={rightContainerRef}
+        >
+          <div className="flex items-center justify-center rounded-lg border border-white p-2 shadow-lg">
             <Image
               alt="FiniteLoop Activity"
               src={Hf}
-              className="rounded-lg h-full w-full object-cover"
+              className="h-full w-full rounded-lg object-cover"
               width={150}
               height={150}
             />
           </div>
 
-
-          <div className="p-2 rounded-lg shadow-lg border border-white flex justify-center items-center">
+          <div className="flex items-center justify-center rounded-lg border border-white p-2 shadow-lg">
             <Image
               alt="FiniteLoop Event"
               src={Hf}
-              className="rounded-lg h-full w-full object-cover"
+              className="h-full w-full rounded-lg object-cover"
               width={150}
               height={150}
             />
@@ -253,4 +268,3 @@ function AboutUs() {
 }
 
 export default AboutUs;
-

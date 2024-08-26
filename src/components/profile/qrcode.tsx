@@ -1,6 +1,8 @@
 import { format } from "date-fns";
+import { useRouter } from "next/router";
 import { QRCodeSVG } from "qrcode.react";
-import React, { type ReactNode, type FunctionComponent } from "react";
+import React, { type FunctionComponent } from "react";
+import { LuQrCode, LuUserCircle } from "react-icons/lu";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -12,33 +14,43 @@ import {
   DialogDrawerTrigger,
 } from "~/components/ui/custom/dialog-drawer";
 
-import { cn } from "~/lib/utils";
 import { type User, useUser } from "~/store";
 import { idToPid } from "~/utils/id";
 
 const QRCode: FunctionComponent<{
   className?: string;
-  children: ReactNode;
-}> = ({ className, children }) => {
+}> = ({ className }) => {
   const { user } = useUser();
   if (!user) return null;
-  return (
-    <InnerQRCode user={user} className={className}>
-      {children}
-    </InnerQRCode>
-  );
+  return <InnerQRCode user={user} className={className} />;
 };
 
 const InnerQRCode: FunctionComponent<{
   user: User;
   className?: string;
-  children: ReactNode;
-}> = ({ user, className, children }) => {
-  if (!user.memberSince) return null;
+}> = ({ user, className }) => {
+  const router = useRouter();
+
+  if (!user.memberSince)
+    return (
+      <Button
+        className={className}
+        onClick={async () => {
+          await router.push("/register");
+        }}
+      >
+        Register
+        <LuUserCircle className="ml-2 size-5" />
+      </Button>
+    );
+
   return (
     <DialogDrawer>
       <DialogDrawerTrigger asChild>
-        <Button className={cn(className, "bg-white")}>{children}</Button>
+        <Button className={className}>
+          QR
+          <LuQrCode className="ml-2 size-5" />
+        </Button>
       </DialogDrawerTrigger>
       <DialogDrawerContent>
         <DialogDrawerHeader className="space-y-4">
