@@ -15,6 +15,7 @@ import {
     DialogDescription,
   } from '~/components/ui/dialog';
 import { Button } from '../ui/button';
+import { toast } from 'sonner';
 
 export default function Images({image,fetchImagesByPathOfFolder}:{image:CloudinaryResource,fetchImagesByPathOfFolder:(path:string)=>void }) {
     const [options,setOptions] = useState<boolean>(false);
@@ -31,14 +32,24 @@ export default function Images({image,fetchImagesByPathOfFolder}:{image:Cloudina
     
     
           if (response.ok) {
-            alert("deleted succesfully")
+            toast("deleted succesfully")
           } else {
             
           }
         } catch (error) {
           console.error("Error during fetch:", error);
-          alert("couldnt delete")
+          toast("couldnt delete")
           
+        }
+      };
+
+      const handleCopy = async (url:string) => {
+        try {
+          await navigator.clipboard.writeText(url);
+          toast.success('Copied to clipboard!');
+        } catch (err) {
+          toast.error('Failed to copy!');
+          console.error('Failed to copy text: ', err);
         }
       };
 
@@ -69,7 +80,7 @@ export default function Images({image,fetchImagesByPathOfFolder}:{image:Cloudina
                 </p>
                 <br />
                 <p className='flex items-center'>
-                secure_url: &nbsp; <FaCopy className='hover:text-slate-300'></FaCopy>
+                secure_url: &nbsp; <FaCopy onClick={()=>handleCopy(image.secure_url)} className='hover:text-slate-300 text-2xl' ></FaCopy>
                 </p>
                 <br />
                 <p>
@@ -93,7 +104,7 @@ export default function Images({image,fetchImagesByPathOfFolder}:{image:Cloudina
                 fetchImagesByPathOfFolder(image.folder);
               } else {
                 // Deletion canceled
-                alert("amart buoy")
+                
               }
               }} >
                 Delete

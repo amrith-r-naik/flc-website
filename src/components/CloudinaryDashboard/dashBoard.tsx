@@ -2,16 +2,21 @@ import React, { useState, useEffect } from 'react';
 import FolderIcon, { type CloudinaryResource, type CloudinaryResponse, createPathArray } from './folderIcon';
 import Options from './options';
 import Images from "./images"
+import { useRouter } from 'next/router';
+
 export default function Dashboard() {
   const [folders, setFolders] = useState<{ name: string; path: string; external_id: string }[]>([]);
   const [rootPath,setRootPath]=useState<string>("/");
-  const [pathArray,setPathArray]=useState<string[]>(["Home"])
+  const [pathArray,setPathArray]=useState<string[]>([])
   const [images, setImages] = useState<CloudinaryResource[]>([]);
+  const router = useRouter();
+
+  const handleRefresh = () => {
+    void router.push('/dashboard/cloudinary')
+  };
 
   useEffect(() => {
     const endpoint = rootPath === "/" ? '/api/cloudinary/listDir' : '/api/cloudinary/findDir';
-    
-
     fetch(endpoint, {
       method: "POST", // Use POST method
       headers: {
@@ -79,37 +84,42 @@ export default function Dashboard() {
   return (
     <div className='relative md:top-[-80px] z-50 sm:top-[0px]'> 
       
-      <Options  rootPath={rootPath}/>
-
+      <Options  rootPath={rootPath} handleRefresh={handleRefresh} setRootPath={setRootPath} fetchImagesByPathOfFolder={fetchImagesByPathOfFolder}/>
+       
+  
       <p className='my-6 mx-4 '> 
         <p className={`inline cursor-pointer text-blue-600 hover:underline `} onClick={() => {
         setRootPath("/");
         setPathArray([""]);
         setImages([]);
         void fetchImagesByPathOfFolder("/")
-      }}><b>Home</b> &nbsp;</p>
-      {pathArray?.map((each, index) => (
-  <div key={each} className="inline-flex items-center">
-    <p
-      className={`inline cursor-pointer text-blue-600 hover:underline ${
-        index === pathArray.length - 1 ? 'font-bold' : ''
-      }`}
-      onClick={() => {
-        setRootPath(prev => {
-          const match = prev.match(new RegExp(`^(.*${each})`));
-          const newPath = match ? match[0] : prev;
-          setPathArray(createPathArray(newPath));
-          return newPath;
-        });
-      }}
-    >
-      / {each}
-    </p>
-    {index < pathArray.length - 1 && (
-      <span className="mx-2 text-gray-500">&nbsp;</span>
-    )}
-  </div>
-))}
+      }}>
+         <b>Home</b> &nbsp;
+      </p>
+       {pathArray?.map((each, index) => (
+              <div key={each} className="inline-flex items-center">
+                  <p
+                    className={`inline cursor-pointer text-blue-600 hover:underline ${
+                      index === pathArray.length - 1 ? 'font-bold' : ''
+                    }`}
+                    onClick={() => {
+                      setRootPath(prev => {
+                        const match = prev.match(new RegExp(`^(.*${each})`));
+                        const newPath = match ? match[0] : prev;
+                        setPathArray(createPathArray(newPath));
+                        return newPath;
+                      });
+                    }}
+                  >
+                    / {each}
+                  </p>
+
+                {index < pathArray.length - 1 && (
+                  <span className="mx-2 text-gray-500">&nbsp;</span>
+                )}
+
+              </div>
+         ))}
 
 </p>
 

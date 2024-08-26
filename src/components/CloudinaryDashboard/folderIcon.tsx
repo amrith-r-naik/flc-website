@@ -11,6 +11,7 @@ import {
   DialogDescription,
 } from '~/components/ui/dialog';
 import { Button } from '~/components/ui/button';
+import { toast } from 'sonner';
 
 export interface CloudinaryResource {
   asset_id: string;
@@ -69,10 +70,11 @@ export default function FolderIcon({
       }
 
       // const data = await response.json();
-      console.log('Deleted successfully:');
+      toast.success('Deleted successfully:');
       setDeleteAlert(false);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
+      toast.error('deletion failed');
     }
   };
 
@@ -112,7 +114,9 @@ export default function FolderIcon({
                   Cancel
                 </Button>
               </DialogClose>
-              <Button className='bg-red-500' onClick={deleteDir}>
+              <Button className='bg-red-500' onClick={()=>{void deleteDir()
+                setRootPath(prev=>prev)
+              }}>
                 Confirm
               </Button>
             </DialogFooter>

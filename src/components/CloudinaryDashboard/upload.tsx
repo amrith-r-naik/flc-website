@@ -12,12 +12,14 @@ import { type UploadApiResponse } from 'cloudinary';
 import { Button } from '~/components/ui/button';
 import { MdCloudUpload } from 'react-icons/md';
 import Image from 'next/image';
+import { toast } from 'sonner';
 
 interface UploadFormProps {
   folderPath: string;
+  fetchImagesByPathOfFolder:(path:string)=>void
 }
 
-export default function UploadForm({ folderPath }: UploadFormProps) {
+export default function UploadForm({ folderPath,fetchImagesByPathOfFolder }: UploadFormProps) {
   const [imageUrl, setImageUrl] = useState<string>('');
 
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,13 +37,14 @@ export default function UploadForm({ folderPath }: UploadFormProps) {
 
       const data = await response.json() as UploadApiResponse;
       if (response.ok) {
+        toast.success("uploaded succesfully")
         setImageUrl(data.url); // Set the URL to state for displaying
       } else {
-        alert(`Upload failed: ${data.error}`);
+        toast.error(`Upload failed: ${data.error}`);
       }
     } catch (error) {
       console.error('Upload error:', error);
-      alert('Upload error');
+      toast.error('Upload error');
     }
   };
 
@@ -49,17 +52,20 @@ export default function UploadForm({ folderPath }: UploadFormProps) {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <MdCloudUpload className="text-3xl hover:text-slate-300" title="Upload Image" />
+          <MdCloudUpload className="text-3xl hover:text-slate-700" title="Upload Image" />
         </DialogTrigger>
 
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Add Image Here</DialogTitle>
-            {/* <DialogDescription>Choose image:</DialogDescription> */}
+            
           </DialogHeader>
 
           <div className="content">
-            <form onSubmit={handleUpload}>
+            <form onSubmit={(e)=>{ 
+              void handleUpload(e)
+              fetchImagesByPathOfFolder(folderPath)
+            }}>
               <input
                 type="file"
                 name="file"
