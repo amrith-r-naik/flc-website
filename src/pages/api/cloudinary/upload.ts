@@ -40,18 +40,30 @@ export default async function handler(
 
     // Read the file to confirm it was received (optional)
     try {
-      
+
       const folder = req.query.folder as string | undefined;
   
       if(file){
         console.log("recieved")
       }
+
+
+      const paramsToSign = {
+        public_id: file.originalFilename as unknown as string,
+        resource_type: 'image',
+        type: 'upload',
+        timestamp: Math.floor(Date.now() / 1000),
+      };
       
-    
+      const signature = cloudinary.utils.api_sign_request(
+        paramsToSign,
+        process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET!,
+      );
 
       const uploadResult = await cloudinary.uploader.upload(file.filepath, {
         folder: folder!="/"?folder:"", 
-        public_id: file.originalFilename as unknown as string, 
+        public_id: signature, //signed url now safe
+        secure:true
       });
       res.status(200).json({ url: uploadResult.secure_url });
      

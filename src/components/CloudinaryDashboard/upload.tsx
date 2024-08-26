@@ -13,6 +13,7 @@ import { Button } from '~/components/ui/button';
 import { MdCloudUpload } from 'react-icons/md';
 import Image from 'next/image';
 import { toast } from 'sonner';
+import { FaCopy } from "react-icons/fa";
 
 interface UploadFormProps {
   folderPath: string;
@@ -48,6 +49,17 @@ export default function UploadForm({ folderPath,fetchImagesByPathOfFolder }: Upl
     }
   };
 
+
+  const handleCopy = async (url:string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success('Copied to clipboard!');
+    } catch (err) {
+      toast.error('Failed to copy!');
+      console.error('Failed to copy text: ', err);
+    }
+  }
+
   return (
     <div>
       <Dialog>
@@ -73,15 +85,18 @@ export default function UploadForm({ folderPath,fetchImagesByPathOfFolder }: Upl
                 required
               />
               {imageUrl && (
-                <div>
+
+                <div className='m-auto mt-6'>
                   <h2>Uploaded Image:</h2>
                   <Image
                     src={imageUrl}
+                    className='m-auto'
                     alt="Uploaded"
                     width={500}
                     height={500}
-                    style={{ maxWidth: '500px' }}
+                    style={{ maxWidth: '400px' }}
                   />
+                  <p className='flex mt-6 items-center'>  URL:  &nbsp; &nbsp;<FaCopy onClick={()=>handleCopy(imageUrl)} className='hover:text-slate-300 text-2xl' ></FaCopy></p>
                 </div>
               )}
 
