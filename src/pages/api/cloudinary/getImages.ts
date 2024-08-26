@@ -42,10 +42,7 @@ export default async function handler(
       prefix: path!=="/"?path:"", // Specify the folder path here
       resource_type: 'image', // Only fetch images
     });
-    console.log("*******************************")
-    console.log(path)
-    console.log("*******************************")
-
+   
     // Send the images in the response
     const {resources} = result as CloudinaryResponse
     

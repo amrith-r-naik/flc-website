@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+
 import type { NextApiRequest, NextApiResponse } from "next";
-import { v2 as cloudinary,type UploadApiResponse, type  SignApiOptions } from "cloudinary";
+import { v2 as cloudinary, } from "cloudinary";
 import { IncomingForm } from "formidable";
-import fs from "fs";
-import util from "util";
+
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -13,7 +11,6 @@ cloudinary.config({
   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
 
-const readFile = util.promisify(fs.readFile);
 
 export const config = {
   api: {
@@ -43,8 +40,9 @@ export default async function handler(
 
     // Read the file to confirm it was received (optional)
     try {
+      
       const folder = req.query.folder as string | undefined;
-      // console.log("File received:", file);
+  
       if(file){
         console.log("recieved")
       }

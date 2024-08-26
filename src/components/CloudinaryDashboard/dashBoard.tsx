@@ -84,7 +84,7 @@ export default function Dashboard() {
   return (
     <div className='relative md:top-[-80px] z-50 sm:top-[0px]'> 
       
-      <Options  rootPath={rootPath} handleRefresh={handleRefresh} setRootPath={setRootPath} fetchImagesByPathOfFolder={fetchImagesByPathOfFolder}/>
+    <Options  rootPath={rootPath} handleRefresh={handleRefresh} setRootPath={setRootPath} fetchImagesByPathOfFolder={fetchImagesByPathOfFolder}/>
        
   
       <p className='my-6 mx-4 '> 
@@ -96,7 +96,7 @@ export default function Dashboard() {
       }}>
          <b>Home</b> &nbsp;
       </p>
-       {pathArray?.map((each, index) => (
+        { pathArray?.map((each, index) => (
               <div key={each} className="inline-flex items-center">
                   <p
                     className={`inline cursor-pointer text-blue-600 hover:underline ${
@@ -121,32 +121,25 @@ export default function Dashboard() {
               </div>
          ))}
 
-</p>
+      </p>
 
 
-      <div>
+       <div>
 
-        {folders?.map((each,index)=>(<div key={index}>
+        {folders?.map((each,index)=>(
+          <div key={index}>
             <FolderIcon setRootPath={setRootPath} setPathArray={setPathArray} fetchImagesByPathOfFolder={fetchImagesByPathOfFolder} name={each.name} path={each.path}  />
-           
-        </div>))}
-        {/* {JSON.stringify(images)} */}
-        <ul className="grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-5">
+           </div>))
+        }
+        
+      <ul className="grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-5 p-3">
         {images?.map(image => (
-          <li key={image.public_id} className="overflow-hidden">
-            
+
+          <li key={image.public_id} className="overflow-hidden">  
             <Images image={image} fetchImagesByPathOfFolder={fetchImagesByPathOfFolder}></Images>
-            {/* <Image
-              // Add the thumbnail transformation to the secure_url
-              src={`${image.secure_url.replace('/image/upload/', '/image/upload/c_thumb,w_200,g_face/')}`}
-              alt={image.public_id}
-              width={200} // Match the width with the thumbnail transformation
-              height={Math.floor((200 / image.width) * image.height)} // Adjust height proportionally
-              className="object-cover w-full h-full"
-            /> */}
           </li>
         ))}
-    </ul>
+      </ul>
 
     {images.length==0&&(<div className='text-center m-auto mt-28'>No images here</div>)}       
        

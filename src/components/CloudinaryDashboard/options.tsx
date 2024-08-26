@@ -63,7 +63,7 @@ export default function Options({ rootPath ,setRootPath,handleRefresh ,fetchImag
 
         <Dialog>
           <DialogTrigger asChild>
-            <MdOutlineCreateNewFolder className="text-3xl text-green-500 hover:text-green-400" title="Create a new folder" />
+            <MdOutlineCreateNewFolder className="text-3xl text-black-500 hover:text-slate-700" title="Create a new folder" />
           </DialogTrigger>
 
           <DialogContent>

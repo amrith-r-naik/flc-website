@@ -1,4 +1,4 @@
-import React, { Dispatch, useState } from 'react'
+import React, { useState } from 'react'
 import { type CloudinaryResource } from './folderIcon'
 import { SlOptionsVertical } from 'react-icons/sl';
 import Image from 'next/image';
@@ -54,7 +54,7 @@ export default function Images({image,fetchImagesByPathOfFolder}:{image:Cloudina
       };
 
   return (
-<div className="object-cover w-full h-full flex">
+<div className="object-cover w-full h-full flex ">
           
         <Image
               // Add the thumbnail transformation to the secure_url

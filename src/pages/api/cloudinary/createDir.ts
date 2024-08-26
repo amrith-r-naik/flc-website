@@ -1,6 +1,6 @@
-import { v2 as cloudinary, type SignApiOptions } from "cloudinary";
+import { v2 as cloudinary  } from "cloudinary";
 import type { NextApiRequest, NextApiResponse } from "next";
-import path from "path";
+
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -15,8 +15,9 @@ export default async function handler(
   const { rootPath } = req.body as { rootPath: string };
 
   try {
+    
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const folders = await cloudinary.api.create_folder(rootPath); // Correct usage: update this to rootPath+folderName
+    const folders = await cloudinary.api.create_folder(rootPath); 
     res.status(200).json(folders  as {folders:{ name: string; path: string; external_id: string }});
   } catch (error) {
     res.status(500).json({ error: JSON.stringify(error) });

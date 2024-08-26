@@ -23,5 +23,3 @@ export default async function handler(
     res.status(500).json({ error: "Failed to fetch folders" });
   }
 }
-// https://res.cloudinary.com/dh0sqelog/image/upload/c_thumb,w_200,g_face/v1708877807/samples/woman-on-a-football-field.jpg
-//https://res.cloudinary.com/dh0sqelog/image/upload/v1708877807/samples/woman-on-a-football-field.jpg
