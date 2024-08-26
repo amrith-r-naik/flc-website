@@ -56,22 +56,29 @@ export const footLinks = [
 
 const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
   return (
-    <footer
-      className={cn(className, "line-break relative !h-auto bg-[#100020]")}
-    >
-      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+    <footer className={cn(className, "relative")}>
+      <div className="line-break "></div>
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/grid_bg.png"
+          alt="Footer Background"
+          fill
+          className="opacity-50"
+        />
+      </div>
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="flex flex-col items-center md:items-start">
-            <Image
-              src="/assets/flc_logo.png"
-              width={100}
-              height={100}
-              alt="flc_logo"
-              priority
-            />
-            <a className="events-heading mb-3 mt-3 flex items-center font-sub-heading text-lg md:text-xl">
+            <div className="relative size-28">
+              <Image
+                src="/assets/images/flc_logo_crop.png"
+                alt="flc_logo"
+                fill
+              />
+            </div>
+            <p className="events-heading mb-3 mt-3 flex items-center font-sub-heading text-lg md:text-xl">
               Finite Loop Club
-            </a>
+            </p>
             <div className="mb-4">
               <p className="events-heading text-center md:text-left">
                 NMAM Institute of Technology
@@ -89,10 +96,7 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
             <ul className="mb-6 flex flex-wrap justify-center gap-4 md:gap-6">
               {links.map((link, index) => (
                 <li key={index}>
-                  <Link
-                    href={link.link}
-                    className="events-heading transition hover:text-gray-200/75"
-                  >
+                  <Link href={link.link} className="events-heading">
                     {link.name}
                   </Link>
                 </li>
@@ -102,10 +106,7 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
             <ul className="mb-6 flex justify-center gap-4 md:gap-6">
               {social.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.link}>
-                    <span className="sr-only">{link.name}</span>
-                    {link.icon}
-                  </Link>
+                  <Link href={link.link}>{link.icon}</Link>
                 </li>
               ))}
             </ul>
