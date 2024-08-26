@@ -96,7 +96,7 @@ function Events() {
   if (error) {
     return (
       <section
-        className="content-container bg-gradient flex min-h-[80vh] w-full flex-col items-center  gap-4 "
+        className="content-container flex min-h-[80vh] w-full flex-col items-center  gap-4 "
         ref={ref}
       >
         <h1 className="font-title py-2 pt-14 text-3xl font-bold sm:py-2 xl:text-6xl">
