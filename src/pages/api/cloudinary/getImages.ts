@@ -1,5 +1,5 @@
-import { v2 as cloudinary } from 'cloudinary';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { v2 as cloudinary } from "cloudinary";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -26,27 +26,23 @@ interface ErrorResponse {
 // Define the API handler function
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<CloudinaryResponse | ErrorResponse>
+  res: NextApiResponse<CloudinaryResponse | ErrorResponse>,
 ) {
-
-
   // Ensure folderPath is a string
   const { path } = req.body as { path: string };
 
-
   try {
-    
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const result = await cloudinary.api.resources({
-      type: 'upload',
-      prefix: path!=="/"?path:"", // Specify the folder path here
-      resource_type: 'image', // Only fetch images
+      type: "upload",
+      prefix: path !== "/" ? path : "", // Specify the folder path here
+      resource_type: "image", // Only fetch images
     });
-   
+
     // Send the images in the response
-    const {resources} = result as CloudinaryResponse
-    
-    res.status(200).json({ resources:resources });
+    const { resources } = result as CloudinaryResponse;
+
+    res.status(200).json({ resources: resources });
   } catch (error) {
     // Send error response
     res.status(500).json({ error: (error as Error).message });

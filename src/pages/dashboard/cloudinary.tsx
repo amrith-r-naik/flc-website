@@ -1,9 +1,7 @@
-import React from 'react'
-import Dashboard from "../../components/CloudinaryDashboard/dashBoard"
+import React from "react";
+
+import Dashboard from "~/components/dashboard/cloudinary/dashBoard";
+
 export default function Cloudinary() {
-  return (
-    <div>
-        <Dashboard></Dashboard>
-    </div>
-  )
+  return <Dashboard />;
 }

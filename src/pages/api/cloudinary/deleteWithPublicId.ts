@@ -1,13 +1,11 @@
 import { v2 as cloudinary } from "cloudinary";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
-
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,11 +14,12 @@ export default async function handler(
   try {
     const { public_id } = req.body as { public_id: string };
 
-
     console.log("public_id:", public_id);
 
     if (!public_id) {
-      return res.status(400).json({ error: "Invalid Cloudinary P_id provided" });
+      return res
+        .status(400)
+        .json({ error: "Invalid Cloudinary P_id provided" });
     }
 
     // Destroy the image on Cloudinary

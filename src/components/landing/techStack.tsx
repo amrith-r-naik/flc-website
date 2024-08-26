@@ -27,6 +27,8 @@ import OrbitingCircles from "../magicui/orbiting-circles";
 
 /* eslint-disable */
 
+/* eslint-disable */
+
 export default function TechStack() {
   const heroRef = useRef<HTMLDivElement>(null);
   const thirdRef = useRef<HTMLDivElement>(null);
