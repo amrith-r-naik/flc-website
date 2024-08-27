@@ -52,7 +52,7 @@ export default function Dashboard() {
 
       imageLoadPermisiion?void fetchImagesByPathOfFolder("/"):""
       setIMageLoadPermision(false)
-  }, [rootPath]);
+  }, [rootPath,imageLoadPermisiion]);
 
   const fetchImagesByPathOfFolder = async (path: string) => {
     try {
