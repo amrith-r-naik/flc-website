@@ -18,9 +18,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  const { pathname } = useRouter();
-
   // Set the title of the page dynamically
+  const { pathname } = useRouter();
   const title = `${
     pathname === "/"
       ? "Home | "
@@ -33,21 +32,21 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <ThemeProvider
         attribute="class"
-        defaultTheme="dark"
+        defaultTheme="system"
         enableSystem
         themes={["light", "dark"]}
       >
         {/* <ReactLenis root> */}
-        <Head>
-          <title>{title}</title>
-        </Head>
+          <Head>
+            <title>{title}</title>
+          </Head>
         <SEOLayout>
           <Layout>
             <Component {...pageProps} />
           </Layout>
         </SEOLayout>
-        <Analytics />
-        <SpeedInsights />
+          <Analytics />
+          <SpeedInsights />
         {/* </ReactLenis> */}
       </ThemeProvider>
     </SessionProvider>
