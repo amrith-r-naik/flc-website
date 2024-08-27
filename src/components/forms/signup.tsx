@@ -255,7 +255,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
 
         <div className="flex flex-col justify-center gap-2">
           <Button
-            className="bg-purple-700 font-bold text-white hover:bg-purple-900"
+            className="bg-[#66209b] font-bold text-white hover:bg-purple-900"
             type="submit"
           >
             Submit
