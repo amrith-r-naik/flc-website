@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { HTMLAttributes, HtmlHTMLAttributes, useRef } from "react";
+import { type HTMLAttributes, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,6 +41,7 @@ export default function FadeIn({
       },
     );
   }, [ref]);
+
   return (
     <div className={className} ref={ref} {...div}>
       {children}

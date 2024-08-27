@@ -10,8 +10,9 @@ const signUpZ = z
       .email({
         message: "Email is required",
       })
-      .refine((email) => email.endsWith("@nmamit.in"), {
-        message: "Email must be from NMAMIT",
+      // NOTE: please change in userZ.ts as well
+      .refine((email) => !email.endsWith("@nmamit.in"), {
+        message: "Use your personal email",
       }),
     phone: z.string().regex(/^\d{10}$/, { message: "Invalid phone number" }),
     year: z.string(),

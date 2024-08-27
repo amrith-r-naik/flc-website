@@ -119,7 +119,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-white dark:text-white">
-                Email
+                Personal Email
               </FormLabel>
               <FormControl>
                 <Input

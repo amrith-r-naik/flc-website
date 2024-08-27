@@ -1,19 +1,20 @@
 "use client";
 
 import { Download } from "lucide-react";
+import { type NextPage } from "next";
 import Image from "next/image";
 
 import { Button } from "~/components/ui/button";
 
-import FadeIn from "../FadeIn";
+import FadeIn from "../fadeIn";
 
-export function Benifits() {
+const Benefits: NextPage = () => {
   return (
-    <section className="relative z-50 mb-20 mt-20 flex flex-col items-center justify-center px-4 pb-4 font-sans sm:mb-44 sm:h-[145vh]  sm:px-8 md:px-16 xl:px-36">
+    <section className="relative  z-50 mb-20 mt-20 flex flex-col items-center justify-center px-4 pb-4 font-sans sm:mb-44 sm:h-[145vh] sm:px-8 md:px-16 lg:max-h-[1048px] xl:px-36">
       <div className="line-break "></div>
       <div className="event-bg "></div>
       <p
-        className=" absolute bottom-auto left-1/2 right-0 top-36 w-max -translate-x-1/2  px-2 text-center text-[2rem] text-transparent sm:top-24 md:top-14 md:block md:text-[5.25rem] lg:visible lg:text-8xl xl:text-9xl"
+        className=" absolute bottom-auto left-1/2 right-0 top-28 w-max -translate-x-1/2 px-2 text-center text-[2rem] text-transparent sm:top-24 md:top-14 md:block md:text-[5.25rem] lg:visible lg:text-8xl xl:text-9xl"
         style={{
           WebkitTextStroke: "3px #201E43",
         }}
@@ -21,17 +22,17 @@ export function Benifits() {
         What is in it for you?
       </p>
       <div className="mb-16 mt-4 flex items-center justify-center sm:mb-24">
-        <h1 className="events-heading z-10  py-2 pt-14 text-7xl font-semibold sm:py-2 xl:text-8xl">
-          Benefits.
+        <h1 className="z-10 py-2 pt-14 font-title text-3xl font-bold sm:py-2 md:text-7xl xl:text-8xl">
+          Benefits
         </h1>
       </div>
-      <div className="z-1 grid h-full w-full grid-cols-2  grid-rows-10  gap-4 sm:grid-cols-4 sm:grid-rows-5 lg:grid-cols-5 lg:grid-rows-4 ">
+      <div className="z-1 mx-auto grid h-full w-full max-w-screen-xl grid-cols-2 grid-rows-10 gap-4 sm:grid-cols-4 sm:grid-rows-5 lg:grid-cols-5 lg:grid-rows-4">
         <FadeIn
           direction="left"
           delay={0.1}
-          className="relative  col-span-1 col-start-1 row-span-1 row-start-1 row-end-2 h-full w-full"
+          className="relative col-span-1 col-start-1 row-span-1 row-start-1 row-end-2 h-full w-full"
         >
-          <div className="grid-card  flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl   p-4 px-2 ">
+          <div className="grid-card flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl p-4 px-2 ">
             <Image
               src="/grid_bg.png"
               alt=""
@@ -39,8 +40,7 @@ export function Benifits() {
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
             />
             <div className="grid-card-content">
-              <p className="font-bebas-neue   text-xl  tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
-                {" "}
+              <p className="font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
                 Internships
               </p>
             </div>
@@ -51,7 +51,7 @@ export function Benifits() {
           delay={0.2}
           className="relative col-span-1 col-start-1 row-span-1 row-start-2 row-end-3 h-full w-full sm:col-start-2 sm:row-start-1 sm:row-end-1 "
         >
-          <div className="grid-static flex h-full w-full items-center justify-center rounded-2xl  p-1 px-2 text-lg ">
+          <div className="grid-static flex h-full w-full items-center justify-center rounded-2xl p-1 px-2 text-lg ">
             <Image
               src="/grid_bg_yellow.png"
               alt=""
@@ -71,11 +71,10 @@ export function Benifits() {
         <FadeIn
           direction="down"
           delay={0.3}
-          className=" grid-card relative col-span-1 col-start-2 col-end-3 row-span-2 row-start-1 row-end-3 h-full w-full  sm:col-start-4 sm:col-end-5 sm:row-start-3  sm:row-end-5 lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-3 lg:tracking-widest"
+          className=" grid-card relative col-span-1 col-start-2 col-end-3 row-span-2 row-start-1 row-end-3 h-full w-full sm:col-start-4 sm:col-end-5 sm:row-start-3 sm:row-end-5 lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-3 lg:tracking-widest"
         >
-          <div className=" flex h-full w-full flex-col items-center justify-center gap-y-4 rounded-2xl p-4 font-bebas-neue  text-xl tracking-widest sm:text-2xl sm:tracking-wide md:gap-y-8 md:text-3xl  md:tracking-wider  xl:text-4xl">
+          <div className=" flex h-full w-full flex-col items-center justify-center gap-y-4 rounded-2xl p-4 font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:gap-y-8 md:text-3xl md:tracking-wider xl:text-4xl">
             <p className="z-[50] duration-300 ease-in-out hover:text-5xl hover:text-yellow-400">
-              {" "}
               Real
             </p>
             <p className="z-[50] duration-300 ease-in-out hover:text-5xl hover:text-yellow-400">
@@ -96,7 +95,7 @@ export function Benifits() {
         <FadeIn
           direction="up"
           delay={0.4}
-          className="relative col-span-2 col-start-1 col-end-3 row-span-1 row-start-3 row-end-4  h-full  w-full      rounded-2xl px-2 font-bebas-neue text-xl tracking-widest sm:col-start-3 sm:col-end-5  sm:row-start-1 sm:row-end-1 sm:text-2xl  sm:tracking-wide md:text-3xl md:tracking-wider lg:col-start-4 lg:col-end-6 lg:tracking-widest xl:text-4xl"
+          className="relative col-span-2 col-start-1 col-end-3 row-span-1 row-start-3 row-end-4 h-full w-full rounded-2xl px-2 font-bebas-neue text-xl tracking-widest sm:col-start-3 sm:col-end-5 sm:row-start-1 sm:row-end-1 sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:col-start-4 lg:col-end-6 lg:tracking-widest xl:text-4xl"
         >
           <div className="grid-card flex h-full w-full items-center justify-center">
             <Image
@@ -106,7 +105,7 @@ export function Benifits() {
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
             />
             <div className="grid-card-content">
-              <p> Dev Meetups</p>{" "}
+              <p> Dev Meetups</p>
             </div>
           </div>
         </FadeIn>
@@ -115,7 +114,7 @@ export function Benifits() {
           direction="left"
           className="relative col-span-2 row-span-2 h-full w-full sm:col-start-1 sm:col-end-3 sm:row-start-2 sm:row-end-4"
         >
-          <div className="grid-card  flex h-full w-full flex-col items-center justify-center rounded-2xl px-2  sm:py-2 md:py-4">
+          <div className="grid-card flex h-full w-full flex-col items-center justify-center rounded-2xl px-2 sm:py-2 md:py-4">
             <Image
               src="/grid_bg_topdown.png"
               fill
@@ -142,7 +141,7 @@ export function Benifits() {
           delay={0.1}
           className="relative col-span-1 row-span-1 h-full w-full sm:col-start-3 sm:col-end-4 lg:col-start-4 lg:col-end-5 lg:row-start-2 lg:row-end-3"
         >
-          <div className="grid-card  flex h-full w-full items-center justify-center rounded-2xl px-2  font-bebas-neue text-xl  tracking-widest  sm:text-2xl sm:tracking-wide md:text-3xl  md:tracking-wider  lg:tracking-widest xl:text-4xl">
+          <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
             <Image
               src="/grid_bg_topdown.png"
               alt=""
@@ -157,9 +156,9 @@ export function Benifits() {
         <FadeIn
           direction="right"
           delay={0.2}
-          className="relative col-span-1 row-span-1 h-full w-full sm:col-start-4  sm:col-end-5 lg:col-start-5 lg:col-end-6 lg:row-start-2 lg:row-end-3"
+          className="relative col-span-1 row-span-1 h-full w-full sm:col-start-4 sm:col-end-5 lg:col-start-5 lg:col-end-6 lg:row-start-2 lg:row-end-3"
         >
-          <div className="grid-card  flex h-full w-full items-center justify-center rounded-2xl px-2 font-bebas-neue text-xl  tracking-widest  sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider  lg:tracking-widest xl:text-4xl">
+          <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
             <Image
               src="/grid_bg_topdown.png"
               alt=""
@@ -175,9 +174,9 @@ export function Benifits() {
         <FadeIn
           direction="up"
           delay={0.3}
-          className="relative col-span-2 row-span-1 h-full w-full sm:col-start-2 sm:col-end-4  sm:row-start-4  sm:row-end-5 lg:col-start-3 lg:col-end-5 lg:row-start-3 lg:row-end-4"
+          className="relative col-span-2 row-span-1 h-full w-full sm:col-start-2 sm:col-end-4 sm:row-start-4 sm:row-end-5 lg:col-start-3 lg:col-end-5 lg:row-start-3 lg:row-end-4"
         >
-          <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 text-center font-bebas-neue text-xl  tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider  lg:tracking-widest xl:text-4xl">
+          <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 text-center font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
             <Image
               src="/grid_bg.png"
               alt=""
@@ -192,9 +191,9 @@ export function Benifits() {
         <FadeIn
           direction="right"
           delay={0.4}
-          className="col-span- relative row-span-2 row-start-8  row-end-10 h-full w-full  sm:col-start-1 sm:col-end-2 sm:row-start-4 sm:row-end-6 lg:col-start-5 lg:col-end-6 lg:row-start-3 lg:row-end-5"
+          className="col-span- relative row-span-2 row-start-8 row-end-10 h-full w-full sm:col-start-1 sm:col-end-2 sm:row-start-4 sm:row-end-6 lg:col-start-5 lg:col-end-6 lg:row-start-3 lg:row-end-5"
         >
-          <div className="grid-static  flex h-full w-full flex-col items-center justify-center gap-y-4 rounded-2xl  p-4  text-center  font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl  md:tracking-wider  lg:tracking-widest xl:text-4xl">
+          <div className="grid-static flex h-full w-full flex-col items-center justify-center gap-y-4 rounded-2xl p-4 text-center font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
             <div className="relative aspect-[3/4] w-3/4 xl:w-2/4 2xl:w-4/5">
               <Image
                 src="/assets/magazinecover.png"
@@ -218,15 +217,15 @@ export function Benifits() {
               src="/grid_bg_right.png"
               alt=""
               fill
-              className="absolute bottom-0 left-0 right-0 top-0 z-40  opacity-50"
+              className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
             />
           </div>
         </FadeIn>
         <FadeIn
           direction="up"
-          className="relative col-span-2 row-span-1 h-full w-full  sm:col-start-2  sm:col-end-4 sm:row-start-5 sm:row-end-6 lg:col-start-2 lg:col-end-4 lg:row-start-4 lg:row-end-5"
+          className="relative col-span-2 row-span-1 h-full w-full sm:col-start-2 sm:col-end-4 sm:row-start-5 sm:row-end-6 lg:col-start-2 lg:col-end-4 lg:row-start-4 lg:row-end-5"
         >
-          <div className="grid-card  flex h-full w-full items-center justify-center rounded-2xl px-2 font-bebas-neue text-xl  tracking-widest  sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
+          <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
             <Image
               src="/grid_bg_topdown.png"
               alt=""
@@ -243,7 +242,7 @@ export function Benifits() {
           delay={0.1}
           className="relative col-span-1 row-span-1 row-start-8 row-end-9 h-full w-full sm:row-start-3 sm:row-end-4 lg:col-start-1 lg:col-end-2 lg:row-start-4 lg:row-end-5"
         >
-          <div className="grid-card  flex h-full w-full items-center justify-center rounded-2xl  px-2 text-lg ">
+          <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 text-lg ">
             <Image
               src="/grid_bg.png"
               alt=""
@@ -251,7 +250,7 @@ export function Benifits() {
               className="z-40l absolute bottom-0 left-0 right-0 top-0 opacity-50"
             />
             <div className="grid-card-content">
-              <p className=" text-center font-bebas-neue text-xl  tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
+              <p className=" text-center font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
                 WORKSHOPS
               </p>
             </div>
@@ -262,7 +261,7 @@ export function Benifits() {
           direction="up"
           className="relative col-span-1 row-span-1 row-start-9 row-end-10 h-full w-full sm:row-start-5 sm:row-end-6 lg:col-start-4 lg:col-end-5 lg:row-start-4 lg:row-end-5"
         >
-          <div className="grid-card flex h-full w-full items-center justify-center overflow-hidden rounded-2xl  px-2 text-lg ">
+          <div className="grid-card flex h-full w-full items-center justify-center overflow-hidden rounded-2xl px-2 text-lg ">
             <Image
               src="/grid_bg_yellow.png"
               alt=""
@@ -282,6 +281,6 @@ export function Benifits() {
       </div>
     </section>
   );
-}
+};
 
-export default Benifits;
+export default Benefits;

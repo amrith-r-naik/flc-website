@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { type FunctionComponent } from "react";
 
 import AuthButton from "~/components/navBar/authButton";
+import SunMoonToggle from "~/components/navBar/sunMoonToggle";
 import { userNavItems } from "~/constants";
 import { cn } from "~/lib/utils";
 
@@ -21,7 +22,7 @@ const Navbar: FunctionComponent = ({}) => {
           <Image src="/assets/images/flc_logo_crop.png" alt="Logo" fill />
         </div>
         <p className="hidden font-bold lg:block lg:text-2xl">
-          Finite-Loop-Club
+          Finite Loop Club
         </p>
       </Link>
       <div className="ml-auto flex items-center gap-8 ">
@@ -45,7 +46,7 @@ const Navbar: FunctionComponent = ({}) => {
           ))}
         </div>
 
-        {/*<SunMoonToggle />*/}
+        <SunMoonToggle />
 
         <AuthButton />
 

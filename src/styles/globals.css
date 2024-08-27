@@ -147,13 +147,13 @@
     rgba(11, 1, 29, 0.01);
   backdrop-filter: blur(8.5px);
   border-radius: 12px;
-  position: relative; 
-  overflow: hidden; 
-  transition: transform 0.3s ease-in-out; 
-  transform-style: preserve-3d; 
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  transform-style: preserve-3d;
 }
 
-.grid-static{
+.grid-static {
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: radial-gradient(
       50% 70.31% at 50% 0%,
@@ -163,22 +163,21 @@
     rgba(11, 1, 29, 0.01);
   backdrop-filter: blur(8.5px);
   border-radius: 12px;
-  position: relative; 
-  overflow: hidden; 
-  transition: transform 0.3s ease-in-out; 
-  transform-style: preserve-3d; 
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  transform-style: preserve-3d;
 }
 
 .grid-card:hover {
-  position:relative;
+  position: relative;
   transform: scale(1.05) rotate(5deg); /* Apply scaling and rotation */
 }
 
 .grid-card:hover .grid-card-content {
-  position:relative;
+  position: relative;
   transform: scale(0.9523) rotate(-5deg);
 }
-
 
 .grid-card:before {
   content: "";
