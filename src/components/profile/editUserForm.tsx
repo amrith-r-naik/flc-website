@@ -26,6 +26,7 @@ import { Input } from "~/components/ui/input";
 import { InputOTP, InputOTPSlot } from "~/components/ui/input-otp";
 import { Textarea } from "~/components/ui/textarea";
 
+import { useRefetchContext } from "~/context/refetchContext";
 import { cn } from "~/lib/utils";
 import { type User, useUser } from "~/store";
 import { api } from "~/utils/api";
@@ -49,6 +50,8 @@ const InnerEditUserForm: FunctionComponent<{
   className?: string;
   user: User;
 }> = ({ children, className, user }) => {
+  const { executeRefetch } = useRefetchContext("user");
+
   const { data: session } = useSession();
 
   const [open, setOpen] = useState(false);
@@ -62,6 +65,7 @@ const InnerEditUserForm: FunctionComponent<{
     defaultValues: {
       id: user.id,
       name: user.name,
+      email: user.email,
       bio: user.bio ?? "",
       phone: user.phone,
     },
@@ -73,6 +77,7 @@ const InnerEditUserForm: FunctionComponent<{
       {
         id: values.id,
         name: values.name,
+        email: values.email,
         bio: values.bio,
         phone: values.phone,
       },
@@ -80,6 +85,7 @@ const InnerEditUserForm: FunctionComponent<{
         onSuccess: () => {
           toast.dismiss();
           toast.success("Profile updated successfully");
+          executeRefetch();
           setOpen(false);
         },
         onError: (error) => {
@@ -101,7 +107,10 @@ const InnerEditUserForm: FunctionComponent<{
       }}
     >
       <DialogDrawerTrigger asChild>
-        <Button className={cn(className, "relative bg-white")}>
+        <Button
+          variant={"ghost"}
+          className={cn(className, "relative inline px-2")}
+        >
           {children}
         </Button>
       </DialogDrawerTrigger>
@@ -123,6 +132,19 @@ const InnerEditUserForm: FunctionComponent<{
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="Name" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Email" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

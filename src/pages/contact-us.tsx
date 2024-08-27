@@ -10,7 +10,7 @@ const ContactUs: FC = () => {
             <h1 className="heading text-center font-bold">
               INSPIRANTE TECHNOLOGIES PRIVATE LIMITED
             </h1>
-            <p className="subheading  mt-2 text-center">Contact Us</p>
+            <p className="subheading mt-2 text-center">Contact Us</p>
             <p className="caption mt-1 text-center text-gray-600">
               Last updated on Oct 20th 2022
             </p>

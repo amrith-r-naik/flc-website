@@ -16,15 +16,15 @@ const Profile: FunctionComponent<{ notMine?: boolean }> = ({
   return (
     <main className="container my-10 h-auto min-h-screen w-full md:h-screen">
       <RadialCardWrapper className="flex size-full flex-col gap-5">
-        <div className="flex h-2/3 w-full flex-row gap-5">
+        <div className="flex h-2/3 w-full flex-col gap-5 md:flex-row">
           <LeftTopPanel
             ref={leftTopPanelRef}
-            className="w-1/2 border-2 border-white/10"
+            className="w-full border-2 border-white/10 md:w-1/2"
             notMine={notMine}
           />
           <RightTopPanel
             ref={rightPanelRef}
-            className="w-1/2 border-2 border-white/10"
+            className="w-full border-2 border-white/10 md:w-1/2"
             notMine={notMine}
           />
         </div>

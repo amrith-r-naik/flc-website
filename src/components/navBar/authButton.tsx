@@ -1,53 +1,42 @@
-import { LogIn, LogOut } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { LogIn } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { type FunctionComponent } from "react";
-import { toast } from "sonner";
 
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import AvatarIcon from "../avatar";
+import DropDown from "../dropdown";
 
 const AuthButton: FunctionComponent<{ inDashboard?: boolean }> = ({
   inDashboard = false,
 }) => {
-  const router = useRouter();
   const { data: session } = useSession();
 
   return (
-    <div className="hidden gap-3 md:flex">
-      {!inDashboard && session?.user.role === "ADMIN" && (
-        <Button asChild>
+    <div className="hidden gap-2 sm:flex">
+      <div className="sm:flex md:flex">
+      {/* {!inDashboard && session?.user.role === "ADMIN" && (
+        <Button asChild size='sm'>
           <Link href="/dashboard/admin">Dashboard</Link>
         </Button>
       )}
       {!inDashboard && session?.user.role === "ORGANISER" && (
-        <Button asChild>
+        <Button asChild size='sm'>
           <Link href="/dashboard/organiser">Dashboard</Link>
         </Button>
-      )}
+      )} */}
+      </div>
       {session ? (
-        <Button
-          onClick={async () => {
-            toast.loading("Signing out...");
-            signOut({
-              redirect: false,
-            })
-              .then(() => {
-                toast.dismiss();
-                toast.success("Signed out successfully");
-                setTimeout(() => void router.push("/"), 1000);
-              })
-              .catch((e) => {
-                toast.dismiss();
-                console.error(e);
-                toast.error("Failed to sign out");
-              });
-          }}
-        >
-          <LogOut size={18} className="mr-2" /> Sign out
-        </Button>
+        <>
+        <Link href='/profile' >
+          <DropDown trigger={<AvatarIcon  src={session.user?.image ?? "https://github.com/shadcn.png"} />}/>
+       </Link>
+       </>
       ) : (
-        <Button asChild>
+        <Button asChild
+        size='sm'>
           <Link href="/login">
             <LogIn size={18} className="mr-2" /> Login
           </Link>

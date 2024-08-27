@@ -7,12 +7,7 @@ import { toast } from "sonner";
 import { Button, type ButtonProps } from "~/components/ui/button";
 
 import { env } from "~/env";
-import {
-  createOrderInputZ,
-  createOrderOutputZ,
-  savePaymentInputZ,
-  savePaymentOutputZ,
-} from "~/zod/paymentZ";
+import { api } from "~/utils/api";
 
 const PaymentButton = forwardRef<
   HTMLButtonElement,
@@ -24,18 +19,32 @@ const PaymentButton = forwardRef<
       | {
           paymentType: typeof PaymentType.EVENT;
           amountInINR: number;
+          teamId: string;
         }
       | {
           paymentType: typeof PaymentType.MEMBERSHIP;
           amountInINR?: never;
+          teamId?: never;
         }
     )
 >(
   (
-    { description, paymentType, amountInINR, onFailure, onSuccess, ...props },
+    {
+      description,
+      paymentType,
+      amountInINR,
+      teamId,
+      onFailure,
+      onSuccess,
+      ...props
+    },
     ref,
   ) => {
     const { data: session } = useSession();
+
+    const createOrder = api.payment.createOrder.useMutation();
+    const verifyAndSavePayment = api.payment.verifyAndSavePayment.useMutation();
+
     if (!session) return null;
 
     return (
@@ -44,39 +53,26 @@ const PaymentButton = forwardRef<
         <Button
           ref={ref}
           onClick={async () => {
-            const { success: createSuccess, data: inputData } =
-              createOrderInputZ.safeParse({
-                paymentType: paymentType,
-                amountInINR: amountInINR,
-              });
-            if (!createSuccess)
-              return toast.error("Failed to parse payment order input");
-
             toast.loading("Creating payment order...");
-            const createRes = await fetch("/api/payment/create", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(inputData),
-            });
+            const paymentOrder = await createOrder.mutateAsync(
+              paymentType === "MEMBERSHIP"
+                ? {
+                    paymentType: paymentType,
+                  }
+                : {
+                    paymentType: paymentType,
+                    amountInINR: amountInINR,
+                    teamId: teamId,
+                  },
+            );
             toast.dismiss();
-
-            if (!createRes.ok) {
-              toast.error(await createRes.text());
-              return;
-            }
-
-            const { success: outputSuccess, data: paymentOrderData } =
-              createOrderOutputZ.safeParse(await createRes.json());
-            if (!outputSuccess)
-              return toast.error("Failed to parse payment order data");
+            toast.success("Payment order created successfully");
 
             const paymentObject = new window.Razorpay({
               key: env.NEXT_PUBLIC_RAZORPAY_API_KEY_ID,
-              order_id: paymentOrderData.orderId,
-              amount: paymentOrderData.orderAmount,
-              currency: paymentOrderData.orderCurrency,
+              order_id: paymentOrder.orderId,
+              amount: paymentOrder.orderAmount,
+              currency: paymentOrder.orderCurrency,
               name: "FiniteLoop Club",
               description: description,
               image: `${env.NEXT_PUBLIC_CANONICAL_URL}assets/images/flc_logo_crop.png`,
@@ -92,47 +88,29 @@ const PaymentButton = forwardRef<
                 contact: session.user.phone,
               },
               handler: async (response) => {
-                const { success: inputSuccess, data: inputData } =
-                  savePaymentInputZ.safeParse({
-                    paymentType: paymentType,
-                    amountInINR: amountInINR,
-                    paymentName: description,
-                    razorpayOrderId: response.razorpay_order_id,
-                    razorpayPaymentId: response.razorpay_payment_id,
-                    razorpaySignature: response.razorpay_signature,
-                  });
-                if (!inputSuccess) {
-                  onFailure();
-                  toast.error("Failed to parse payment input");
-                  return;
-                }
-
                 toast.loading("Saving payment details...");
-                const verifyRes = await fetch("/api/payment/save", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(inputData),
-                });
+                const payment = await verifyAndSavePayment.mutateAsync(
+                  paymentType === "MEMBERSHIP"
+                    ? {
+                        paymentType: paymentType,
+                        paymentName: description,
+                        razorpayOrderId: paymentOrder.orderId,
+                        razorpayPaymentId: response.razorpay_payment_id,
+                        razorpaySignature: response.razorpay_signature,
+                      }
+                    : {
+                        paymentType: paymentType,
+                        amount: amountInINR,
+                        teamId: teamId,
+                        paymentName: description,
+                        razorpayOrderId: paymentOrder.orderId,
+                        razorpayPaymentId: response.razorpay_payment_id,
+                        razorpaySignature: response.razorpay_signature,
+                      },
+                );
                 toast.dismiss();
-
-                if (!verifyRes.ok) {
-                  onFailure();
-                  toast.error(await verifyRes.text());
-                  return;
-                }
-
-                const { success: outputSuccess, data: outputData } =
-                  savePaymentOutputZ.safeParse(await verifyRes.json());
-                if (!outputSuccess) {
-                  onFailure();
-                  toast.error("Failed to parse payment output");
-                  return;
-                }
-
                 toast.success("Payment saved successfully");
-                onSuccess(outputData.paymentDbId);
+                onSuccess(payment.paymentDbId);
               },
             });
             paymentObject.open();

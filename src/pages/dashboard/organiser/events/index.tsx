@@ -60,9 +60,9 @@ const AllEvents = () => {
           <hr className="mb-4" />
           <div className="flex h-full flex-wrap justify-center gap-12 sm:justify-start">
             {/* <EventCard />
-          <EventCard />
-          <EventCard />
-          <EventCard /> */}
+     <EventCard />
+     <EventCard />
+     <EventCard /> */}
             {draftEvents.data.map((event, index) => (
               <EventCard
                 key={index}
@@ -82,9 +82,9 @@ const AllEvents = () => {
           <hr className="mb-4" />
           <div className="flex h-full flex-wrap justify-center gap-12 sm:justify-start">
             {/* <EventCard />
-          <EventCard />
-          <EventCard />
-          <EventCard /> */}
+     <EventCard />
+     <EventCard />
+     <EventCard /> */}
             {publishedEvents.data.map((event, index) => (
               <EventCard
                 key={index}
@@ -105,9 +105,9 @@ const AllEvents = () => {
           <hr className="mb-4" />
           <div className="flex h-full flex-wrap justify-center gap-12 sm:justify-start">
             {/* <EventCard />
-          <EventCard />
-          <EventCard />
-          <EventCard /> */}
+     <EventCard />
+     <EventCard />
+     <EventCard /> */}
             {completedEvents.data.map((event, index) => (
               <EventCard
                 key={index}

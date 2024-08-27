@@ -83,7 +83,7 @@ const Leaderboard: NextPage = () => {
                 background:
                   "radial-gradient(50% 70.31% at 50% 0%, rgb(123 104 162 / 33%) 0%, rgb(134 73 255 / 0%) 100%), rgb(19 4 45 / 80%)",
               }}
-              className="rounded-lg text-center text-xs backdrop-blur-lg *:w-1/4 *:border-y-2 *:border-border *:py-4  first:*:rounded-l-lg first:*:border-l last:*:rounded-r-lg last:*:border-r sm:text-lg md:text-xl"
+              className="rounded-lg text-center text-xs backdrop-blur-lg *:w-1/4 *:border-y-2 *:border-border *:py-4 first:*:rounded-l-lg first:*:border-l last:*:rounded-r-lg last:*:border-r sm:text-lg md:text-xl"
             >
               <th>Name</th>
               <th>USN</th>

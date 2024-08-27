@@ -1,13 +1,5 @@
-import { v2 as cloudinary } from "cloudinary";
 import type { NextApiRequest, NextApiResponse } from "next";
-
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-  api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
-});
-
+import {CLOUDINARY} from "./constant"
 // Regular expression pattern to match Cloudinary public_id from URL
 const regex = /\/v\d+\/([^/]+)(?=\.)/;
 
@@ -33,7 +25,7 @@ export default async function handler(
     }
 
     // Destroy the image on Cloudinary
-    const result = (await cloudinary.uploader.destroy(public_id)) as {
+    const result = (await CLOUDINARY.uploader.destroy(public_id)) as {
       result: string;
     };
 

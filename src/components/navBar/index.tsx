@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { type FunctionComponent } from "react";
 
 import AuthButton from "~/components/navBar/authButton";
+import SunMoonToggle from "~/components/navBar/sunMoonToggle";
 import { userNavItems } from "~/constants";
 import { cn } from "~/lib/utils";
 
@@ -15,17 +16,17 @@ const Navbar: FunctionComponent = ({}) => {
 
   return (
     // NOTE: If h or py changes, update in <Layout/> as well
-    <nav className="fixed top-0 z-[80] flex w-full items-center justify-center border-0  border-black px-20 py-4 backdrop-blur-lg backdrop-filter dark:border-white">
+    <nav className="fixed top-0 z-[80] flex w-full items-center justify-center border-0  border-black px-8  py-4 backdrop-blur-lg backdrop-filter dark:border-white">
       <Link href="/" className="flex cursor-pointer items-center gap-3">
         <div className="relative size-12">
           <Image src="/assets/images/flc_logo_crop.png" alt="Logo" fill />
         </div>
         <p className="hidden font-bold lg:block lg:text-2xl">
-          Finite-Loop-Club
+          Finite Loop Club
         </p>
       </Link>
-      <div className="ml-auto flex items-center gap-8 ">
-        <div className="hidden gap-8 sm:flex">
+      <div className="ml-auto flex items-center gap-4 sm:gap-6 ">
+        <div className="hidden gap-4 md:gap-6 sm:flex">
           {userNavItems.map((link) => (
             <Link
               key={link.link}
@@ -45,7 +46,7 @@ const Navbar: FunctionComponent = ({}) => {
           ))}
         </div>
 
-        {/*<SunMoonToggle />*/}
+        <SunMoonToggle />
 
         <AuthButton />
 

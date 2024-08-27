@@ -115,8 +115,15 @@ const OrganisorCard: FunctionComponent<{
           </div>
 
           <div className="flex items-center rounded-lg bg-teal-100 px-2 py-1">
-            <span className="font-semibold text-gray-700 ">Amount:</span>
-            <p className="ml-2  text-teal-800">${event.amount}</p>
+            <span className="font-semibold text-gray-700 ">FLC Amount:</span>
+            <p className="ml-2  text-teal-800">${event.flcAmount}</p>
+          </div>
+
+          <div className="flex items-center rounded-lg bg-teal-100 px-2 py-1">
+            <span className="font-semibold text-gray-700 ">
+              Non-FLC Amount:
+            </span>
+            <p className="ml-2  text-teal-800">${event.nonFlcAmount}</p>
           </div>
         </div>
         <div className=" mt-5 rounded-lg bg-white p-4  text-black ">
