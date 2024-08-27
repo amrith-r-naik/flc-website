@@ -1,42 +1,49 @@
+import { CalendarDays, ChartColumn, GalleryHorizontal, Home, Image, StickyNote, UsersRound } from "lucide-react";
 import { type ReactElement } from "react";
 
 type NavItem = {
   type: "nav" | "search" | "both";
   name: string;
   link: string;
-  icon?: ReactElement;
+  Icon?: ReactElement;
 };
 
 export const userNavItems: NavItem[] = [
   {
     type: "both",
     name: "Home",
+    Icon:<Home />,
     link: "/",
   },
   // {
   //  type: "both",
   //  name: "Gallery",
   //  link: "/gallery",
+  //  Icon:<Image />
   // },
   {
     type: "both",
     name: "Events",
     link: "/events",
+    Icon:<CalendarDays />
   },
   // {
   //  type: "both",
   //  name: "Blogs",
   //  link: "/blogs",
+  //  Icon:<StickyNote />,
   // },
   {
     type: "both",
     name: "Leaderboard",
     link: "/leaderboard",
+    Icon:<ChartColumn />
   },
   {
     type: "both",
     name: "Team",
     link: "/team",
+    Icon:<UsersRound />
   },
 ];
 

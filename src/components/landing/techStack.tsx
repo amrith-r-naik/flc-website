@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 
 import gsap from "gsap";
@@ -22,12 +21,6 @@ import tsIcon from "~/assets/icons/typescript-svgrepo-com.svg";
 import vscode from "~/assets/icons/vs.png";
 
 import OrbitingCircles from "../magicui/orbiting-circles";
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
 
 export default function TechStack() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -112,7 +105,7 @@ export default function TechStack() {
   return (
     <div>
       <div className="text-center" ref={thirdRef}>
-        <h1 className="z-10 py-2 pt-14 font-title text-3xl font-bold sm:py-2 xl:text-6xl">
+        <h1 className="z-10 py-2 pt-14 font-title text-3xl font-bold sm:py-2 md:text-7xl xl:text-8xl">
           Tech Stackz: Powered by Our Club
         </h1>
         <div className="flex flex-col space-y-4 text-center">
@@ -121,9 +114,15 @@ export default function TechStack() {
           </p>
         </div>
       </div>
-      <section className="flex h-full flex-col items-center justify-center p-2 md:h-[100vh] md:w-screen md:flex-row">
+      <section className="flex h-full flex-col items-center justify-center p-2 md:w-screen md:flex-row">
         <div
-          className="relative flex h-[110vh] w-full max-w-full items-center justify-center space-y-2 overflow-hidden md:h-full"
+          className="relative flex w-full max-w-full items-center justify-center space-y-2 md:h-full"
+          style={{
+            height:
+              2 * (getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)) +
+              100 +
+              "px",
+          }}
           ref={heroRef}
         >
           <span className="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center font-title text-3xl leading-none text-transparent dark:from-white dark:to-black sm:text-5xl md:text-6xl lg:text-6xl">
@@ -133,71 +132,71 @@ export default function TechStack() {
           {/* First Orbit with slower speed */}
           <OrbitingCircles
             className="border-none bg-transparent"
-            duration={35}
+            duration={33}
             delay={0}
-            radius={getDynamicRadius(80)}
+            radius={getDynamicRadius(80) > 295 ? 295 : getDynamicRadius(80)}
           >
             <Image
               src={tailwindIcon as string}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="Tailwind CSS"
             />
           </OrbitingCircles>
-          <OrbitingCircles
+          {/* <OrbitingCircles
             className="border-none bg-transparent"
-            duration={35}
+            duration={33}
             delay={15}
-            radius={getDynamicRadius(80)}
+            radius={getDynamicRadius(80) > 295 ? 295 : getDynamicRadius(80)}
           >
             <Image
               src={trpcIcon as string}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="h-8 w-8 md:h-10 lg:h-12 lg:w-12overflow-hidden rounded-full md:w-10 object-contain aspect-square h-"
               alt="tRPC"
             />
-          </OrbitingCircles>
-          <OrbitingCircles
+          </OrbitingCircles> */}
+          {/* <OrbitingCircles
             className="border-none bg-transparent"
-            duration={35}
+            duration={33}
             delay={30}
-            radius={getDynamicRadius(80)}
+            radius={getDynamicRadius(80) > 295 ? 295 : getDynamicRadius(80)}
           >
             <Image
               src={Gc as string}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="h-8 w-8 md:h-10 lg:h-12 lg:w-12overflow-hidden rounded-full md:w-10 object-contain aspect-square h-"
               alt="Google Cloud"
             />
-          </OrbitingCircles>
+          </OrbitingCircles> */}
           <OrbitingCircles
             className="border-none bg-transparent"
-            duration={35}
-            delay={45}
-            radius={getDynamicRadius(80)}
+            duration={33}
+            delay={11}
+            radius={getDynamicRadius(80) > 295 ? 295 : getDynamicRadius(80)}
           >
             <Image
               src={pythonIcon}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="Python"
             />
           </OrbitingCircles>
           <OrbitingCircles
             className="border-none bg-transparent"
-            duration={35}
-            delay={60}
-            radius={getDynamicRadius(80)}
+            duration={33}
+            delay={22}
+            radius={getDynamicRadius(80) > 295 ? 295 : getDynamicRadius(80)}
           >
             <Image
               src={docker}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="Docker"
             />
           </OrbitingCircles>
@@ -207,13 +206,13 @@ export default function TechStack() {
             className="border-none bg-transparent"
             duration={25}
             delay={0}
-            radius={getDynamicRadius(150)}
+            radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
           >
             <Image
               src={jsIcon as string}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="JavaScript"
             />
           </OrbitingCircles>
@@ -221,13 +220,13 @@ export default function TechStack() {
             className="border-none bg-transparent"
             duration={25}
             delay={15}
-            radius={getDynamicRadius(150)}
+            radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
           >
             <Image
               src={tsIcon as string}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="TypeScript"
             />
           </OrbitingCircles>
@@ -235,13 +234,13 @@ export default function TechStack() {
             className="border-none bg-transparent"
             duration={25}
             delay={30}
-            radius={getDynamicRadius(150)}
+            radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
           >
             <Image
               src={nextAuth.src}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="NextAuth.js"
             />
           </OrbitingCircles>
@@ -249,13 +248,13 @@ export default function TechStack() {
             className="border-none bg-transparent"
             duration={25}
             delay={45}
-            radius={getDynamicRadius(150)}
+            radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
           >
             <Image
               src={vscode.src}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="VS Code"
             />
           </OrbitingCircles>
@@ -263,13 +262,13 @@ export default function TechStack() {
             className="border-none bg-transparent"
             duration={25}
             delay={60}
-            radius={getDynamicRadius(150)}
+            radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
           >
             <Image
               src={graphqlIcon as string}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="GraphQL"
             />
           </OrbitingCircles>
@@ -279,13 +278,13 @@ export default function TechStack() {
             className="border-none bg-transparent"
             duration={20}
             delay={0}
-            radius={getDynamicRadius(220)}
+            radius={getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)}
           >
             <Image
               src={ps as string}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="PostgreSQL"
             />
           </OrbitingCircles>
@@ -293,13 +292,13 @@ export default function TechStack() {
             className="border-none bg-transparent"
             duration={20}
             delay={15}
-            radius={getDynamicRadius(220)}
+            radius={getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)}
           >
             <Image
               src={next}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="Next.js"
             />
           </OrbitingCircles>
@@ -307,13 +306,13 @@ export default function TechStack() {
             className="border-none bg-transparent"
             duration={20}
             delay={30}
-            radius={getDynamicRadius(220)}
+            radius={getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)}
           >
             <Image
               src={prisma}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="Prisma"
             />
           </OrbitingCircles>
@@ -321,13 +320,13 @@ export default function TechStack() {
             className="border-none bg-transparent"
             duration={20}
             delay={45}
-            radius={getDynamicRadius(220)}
+            radius={getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)}
           >
             <Image
               src={github}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="GitHub"
             />
           </OrbitingCircles>
@@ -335,13 +334,13 @@ export default function TechStack() {
             className="border-none bg-transparent"
             duration={20}
             delay={60}
-            radius={getDynamicRadius(220)}
+            radius={getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)}
           >
             <Image
               src={go as string}
-              width={getDynamicSize(40)}
-              height={getDynamicSize(40)}
-              className="overflow-hidden rounded-full object-cover"
+              width={30}
+              height={30}
+              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="Go"
             />
           </OrbitingCircles>
