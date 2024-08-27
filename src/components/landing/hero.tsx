@@ -26,7 +26,7 @@ function Hero() {
       <div className="relative -translate-y-[12vh] space-y-6 md:space-y-9 xl:space-y-12">
         <div ref={textContainerRef} className="w-full">
           <AnimatedShinyText
-            className="inline-flex w-full items-center justify-center  px-4 py-1 font-title text-5xl [text-shadow:_0_0_10px_#ffd70066] dark:text-[#ffb222a5] sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl"
+            className="inline-flex w-full items-center justify-center  px-4 py-1 font-title text-5xl brightness-[1.15] [text-shadow:_0_0_10px_#ffd70066] dark:text-[#ffb222a5] sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl"
             shimmerWidth={shimmerWidth}
           >
             <span>FINITE LOOP CLUB</span>
