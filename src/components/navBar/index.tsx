@@ -16,7 +16,7 @@ const Navbar: FunctionComponent = ({}) => {
 
   return (
     // NOTE: If h or py changes, update in <Layout/> as well
-    <nav className="fixed top-0 z-[80] flex w-full items-center justify-center border-0  border-black px-8  py-4 backdrop-blur-lg backdrop-filter dark:border-white">
+    <nav className="fixed top-0 z-[80] flex w-full items-center justify-center border-0 px-8  py-4 backdrop-blur-lg backdrop-filter">
       <Link href="/" className="flex cursor-pointer items-center gap-3">
         <div className="relative size-12">
           <Image src="/assets/images/flc_logo_crop.png" alt="Logo" fill />
@@ -26,7 +26,7 @@ const Navbar: FunctionComponent = ({}) => {
         </p>
       </Link>
       <div className="ml-auto flex items-center gap-4 sm:gap-6 ">
-        <div className="hidden gap-4 md:gap-6 sm:flex">
+        <div className="hidden gap-4 sm:flex md:gap-6">
           {userNavItems.map((link) => (
             <Link
               key={link.link}
