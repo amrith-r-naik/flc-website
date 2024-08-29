@@ -7,6 +7,7 @@ import { Button } from "~/components/ui/button";
 
 import AvatarIcon from "../avatar";
 import DropDown from "../dropdown";
+import ShimmerButton from "../magicui/shimmer-button";
 
 const AuthButton: FunctionComponent<{ inDashboard?: boolean }> = ({
   inDashboard = false,
@@ -40,11 +41,16 @@ const AuthButton: FunctionComponent<{ inDashboard?: boolean }> = ({
           </Link>
         </>
       ) : (
-        <Button asChild size="sm">
-          <Link href="/login">
-            <LogIn size={18} className="mr-2" /> Login
+        // <Button asChild size="sm">
+        <Button size={"sm"}>
+          <Link
+            href="/login"
+            className="flex items-center justify-center gap-2 text-white"
+          >
+            <LogIn size={18} className="" /> Login
           </Link>
         </Button>
+        // </Button>
       )}
     </div>
   );
