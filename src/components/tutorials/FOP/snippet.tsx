@@ -75,7 +75,7 @@ export default function Snippet({ code }: { code?: string }) {
         <div className="m-auto">
           <Editor
             height="50vh"
-            className="align-center  rounded-md sm:w-full md:w-[90%]"
+            className="align-center rounded-md sm:w-full md:w-[90%]"
             onChange={handleEditorChange}
             defaultLanguage="html"
             width="full"

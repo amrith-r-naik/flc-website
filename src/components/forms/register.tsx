@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type inferProcedureOutput } from "@trpc/server";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
@@ -40,7 +41,7 @@ const RegisterForm: FunctionComponent<{
 }> = ({ className }) => {
   const { data: user } = api.user.getUser.useQuery();
   if (!user) return null;
-  if (user.memberSince) return <AlreadyMember user={user} />;
+  if (user.memberSince && user.paymentId) return <AlreadyMember user={user} />;
   return <InnerRegisterForm className={className} user={user} />;
 };
 
@@ -345,11 +346,17 @@ const InnerRegisterForm: FunctionComponent<{
           )}
         />
 
-        <div className="flex justify-center">
+        <div className="flex justify-between">
           <Button
-            className="bg-yellow-300 hover:bg-yellow-300"
+            className="bg-red-500 text-white hover:bg-red-600"
             type="submit"
-            disabled={!form.getValues("paymentId")}
+            asChild
+          >
+            <Link href="/profile">Not interested</Link>
+          </Button>
+          <Button
+            className="bg-green-500 text-white hover:bg-green-600"
+            type="submit"
           >
             Register
           </Button>

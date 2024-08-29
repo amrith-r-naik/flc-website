@@ -5,40 +5,29 @@ const createOrderZ = z.discriminatedUnion("paymentType", [
   z.object({
     paymentType: z.literal(PaymentType.EVENT),
     amountInINR: z.number(),
+    teamId: z.string(),
   }),
   z.object({
     paymentType: z.literal(PaymentType.MEMBERSHIP),
   }),
 ]);
 
-const createOrderOutputZ = z.object({
-  orderId: z.string(),
-  orderAmount: z.number(),
-  orderCurrency: z.string(),
-});
-
-const __baseSavePaymentZ = z.object({
+const __baseVerifyAndSavePaymentZ = z.object({
   paymentName: z.string(),
   razorpayOrderId: z.string(),
   razorpayPaymentId: z.string(),
   razorpaySignature: z.string(),
 });
 
-const savePaymentZ = z.discriminatedUnion("paymentType", [
-  __baseSavePaymentZ.extend({
+const verifyAndSavePaymentZ = z.discriminatedUnion("paymentType", [
+  __baseVerifyAndSavePaymentZ.extend({
     paymentType: z.literal(PaymentType.EVENT),
     amount: z.number(),
     teamId: z.string(),
   }),
-  __baseSavePaymentZ.extend({
+  __baseVerifyAndSavePaymentZ.extend({
     paymentType: z.literal(PaymentType.MEMBERSHIP),
   }),
 ]);
 
-const savePaymentOutputZ = z.object({
-  paymentVerified: z.boolean(),
-  paymentDbId: z.string(),
-  paymentRazopayId: z.string(),
-});
-
-export { createOrderZ, createOrderOutputZ, savePaymentZ, savePaymentOutputZ };
+export { createOrderZ, verifyAndSavePaymentZ };

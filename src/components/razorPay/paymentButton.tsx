@@ -41,8 +41,9 @@ const PaymentButton = forwardRef<
     ref,
   ) => {
     const { data: session } = useSession();
+
     const createOrder = api.payment.createOrder.useMutation();
-    const savePayment = api.payment.savePayment.useMutation();
+    const verifyAndSavePayment = api.payment.verifyAndSavePayment.useMutation();
 
     if (!session) return null;
 
@@ -62,6 +63,7 @@ const PaymentButton = forwardRef<
                 : {
                     paymentType: paymentType,
                     amountInINR: amountInINR,
+                    teamId: teamId,
                   },
             );
             toast.dismiss();
@@ -88,7 +90,7 @@ const PaymentButton = forwardRef<
               },
               handler: async (response) => {
                 toast.loading("Saving payment details...");
-                const payment = await savePayment.mutateAsync(
+                const payment = await verifyAndSavePayment.mutateAsync(
                   paymentType === "MEMBERSHIP"
                     ? {
                         paymentType: paymentType,

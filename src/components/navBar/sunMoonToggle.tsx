@@ -8,6 +8,8 @@ const SunMoonToggle: FunctionComponent = () => {
     theme === "light" || (theme === "system" && systemTheme === "light"),
   );
 
+  return null;
+
   return (
     <div>
       <div

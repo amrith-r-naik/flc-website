@@ -4,7 +4,7 @@ const Shipping: FC = () => {
   return (
     <>
       <div>
-        <header className="py-4  shadow-md ">
+        <header className="py-4 shadow-md ">
           <div className="container mx-auto px-4">
             <h1 className="text-center text-3xl font-bold">
               INSPIRANTE TECHNOLOGIES PRIVATE LIMITED

@@ -3,8 +3,11 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { type FunctionComponent } from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
+
+import AvatarIcon from "../avatar";
+import DropDown from "../dropdown";
+import ShimmerButton from "../magicui/shimmer-button";
 
 const AuthButton: FunctionComponent<{ inDashboard?: boolean }> = ({
   inDashboard = false,
@@ -12,32 +15,42 @@ const AuthButton: FunctionComponent<{ inDashboard?: boolean }> = ({
   const { data: session } = useSession();
 
   return (
-    <div className="hidden gap-3 md:flex">
-      {!inDashboard && session?.user.role === "ADMIN" && (
-        <Button asChild>
+    <div className="hidden gap-2 sm:flex">
+      <div className="sm:flex md:flex">
+        {/* {!inDashboard && session?.user.role === "ADMIN" && (
+        <Button asChild size='sm'>
           <Link href="/dashboard/admin">Dashboard</Link>
         </Button>
       )}
       {!inDashboard && session?.user.role === "ORGANISER" && (
-        <Button asChild>
+        <Button asChild size='sm'>
           <Link href="/dashboard/organiser">Dashboard</Link>
         </Button>
-      )}
+      )} */}
+      </div>
       {session ? (
-        <Link href="/profile">
-          <Avatar>
-            <AvatarImage
-              src={session.user.image ?? "https://github.com/shadcn.png"}
+        <>
+          <Link href="/profile">
+            <DropDown
+              trigger={
+                <AvatarIcon
+                  src={session.user?.image ?? "https://github.com/shadcn.png"}
+                />
+              }
             />
-            <AvatarFallback>PP</AvatarFallback>
-          </Avatar>
-        </Link>
+          </Link>
+        </>
       ) : (
-        <Button asChild>
-          <Link href="/login">
-            <LogIn size={18} className="mr-2" /> Login
+        // <Button asChild size="sm">
+        <Button size={"sm"}>
+          <Link
+            href="/login"
+            className="flex items-center justify-center gap-2 text-white"
+          >
+            <LogIn size={18} className="" /> Login
           </Link>
         </Button>
+        // </Button>
       )}
     </div>
   );

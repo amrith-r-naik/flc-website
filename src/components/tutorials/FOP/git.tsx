@@ -50,7 +50,7 @@ export default function Git() {
             </li>
             <li>Fill the basic details and ur repo will be ready</li>
           </p>
-          <div className="image-placeholder my-3 flex  h-[500px] w-full items-center justify-center bg-slate-400">
+          <div className="image-placeholder my-3 flex h-[500px] w-full items-center justify-center bg-slate-400">
             <TutorialCarasoul images={images1} />
             {/* <img src={image1} alt="" className="w-24 " /> */}
           </div>
@@ -103,7 +103,7 @@ export default function Git() {
           </div>
         </div>
         <div className="Note p-3">
-          <div className="text-red-800  ">Note</div>
+          <div className="text-red-800 ">Note</div>
 
           <div className="text ml-3 rounded-md bg-slate-300 p-2 ">
             When it comes to version controls(i.e git hub here) consider the

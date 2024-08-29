@@ -31,18 +31,18 @@ export default function AddGallery() {
 
   // Commented out the functions
   // const handleImageUpload = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     setSelectedImage(URL.createObjectURL(file));
-  //   }
+  //  const file = e.target.files[0];
+  //  if (file) {
+  //   setSelectedImage(URL.createObjectURL(file));
+  //  }
   // };
 
   // const handleAddImage = () => {
-  //   if (title && selectedImage) {
-  //     setImages([...images, { title, src: selectedImage }]);
-  //     setTitle("");
-  //     setSelectedImage(null);
-  //   }
+  //  if (title && selectedImage) {
+  //   setImages([...images, { title, src: selectedImage }]);
+  //   setTitle("");
+  //   setSelectedImage(null);
+  //  }
   // };
 
   const handleDeleteImage = (index: number) => {

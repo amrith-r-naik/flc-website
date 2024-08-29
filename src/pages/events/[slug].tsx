@@ -65,7 +65,7 @@ const EventsSlug: NextPage = () => {
           </div>
         </div>
         <div className="w-full space-y-4 p-8 md:w-3/5">
-          <p className="events-heading text-5xl  font-bold md:text-6xl">
+          <p className="events-heading text-5xl font-bold md:text-6xl">
             {event?.name}{" "}
           </p>
 
@@ -120,7 +120,7 @@ const EventsSlug: NextPage = () => {
         />
       </section>
 
-      <section className="intro-card relative mx-auto flex  w-full flex-col gap-4 overflow-hidden rounded-2xl border border-border bg-accent p-8 sm:flex-row">
+      <section className="intro-card relative mx-auto flex w-full flex-col gap-4 overflow-hidden rounded-2xl border border-border bg-accent p-8 sm:flex-row">
         <div className="space-y-4 " style={{ flex: 2 }}>
           <h1 className="text-3xl font-bold ">Description</h1>
           <p

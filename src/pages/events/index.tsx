@@ -27,7 +27,7 @@ function Events() {
   });
 
   return (
-    <div className="relative bottom-0 top-0 min-h-screen  pb-2 font-sans">
+    <div className="relative bottom-0 top-0 min-h-screen pb-2 font-sans">
       <div className="event-bg"></div>
       <div className="line-break"></div>
       <div className="h-full w-full text-white">
@@ -40,7 +40,7 @@ function Events() {
             <li
               key={year}
               onClick={() => handleYearClick(year)}
-              className={`cursor-pointer  ${year === selectedYear ? "border-b-2 border-white p-1 text-white" : "events-heading"}`}
+              className={`cursor-pointer ${year === selectedYear ? "border-b-2 border-white p-1 text-white" : "events-heading"}`}
             >
               {year}
             </li>

@@ -3,37 +3,53 @@ import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { razorPay } from "~/server/razorpay";
 
 import { env } from "~/env";
-import { createOrderZ, createOrderOutputZ, savePaymentZ } from "~/zod/paymentZ";
-
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createOrderZ, verifyAndSavePaymentZ } from "~/zod/paymentZ";
 
 const paymentRouter = createTRPCRouter({
   createOrder: protectedProcedure
     .input(createOrderZ)
-    .mutation(async ({ input }) => {
-      // if (input.paymentType === "MEMBERSHIP") {
-      //   const user = await ctx.db.user.findUnique({
-      //     where: {
-      //       id: ctx.session.user.id,
-      //     },
-      //   });
+    .mutation(async ({ ctx, input }) => {
+      if (input.paymentType === "MEMBERSHIP") {
+        const user = await ctx.db.user.findUnique({
+          where: {
+            id: ctx.session.user.id,
+          },
+        });
 
-      //   if (!user)
-      //     throw new TRPCError({
-      //       code: "NOT_FOUND",
-      //       message: "User not found",
-      //     });
+        if (!user)
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "User not found",
+          });
 
-      //   if (user.paymentId)
-      //     throw new TRPCError({
-      //       code: "BAD_REQUEST",
-      //       message: "Already paid for membership",
-      //     });
-      // } else {
-      // }
+        if (user.paymentId)
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Already paid for membership",
+          });
+      } else {
+        const team = await ctx.db.team.findUnique({
+          where: {
+            id: input.teamId,
+          },
+        });
+
+        if (!team)
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Team not found",
+          });
+
+        if (team.paymentId)
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Team has already paid for event",
+          });
+      }
 
       const AMOUNT_IN_INR =
         input.paymentType === "EVENT" ? input.amountInINR : 400;
@@ -41,30 +57,29 @@ const paymentRouter = createTRPCRouter({
       const RECEIPT = input.paymentType.charAt(0) + "_" + uuidv4();
       const PAYMENT_CAPTURE = true;
 
-      const orderRes = await razorPay.orders.create({
-        amount: AMOUNT_IN_INR * 100,
-        currency: CURRENCY,
-        receipt: RECEIPT,
-        payment_capture: PAYMENT_CAPTURE,
-      });
-
-      const { success: orderSuccess, data: orderData } =
-        createOrderOutputZ.safeParse({
-          orderId: orderRes.id,
-          orderAmount: orderRes.amount,
-          orderCurrency: orderRes.currency,
+      try {
+        const orderRes = await razorPay.orders.create({
+          amount: AMOUNT_IN_INR * 100,
+          currency: CURRENCY,
+          receipt: RECEIPT,
+          payment_capture: PAYMENT_CAPTURE,
         });
-      if (!orderSuccess)
+
+        return {
+          orderId: orderRes.id,
+          orderAmount: AMOUNT_IN_INR,
+          orderCurrency: orderRes.currency,
+        };
+      } catch {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
-          message: "Something went wrong",
+          message: "Failed to create order",
         });
-
-      return orderData;
+      }
     }),
 
-  savePayment: protectedProcedure
-    .input(savePaymentZ)
+  verifyAndSavePayment: protectedProcedure
+    .input(verifyAndSavePaymentZ)
     .mutation(async ({ ctx, input }) => {
       const generatedSignature = crypto
         .createHmac("sha256", env.RAZORPAY_API_KEY_ID)

@@ -85,7 +85,7 @@ async function sendEmailWithAttachment(
     });
 
     const emailText = `Hi ${participantName},
-        
+
 Thank you for your participation in ${eventName}.
 
 Please find your ${certificateType === "Participation" ? "participation" : "winner"} certificate attached herewith.

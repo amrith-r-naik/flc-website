@@ -65,6 +65,7 @@ const InnerEditUserForm: FunctionComponent<{
     defaultValues: {
       id: user.id,
       name: user.name,
+      email: user.email,
       bio: user.bio ?? "",
       phone: user.phone,
     },
@@ -76,6 +77,7 @@ const InnerEditUserForm: FunctionComponent<{
       {
         id: values.id,
         name: values.name,
+        email: values.email,
         bio: values.bio,
         phone: values.phone,
       },
@@ -105,7 +107,10 @@ const InnerEditUserForm: FunctionComponent<{
       }}
     >
       <DialogDrawerTrigger asChild>
-        <Button className={cn(className, "relative bg-white")}>
+        <Button
+          variant={"ghost"}
+          className={cn(className, "relative inline px-2")}
+        >
           {children}
         </Button>
       </DialogDrawerTrigger>
@@ -127,6 +132,19 @@ const InnerEditUserForm: FunctionComponent<{
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="Name" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Email" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
