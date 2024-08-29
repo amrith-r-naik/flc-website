@@ -1,7 +1,7 @@
 import { PaymentType } from "@prisma/client";
 import { z } from "zod";
 
-const createOrderInputZ = z.discriminatedUnion("paymentType", [
+const createOrderZ = z.discriminatedUnion("paymentType", [
   z.object({
     paymentType: z.literal(PaymentType.EVENT),
     amountInINR: z.number(),
@@ -17,19 +17,20 @@ const createOrderOutputZ = z.object({
   orderCurrency: z.string(),
 });
 
-const __baseSavePaymentInputZ = z.object({
+const __baseSavePaymentZ = z.object({
   paymentName: z.string(),
   razorpayOrderId: z.string(),
   razorpayPaymentId: z.string(),
   razorpaySignature: z.string(),
 });
 
-const savePaymentInputZ = z.discriminatedUnion("paymentType", [
-  __baseSavePaymentInputZ.extend({
+const savePaymentZ = z.discriminatedUnion("paymentType", [
+  __baseSavePaymentZ.extend({
     paymentType: z.literal(PaymentType.EVENT),
     amount: z.number(),
+    teamId: z.string(),
   }),
-  __baseSavePaymentInputZ.extend({
+  __baseSavePaymentZ.extend({
     paymentType: z.literal(PaymentType.MEMBERSHIP),
   }),
 ]);
@@ -40,9 +41,4 @@ const savePaymentOutputZ = z.object({
   paymentRazopayId: z.string(),
 });
 
-export {
-  createOrderInputZ,
-  createOrderOutputZ,
-  savePaymentInputZ,
-  savePaymentOutputZ,
-};
+export { createOrderZ, createOrderOutputZ, savePaymentZ, savePaymentOutputZ };

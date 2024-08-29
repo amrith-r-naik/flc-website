@@ -22,7 +22,7 @@ export function Benifits() {
       </p>
       <div className="mb-16 mt-4 flex items-center justify-center sm:mb-24">
         <h1 className="events-heading z-10  py-2 pt-14 text-7xl font-semibold sm:py-2 xl:text-8xl">
-          Benefits.
+          Benefits
         </h1>
       </div>
       <div className="z-1 grid h-full w-full grid-cols-2  grid-rows-10  gap-4 sm:grid-cols-4 sm:grid-rows-5 lg:grid-cols-5 lg:grid-rows-4 ">

@@ -111,8 +111,7 @@ const InnerRegisterForm: FunctionComponent<{
       expectations: "",
       contribution: "",
       paymentId:
-        user.Payment.find((payment) => payment.paymentType === "MEMBERSHIP")
-          ?.id ?? "",
+        user.Payment?.paymentType === "MEMBERSHIP" ? user.Payment.id : "",
     },
   });
 
@@ -347,7 +346,11 @@ const InnerRegisterForm: FunctionComponent<{
         />
 
         <div className="flex justify-center">
-          <Button className="bg-yellow-300 hover:bg-yellow-300" type="submit">
+          <Button
+            className="bg-yellow-300 hover:bg-yellow-300"
+            type="submit"
+            disabled={!form.getValues("paymentId")}
+          >
             Register
           </Button>
         </div>

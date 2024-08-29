@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
-import AboutUs from "~/components/landing/aboutFLC";
 
+import AboutUs from "~/components/landing/aboutFLC";
 import Benifits from "~/components/landing/benifits";
 import Events from "~/components/landing/event";
 import Hackfest from "~/components/landing/hackfest";
@@ -27,11 +27,11 @@ export default function Home() {
         )}
       />
       <Hero />
-      <AboutUs/>
+      <AboutUs />
       <Events />
-      <Projects/>
-      <Roadmap/>
-      <Hackfest/>
+      {/* <Projects/> */}
+      {/* <Roadmap/> */}
+      <Hackfest />
       <TechStack />
       <Benifits />
     </main>

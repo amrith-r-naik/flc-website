@@ -84,6 +84,25 @@ const feedbackAnswerZ = z.object({
   answer: z.number().positive().or(z.string()),
 });
 
+const facultyZ = z.object({
+  name: z.string(),
+  position: z.string(),
+  image: z.string(),
+  linkedin: z.string(),
+  instagram: z.string(),
+  github: z.string(),
+});
+
+const officeBearerZ = z.object({
+  name: z.string(),
+  position: z.string(),
+  image: z.string(),
+  linkedin: z.string().optional(),
+  instagram: z.string().optional(),
+  github: z.string().optional(),
+  year: z.number().int(),
+});
+
 export {
   QuestionType,
   galleryZ,
@@ -92,4 +111,6 @@ export {
   feedbackQuestionZ,
   feedbackAnswerZ,
   blogImagesZ,
+  facultyZ,
+  officeBearerZ,
 };

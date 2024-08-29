@@ -1,9 +1,10 @@
-import activityPointsRouter from "~/server/api/routers/activitypoints";
+import activityPointsRouter from "~/server/api/routers/activityPoints";
 import attendanceRouter from "~/server/api/routers/attendance";
 import authRouter from "~/server/api/routers/auth";
 import blogRouter from "~/server/api/routers/blog";
 import branchRouter from "~/server/api/routers/branch";
 import certificateRouter from "~/server/api/routers/certificate";
+import coreRouter from "~/server/api/routers/core";
 import eventRouter from "~/server/api/routers/event";
 import feedbackRouter from "~/server/api/routers/feedback";
 import organiserRouter from "~/server/api/routers/organiser";
@@ -20,20 +21,21 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
+  activitypoints: activityPointsRouter,
+  attendance: attendanceRouter,
+  auth: authRouter,
+  blog: blogRouter,
+  branch: branchRouter,
+  certificate: certificateRouter,
+  core: coreRouter,
   event: eventRouter,
   feedback: feedbackRouter,
-  attendance: attendanceRouter,
-  team: teamRouter,
-  auth: authRouter,
-  winner: winnerRouter,
-  certificate: certificateRouter,
-  activitypoints: activityPointsRouter,
   organiser: organiserRouter,
-  branch: branchRouter,
   payment: paymentRouter,
   quiz: quizRouter,
-  blog: blogRouter,
+  team: teamRouter,
   user: userRouter,
+  winner: winnerRouter,
 });
 
 // export type definition of API

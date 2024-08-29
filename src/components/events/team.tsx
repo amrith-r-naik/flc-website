@@ -11,18 +11,21 @@ import {
   DialogDescription,
   DialogClose,
 } from "~/components/ui/dialog";
-import { Input } from "~/components/ui/input";
 
 import Payment from "~/components/razorPay/paymentButton";
 import CopyBtn from "~/components/utils/copyBtn";
 import { api } from "~/utils/api";
 
+import CreateTeam from "./createTeam";
+import JoinTeam from "./joinTeam";
+
 const TeamDialog: FunctionComponent<{
-  amount: number;
+  flcAmount: number;
+  nonFlcAmount: number;
   eventId: number;
   maxTeamSize: number;
   eventName: string;
-}> = ({ eventId, maxTeamSize, amount, eventName }) => {
+}> = ({ eventId, maxTeamSize, flcAmount, nonFlcAmount, eventName }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const [isCreatingTeam, setIsCreatingTeam] = useState(false);
@@ -30,9 +33,9 @@ const TeamDialog: FunctionComponent<{
   const [teamId, setTeamId] = useState<string | null>(null);
   const [isTeamLeader, setIsTeamLeader] = useState(false);
   const [teamConfirmed, setTeamConfirmed] = useState(false);
-  const [teamName, setTeamName] = useState("");
   const [flcMembersCount, setFlcMembersCount] = useState(0);
   const [nonFlcMembersCount, setNonFlcMembersCount] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [paymentId, setPaymentId] = useState<string | null>(null);
   const [inATeam, setInATeam] = useState(false);
 
@@ -40,8 +43,7 @@ const TeamDialog: FunctionComponent<{
     api.payment.checkEventPayment.useQuery(
       { eventName, paymentId: paymentId ?? "" },
       {
-        refetchOnMount: "always",
-        refetchOnReconnect: "always",
+        enabled: !!paymentId,
       },
     );
 
@@ -60,6 +62,7 @@ const TeamDialog: FunctionComponent<{
 
   useEffect(() => {
     if (!teamData) return;
+    if (teamData.isConfirmed) setTeamConfirmed(true);
     setIsTeamLeader(teamData?.isLeader);
     setTeamId(teamData.id);
     setInATeam(true);
@@ -67,43 +70,43 @@ const TeamDialog: FunctionComponent<{
 
   useEffect(() => {
     if (teamData && isTeamLeader) {
-      const flcMembersCount = teamData?.Members?.filter(
-        (member) => member.memberSince !== null,
-      ).length;
-      const nonFlcMembersCount = teamData?.Members?.filter(
-        (member) => member.memberSince === null,
-      ).length;
-      const amountToPay =
-        flcMembersCount * amount + nonFlcMembersCount * amount;
+      if (!teamData.isConfirmed) {
+        const flcMembersCount = teamData?.Members?.filter(
+          (member) => member.memberSince !== null,
+        ).length;
+        const nonFlcMembersCount = teamData?.Members?.filter(
+          (member) => member.memberSince === null,
+        ).length;
+        const amountToPay =
+          flcMembersCount * flcAmount + nonFlcMembersCount * nonFlcAmount;
+        setFlcMembersCount(flcMembersCount);
+        setNonFlcMembersCount(nonFlcMembersCount);
+        setAmount(amountToPay);
+      }
     }
   }, [isTeamLeader]);
 
-  // useEffect(() => {
-  //   if (!teamData && paymentStatus) toast.success("You can register now!");
-  // }, [paymentStatus]);
-
-  const handleConfirmTeam = () => {
-    if (teamData?.id) {
-      const flcMembersCount = teamData?.Members?.filter(
-        (member) => member.memberSince !== null,
-      ).length;
-      const nonFlcMembersCount = teamData?.Members?.filter(
-        (member) => member.memberSince === null,
-      ).length;
-      const amountToPay =
-        flcMembersCount * amount + nonFlcMembersCount * amount;
-
-      confirmTeam.mutate(
-        { teamId: teamData?.id },
-        {
-          onSuccess: () => {
-            toast.success("Team Confirmed");
-            setTeamConfirmed(true);
-          },
-        },
-      );
+  useEffect(() => {
+    if (paymentId) {
+      void refetchPaymentStatus();
     }
-  };
+  }, [paymentId]);
+
+  useEffect(() => {
+    if (paymentStatus) {
+      if (teamData?.id) {
+        confirmTeam.mutate(
+          { teamId: teamData.id },
+          {
+            onSuccess: () => {
+              toast.success("Team Confirmed");
+              setTeamConfirmed(true);
+            },
+          },
+        );
+      }
+    }
+  }, [paymentStatus]);
 
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
@@ -115,17 +118,16 @@ const TeamDialog: FunctionComponent<{
 
       {/* {!paymentStatus && (
         <Payment
-        paymentType={"EVENT"}
-        amountInINR={amount}
-        description="Event Registration"
-        onFailure={() => {
-          toast.error("Payment failed");
-        } }
-        name={eventName}
-        onSuccess={(paymentId: string) => {
-          refetchPaymentStatus({paymentId: paymentId});
-        }
-        }
+          paymentType="EVENT"
+          amountInINR={amount}
+          teamId={""}
+          description="Event Registration"
+          onSuccess={() => {
+            void refetchPaymentStatus();
+          }}
+          onFailure={() => {
+            toast.error("Payment failed!");
+          }}
         />
       )} */}
       {/* 
@@ -169,89 +171,25 @@ const TeamDialog: FunctionComponent<{
               )}
 
               {isCreatingTeam && !isJoiningTeam && (
-                <div className="mt-4">
-                  <Input
-                    placeholder="Enter Team Name"
-                    value={teamName}
-                    onChange={(e) => setTeamName(e.target.value)}
-                    className="card-attributes"
-                  />
-                  <div className="flex justify-between">
-                    <button
-                      className="card-button mt-4 text-xs"
-                      style={{ padding: "0.1rem 0.5rem" }}
-                      onClick={() => {
-                        toast.loading("Creating team...");
-                        createTeam.mutate(
-                          { eventId: eventId, teamName: teamName },
-                          {
-                            onSuccess: () => {
-                              void refetchTeamData();
-                              toast.dismiss();
-                              toast.success("Team successfully created");
-                            },
-                            onError: ({ message }) => {
-                              toast.dismiss();
-                              toast.error(message);
-                            },
-                          },
-                        );
-                      }}
-                    >
-                      Create
-                    </button>
-                    <button
-                      onClick={() => setIsCreatingTeam(false)}
-                      className="card-button mt-4 text-xs"
-                      style={{ padding: "0.1rem 0.5rem" }}
-                    >
-                      Go Back
-                    </button>
-                  </div>
-                </div>
+                <CreateTeam
+                  eventId={eventId}
+                  onTeamCreate={() => {
+                    void refetchTeamData();
+                    setIsCreatingTeam(false);
+                  }}
+                  onGoBack={() => setIsCreatingTeam(false)}
+                />
               )}
 
               {isJoiningTeam && !isCreatingTeam && (
-                <div className="mt-4">
-                  <Input
-                    placeholder="Enter Team ID"
-                    className="card-attributes"
-                    value={teamId ?? ""}
-                    onChange={(e) => setTeamId(e.target.value)}
-                  />
-                  <div className="flex justify-between">
-                    <button
-                      className="card-button mt-4 text-xs"
-                      style={{ padding: "0.1rem 0.5rem" }}
-                      onClick={() => {
-                        if (teamId) {
-                          joinTeam.mutate(
-                            { eventId, teamId },
-                            {
-                              onSuccess: () => {
-                                void refetchTeamData();
-                              },
-                              onError: (error) => {
-                                throw error.message;
-                              },
-                            },
-                          );
-                        } else {
-                          toast.error("Please enter a valid team ID.");
-                        }
-                      }}
-                    >
-                      Join
-                    </button>
-                    <button
-                      onClick={() => setIsJoiningTeam(false)}
-                      className="card-button mt-4 text-xs"
-                      style={{ padding: "0.1rem 0.5rem" }}
-                    >
-                      Go Back
-                    </button>
-                  </div>
-                </div>
+                <JoinTeam
+                  eventId={eventId}
+                  onGoBack={() => setIsJoiningTeam(false)}
+                  onJoinTeam={() => {
+                    void refetchTeamData();
+                    setIsJoiningTeam(false);
+                  }}
+                />
               )}
             </div>
           </>
@@ -303,7 +241,7 @@ const TeamDialog: FunctionComponent<{
                         }}
                         className="z-30"
                       >
-                        <p className="rounded-lg border px-1 text-xs text-white hover:bg-red-600">
+                        <p className="rounded-full border px-2 py-1 text-xs text-white hover:bg-red-600 ">
                           Remove
                         </p>
                       </button>
@@ -352,21 +290,46 @@ const TeamDialog: FunctionComponent<{
                   only when all the team members have joined. You won&apos;t be
                   able to add or delete more members after.
                 </p>
-                <Payment
-                  paymentType={"EVENT"}
-                  amountInINR={amount}
-                  description="Event Registration"
-                  onFailure={() => {
-                    toast.error("Payment failed");
-                  }}
-                  name={eventName}
-                  onSuccess={(paymentId: string) => {
-                    refetchPaymentStatus();
-                  }}
-                />
-                <Button className="card-button " onClick={() => {}}>
-                  Confirm Team
-                </Button>
+                {!teamConfirmed &&
+                  ((!nonFlcMembersCount && !flcAmount) ||
+                    (!nonFlcAmount && !flcAmount) ||
+                    (!nonFlcAmount && !flcMembersCount)) && (
+                    <Button
+                      className="card-button "
+                      onClick={() => {
+                        if (teamData.id) {
+                          confirmTeam.mutate(
+                            { teamId: teamData.id },
+                            {
+                              onSuccess: () => {
+                                toast.success("Team Confirmed");
+                                setTeamConfirmed(true);
+                              },
+                            },
+                          );
+                        }
+                      }}
+                    >
+                      Confirm Team
+                    </Button>
+                  )}
+                {!teamConfirmed &&
+                  ((nonFlcMembersCount && nonFlcAmount) ||
+                    (flcAmount && flcMembersCount) ||
+                    "") && (
+                    <Payment
+                      paymentType="EVENT"
+                      amountInINR={amount}
+                      teamId={teamData.id}
+                      description={eventName}
+                      onSuccess={(paymentId: string) => {
+                        setPaymentId(paymentId);
+                      }}
+                      onFailure={() => {
+                        toast.error("Payment failed!");
+                      }}
+                    />
+                  )}
               </div>
             )}
           </>
