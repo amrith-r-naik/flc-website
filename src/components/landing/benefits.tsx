@@ -16,7 +16,7 @@ const Benefits: NextPage = () => {
       <p
         className=" absolute bottom-auto left-1/2 right-0 top-28 w-max -translate-x-1/2 px-2 text-center text-[2rem] text-transparent sm:top-24 md:top-14 md:block md:text-[5.25rem] lg:visible lg:text-8xl xl:text-9xl"
         style={{
-          WebkitTextStroke: "3px #201E43",
+          WebkitTextStroke: "1.5px #201E43",
         }}
       >
         What is in it for you?
@@ -184,7 +184,7 @@ const Benefits: NextPage = () => {
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
             />
             <div className="grid-card-content">
-              <p> HackLoop & HackExpo</p>
+              <p> HackLoop & Hackxpo</p>
             </div>
           </div>
         </FadeIn>
