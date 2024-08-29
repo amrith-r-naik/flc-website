@@ -185,7 +185,7 @@ export function Benifits() {
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
             />
             <div className="grid-card-content">
-              <p> HackLoop & HackExpo</p>
+              <p> HackLoop & HackXpo</p>
             </div>
           </div>
         </FadeIn>

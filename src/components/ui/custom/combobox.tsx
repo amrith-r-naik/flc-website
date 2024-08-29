@@ -50,19 +50,17 @@ const ComboBox: React.FunctionComponent<Props> = ({
     <div ref={containerRef}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button
-            {...props}
-            variant="outline"
+          <button
             role="combobox"
             aria-expanded={open}
             className={cn(
-              "w-fit min-w-[200px] justify-between pr-2",
+              "flex h-full w-fit min-w-[200px] items-center justify-between rounded-md p-2 pr-2 text-sm",
               className,
             )}
           >
             {data.find((ele) => ele.id === value)?.name ?? placeholder}
             <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
-          </Button>
+          </button>
         </PopoverTrigger>
         <PopoverContent
           container={containerRef.current}
