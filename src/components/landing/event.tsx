@@ -54,7 +54,9 @@ function Events() {
         </div>
 
         <Button className="hoverable mx-auto hover:bg-white">
-          <Link href="/events">View All</Link>
+          <Link href="/events" className="text-white">
+            View All
+          </Link>
         </Button>
       </section>
     );
