@@ -26,11 +26,27 @@ export default function UploadForm({
   fetchImagesByPathOfFolder,
 }: UploadFormProps) {
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [preview, setPreview] = useState<string|null>(null);
 
+  const handleChange= async (event: React.FormEvent<HTMLFormElement>)=>{
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    
+    for (const entry of formData.entries()) {
+      const [,value] = entry;
+      if (value instanceof File) {
+        const previewUrl = URL.createObjectURL(value);
+        setPreview(previewUrl)
+        console.log(preview)
+      } 
+    }
+  }
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-
+    preview?URL.revokeObjectURL(preview):""  // free up memory 
+    setPreview(null)
+   
     // Append folderPath as a query parameter
     const queryString = new URLSearchParams({ folder: folderPath }).toString();
 
@@ -39,6 +55,7 @@ export default function UploadForm({
         method: "POST",
         body: formData,
       });
+
 
       const data = (await response.json()) as UploadApiResponse;
       if (response.ok) {
@@ -80,12 +97,26 @@ export default function UploadForm({
 
           <div className="content">
             <form
+              onChange={(e)=>handleChange(e)}
               onSubmit={(e) => {
                 void handleUpload(e);
                 fetchImagesByPathOfFolder(folderPath);
               }}
             >
-              <input type="file" name="file" accept="image/*" required />
+              <input type="file" name="file" accept="image/*" required  />
+              {preview && (
+                <div className="m-auto mt-6">
+                  <h2>Preview Image:</h2>
+                  <Image
+                    src={preview}
+                    className="m-auto"
+                    alt="Uploaded"
+                    width={500}
+                    height={500}
+                    style={{ maxWidth: "400px" }}
+                  />
+                </div>
+              )}
               {imageUrl && (
                 <div className="m-auto mt-6">
                   <h2>Uploaded Image:</h2>
@@ -110,7 +141,11 @@ export default function UploadForm({
 
               <DialogFooter className="mt-12">
                 <DialogClose asChild>
-                  <Button onClick={() => setImageUrl("")} variant="secondary">
+                  <Button onClick={() => {
+                    setImageUrl("")
+                    preview?URL.revokeObjectURL(preview):"" // free up memory
+                    setPreview(null)
+                  }} variant="secondary">
                     Cancel
                   </Button>
                 </DialogClose>

@@ -1,14 +1,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { v2 as cloudinary } from "cloudinary";
+
 import { IncomingForm } from "formidable";
 import type { NextApiRequest, NextApiResponse } from "next";
-
-cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-  api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
-});
-
+import {CLOUDINARY} from "./constant"
 export const config = {
   api: {
     bodyParser: false, // Disable the default body parser
@@ -39,8 +33,8 @@ export default async function handler(
     try {
       const folder = req.query.folder as string | undefined;
 
-      if (file) {
-        console.log("recieved");
+      if (!file) {
+        res.status(500).json({ error: "File was not recieved in backend" });
       }
 
       const paramsToSign = {
@@ -50,12 +44,12 @@ export default async function handler(
         timestamp: Math.floor(Date.now() / 1000),
       };
 
-      const signature = cloudinary.utils.api_sign_request(
+      const signature = CLOUDINARY.utils.api_sign_request(
         paramsToSign,
         process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET!,
       );
 
-      const uploadResult = await cloudinary.uploader.upload(file.filepath, {
+      const uploadResult = await CLOUDINARY.uploader.upload(file.filepath, {
         folder: folder != "/" ? folder : "",
         public_id: signature, //signed url now safe
         secure: true,
