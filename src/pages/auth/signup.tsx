@@ -7,8 +7,8 @@ import SignUpForm from "~/components/forms/signup";
 const SignUp: NextPage = () => {
   return (
     <>
-      <div className="radialgradient flex min-h-screen gap-10 ">
-        <div className="my-10 flex w-full flex-col items-center gap-8 sm:my-20 sm:gap-16 lg:mx-24 lg:flex-row">
+      <div className="bg-gradient-to-bl from-[#1e1333] via-[#0a001c] to-[#350236be] flex min-h-screen gap-10 ">
+        <div className="my-5 flex w-full flex-col items-center gap-8 sm:my-1 sm:mb-20 sm:gap-16 lg:mx-24 lg:flex-row">
           <div className="order-2 w-full flex-col md:w-4/5 lg:order-1 lg:w-1/2">
             <Image
               className="ml-2 h-auto w-full rounded-lg object-cover p-2 sm:p-0 "

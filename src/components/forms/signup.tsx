@@ -94,7 +94,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-4")}
       >
-        <FormMessage className="flex justify-center text-3xl font-bold text-white/90">
+        <FormMessage className="flex justify-center text-4xl font-bold text-white/90">
           Signup
         </FormMessage>
         <FormField
@@ -261,9 +261,9 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
             Submit
           </Button>
           <p className="mb-4 text-center text-sm text-white dark:text-white">
-            Already have an account?
+            Already have an account?&nbsp;
             <strong className="underline">
-              <Link href="/auth/login"> LogIn </Link>
+              <Link href="/auth/login">LogIn </Link>
             </strong>
           </p>
         </div>
