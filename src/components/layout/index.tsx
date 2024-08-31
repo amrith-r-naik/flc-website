@@ -22,7 +22,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
 
   if (status === "loading" || loading)
     return (
-      <div className="flex min-h-screen w-screen items-center justify-center">
+      <div className="flex min-h-screen w-screen items-center justify-center bg-[#0b011d]">
         <Loader />
       </div>
     );
