@@ -51,6 +51,7 @@ const PaymentButton = forwardRef<
       <>
         <Script src="https://checkout.razorpay.com/v1/checkout.js" />
         <Button
+          className="z-20"
           ref={ref}
           onClick={async () => {
             toast.loading("Creating payment order...");
