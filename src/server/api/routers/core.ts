@@ -32,7 +32,7 @@ const coreRouter = createTRPCRouter({
 
         console.log("Successfully added the office bearer to the existing record.");
       } else {
-        // Create a new core record with the input as the initial officeBearers
+        
         await ctx.db.core.create({
           data: {
             faculty: [], 
