@@ -323,13 +323,11 @@ const InnerRegisterForm: FunctionComponent<{
         />
 
         <div className="flex justify-between">
-          <Button
-            className="bg-red-500 text-white hover:bg-red-600"
-            type="submit"
-            asChild
-          >
-            <Link href="/profile">Not interested</Link>
-          </Button>
+          <Link href="/profile">
+            <Button className="bg-red-500 text-white hover:bg-red-600">
+              Not interested
+            </Button>
+          </Link>
           <FormField
             control={form.control}
             name="paymentId"
