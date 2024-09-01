@@ -145,7 +145,7 @@ export default function UploadForm({
                     setImageUrl("")
                     preview?URL.revokeObjectURL(preview):"" // free up memory
                     setPreview(null)
-                  }} variant="secondary">
+                  }} >
                     Cancel
                   </Button>
                 </DialogClose>

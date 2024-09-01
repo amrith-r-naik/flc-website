@@ -108,7 +108,7 @@ const InnerEditUserForm: FunctionComponent<{
     >
       <DialogDrawerTrigger asChild>
         <Button
-          variant={"ghost"}
+          // variant={"ghost"}
           className={cn(className, "relative inline px-2")}
         >
           {children}
