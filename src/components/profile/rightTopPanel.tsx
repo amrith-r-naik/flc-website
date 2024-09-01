@@ -95,9 +95,17 @@ const InnerRightTopPanel = forwardRef<
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {user.UserLink.map((link, idx) => (
             <div key={idx} className="flex w-full gap-1">
-              <Button variant={"outline"} className="w-full" asChild>
-                <Link href={link.url}>{link.linkName}</Link>
-              </Button>
+              <button variant={"outline"} className="w-full" asChild>
+                <Link href={link.url}>
+                  <Image
+                    src={`/${link.linkName.toLowerCase()}${link.linkName.toLowerCase() === 'instagram' ? '.jpg' : '.png'}`}
+                    alt={link.linkName}
+                    width={50}
+                    height={50}
+                    className="rounded-md"
+                  />
+                </Link>
+              </button>
               {!notMine && (
                 <Button
                   variant={"outline"}
@@ -144,8 +152,8 @@ const InnerRightTopPanel = forwardRef<
                   .filter((userLinkName) =>
                     user.UserLink.length > 0
                       ? user.UserLink.find(
-                          (userLink) => userLink.linkName !== userLinkName,
-                        )
+                        (userLink) => userLink.linkName !== userLinkName,
+                      )
                       : true,
                   )
                   .map((linkName, idx) => (
