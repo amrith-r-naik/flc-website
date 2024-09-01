@@ -129,80 +129,77 @@ export default function UploadForm({oldImage}: UploadFormProps) {
         </DialogTrigger>
 
         <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Change Your Profile Picture</DialogTitle>
-          </DialogHeader>
+  <DialogHeader>
+    <DialogTitle>Change Your Profile Picture</DialogTitle>
+  </DialogHeader>
 
-          <div className="content mx-6 mt-6">
-            <form
-            className="text-left"
-              onChange={(e)=>handleChange(e)}
-              onSubmit={(e) => {
-                void handleUpload(e);
-                
-
-              }}
-            >
-              <input type="file" name="file" accept="image/*" required  />
-              {preview && (
-                <div className="mt-6  ml-19">
-                <h2>Preview Image:</h2>
-                <div className="m-auto  w-[200px] h-[200px]">
-                  
-                  <Image
-  src={preview}
-  className="m-auto rounded-full border-4 border-white object-fill object-center"
-  alt="Uploaded"
-  fill
-  style={{ maxWidth: "200px", maxHeight: "200px" }}
-/>
-</div>
-                </div>
-              )}
-              {imageUrl && (
-                <div className="mt-6">
-                  <h2 className="">Uploaded Image:</h2>
-                <div className="m-auto  w-[200px] h-[200px] ">
-                  
-                  
-                  <Image
-                    src={imageUrl}
-                    className="m-auto border-4 border-white rounded-full object-fill object-center"
-                    alt="Uploaded"
-                    fill
-                    style={{ maxWidth: "200px", maxHeight: "200px" }}
-                    
-                  />
-                  </div>
-                  
-                </div>
-              )}
-
-              <DialogFooter className="mt-6">
-                <DialogClose asChild>
-                  <Button onClick={() => {
-                    setImageUrl("")
-                    preview?URL.revokeObjectURL(preview):"" // free up memory
-                    setPreview(null)
-                  }} >
-                    Cancel
-                  </Button>
-                </DialogClose>
-
-                <Button type="submit" disabled={isLoading}>
-                  {isLoading ? (
-                    <div className="flex items-center">
-                      <VscLoading className="animate-spin mr-2" />
-                      Uploading...
-                    </div>
-                  ) : (
-                    "Upload"
-                  )}
-                </Button>
-              </DialogFooter>
-            </form>
+  <div className="content mx-6 mt-6">
+    <form
+      className="text-left"
+      onChange={(e) => handleChange(e)}
+      onSubmit={(e) => {
+        void handleUpload(e);
+      }}
+    >
+      <input type="file" name="file" accept="image/*" required />
+      {preview && (
+        <div className="mt-6 ml-19">
+          <h2 className="mb-6 md:mb-0">Preview Image:</h2> 
+          <div className="m-auto w-[200px] h-[200px]">
+            <Image
+              src={preview}
+              className="m-auto rounded-full border-4 border-white object-fill object-center"
+              alt="Uploaded"
+              fill
+              style={{ maxWidth: "200px", maxHeight: "200px" }}
+            />
           </div>
-        </DialogContent>
+        </div>
+      )}
+      {imageUrl && (
+        <div className="mt-6">
+          <h2 className="mb-6 md:mb-0">Uploaded Image:</h2> 
+          <div className="m-auto w-[200px] h-[200px]">
+            <Image
+              src={imageUrl}
+              className="m-auto border-4 border-white rounded-full object-fill object-center"
+              alt="Uploaded"
+              fill
+              style={{ maxWidth: "200px", maxHeight: "200px" }}
+            />
+          </div>
+        </div>
+      )}
+
+      <DialogFooter className="mt-6 flex flex-col sm:flex-row sm:gap-2">
+        <DialogClose asChild>
+          <Button
+            onClick={() => {
+              setImageUrl("");
+              preview ? URL.revokeObjectURL(preview) : ""; // free up memory
+              setPreview(null);
+            }}
+            className="mt-2 sm:mt-0 sm:mr-2"
+          >
+            Cancel
+          </Button>
+        </DialogClose>
+
+        <Button type="submit" disabled={isLoading} className="mt-2 sm:mt-0">
+          {isLoading ? (
+            <div className="flex items-center">
+              <VscLoading className="animate-spin mr-2" />
+              Uploading...
+            </div>
+          ) : (
+            "Upload"
+          )}
+        </Button>
+      </DialogFooter>
+    </form>
+  </div>
+</DialogContent>
+
       </Dialog>
     </div>
   );
