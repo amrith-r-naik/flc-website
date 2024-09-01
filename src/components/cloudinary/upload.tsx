@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { useRefetchContext } from "~/context/refetchContext";
 import { LuPencil } from "react-icons/lu";
 import { Button } from "~/components/ui/button";
+import { VscLoading } from "react-icons/vsc";
+
 import {
   Dialog,
   DialogTrigger,
@@ -26,6 +28,7 @@ export default function UploadForm({oldImage}: UploadFormProps) {
   const [imageUrl, setImageUrl] = useState<string>("");
   const [preview, setPreview] = useState<string|null>(null);
   const { executeRefetch } = useRefetchContext("user");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const editUserImage = api.user.editUserImage.useMutation();
 
   const handleChange= async (event: React.FormEvent<HTMLFormElement>)=>{
@@ -46,6 +49,7 @@ export default function UploadForm({oldImage}: UploadFormProps) {
     const formData = new FormData(event.currentTarget);
     preview?URL.revokeObjectURL(preview):""  // free up memory 
     setPreview(null)
+    setIsLoading(true);
    
     // Append folderPath as a query parameter
     const queryString = new URLSearchParams({ folder: "UserProfiles" }).toString();
@@ -85,6 +89,8 @@ export default function UploadForm({oldImage}: UploadFormProps) {
     } catch (error) {
       console.error("Upload error:", error);
       toast.error("Upload error");
+    }finally{
+      setIsLoading(false);
     }
   };
 
@@ -190,7 +196,17 @@ export default function UploadForm({oldImage}: UploadFormProps) {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button type="submit">Upload</Button>
+
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? (
+                    <div className="flex items-center">
+                      <VscLoading className="animate-spin mr-2" />
+                      Uploading...
+                    </div>
+                  ) : (
+                    "Upload"
+                  )}
+                </Button>
               </DialogFooter>
             </form>
           </div>
