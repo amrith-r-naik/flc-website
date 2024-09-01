@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import {CLOUDINARY} from "./constant"
 // Regular expression pattern to match Cloudinary public_id from URL
-const regex = /\/v\d+\/([^/]+)(?=\.)/;
+const regex = /\/v\d+\/(.*?)(?=\.)/;
+
 
 export default async function handler(
   req: NextApiRequest,
