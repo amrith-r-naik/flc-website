@@ -24,6 +24,8 @@ const teamTabs = [
   "Faculty",
 ];
 
+const years = [2017, 2020, 2021, 2022, 2023, 2024];
+
 const userLinkNames = [
   "Instagram",
   "LinkedIn",
@@ -38,5 +40,6 @@ export {
   adminNavItems,
   userLinkNames,
   teamTabs,
+  years,
   siteMetaData,
 };
