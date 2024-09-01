@@ -34,18 +34,8 @@ const loginZ = z.object({
     .string()
     .email({
       message: "Email is required",
-    })
-    .refine(
-      (email) => {
-        if (email.endsWith("@nmamit.in")) {
-          return true;
-        }
-        return false;
-      },
-      {
-        message: "Email must be from NMAMIT",
-      },
-    ),
+    }),
+
   password: z.string().min(1, { message: "Password is required" }),
 });
 
