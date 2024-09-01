@@ -14,7 +14,7 @@ const VerifyEmail = () => {
   const tokenString = Array.isArray(token) ? token[0] : token;
 
   return (
-    <div className=" flex h-screen w-full items-center justify-center">
+    <div className="-mt-4 flex h-screen w-full items-center justify-center">
       <div className="mx-8 w-4/5 justify-center rounded-lg  p-4 sm:w-96">
         {tokenString ? (
           <VerifyEmailForm token={tokenString} />

@@ -6,7 +6,7 @@ import { Button } from "~/components/ui/button";
 const SentVerifyEmail: NextPage = () => {
   return (
     <>
-      <div className=" flex h-[75svh] w-full flex-col items-center justify-center">
+      <div className=" -mt-4 flex h-screen w-full flex-col items-center justify-center">
         <h1 className="title mb-2 flex justify-center px-8 text-center text-2xl  text-white sm:mb-8 md:text-4xl">
           Verification email sent! Please check your inbox
         </h1>
