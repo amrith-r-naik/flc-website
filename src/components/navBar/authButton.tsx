@@ -25,14 +25,14 @@ const AuthButton: FunctionComponent = () => {
           />
         </Link>
       ) : (
-        <Button size={"sm"}>
-          <Link
-            href="/login"
-            className="flex items-center justify-center gap-2 text-white"
-          >
+        <Link
+          href="/login"
+          className="flex items-center justify-center gap-2 text-white"
+        >
+          <Button size={"sm"}>
             <LogIn size={18} className="" /> Login
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       )}
     </div>
   );
