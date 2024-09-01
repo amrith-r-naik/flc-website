@@ -1,6 +1,5 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-// import { ReactLenis } from "lenis/react";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
@@ -32,22 +31,20 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
+        defaultTheme="dark"
         enableSystem
         themes={["light", "dark"]}
       >
-        {/* <ReactLenis root> */}
-          <Head>
-            <title>{title}</title>
-          </Head>
+        <Head>
+          <title>{title}</title>
+        </Head>
         <SEOLayout>
           <Layout>
             <Component {...pageProps} />
           </Layout>
         </SEOLayout>
-          <Analytics />
-          <SpeedInsights />
-        {/* </ReactLenis> */}
+        <Analytics />
+        <SpeedInsights />
       </ThemeProvider>
     </SessionProvider>
   );
