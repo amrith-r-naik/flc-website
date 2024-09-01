@@ -106,7 +106,7 @@ export default function TechStack() {
     <div>
       <div className="text-center" ref={thirdRef}>
         <h1 className="z-10 py-2 pt-14 font-title text-3xl font-bold sm:py-2 md:text-7xl xl:text-8xl">
-          Tech Stackz: Powered by Our Club
+          Tech Stacks: Powered by Our Club
         </h1>
         <div className="flex flex-col space-y-4 text-center">
           <p className="text-sm leading-relaxed md:text-lg">

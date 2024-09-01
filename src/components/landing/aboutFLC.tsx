@@ -15,6 +15,47 @@ import Hf from "~/assets/images/hackfest[1].png";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const gridItems = [
+  {
+    id: 1,
+    src: members,
+    alt: "Active Members Logo",
+    endCount: 300,
+    label: "Active Members",
+    width: 64,
+    height: 64,
+  },
+  {
+    id: 2,
+    src: events,
+    alt: "Events Organized Logo",
+    endCount: 30,
+    label: "Events Organized",
+    width: 64,
+    height: 64,
+  },
+  {
+    id: 3,
+    src: wk,
+    alt: "Workshops Conducted Logo",
+    endCount: 10,
+    label: "Workshop Conducted",
+    width: 84,
+    height: 84,
+  },
+  {
+    id: 4,
+    src: core,
+    alt: "Workshops Conducted Logo",
+    endCount: 10,
+    label: "Core Members",
+    width: 84,
+    height: 84,
+  },
+];
+
+
+
 function AboutUs() {
   const [hasAnimated, setHasAnimated] = useState(false);
   const { ref, inView } = useInView({
@@ -193,10 +234,10 @@ function AboutUs() {
               >
                 <div className="mb-2 flex items-center">
                   <Image
-                    src={events}
-                    alt="Events Organized Logo"
-                    width={64}
-                    height={64}
+                    src={item.src}
+                    alt={item.alt}
+                    width={item.width}
+                    height={item.height}
                     className="rounded-full"
                   />
                   <div className="ml-4 flex flex-col items-center">
@@ -205,7 +246,7 @@ function AboutUs() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-2">Events Organized</div>
+                <div className="mt-2 text-xl">{item.label}</div>
               </div>
             </div>
 
@@ -262,7 +303,7 @@ function AboutUs() {
           </div>
         </div>
       </div>
-    </section>
+    </>
   );
 }
 

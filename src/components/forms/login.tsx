@@ -92,7 +92,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
               </FormLabel>
               <FormControl>
                 <Input
-                  className="bg-[#494949]"
+                  className="bg-[#555555]"
                   placeholder="Email"
                   {...field}
                 />
@@ -111,7 +111,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
               </FormLabel>
               <FormControl>
                 <Password
-                  className="bg-[#494949]"
+                  className="bg-[#555555]"
                   placeholder="Password"
                   {...field}
                 />
@@ -130,15 +130,15 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         </div>
         <div className="flex  flex-col justify-center gap-2">
           <Button
-            className="bg-purple-700 font-bold text-white hover:bg-purple-900"
+            className="bg-[#66209b] font-bold text-white hover:bg-purple-900"
             type="submit"
           >
             Submit
           </Button>
           <p className="mb-4 text-center text-sm text-white dark:text-white">
-            Don&#39;t have an account?
+            Don&#39;t have an account?&nbsp;
             <strong className="underline">
-              <Link href="/signup"> Signup </Link>
+              <Link href="/signup">Signup </Link>
             </strong>
           </p>
         </div>

@@ -76,4 +76,9 @@ export const adminNavItems: NavItem[] = [
     name: "Blogs",
     link: "/dashboard/admin/blogs",
   },
+  {
+    type: "both",
+    name: "payments",
+    link: "/dashboard/admin/payments",
+  },
 ];

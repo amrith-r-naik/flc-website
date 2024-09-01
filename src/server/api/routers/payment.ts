@@ -89,21 +89,21 @@ const paymentRouter = createTRPCRouter({
       const whoPaidWhat =
         input.paymentType === "EVENT"
           ? {
-              amount: input.amount,
-              Team: {
-                connect: {
-                  id: input.teamId,
-                },
+            amount: input.amount,
+            Team: {
+              connect: {
+                id: input.teamId,
               },
-            }
+            },
+          }
           : {
-              amount: 400,
-              User: {
-                connect: {
-                  id: ctx.session.user.id,
-                },
+            amount: 400,
+            User: {
+              connect: {
+                id: ctx.session.user.id,
               },
-            };
+            },
+          };
 
       const payment = await ctx.db.payment.create({
         data: {
@@ -114,6 +114,11 @@ const paymentRouter = createTRPCRouter({
           razorpaySignature: input.razorpaySignature,
           verified: generatedSignature === input.razorpaySignature,
           ...whoPaidWhat,
+          User: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
         },
       });
 
@@ -126,15 +131,36 @@ const paymentRouter = createTRPCRouter({
 
   // FIXME: this wont work anymore
   checkEventPayment: protectedProcedure
-    .input(z.object({ eventName: z.string() }))
+    .input(z.object({ eventName: z.string(), paymentId: z.string() }))
     .query(async ({ ctx, input }) => {
-      const paymentStatus = await ctx.db.payment.findFirst({
-        where: {
-          paymentName: input.eventName,
-        },
-      });
-      return paymentStatus ? true : false;
+      if (input.paymentId) {
+        const paymentCount = await ctx.db.team.count({
+          where: {
+            paymentId: input.paymentId,
+            leaderId: ctx.session.user.id,
+          },
+        });
+        return paymentCount > 0 ? true : false;
+      }
+
+      return true;
     }),
+
+  getAllPayments: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.payment.findMany({
+      where: {
+        verified: true,
+      },
+      orderBy: {
+        createdAt: 'desc'
+      },
+      include: {
+        User: true, 
+      },
+    })
+  })
+
+
 });
 
 export default paymentRouter;
