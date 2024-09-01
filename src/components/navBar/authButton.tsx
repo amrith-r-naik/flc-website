@@ -31,13 +31,11 @@ const AuthButton: FunctionComponent<{ inDashboard?: boolean }> = ({
       {session ? (
         <>
           <Link href="/profile">
-            <DropDown
-              trigger={
-                <AvatarIcon
-                  src={session.user?.image ?? "https://github.com/shadcn.png"}
-                />
-              }
+
+            <AvatarIcon
+              src={session.user?.image ?? "https://github.com/shadcn.png"}
             />
+
           </Link>
         </>
       ) : (
@@ -50,7 +48,7 @@ const AuthButton: FunctionComponent<{ inDashboard?: boolean }> = ({
             <LogIn size={18} className="" /> Login
           </Link>
         </Button>
-        // </Button>
+
       )}
     </div>
   );

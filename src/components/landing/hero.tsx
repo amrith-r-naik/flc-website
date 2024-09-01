@@ -2,11 +2,8 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { LuArrowRight } from "react-icons/lu";
-
 import AnimatedShinyText from "~/components/magicui/animated-shiny-text";
-import ShimmerButton from "~/components/magicui/shimmer-button";
 import { api } from "~/utils/api";
-
 import { Button } from "../ui/button";
 
 function Hero() {
@@ -28,13 +25,12 @@ function Hero() {
       <div className="relative -translate-y-[12vh] space-y-6 md:space-y-9 xl:space-y-12">
         <div ref={textContainerRef} className="w-full">
           <AnimatedShinyText
-            className="inline-flex w-full items-center justify-center  px-4 py-1 font-title text-5xl brightness-[1.15] [text-shadow:_0_0_10px_#ffd70066] dark:text-[#ffb222a5] sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl"
+            className="inline-flex w-full items-center justify-center  px-4 py-1 font-title text-5xl brightness-[1.15] [text-shadow:_0_0_10px_#ffd70066] dark:text-[#ffb222a5] sm:text-4xl md:text-7xl lg:text-7xl xl:text-8xl"
             shimmerWidth={shimmerWidth}
           >
             <span>FINITE LOOP CLUB</span>
           </AnimatedShinyText>
         </div>
-
         <p className="mx-auto max-w-lg px-4 text-center font-sub-heading font-thin sm:text-lg md:max-w-xl md:text-xl lg:max-w-5xl lg:text-3xl ">
           NMAMIT&apos;s premier coding community Realizing ideas, inspiring the
           next.
