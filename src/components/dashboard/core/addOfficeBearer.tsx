@@ -47,6 +47,7 @@ const AddCore: FunctionComponent = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values)
     addOfficeBearer.mutate({
       name: values.name,
       position: values.position,
@@ -68,6 +69,7 @@ const AddCore: FunctionComponent = () => {
         form.reset();
       }}
     >
+      
       <DialogTrigger asChild>
         <Button>
           <LuPlus className="mr-2 size-5" />
