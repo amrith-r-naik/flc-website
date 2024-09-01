@@ -63,7 +63,7 @@ export default function UploadForm({oldImage}: UploadFormProps) {
 
       const data = (await response.json()) as UploadApiResponse;
       if (response.ok) {
-        toast.success("uploaded succesfully");
+        // toast.success("uploaded succesfully");
         setImageUrl(data.url); // Set the URL to state for displaying
         editUserImage.mutate(
           {
@@ -74,7 +74,7 @@ export default function UploadForm({oldImage}: UploadFormProps) {
               void handleDelete()
               executeRefetch();
               toast.dismiss();
-              toast.success("Profile picture changed");
+              toast.success("Profile Picture Updated");
             },
             onError: () => {
               toast.dismiss();

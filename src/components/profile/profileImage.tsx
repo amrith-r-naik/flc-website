@@ -1,19 +1,14 @@
-import {
-  CldUploadWidget,
-  type CloudinaryUploadWidgetInfo,
-  type CloudinaryUploadWidgetResults,
-} from "next-cloudinary";
+
 import UploadForm from "../cloudinary/upload";
 import Image from "next/image";
 import React, { forwardRef } from "react";
-import { LuPencil } from "react-icons/lu";
-import { toast } from "sonner";
+
 
 import { useRefetchContext } from "~/context/refetchContext";
 import { cn } from "~/lib/utils";
 import { type User, useUser } from "~/store";
 import { api } from "~/utils/api";
-import { deleteFromCloudinary } from "~/utils/cloudinary";
+
 
 const ProfileImage = forwardRef<HTMLDivElement, { notMine: boolean }>(
   ({ notMine }, ref) => {
@@ -27,8 +22,7 @@ const InnerProfileImage = forwardRef<
   HTMLDivElement,
   { user: User; notMine: boolean }
 >(({ user, notMine }, ref) => {
-  const { executeRefetch } = useRefetchContext("user");
-  const editUserImage = api.user.editUserImage.useMutation();
+ 
 
   return (
     <div
@@ -38,16 +32,17 @@ const InnerProfileImage = forwardRef<
 
       
     
-     {user?.image &&( <div >
-      
-      < Image
-                  src={user.image}
-                  alt={"Profile Image"}
-                  fill
-                  className="rounded-full object-fill object-center"
-                />
-                <UploadForm oldImage={user.image??""} ></UploadForm>
-                </div>)}
+     {user?.image &&( 
+         <div >
+             < Image
+              src={user.image}
+              alt={"Profile Image"}
+              fill
+              className="rounded-full object-fill object-center"
+            />
+            <UploadForm oldImage={user.image??""} ></UploadForm> {/* mutation, uploading, deletion of image is taken care of here*/}
+          
+        </div>)}
     </div>
   );
 });
