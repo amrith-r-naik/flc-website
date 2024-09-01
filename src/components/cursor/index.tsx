@@ -1,7 +1,23 @@
-import React, { type FunctionComponent, useEffect, useRef } from "react";
+import React, {
+  forwardRef,
+  type RefObject,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react";
 
-const Cursor: FunctionComponent = () => {
+const Cursor = forwardRef<
+  HTMLDivElement | null,
+  {
+    parentRef: RefObject<HTMLDivElement>;
+  }
+>(({ parentRef }, ref) => {
   const cursorRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle<HTMLDivElement | null, HTMLDivElement | null>(
+    ref,
+    () => cursorRef.current,
+  );
 
   useEffect(() => {
     const onTouchStart = () => {
@@ -12,13 +28,18 @@ const Cursor: FunctionComponent = () => {
   });
 
   useEffect(() => {
+    const parentRefResolved = parentRef.current;
+    if (!parentRefResolved) return;
+
     const onMouseMove = (e: MouseEvent) => {
+      const parentRect = parentRefResolved.getBoundingClientRect();
       if (!cursorRef.current) return;
-      cursorRef.current.style.top = `${e.clientY}px`;
+      cursorRef.current.style.top = `${e.clientY - parentRect.top}px`;
       cursorRef.current.style.left = `${e.clientX}px`;
     };
-    window.addEventListener("mousemove", onMouseMove);
-    return () => window.removeEventListener("mousemove", onMouseMove);
+    parentRefResolved.addEventListener("mousemove", onMouseMove);
+    return () =>
+      parentRefResolved.removeEventListener("mousemove", onMouseMove);
   });
 
   useEffect(() => {
@@ -68,9 +89,10 @@ const Cursor: FunctionComponent = () => {
   return (
     <div
       ref={cursorRef}
-      className="pointer-events-none fixed z-[99999] size-8 -translate-x-2/4 -translate-y-2/4 rounded-full bg-[#c8c8ff91] transition-all duration-100 ease-out"
+      className="pointer-events-none absolute z-[99999] size-8 -translate-x-2/4 -translate-y-2/4 rounded-full bg-[#c8c8ff91] transition-all duration-100 ease-out"
     />
   );
-};
+});
+Cursor.displayName = "Cursor";
 
 export default Cursor;

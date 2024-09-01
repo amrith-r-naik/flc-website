@@ -1,9 +1,7 @@
 import { useTheme } from "next-themes";
 
-import AboutUs from "~/components/landing/aboutFLC";
 import Benefits from "~/components/landing/benefits";
 import Events from "~/components/landing/event";
-import Hackfest from "~/components/landing/hackfest";
 import Hero from "~/components/landing/hero";
 import TechStack from "~/components/landing/techStack";
 import { cn } from "~/lib/utils";

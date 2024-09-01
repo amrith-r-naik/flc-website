@@ -1,15 +1,14 @@
-import React from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import React from "react";
 
-const AvatarIcon = ({src}:{src:string}) => {
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+
+const AvatarIcon = ({ src }: { src: string }) => {
   return (
-    <>
-    <Avatar className=" size-10 ">
-         <AvatarImage src={src} />
-         <AvatarFallback>PP</AvatarFallback>
-       </Avatar>
-       </>
-  )
-}
+    <Avatar className="size-10">
+      <AvatarImage src={src} />
+      <AvatarFallback>PP</AvatarFallback>
+    </Avatar>
+  );
+};
 
-export default AvatarIcon
+export default AvatarIcon;

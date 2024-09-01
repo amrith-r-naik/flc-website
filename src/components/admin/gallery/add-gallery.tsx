@@ -27,27 +27,9 @@ const initialImages = [
 export default function AddGallery() {
   const [images, setImages] = useState(initialImages);
   const [title, setTitle] = useState("");
-  // const [selectedImage, setSelectedImage] = useState(null);
 
-  // Commented out the functions
-  // const handleImageUpload = (e) => {
-  //  const file = e.target.files[0];
-  //  if (file) {
-  //   setSelectedImage(URL.createObjectURL(file));
-  //  }
-  // };
-
-  // const handleAddImage = () => {
-  //  if (title && selectedImage) {
-  //   setImages([...images, { title, src: selectedImage }]);
-  //   setTitle("");
-  //   setSelectedImage(null);
-  //  }
-  // };
-
-  const handleDeleteImage = (index: number) => {
+  const handleDeleteImage = (index: number) =>
     setImages(images.filter((_, i) => i !== index));
-  };
 
   return (
     <div>

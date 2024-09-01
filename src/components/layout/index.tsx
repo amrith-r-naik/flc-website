@@ -6,7 +6,6 @@ import { Toaster } from "sonner";
 
 import SignIn from "~/components/auth/signIn";
 import Unauthorized from "~/components/auth/unauthorized";
-import Cursor from "~/components/cursor";
 import Footer from "~/components/footer";
 import DashboardLayout from "~/components/layout/dashboardLayout";
 import Loader from "~/components/loader";
@@ -57,7 +56,6 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
           ? "bg-yellow-50"
           : "bg-[#0b011d]",
         "relative h-fit min-h-screen w-full overflow-clip transition-all",
-        "cursor-default md:cursor-none",
       )}
     >
       <NavBar />
@@ -65,7 +63,6 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         {children}
       </main>
       <Footer className="z-50" />
-      <Cursor />
       <Toaster />
     </div>
   );

@@ -4,7 +4,6 @@ import { useRef, useEffect, useState } from "react";
 import { LuArrowRight } from "react-icons/lu";
 
 import AnimatedShinyText from "~/components/magicui/animated-shiny-text";
-import ShimmerButton from "~/components/magicui/shimmer-button";
 import { api } from "~/utils/api";
 
 import { Button } from "../ui/button";

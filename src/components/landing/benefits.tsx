@@ -3,14 +3,51 @@
 import { Download } from "lucide-react";
 import { type NextPage } from "next";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 import { Button } from "~/components/ui/button";
+
+import Cursor from "~/components/cursor";
+import { cn } from "~/lib/utils";
 
 import FadeIn from "../fadeIn";
 
 const Benefits: NextPage = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const sectionRefResolved = sectionRef.current;
+    if (!sectionRefResolved) return;
+
+    const onMouseOut = () => {
+      if (!cursorRef.current) return;
+      cursorRef.current.style.display = "none";
+    };
+
+    const onMouseOver = () => {
+      if (!cursorRef.current) return;
+      cursorRef.current.style.display = "block";
+    };
+
+    sectionRefResolved.addEventListener("mouseover", onMouseOver);
+    sectionRefResolved.addEventListener("mouseout", onMouseOut);
+
+    return () => {
+      sectionRefResolved.removeEventListener("mouseover", onMouseOver);
+      sectionRefResolved.removeEventListener("mouseout", onMouseOut);
+    };
+  });
+
   return (
-    <section className="relative  z-50 mb-20 mt-20 flex flex-col items-center justify-center px-4 pb-4 font-sans sm:mb-44 sm:h-[145vh] sm:px-8 md:px-16 lg:max-h-[1048px] xl:px-36">
+    <section
+      ref={sectionRef}
+      className={cn(
+        "relative z-50 mb-20 mt-20 flex flex-col items-center justify-center px-4 pb-4 font-sans sm:mb-44 sm:h-[145vh] sm:px-8 md:px-16 lg:max-h-[1048px] xl:px-36",
+        "cursor-default md:cursor-none",
+      )}
+    >
+      <Cursor ref={cursorRef} parentRef={sectionRef} />
       <div className="line-break "></div>
       <div className="event-bg "></div>
       <p

@@ -50,10 +50,8 @@ const TeamDialog: FunctionComponent<{
   const { data: teamData, refetch: refetchTeamData } =
     api.team.inATeamOfEvent.useQuery({ eventId });
 
-  const joinTeam = api.team.jointeam.useMutation();
   const confirmTeam = api.team.confirmTeam.useMutation();
   const leaveTeam = api.team.leaveTeam.useMutation();
-  const createTeam = api.team.createTeam.useMutation();
   const removeFromTeam = api.team.removeFromTeam.useMutation();
 
   useEffect(() => {
@@ -130,7 +128,7 @@ const TeamDialog: FunctionComponent<{
           }}
         />
       )} */}
-      {/* 
+      {/*
       <Button className="card-button z-20" onClick={() => setOpen(true)}>
         {teamConfirmed ? "View Team" : "Register"}
       </Button> */}

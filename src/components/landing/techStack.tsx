@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import docker from "~/assets/icons/docker.png";
-import Gc from "~/assets/icons/gc.svg";
 import github from "~/assets/icons/git.webp";
 import go from "~/assets/icons/go.svg";
 import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg";
@@ -16,7 +15,6 @@ import ps from "~/assets/icons/postgress.svg";
 import prisma from "~/assets/icons/prisma.png";
 import pythonIcon from "~/assets/icons/py.png";
 import tailwindIcon from "~/assets/icons/tailwind-svgrepo-com.svg";
-import trpcIcon from "~/assets/icons/trpc.svg";
 import tsIcon from "~/assets/icons/typescript-svgrepo-com.svg";
 import vscode from "~/assets/icons/vs.png";
 
@@ -42,11 +40,13 @@ export default function TechStack() {
     return baseRadius + (screenWidth - 768) / 10;
   };
 
-  const getDynamicSize = (baseSize: number) => {
-    return baseSize + (screenWidth - 768) / 50;
-  };
-
   useEffect(() => {
+    const heroRefResolved = heroRef.current;
+    if (!heroRefResolved) return;
+
+    const thirdRefResolved = thirdRef.current;
+    if (!thirdRefResolved) return;
+
     const animateElement = (
       element: HTMLDivElement | null,
       direction: "left" | "right" | "up",
@@ -64,11 +64,10 @@ export default function TechStack() {
     };
     const heroObserver = new IntersectionObserver(
       ([entry]) => {
-        if (!entry) {
-          return;
-        }
+        if (!entry) return;
+
         if (entry.isIntersecting) {
-          animateElement(heroRef.current, "left");
+          animateElement(heroRefResolved, "left");
           heroObserver.unobserve(entry.target);
         }
       },
@@ -80,25 +79,17 @@ export default function TechStack() {
           return;
         }
         if (entry.isIntersecting) {
-          animateElement(thirdRef.current, "up");
+          animateElement(thirdRefResolved, "up");
           thirdObserver.unobserve(entry.target);
         }
       },
       { threshold: 0.1 },
     );
-    if (heroRef.current) {
-      heroObserver.observe(heroRef.current);
-    }
-    if (thirdRef.current) {
-      thirdObserver.observe(thirdRef.current);
-    }
+    heroObserver.observe(heroRefResolved);
+    thirdObserver.observe(thirdRefResolved);
     return () => {
-      if (heroRef.current) {
-        heroObserver.unobserve(heroRef.current);
-      }
-      if (thirdRef.current) {
-        thirdObserver.unobserve(thirdRef.current);
-      }
+      heroObserver.unobserve(heroRefResolved);
+      thirdObserver.unobserve(thirdRefResolved);
     };
   }, []);
 
