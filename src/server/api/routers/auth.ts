@@ -182,7 +182,7 @@ const authRouter = createTRPCRouter({
           token,
         );
 
-        const url = `${env.NEXTAUTH_URL}/auth/new-password?token=${passwordResetToken}`;
+        const url = `${env.NEXTAUTH_URL}/auth/reset-password?token=${passwordResetToken}`;
 
         await sendPasswordResetEmail(
           existingUser.email,
