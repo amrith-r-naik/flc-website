@@ -69,8 +69,9 @@ const InnerLeftPanel = forwardRef<
             )}
           </div>
           <p className="text-sm opacity-60">
-            FLC Position - {user.position ?? "None"}
+            FLC Position - {user.position ? ` ${user.position} ✅` : "None"}
           </p>
+
           <div className="flex gap-5">
             <QRCode />
             <Button

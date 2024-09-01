@@ -107,12 +107,12 @@ const InnerEditUserForm: FunctionComponent<{
       }}
     >
       <DialogDrawerTrigger asChild>
-        <Button
+        <button
           // variant={"ghost"}
-          className={cn(className, "relative inline px-2")}
+          className={cn(className, "relative inline p-2")}
         >
           {children}
-        </Button>
+        </button>
       </DialogDrawerTrigger>
       <DialogDrawerContent>
         <Form {...form}>
