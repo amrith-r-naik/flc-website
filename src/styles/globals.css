@@ -411,8 +411,8 @@
 .radialgradient {
   background: radial-gradient(
     circle at 50% -180%,
-    #800080,
-    #4b0082 50%,
+    #833ed8,
+    #66209b 50%,
     #0e0f11 75%,
     #000000 100%
   );

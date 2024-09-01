@@ -83,9 +83,20 @@ const EventsSlug: NextPage = () => {
 
           <div className="mt-4 flex items-center gap-8">
             {!user?.memberSince && (
-              <p className="text-lg font-bold">
-                Entry fee: Rs
-                {event.flcAmount > 0 ? ` ${event.flcAmount}/-` : " FREE"}{" "}
+              <p className="text-lg ">
+                <span className="font-semibold">Entry fee:</span>
+                {event.nonFlcAmount > 0
+                  ? ` Rs ${event.nonFlcAmount}/-`
+                  : " Free"}{" "}
+              </p>
+            )}
+
+            {user?.memberSince && (
+              <p className="text-lg ">
+                <span className="font-semibold">Entry fee:</span>
+                {event.flcAmount > 0
+                  ? ` Rs ${event.flcAmount}/-`
+                  : " Free"}{" "}
               </p>
             )}
 
@@ -93,7 +104,8 @@ const EventsSlug: NextPage = () => {
               <TeamDialog
                 eventId={event.id}
                 maxTeamSize={event.maxTeamSize}
-                amount={event.flcAmount}
+                flcAmount={event.flcAmount}
+                nonFlcAmount={event.nonFlcAmount}
                 eventName={event.name}
               />
             )}

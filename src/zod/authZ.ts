@@ -30,13 +30,8 @@ const signUpZ = z
   });
 
 const loginZ = z.object({
-  email: z
-    .string()
-    .email({
-      message: "Email is required",
-    }),
-
-  password: z.string().min(1, { message: "Password is required" }),
+  email: z.string().email(),
+  password: z.string(),
 });
 
 const registerZ = z.object({
