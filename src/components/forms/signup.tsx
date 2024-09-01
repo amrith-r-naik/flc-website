@@ -74,7 +74,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           toast.dismiss();
           if (emailSent) {
             toast.success("Verification email sent! Please check your inbox");
-            setTimeout(() => void router.push("/"), 1000);
+            setTimeout(() => void router.push("/auth/sent-verify-email"), 1000);
           } else {
             toast.success("Signed up successfully! Please verify your email");
             setTimeout(() => void router.push("/send-verify-email"), 1000);
@@ -155,18 +155,18 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
             </FormItem>
           )}
         />
-        <div className="flex flex-col  space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+        <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
           <FormField
             control={form.control}
             name="branchId"
             render={({ field }) => (
-              <FormItem className=" min-w-52">
+              <FormItem className="w-full sm:min-w-[200px]">
                 <FormLabel className="text-white dark:text-white">
                   Branch
                 </FormLabel>
                 <FormControl>
                   <ComboBox
-                    className="bg-[#494949]"
+                    className="w-full rounded-lg bg-[#494949] px-4 py-2"
                     data={branches ?? []}
                     value={field.value}
                     setValue={field.onChange}
@@ -181,26 +181,26 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
             control={form.control}
             name="year"
             render={({ field }) => (
-              <FormItem className="min-w-52">
+              <FormItem className="w-full sm:min-w-[200px]">
                 <FormLabel className="text-white dark:text-white">
                   Graduation Year
                 </FormLabel>
                 <FormControl>
                   <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="bg-[#494949]">
+                    <SelectTrigger className="w-full rounded-lg bg-[#494949] px-4 py-2">
                       <SelectValue placeholder="Choose Year" />
                     </SelectTrigger>
                     <SelectContent>
                       {getGraduationYears().map((year, idx) => (
                         <SelectItem key={idx} value={`${year}`}>
                           {year} (
-                          {idx == 0
+                          {idx === 0
                             ? "4th B.Tech, 2nd MCA"
-                            : idx == 1
+                            : idx === 1
                               ? "3rd B.Tech, 1st MCA"
-                              : idx == 2
+                              : idx === 2
                                 ? "2nd B.Tech"
-                                : idx == 3
+                                : idx === 3
                                   ? "1st B.Tech"
                                   : ""}
                           )
@@ -214,6 +214,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
             )}
           />
         </div>
+
         <FormField
           control={form.control}
           name="password"
