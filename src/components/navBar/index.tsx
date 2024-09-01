@@ -45,11 +45,8 @@ const Navbar: FunctionComponent = ({}) => {
             </Link>
           ))}
         </div>
-
         <SunMoonToggle />
-
         <AuthButton />
-
         <MobileNav />
       </div>
     </nav>

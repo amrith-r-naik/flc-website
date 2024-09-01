@@ -43,6 +43,12 @@ export default function TechStack() {
  
 
   useEffect(() => {
+    const heroRefResolved = heroRef.current;
+    if (!heroRefResolved) return;
+
+    const thirdRefResolved = thirdRef.current;
+    if (!thirdRefResolved) return;
+
     const animateElement = (
       element: HTMLDivElement | null,
       direction: "left" | "right" | "up",
@@ -60,11 +66,10 @@ export default function TechStack() {
     };
     const heroObserver = new IntersectionObserver(
       ([entry]) => {
-        if (!entry) {
-          return;
-        }
+        if (!entry) return;
+
         if (entry.isIntersecting) {
-          animateElement(heroRef.current, "left");
+          animateElement(heroRefResolved, "left");
           heroObserver.unobserve(entry.target);
         }
       },
@@ -76,25 +81,17 @@ export default function TechStack() {
           return;
         }
         if (entry.isIntersecting) {
-          animateElement(thirdRef.current, "up");
+          animateElement(thirdRefResolved, "up");
           thirdObserver.unobserve(entry.target);
         }
       },
       { threshold: 0.1 },
     );
-    if (heroRef.current) {
-      heroObserver.observe(heroRef.current);
-    }
-    if (thirdRef.current) {
-      thirdObserver.observe(thirdRef.current);
-    }
+    heroObserver.observe(heroRefResolved);
+    thirdObserver.observe(thirdRefResolved);
     return () => {
-      if (heroRef.current) {
-        heroObserver.unobserve(heroRef.current);
-      }
-      if (thirdRef.current) {
-        thirdObserver.unobserve(thirdRef.current);
-      }
+      heroObserver.unobserve(heroRefResolved);
+      thirdObserver.unobserve(thirdRefResolved);
     };
   }, []);
 

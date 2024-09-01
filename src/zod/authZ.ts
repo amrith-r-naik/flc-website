@@ -50,25 +50,15 @@ const registerZ = z.object({
 });
 
 const sendVerifyEmailZ = z.object({
-  email: z
-    .string()
-    .email({
-      message: "Email is required",
-    })
-    .refine((email) => email.endsWith("@nmamit.in"), {
-      message: "Email must be from NMAMIT",
-    }),
+  email: z.string().email({
+    message: "Email is required",
+  }),
 });
 
 const sendPasswordResetZ = z.object({
-  email: z
-    .string()
-    .email({
-      message: "Email is required",
-    })
-    .refine((email) => email.endsWith("@nmamit.in"), {
-      message: "Email must be from NMAMIT",
-    }),
+  email: z.string().email({
+    message: "Email is required",
+  }),
 });
 
 const resetPasswordZ = z

@@ -1,12 +1,10 @@
 "use client";
 
 import { IconMenu } from "@tabler/icons-react";
-import { LayoutDashboard, LogIn, LogOut } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { LayoutDashboard, LogIn } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
-import { toast } from "sonner";
 
 import {
   Sheet,
@@ -18,13 +16,10 @@ import {
 import { userNavItems } from "~/constants";
 
 import AvatarIcon from "../avatar";
-import ShimmerButton from "../magicui/shimmer-button";
 import { Button } from "../ui/button";
-import AuthButton from "./authButton";
 
 function MobileNav() {
   const activePath = null;
-  const router = useRouter();
   const { data: session } = useSession();
   return (
     <section className="flex w-full items-center gap-3 ">

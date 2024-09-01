@@ -268,6 +268,7 @@ const InnerRegisterForm: FunctionComponent<{
               </FormLabel>
               <FormControl>
                 <Textarea
+                  onFocus={form.handleSubmit(onSubmit)}
                   className="bg-[#494949]"
                   placeholder="Answer"
                   rows={3}
@@ -288,6 +289,7 @@ const InnerRegisterForm: FunctionComponent<{
               </FormLabel>
               <FormControl>
                 <Textarea
+                  onFocus={form.handleSubmit(onSubmit)}
                   className="bg-[#494949]"
                   placeholder="Answer"
                   rows={3}
@@ -308,38 +310,12 @@ const InnerRegisterForm: FunctionComponent<{
               </FormLabel>
               <FormControl>
                 <Textarea
+                  onFocus={form.handleSubmit(onSubmit)}
                   className="bg-[#494949]"
                   placeholder="Answer"
                   rows={3}
                   {...field}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="paymentId"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-white dark:text-white">
-                Membership Fees (₹400 + 2% razorpay fee)
-              </FormLabel>
-              <FormControl>
-                {field.value ? (
-                  <Input className="bg-[#494949]" disabled {...field} />
-                ) : (
-                  <PaymentButton
-                    className="flex"
-                    paymentType="MEMBERSHIP"
-                    description="Club Membership"
-                    onSuccess={(paymentId) =>
-                      form.setValue("paymentId", paymentId)
-                    }
-                    onFailure={() => toast.error("Payment failed")}
-                  />
-                )}
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -354,12 +330,37 @@ const InnerRegisterForm: FunctionComponent<{
           >
             <Link href="/profile">Not interested</Link>
           </Button>
-          <Button
-            className="bg-green-500 text-white hover:bg-green-600"
-            type="submit"
-          >
-            Register
-          </Button>
+          <FormField
+            control={form.control}
+            name="paymentId"
+            render={({ field }) =>
+              field.value ? (
+                <Button type="submit">Register</Button>
+              ) : (
+                <FormItem>
+                  <FormControl>
+                    <PaymentButton
+                      className="flex"
+                      paymentType="MEMBERSHIP"
+                      description="Club Membership"
+                      onSuccess={async (paymentId) => {
+                        form.setValue("paymentId", paymentId);
+                        await form.handleSubmit(onSubmit)();
+                      }}
+                      onFailure={() => toast.error("Payment failed")}
+                      disabled={
+                        !form.formState.touchedFields.contribution ||
+                        form.getFieldState("contribution").invalid ||
+                        form.getFieldState("expectations").invalid ||
+                        form.getFieldState("reasonToJoin").invalid
+                      }
+                      type="submit"
+                    />
+                  </FormControl>
+                </FormItem>
+              )
+            }
+          />
         </div>
       </form>
     </Form>
