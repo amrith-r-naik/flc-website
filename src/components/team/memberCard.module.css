@@ -7,5 +7,10 @@
 }
 
 .rised2 {
+  transform: translateZ(75px);
+}
+
+
+.rised3 {
   transform: translateZ(90px);
 }

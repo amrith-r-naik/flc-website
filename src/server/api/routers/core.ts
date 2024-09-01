@@ -30,25 +30,32 @@ const coreRouter = createTRPCRouter({
   getCore: publicProcedure.query(async ({ ctx }) => {
     const unparsedCore = await ctx.db.core.findFirstOrThrow();
 
-    const { success: facultySuccess, data: parsedFaculty } = z
-      .array(facultyZ)
-      .safeParse(unparsedCore.faculty);
+    const {
+      success: facultySuccess,
+      data: parsedFaculty,
+      error: facultyParsingError,
+    } = z.array(facultyZ).safeParse(unparsedCore.faculty);
 
     if (!facultySuccess)
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to parse faculty",
+        message: `Failed to parse faculties: ${facultyParsingError?.message}`,
       });
 
-    const { success: officeBearer, data: parsedOfficeBearers } = z
-      .array(officeBearerZ)
-      .safeParse(unparsedCore.officeBearers);
+    console.log(parsedFaculty);
 
-    if (!officeBearer)
+    const {
+      success: officeBearer,
+      data: parsedOfficeBearers,
+      error: officeBearersParsingError,
+    } = z.array(officeBearerZ).safeParse(unparsedCore.officeBearers);
+
+    if (!officeBearer) {
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
-        message: "Failed to parse office bearers",
+        message: `Failed to parse office bearers: ${officeBearersParsingError?.message}`,
       });
+    }
 
     return {
       ...unparsedCore,
