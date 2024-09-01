@@ -94,12 +94,23 @@ const InnerRightTopPanel = forwardRef<
       <div className="space-y-2">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {user.UserLink.map((link, idx) => (
-            <div key={idx} className="flex w-full gap-1">
-              <Button variant={"outline"} className="w-full" asChild>
-                <Link href={link.url}>{link.linkName}</Link>
-              </Button>
+            <div key={idx} className="flex w-full gap-1 border border-gray-600 p-2 rounded-lg">
+              <button variant={"outline"} className="w-full flex justify-between " asChild>
+                <Link href={link.url}>
+                  <div className=" shadow-2xl p-1  w-full flex flex-row  justify-center items-center gap-4">
+                    <Image
+                      src={`/${link.linkName.toLowerCase()}${link.linkName.toLowerCase() === 'instagram' ? '.jpg' : '.png'}`}
+                      alt={link.linkName}
+                      width={50}
+                      height={50}
+                      className="rounded-md"
+                    />
+                    {link.linkName}
+                  </div>
+                </Link>
+              </button>
               {!notMine && (
-                <Button
+                <button
                   variant={"outline"}
                   className="p-2"
                   onClick={() => {
@@ -123,7 +134,7 @@ const InnerRightTopPanel = forwardRef<
                   }}
                 >
                   <LuTrash2 className="size-5 text-red-500" />
-                </Button>
+                </button>
               )}
             </div>
           ))}
@@ -141,12 +152,9 @@ const InnerRightTopPanel = forwardRef<
               </SelectTrigger>
               <SelectContent>
                 {userLinkNames
-                  .filter((userLinkName) =>
-                    user.UserLink.length > 0
-                      ? user.UserLink.find(
-                          (userLink) => userLink.linkName !== userLinkName,
-                        )
-                      : true,
+                  .filter(
+                    (userLinkName) =>
+                      !user.UserLink.some((userLink) => userLink.linkName === userLinkName),
                   )
                   .map((linkName, idx) => (
                     <SelectItem key={idx} value={linkName}>
@@ -154,6 +162,7 @@ const InnerRightTopPanel = forwardRef<
                     </SelectItem>
                   ))}
               </SelectContent>
+
             </Select>
             <Input
               className="w-1/2"

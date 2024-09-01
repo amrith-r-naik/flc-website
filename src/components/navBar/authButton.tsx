@@ -14,17 +14,15 @@ const AuthButton: FunctionComponent = () => {
 
   return (
     <div className="hidden gap-2 sm:flex">
-      
+
       <div className="sm:flex md:flex"></div>
       {session ? (
         <Link href="/profile">
-          <DropDown
-            trigger={
-              <AvatarIcon
-                src={user?.image ?? "https://github.com/shadcn.png"}
-              />
-            }
+
+          <AvatarIcon
+            src={user?.image ?? "https://github.com/shadcn.png"}
           />
+
         </Link>
       ) : (
         <Link
