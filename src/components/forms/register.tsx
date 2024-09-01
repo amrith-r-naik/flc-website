@@ -50,7 +50,7 @@ const AlreadyMember: FunctionComponent<{
 }> = ({ user }) => {
   const router = useRouter();
   return (
-    <Card className="backdrop-blur-sm">
+    <Card className="bg-gradient-to-bl from-[#1e1333] via-[#0a001c] to-[#0e0a2a]">
       <CardHeader>
         <CardTitle>Already a Member</CardTitle>
       </CardHeader>

@@ -4,10 +4,11 @@ import React from "react";
 
 import LoginForm from "~/components/forms/login";
 
+/*/from-[#1e1333] via-[#0a001c] to-[#350236be]   /*/
 const Login: NextPage = () => {
   return (
     <>
-      <div className="bg-gradient-to-bl from-[#1e1333] via-[#0a001c] to-[#350236be] flex min-h-screen gap-10 ">
+      <div className="flex min-h-screen gap-10 bg-gradient-to-bl from-[#1e1333] via-[#0a001c] to-[#0e0a2a] ">
         <div className="my-10 flex w-full flex-col items-center gap-8 sm:my-20 sm:gap-16 lg:mx-24 lg:flex-row">
           <div className="order-2 w-full flex-col md:w-4/5 lg:order-1 lg:w-1/2 ">
             <Image
