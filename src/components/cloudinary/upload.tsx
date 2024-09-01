@@ -94,15 +94,7 @@ export default function UploadForm({oldImage}: UploadFormProps) {
     }
   };
 
-  const handleCopy = async (url: string) => {
-    try {
-      await navigator.clipboard.writeText(url);
-      toast.success("Copied to clipboard!");
-    } catch (err) {
-      toast.error("Failed to copy!");
-      console.error("Failed to copy text: ", err);
-    }
-  };
+  
 
 
   const handleDelete = async () => {
@@ -138,11 +130,12 @@ export default function UploadForm({oldImage}: UploadFormProps) {
 
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add Image Here</DialogTitle>
+            <DialogTitle>Change Your Profile Picture</DialogTitle>
           </DialogHeader>
 
-          <div className="content">
+          <div className="content mx-6 mt-6">
             <form
+            className="text-left"
               onChange={(e)=>handleChange(e)}
               onSubmit={(e) => {
                 void handleUpload(e);
@@ -152,41 +145,40 @@ export default function UploadForm({oldImage}: UploadFormProps) {
             >
               <input type="file" name="file" accept="image/*" required  />
               {preview && (
-                <div className="m-auto mt-6">
-                  <h2>Preview Image:</h2>
+                <div className="mt-6  ml-19">
+                <h2>Preview Image:</h2>
+                <div className="m-auto  w-[200px] h-[200px]">
+                  
                   <Image
-                    src={preview}
-                    className="m-auto"
-                    alt="Uploaded"
-                    width={500}
-                    height={500}
-                    style={{ maxWidth: "400px" }}
-                  />
+  src={preview}
+  className="m-auto rounded-full border-4 border-white object-fill object-center"
+  alt="Uploaded"
+  fill
+  style={{ maxWidth: "200px", maxHeight: "200px" }}
+/>
+</div>
                 </div>
               )}
               {imageUrl && (
-                <div className="m-auto mt-6">
-                  <h2>Uploaded Image:</h2>
+                <div className="mt-6">
+                  <h2 className="">Uploaded Image:</h2>
+                <div className="m-auto  w-[200px] h-[200px] ">
+                  
+                  
                   <Image
                     src={imageUrl}
-                    className="m-auto"
+                    className="m-auto border-4 border-white rounded-full object-fill object-center"
                     alt="Uploaded"
-                    width={500}
-                    height={500}
-                    style={{ maxWidth: "400px" }}
+                    fill
+                    style={{ maxWidth: "200px", maxHeight: "200px" }}
+                    
                   />
-                  <p className="mt-6 flex items-center">
-                    {" "}
-                    URL: &nbsp; &nbsp;
-                    <FaCopy
-                      onClick={() => handleCopy(imageUrl)}
-                      className="text-2xl hover:text-slate-300"
-                    ></FaCopy>
-                  </p>
+                  </div>
+                  
                 </div>
               )}
 
-              <DialogFooter className="mt-12">
+              <DialogFooter className="mt-6">
                 <DialogClose asChild>
                   <Button onClick={() => {
                     setImageUrl("")
