@@ -11,7 +11,7 @@ const Error: FunctionComponent = () => {
   const isDarkMode = theme === "dark";
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <section className="relative -mt-4 flex min-h-screen items-center justify-center overflow-hidden">
       <Particles
         className="absolute inset-0 z-0"
         quantity={300}
