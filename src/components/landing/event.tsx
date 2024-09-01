@@ -67,10 +67,9 @@ function Events() {
         className="mx-auto flex min-h-[80vh] w-full  max-w-screen-xl flex-col items-center gap-4 p-2  md:p-10 "
         ref={ref}
       >
-        <h1 className="py-2 pt-14 font-title text-3xl font-bold sm:py-2 md:text-7xl xl:text-8xl">
+        <h1 className="py-2 pt-14 font-title text-3xl font-bold sm:py-2 md:text-6xl xl:text-7xl">
           Events & WorkShop
         </h1>
-
         <p className="text-center">
           Enrich your skills and knowledge with tons of events and workshops
         </p>

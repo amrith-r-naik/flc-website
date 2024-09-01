@@ -7,8 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import docker from "~/assets/icons/docker.png";
 import github from "~/assets/icons/git.webp";
 import go from "~/assets/icons/go.svg";
-import graphqlIcon from "~/assets/icons/graphql-svgrepo-com.svg";
 import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg";
+import graphqlIcon from "~/assets/icons/qq.png";
 import nextAuth from "~/assets/icons/na.png";
 import next from "~/assets/icons/ns.webp";
 import ps from "~/assets/icons/postgress.svg";
@@ -39,6 +39,8 @@ export default function TechStack() {
   const getDynamicRadius = (baseRadius: number) => {
     return baseRadius + (screenWidth - 768) / 10;
   };
+
+ 
 
   useEffect(() => {
     const heroRefResolved = heroRef.current;
@@ -96,7 +98,7 @@ export default function TechStack() {
   return (
     <div>
       <div className="text-center" ref={thirdRef}>
-        <h1 className="z-10 py-2 pt-14 font-title text-3xl font-bold sm:py-2 md:text-7xl xl:text-8xl">
+        <h1 className="z-10 py-2 pt-14 font-title text-3xl font-bold sm:py-2 md:text-6xl xl:text-7xl">
           Tech Stacks: Powered by Our Club
         </h1>
         <div className="flex flex-col space-y-4 text-center">
@@ -256,9 +258,9 @@ export default function TechStack() {
             radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
           >
             <Image
-              src={graphqlIcon as string}
-              width={30}
-              height={30}
+              src={graphqlIcon }
+              width={40}
+              height={40}
               className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
               alt="GraphQL"
             />

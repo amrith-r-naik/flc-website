@@ -97,7 +97,7 @@ export default function Images({
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="secondary" onClick={() => setOptions(false)}>
+              <Button  onClick={() => setOptions(false)}>
                 Cancel
               </Button>
             </DialogClose>
