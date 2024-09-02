@@ -149,8 +149,6 @@
   border-radius: 12px;
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s ease-in-out;
-  transform-style: preserve-3d;
 }
 
 .grid-static {
@@ -167,16 +165,6 @@
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
   transform-style: preserve-3d;
-}
-
-.grid-card:hover {
-  position: relative;
-  transform: scale(1.05) rotate(5deg); /* Apply scaling and rotation */
-}
-
-.grid-card:hover .grid-card-content {
-  position: relative;
-  transform: scale(0.9523) rotate(-5deg);
 }
 
 .grid-card:before {
