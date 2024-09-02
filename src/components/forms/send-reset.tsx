@@ -41,7 +41,7 @@ const SendResetForm = ({ className }: { className?: string }) => {
       {
         onSuccess: () => {
           toast.dismiss();
-          toast.success("Verification email sent! Please check your email");
+          toast.success("Reset email sent! Please check your email");
         },
         onError: ({ message }) => {
           toast.dismiss();

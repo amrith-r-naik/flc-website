@@ -23,8 +23,8 @@ const DocumentPage: FC<DocumentPageProps> = ({
         {/* Header Section */}
         <header className=" py-4 shadow-md">
           <div className="content-container mx-auto px-4">
-            <h1 className="heading text-center font-bold ">{title}</h1>
-            <p className="subheading mt-2 text-center ">{subtitle}</p>
+            <h1 className="heading font-title text-center font-bold ">{title}</h1>
+            <p className="subheading font-sub-heading  mt-2 text-center ">{subtitle}</p>
             {lastUpdated && (
               <p className="caption mt-1 text-sm ">
                 Last updated on {lastUpdated}
@@ -38,7 +38,7 @@ const DocumentPage: FC<DocumentPageProps> = ({
           {sections.map((section, index) => (
             <section
               key={index}
-              className="bg-gradient mb-8 rounded-lg p-6 shadow-md"
+              className=" mb-8 rounded-lg p-6 shadow-md"
             >
               {section.heading && (
                 <h2 className="mb-4 text-2xl font-semibold">
