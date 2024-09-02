@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
 
 import { somethingWentWrong } from "~/utils/error";
 import {
@@ -59,7 +59,7 @@ const userRouter = createTRPCRouter({
       });
     }),
 
-  getLeaderboard: protectedProcedure.query(async ({ ctx }) => {
+  getLeaderboard: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.user.findMany({
       select: {
         name: true,

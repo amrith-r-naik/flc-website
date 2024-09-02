@@ -107,18 +107,18 @@ const InnerEditUserForm: FunctionComponent<{
       }}
     >
       <DialogDrawerTrigger asChild>
-        <Button
+        <button
           // variant={"ghost"}
-          className={cn(className, "relative inline px-2")}
+          className={cn(className, "relative inline p-2")}
         >
           {children}
-        </Button>
+        </button>
       </DialogDrawerTrigger>
       <DialogDrawerContent>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 px-4 md:px-0"
+            className="space-y-8 px-4 md:px-0 bg-[#0f0421]"
           >
             <DialogDrawerHeader>
               <DialogDrawerTitle>Edit User</DialogDrawerTitle>
@@ -170,9 +170,9 @@ const InnerEditUserForm: FunctionComponent<{
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <InputOTP maxLength={10} {...field}>
+                    <InputOTP maxLength={10} {...field} className="bg-[#494949]">
                       {Array.from({ length: 10 }).map((_, idx) => (
-                        <InputOTPSlot key={idx} index={idx} />
+                        <InputOTPSlot key={idx} index={idx} className="bg-[#494949]" />
                       ))}
                     </InputOTP>
                   </FormControl>
