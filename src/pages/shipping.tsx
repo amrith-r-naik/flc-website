@@ -6,7 +6,7 @@ const Shipping: FC = () => {
       <div>
         <header className="py-4 shadow-md ">
           <div className="container mx-auto px-4">
-            <h1 className="text-center text-3xl font-bold">
+            <h1 className="text-center font-title text-3xl font-bold">
               INSPIRANTE TECHNOLOGIES PRIVATE LIMITED
             </h1>
             <p className="mt-2 text-center text-xl">
@@ -19,7 +19,7 @@ const Shipping: FC = () => {
         </header>
 
         <main className="container mx-auto px-4 py-8">
-          <section className="bg-gradient mb-8 rounded-lg p-6 shadow-md">
+          <section className=" mb-8 rounded-lg p-6 shadow-md">
             <h2 className="mb-4 text-2xl font-semibold">Shipping Policy</h2>
             <p>
               Shipping is not applicable for business. For any queries related
@@ -27,11 +27,11 @@ const Shipping: FC = () => {
             </p>
           </section>
 
-          <section className="bg-gradient rounded-lg p-6 shadow-md">
+          <section className=" rounded-lg p-6 shadow-md">
             <h2 className="mb-4 text-2xl font-semibold">
               Membership Registration
             </h2>
-            <div className="bg-gradient rounded-lg border border-gray-300 p-6 ">
+            <div className=" rounded-lg border border-gray-300 p-6 ">
               <h3 className="mb-2 text-xl font-semibold">Membership Fee</h3>
               <p className="mb-4 text-lg">₹400</p>
               <p className="mb-4">
