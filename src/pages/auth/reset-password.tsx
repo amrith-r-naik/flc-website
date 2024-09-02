@@ -14,8 +14,8 @@ const SendResetEmail: NextPage = () => {
 
   return (
     <>
-      <div className="-mt-10 flex h-screen w-full items-center justify-center">
-        <div className="mx-8 w-4/5 justify-center rounded-lg  border-2 border-white bg-white bg-opacity-5 sm:w-96">
+      <div className="-mt-10 flex h-screen w-full items-center justify-center ">
+        <div className="mx-8 w-4/5 justify-center rounded-xl p-4 border border-purple-950 bg-gradient-to-rl from-[#1e1333] via-[#0a001c] to-[#350236be] sm:w-96">
           <div className="m-4">
             {tokenString ? (
               <ResetPasswordForm token={tokenString} />

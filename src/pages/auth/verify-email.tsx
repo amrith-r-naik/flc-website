@@ -20,7 +20,7 @@ const VerifyEmail = () => {
           <VerifyEmailForm token={tokenString} />
         ) : (
           <>
-            <div className=" flex h-[75svh] w-full flex-col items-center justify-center">
+            <div className=" flex w-full flex-col items-center justify-center">
               <h1 className="title mb-2 flex justify-center px-8 text-center text-2xl  text-white sm:mb-8 md:text-4xl">
                 Invalid token
               </h1>
