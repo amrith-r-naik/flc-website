@@ -76,7 +76,7 @@ const Resetpassword: FunctionComponent<{
           name="newPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white dark:text-white">
+              <FormLabel className="text-white dark:text-white ">
                 Password
               </FormLabel>
               <FormControl>
