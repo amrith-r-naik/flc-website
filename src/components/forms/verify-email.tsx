@@ -36,9 +36,11 @@ const VerifyEmailForm: FunctionComponent<{
   }, [token]);
 
   return (
-    <Link href="/login">
-      <Button>Back to login!</Button>
-    </Link>
+    <div className="flex items-center justify-center min-h-screen">
+      <Link href="/login">
+        <Button>Back to login!</Button>
+      </Link>
+    </div>
   );
 };
 
