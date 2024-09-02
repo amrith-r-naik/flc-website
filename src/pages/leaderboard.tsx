@@ -118,7 +118,7 @@ const Leaderboard: NextPage = () => {
                   colSpan={4}
                   className="rounded-l-lg rounded-r-lg border-y-2 border-l border-r border-border py-4 text-center text-xs md:text-lg"
                 >
-                  No users
+                  Looking very empty here...
                 </td>
               </tr>
             )}

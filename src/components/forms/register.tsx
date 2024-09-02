@@ -50,30 +50,27 @@ const AlreadyMember: FunctionComponent<{
 }> = ({ user }) => {
   const router = useRouter();
   return (
-    <Card className="bg-gradient-to-bl from-[#1e1333] via-[#0a001c] to-[#0e0a2a]">
+    <Card className="bg-gradient-to-bl from-[#1e1333] via-[#0a001c] to-[#0e0a2a] mt-14 flex flex-col justify-center items-center  border-none py-4">
       <CardHeader>
-        <CardTitle>Already a Member</CardTitle>
+        <CardTitle className="text-center text-3xl">You&apos;re already a member!</CardTitle>
       </CardHeader>
       <CardContent className="flex max-w-prose flex-col gap-3">
-        <div>
-          Thank you for showing interest in registering, but you seem to be a
-          member already
+        <div className="text-center">
+        Hey there! Looks like you&apos;re already part of the club.
         </div>
-        <div>
-          If you think this is an error, verify that you are signed in with the
-          correct account.
-        </div>
-        <div>
+        
+        <div className="text-center">
           You are currently signed in as{" "}
           <span className="font-bold">{user.name}</span> (
           <span className="font-bold">{user.email}</span>).
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex justify-center">
         <Button
           onClick={() => {
             router.back();
           }}
+          size="sm"
         >
           <LuLogOut className="mr-2 size-5" />
           Go Back
@@ -173,7 +170,7 @@ const InnerRegisterForm: FunctionComponent<{
           render={({ field }) => (
             <FormItem className="flex-1">
               <FormLabel className="text-white dark:text-white">
-                Email
+                Personal Email
               </FormLabel>
               <FormControl>
                 <Input
@@ -242,12 +239,12 @@ const InnerRegisterForm: FunctionComponent<{
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-white dark:text-white">
-                  Graduation Year
+                  Year of Graduration
                 </FormLabel>
                 <FormControl>
                   <Input
                     className="bg-[#494949]"
-                    placeholder="Graduation Year"
+                    placeholder="Year of Graduration"
                     {...field}
                     disabled
                   />

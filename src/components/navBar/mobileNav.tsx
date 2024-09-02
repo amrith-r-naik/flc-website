@@ -1,6 +1,7 @@
 "use client";
 
-import { IconMenu } from "@tabler/icons-react";
+
+import { HiMenuAlt3 } from "react-icons/hi";
 import { LayoutDashboard, LogIn } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -25,7 +26,7 @@ function MobileNav() {
     <section className="flex w-full items-center gap-3 ">
       <Sheet>
         <SheetTrigger asChild>
-          <IconMenu className="cursor-pointer sm:hidden" />
+          <HiMenuAlt3  className="cursor-pointer sm:hidden text-2xl" />
         </SheetTrigger>
         <SheetContent
           side="right"

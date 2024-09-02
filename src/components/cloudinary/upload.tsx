@@ -120,9 +120,9 @@ export default function UploadForm({oldImage}: UploadFormProps) {
     <div className="relative bottom-[-100px] right-2">
       <Dialog>
         <DialogTrigger asChild>
-          <div className="bg-slate-700  hover:text-slate-300 w-fit p-1 text-sm rounded-md border-1 border-white">
+          <div className="bg-[#1e1235]  hover:text-slate-300 w-fit p-1 px-2 text-sm rounded-xl  ">
             <LuPencil
-            className="text-sm hover:text-slate-700 inline"
+            className="text-sm  inline"
             title="Upload Image"
           /> Edit</div>
           
@@ -158,7 +158,7 @@ export default function UploadForm({oldImage}: UploadFormProps) {
       )}
       {imageUrl && (
         <div className="mt-6">
-          <h2 className="mb-6 md:mb-0">Uploaded Image:</h2> 
+          {/* <h2 className="mb-6 md:mb-0">Uploaded Image:</h2>  */}
           <div className="m-auto w-[200px] h-[200px]">
             <Image
               src={imageUrl}
@@ -185,7 +185,7 @@ export default function UploadForm({oldImage}: UploadFormProps) {
           </Button>
         </DialogClose>
 
-        <Button type="submit" disabled={isLoading} className="mt-2 sm:mt-0">
+        <Button type="submit" disabled={isLoading} className="mt-2 sm:mt-0" >
           {isLoading ? (
             <div className="flex items-center">
               <VscLoading className="animate-spin mr-2" />

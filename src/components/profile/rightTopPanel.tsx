@@ -75,7 +75,7 @@ const InnerRightTopPanel = forwardRef<
     >
       <div className="grid grid-cols-2 gap-5 first:*:*:opacity-60">
         <div className="col-span-2">
-          <p>Year & Branch</p>
+          <p>Year of Graduation & Branch</p>
           <p>
             {user.year} - {user.Branch.name}
           </p>
@@ -140,15 +140,15 @@ const InnerRightTopPanel = forwardRef<
           ))}
         </div>
         {!notMine && user.UserLink.length < 4 && (
-          <div className="flex gap-1">
+          <div className="flex items-center gap-2 md:gap-8">
             <Select
               value={userLink.linkName}
               onValueChange={(value) =>
                 setUserLink((prev) => ({ ...prev, linkName: value }))
               }
             >
-              <SelectTrigger className="w-1/2">
-                <SelectValue placeholder="Link Name" />
+              <SelectTrigger className="w-1/2 bg-[#140a28]">
+                <SelectValue placeholder="Social Links" className="placeholder:font-semibold"/>
               </SelectTrigger>
               <SelectContent>
                 {userLinkNames
@@ -165,7 +165,7 @@ const InnerRightTopPanel = forwardRef<
 
             </Select>
             <Input
-              className="w-1/2"
+              className="w-1/2 bg-[#140a28] placeholder:font-medium"
               placeholder="URL"
               value={userLink.url}
               onChange={(e) =>
@@ -173,7 +173,8 @@ const InnerRightTopPanel = forwardRef<
               }
             />
             <Button
-              className="px-2"
+              className="px-1"
+              size="sm"
               onClick={() => {
                 const { success } = addUserLinkZ.safeParse(userLink);
                 if (!success) {
@@ -221,8 +222,9 @@ const InnerRightTopPanel = forwardRef<
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
-        ) : (
-          <p className="my-auto opacity-60">No Certificates</p>
+        ) : (<>
+          <p className=" opacity-60 text-center">Jump into upcoming events<br/>Your path to earning certificates starts there!</p>
+        </>
         )}
       </div>
     </RadialCard>

@@ -60,7 +60,7 @@ const InnerBottomPanel = forwardRef<
           <CarouselNext />
         </Carousel>
       ) : (
-        <p className="my-auto opacity-60">No Events registered</p>
+        <p className=" opacity-60 text-center">You&apos;re missing out!<br/>Register for events to get started and make the most of your experience!</p>
       )}
     </RadialCard>
   );

@@ -37,7 +37,7 @@ export default function AddGallery() {
         <h2 className="text-lg font-medium">Images</h2>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline">Upload New Image</Button>
+            <Button variant="default">Upload New Image</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
@@ -109,7 +109,7 @@ export default function AddGallery() {
               </td>
               <td className="border px-4 py-2 text-center">
                 <Button
-                  variant="destructive"
+                  variant="default"
                   onClick={() => handleDeleteImage(index)}
                   className="mx-auto"
                 >

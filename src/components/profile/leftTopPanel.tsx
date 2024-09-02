@@ -3,7 +3,7 @@ import { signOut } from "next-auth/react";
 import React, { forwardRef } from "react";
 import { LuLogOut, LuShare2 } from "react-icons/lu";
 import { toast } from "sonner";
-
+import { BsPatchCheckFill } from "react-icons/bs";
 import NotFound from "~/pages/404";
 
 import { Button } from "~/components/ui/button";
@@ -42,11 +42,12 @@ const InnerLeftPanel = forwardRef<
       ref={ref}
       className={cn(
         className,
-        "relative flex flex-col items-center justify-evenly gap-3 rounded-lg bg-card p-10",
+        "relative flex flex-col items-center justify-evenly gap-3 rounded-lg bg-card p-10 pt-14",
       )}
     >
       <Button
-        variant={"ghost"}
+        variant={"default"}
+        size="ssm"
         className="absolute right-0 top-0 m-4 px-2"
         onClick={async () => {
           await navigator.clipboard.writeText(
@@ -55,22 +56,26 @@ const InnerLeftPanel = forwardRef<
           toast.success("Copied to clipboard");
         }}
       >
-        <LuShare2 className="size-8" />
+        <LuShare2 className="size-6" />
       </Button>
       <div className="flex flex-col items-center justify-center gap-10 md:flex-row">
         <ProfileImage notMine={notMine} />
-        <div className="flex w-full flex-col items-center justify-center gap-4">
-          <div className="text-center text-3xl">
-            <p className="inline">{user.name}</p>
+        <div className="flex w-full flex-col items-center justify-center gap-6">
+          <div className="text-center text-2xl">
+            <div>
+
+           
+            <p className="inline text-center text-4xl font-semibold ">{user.name}</p>
             {!notMine && (
               <EditUserForm>
                 <Pencil className="ml-2 size-5"></Pencil>
               </EditUserForm>
             )}
           </div>
-          <p className="text-sm opacity-60">
-            FLC Position - {user.position ? ` ${user.position} ✅` : "None"}
+          <p className="text-base opacity-60 flex flex-row items-center justify-center gap-2">
+            {user.position ? <>{user.position}<BsPatchCheckFill className="text-green-500 mt-[0.3px]" /></>  : "Unofficial Member"}
           </p>
+          </div>
 
           <div className="flex gap-5">
             <QRCode />
