@@ -73,7 +73,7 @@ const InnerLeftPanel = forwardRef<
             )}
           </div>
           <p className="text-base opacity-60 flex flex-row items-center justify-center gap-2">
-            {user.position ? <>{user.position}<BsPatchCheckFill className="text-green-500 mt-[0.3px]" /></>  : "Unofficial Member"}
+            {user.memberSince ? <>{user.position}<BsPatchCheckFill className="text-green-500 mt-[0.3px]" /></>  : "Unofficial Member"}
           </p>
           </div>
 
