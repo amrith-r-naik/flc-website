@@ -94,12 +94,15 @@ const InnerRightTopPanel = forwardRef<
       <div className="space-y-2">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {user.UserLink.map((link, idx) => (
-            <div key={idx} className="flex w-full gap-1 border border-gray-600 p-2 rounded-lg">
-              <button variant={"outline"} className="w-full flex justify-between " asChild>
+            <div
+              key={idx}
+              className="flex w-full gap-1 rounded-lg border border-gray-600 p-2"
+            >
+              <button className="flex w-full justify-between ">
                 <Link href={link.url}>
-                  <div className=" shadow-2xl p-1  w-full flex flex-row  justify-center items-center gap-4">
+                  <div className=" flex w-full  flex-row items-center justify-center  gap-4 p-1 shadow-2xl">
                     <Image
-                      src={`/${link.linkName.toLowerCase()}${link.linkName.toLowerCase() === 'instagram' ? '.jpg' : '.png'}`}
+                      src={`/${link.linkName.toLowerCase()}${link.linkName.toLowerCase() === "instagram" ? ".jpg" : ".png"}`}
                       alt={link.linkName}
                       width={50}
                       height={50}
@@ -111,7 +114,6 @@ const InnerRightTopPanel = forwardRef<
               </button>
               {!notMine && (
                 <button
-                  variant={"outline"}
                   className="p-2"
                   onClick={() => {
                     toast.loading("Removing Link...");
@@ -139,7 +141,7 @@ const InnerRightTopPanel = forwardRef<
             </div>
           ))}
         </div>
-        {!notMine && user.UserLink.length < 4 && (
+        {!notMine && user.UserLink.length < 5 && (
           <div className="flex items-center gap-2 md:gap-8">
             <Select
               value={userLink.linkName}
@@ -148,13 +150,18 @@ const InnerRightTopPanel = forwardRef<
               }
             >
               <SelectTrigger className="w-1/2 bg-[#140a28]">
-                <SelectValue placeholder="Social Links" className="placeholder:font-semibold"/>
+                <SelectValue
+                  placeholder="Social Links"
+                  className="placeholder:font-semibold"
+                />
               </SelectTrigger>
               <SelectContent>
                 {userLinkNames
                   .filter(
                     (userLinkName) =>
-                      !user.UserLink.some((userLink) => userLink.linkName === userLinkName),
+                      !user.UserLink.some(
+                        (userLink) => userLink.linkName === userLinkName,
+                      ),
                   )
                   .map((linkName, idx) => (
                     <SelectItem key={idx} value={linkName}>
@@ -162,7 +169,6 @@ const InnerRightTopPanel = forwardRef<
                     </SelectItem>
                   ))}
               </SelectContent>
-
             </Select>
             <Input
               className="w-1/2 bg-[#140a28] placeholder:font-medium"
@@ -222,9 +228,14 @@ const InnerRightTopPanel = forwardRef<
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
-        ) : (<>
-          <p className=" opacity-60 text-center">Jump into upcoming events<br/>Your path to earning certificates starts there!</p>
-        </>
+        ) : (
+          <>
+            <p className=" text-center opacity-60">
+              Jump into upcoming events
+              <br />
+              Your path to earning certificates starts there!
+            </p>
+          </>
         )}
       </div>
     </RadialCard>

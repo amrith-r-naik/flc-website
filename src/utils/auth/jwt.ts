@@ -1,5 +1,4 @@
 import { type RefreshToken, type VerificationToken } from "@prisma/client";
-import { error } from "console";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 
@@ -182,19 +181,19 @@ const refreshToken = async (token: string) => {
 
     if (!savedRefreshedToken || savedRefreshedToken.revoked === true) {
       console.error("Invalid token");
-      throw error("Invalid token");
+      throw Error("Invalid token");
     }
 
     const hashedToken = hashToken(refreshToken);
     if (hashedToken !== savedRefreshedToken.hashedToken) {
       console.error("Unauthorized");
-      throw error("Unauthorized");
+      throw Error("Unauthorized");
     }
 
     const user = await getUserById(payload.userId as number);
     if (!user) {
       console.error("Unauthorized");
-      throw error("Unauthorized");
+      throw Error("Unauthorized");
     }
 
     await revokeRefreshToken(savedRefreshedToken.id);
