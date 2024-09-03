@@ -187,7 +187,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
                 </FormLabel>
                 <FormControl>
                   <ComboBox
-                    className="w-full rounded-lg bg-[#494949] px-4 py-2"
+                    className="w-full rounded-lg bg-[#494949] py-2"
                     data={branches ?? []}
                     value={field.value}
                     setValue={field.onChange}

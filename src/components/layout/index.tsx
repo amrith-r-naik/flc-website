@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { type FunctionComponent, type ReactNode } from "react";
 import { Toaster } from "sonner";
 
-import SignIn from "~/components/auth/signIn";
 import Unauthorized from "~/components/auth/unauthorized";
 import Footer from "~/components/footer";
 import DashboardLayout from "~/components/layout/dashboardLayout";
@@ -33,7 +32,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
       pathname.startsWith("/profile") ||
       pathname.startsWith("/register"))
   )
-    return <SignIn />;
+    void routerPush("/auth/login");
 
   // Protected routes with special previlages
   if (
