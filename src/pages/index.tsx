@@ -1,3 +1,4 @@
+import { type NextPage } from "next";
 import { useTheme } from "next-themes";
 
 import Benefits from "~/components/landing/benefits";
@@ -6,14 +7,14 @@ import Hero from "~/components/landing/hero";
 import TechStack from "~/components/landing/techStack";
 import { cn } from "~/lib/utils";
 
-export default function Home() {
+const Home: NextPage = () => {
   const { theme } = useTheme();
 
   return (
     <main className="flex flex-col">
       <div className="min-h-screen w-full bg-gradient-to-t from-[#ffffff] via-[#efd17bc7] to-[#ffed951a] dark:bg-none" />
       <video
-        src="waves.webm"
+        src="/videos/waves.webm"
         autoPlay
         muted
         loop
@@ -23,13 +24,11 @@ export default function Home() {
         )}
       />
       <Hero />
-      {/* <AboutUs /> */}
       <Events />
-      {/* <Projects/> */}
-      {/* <Roadmap/> */}
-      {/* <Hackfest /> */}
       <TechStack />
       <Benefits />
     </main>
   );
-}
+};
+
+export default Home;

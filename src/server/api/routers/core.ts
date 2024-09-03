@@ -15,32 +15,32 @@ const coreRouter = createTRPCRouter({
   addOfficeBearer: adminProcedure
     .input(addOfficeBearerZ)
     .mutation(async ({ ctx, input }) => {
-      
       const core = await ctx.db.core.findFirst({});
 
       if (core) {
-        
-        const updatedOfficeBearers = [...core.officeBearers, input] 
+        const updatedOfficeBearers = [...core.officeBearers, input];
         type OfficeBearerType = z.infer<typeof officeBearerZ>;
-        
+
         await ctx.db.core.updateMany({
           data: {
-            
             officeBearers: updatedOfficeBearers as OfficeBearerType[],
           },
         });
 
-        console.log("Successfully added the office bearer to the existing record.");
+        console.log(
+          "Successfully added the office bearer to the existing record.",
+        );
       } else {
-        
         await ctx.db.core.create({
           data: {
-            faculty: [], 
-            officeBearers: [input], 
+            faculty: [],
+            officeBearers: [input],
           },
         });
 
-        console.log("Core record not found. Created a new core record with the input data.");
+        console.log(
+          "Core record not found. Created a new core record with the input data.",
+        );
       }
     }),
 

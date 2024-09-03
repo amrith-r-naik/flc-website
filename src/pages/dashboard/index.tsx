@@ -5,6 +5,7 @@ import Tile from "~/components/dashboard/tile";
 
 const links: { href: string; title: string }[] = [
   { href: "/dashboard/core", title: "Core" },
+  { href: "/dashboard/cloudinary", title: "Cloudinary" },
 ];
 
 const Dashboard: NextPage = () => {

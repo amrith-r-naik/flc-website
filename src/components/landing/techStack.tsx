@@ -1,34 +1,91 @@
 "use client";
 
+import {
+  SiTrpc,
+  SiReact,
+  SiZod,
+  SiDocker,
+  SiGithub,
+  SiGo,
+  SiJavascript,
+  SiPostgresql,
+  SiPrisma,
+  SiPython,
+  SiTypescript,
+  SiGraphql,
+  SiTailwindcss,
+  SiNextdotjs,
+  SiFlutter,
+  SiThreedotjs,
+  SiNodedotjs,
+  SiExpress,
+  SiKubernetes,
+  SiElixir,
+  SiRust,
+} from "@icons-pack/react-simple-icons";
 import gsap from "gsap";
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import {
+  createElement,
+  type FunctionComponent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-import docker from "~/assets/icons/docker.png";
-import github from "~/assets/icons/git.webp";
-import go from "~/assets/icons/go.svg";
-import jsIcon from "~/assets/icons/javascript-svgrepo-com.svg";
-import graphqlIcon from "~/assets/icons/qq.png";
-import nextAuth from "~/assets/icons/na.png";
-import next from "~/assets/icons/ns.webp";
-import ps from "~/assets/icons/postgress.svg";
-import prisma from "~/assets/icons/prisma.png";
-import pythonIcon from "~/assets/icons/py.png";
-import tailwindIcon from "~/assets/icons/tailwind-svgrepo-com.svg";
-import tsIcon from "~/assets/icons/typescript-svgrepo-com.svg";
-import vscode from "~/assets/icons/vs.png";
+import OrbitingCircles from "~/components/magicui/orbiting-circles";
 
-import OrbitingCircles from "../magicui/orbiting-circles";
+const iconConfig = [
+  {
+    radius: 80,
+    radiusThreshold: 100,
+    duration: 30,
+    icons: [
+      { element: SiNodedotjs, color: "#5FA04E", invert: false },
+      { element: SiExpress, color: "#000000", invert: true },
+      { element: SiFlutter, color: "#02569B", invert: false },
+      { element: SiTailwindcss, color: "#06B6D4", invert: false },
+    ],
+  },
+  {
+    radius: 145,
+    radiusThreshold: 200,
+    duration: 25,
+    icons: [
+      { element: SiPython, color: "#3776AB", invert: false },
+      { element: SiDocker, color: "#2496ED", invert: false },
+      { element: SiReact, color: "#61DAFB", invert: false },
+      { element: SiJavascript, color: "#F7DF1E", invert: false },
+      { element: SiTypescript, color: "#3178C6", invert: false },
+      { element: SiThreedotjs, color: "#000000", invert: true },
+      { element: SiGraphql, color: "#E10098", invert: false },
+    ],
+  },
+  {
+    radius: 210,
+    radiusThreshold: 550,
+    duration: 20,
+    icons: [
+      { element: SiTrpc, color: "#2596BE", invert: false },
+      { element: SiPostgresql, color: "#4169E1", invert: false },
+      { element: SiElixir, color: "#4B275F", invert: false },
+      { element: SiRust, color: "#000000", invert: true },
+      { element: SiNextdotjs, color: "#000000", invert: true },
+      { element: SiPrisma, color: "#2D3748", invert: true },
+      { element: SiGo, color: "#00ADD8", invert: false },
+      { element: SiGithub, color: "#181717", invert: true },
+      { element: SiZod, color: "#3E67B1", invert: false },
+      { element: SiKubernetes, color: "#326CE5", invert: false },
+    ],
+  },
+];
 
-export default function TechStack() {
+const TechStack: FunctionComponent = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const thirdRef = useRef<HTMLDivElement>(null);
   const [screenWidth, setScreenWidth] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
+    const handleResize = () => setScreenWidth(window.innerWidth);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
@@ -36,11 +93,8 @@ export default function TechStack() {
     };
   }, []);
 
-  const getDynamicRadius = (baseRadius: number) => {
-    return baseRadius + (screenWidth - 768) / 10;
-  };
-
- 
+  const getDynamicRadius = (baseRadius: number) =>
+    baseRadius + (screenWidth - 768) / 10;
 
   useEffect(() => {
     const heroRefResolved = heroRef.current;
@@ -66,9 +120,7 @@ export default function TechStack() {
     };
     const heroObserver = new IntersectionObserver(
       ([entry]) => {
-        if (!entry) return;
-
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           animateElement(heroRefResolved, "left");
           heroObserver.unobserve(entry.target);
         }
@@ -77,10 +129,7 @@ export default function TechStack() {
     );
     const thirdObserver = new IntersectionObserver(
       ([entry]) => {
-        if (!entry) {
-          return;
-        }
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           animateElement(thirdRefResolved, "up");
           thirdObserver.unobserve(entry.target);
         }
@@ -118,227 +167,40 @@ export default function TechStack() {
           }}
           ref={heroRef}
         >
-          <span className="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center font-title text-3xl leading-none text-transparent dark:from-white dark:to-black sm:text-5xl md:text-6xl lg:text-6xl">
-            “ Tech Resources ❞
+          <span className="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center font-title text-3xl leading-none text-transparent dark:from-white dark:to-gray-800 sm:text-5xl md:text-6xl lg:text-6xl">
+            Tech Resources
           </span>
 
-          {/* First Orbit with slower speed */}
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={33}
-            delay={0}
-            radius={getDynamicRadius(80) > 295 ? 295 : getDynamicRadius(80)}
-          >
-            <Image
-              src={tailwindIcon as string}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="Tailwind CSS"
-            />
-          </OrbitingCircles>
-          {/* <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={33}
-            delay={15}
-            radius={getDynamicRadius(80) > 295 ? 295 : getDynamicRadius(80)}
-          >
-            <Image
-              src={trpcIcon as string}
-              width={30}
-              height={30}
-              className="h-8 w-8 md:h-10 lg:h-12 lg:w-12overflow-hidden rounded-full md:w-10 object-contain aspect-square h-"
-              alt="tRPC"
-            />
-          </OrbitingCircles> */}
-          {/* <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={33}
-            delay={30}
-            radius={getDynamicRadius(80) > 295 ? 295 : getDynamicRadius(80)}
-          >
-            <Image
-              src={Gc as string}
-              width={30}
-              height={30}
-              className="h-8 w-8 md:h-10 lg:h-12 lg:w-12overflow-hidden rounded-full md:w-10 object-contain aspect-square h-"
-              alt="Google Cloud"
-            />
-          </OrbitingCircles> */}
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={33}
-            delay={11}
-            radius={getDynamicRadius(80) > 295 ? 295 : getDynamicRadius(80)}
-          >
-            <Image
-              src={pythonIcon}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="Python"
-            />
-          </OrbitingCircles>
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={33}
-            delay={22}
-            radius={getDynamicRadius(80) > 295 ? 295 : getDynamicRadius(80)}
-          >
-            <Image
-              src={docker}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="Docker"
-            />
-          </OrbitingCircles>
-
-          {/* Second Orbit with medium speed */}
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={25}
-            delay={0}
-            radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
-          >
-            <Image
-              src={jsIcon as string}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="JavaScript"
-            />
-          </OrbitingCircles>
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={25}
-            delay={15}
-            radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
-          >
-            <Image
-              src={tsIcon as string}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="TypeScript"
-            />
-          </OrbitingCircles>
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={25}
-            delay={30}
-            radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
-          >
-            <Image
-              src={nextAuth.src}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="NextAuth.js"
-            />
-          </OrbitingCircles>
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={25}
-            delay={45}
-            radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
-          >
-            <Image
-              src={vscode.src}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="VS Code"
-            />
-          </OrbitingCircles>
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={25}
-            delay={60}
-            radius={getDynamicRadius(145) > 435 ? 435 : getDynamicRadius(145)}
-          >
-            <Image
-              src={graphqlIcon }
-              width={40}
-              height={40}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="GraphQL"
-            />
-          </OrbitingCircles>
-
-          {/* Third Orbit with faster speed */}
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={20}
-            delay={0}
-            radius={getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)}
-          >
-            <Image
-              src={ps as string}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="PostgreSQL"
-            />
-          </OrbitingCircles>
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={20}
-            delay={15}
-            radius={getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)}
-          >
-            <Image
-              src={next}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="Next.js"
-            />
-          </OrbitingCircles>
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={20}
-            delay={30}
-            radius={getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)}
-          >
-            <Image
-              src={prisma}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="Prisma"
-            />
-          </OrbitingCircles>
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={20}
-            delay={45}
-            radius={getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)}
-          >
-            <Image
-              src={github}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="GitHub"
-            />
-          </OrbitingCircles>
-          <OrbitingCircles
-            className="border-none bg-transparent"
-            duration={20}
-            delay={60}
-            radius={getDynamicRadius(210) > 575 ? 575 : getDynamicRadius(210)}
-          >
-            <Image
-              src={go as string}
-              width={30}
-              height={30}
-              className="aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12"
-              alt="Go"
-            />
-          </OrbitingCircles>
+          {iconConfig.map((circle) =>
+            circle.icons.map((icon, idx) => (
+              <OrbitingCircles
+                key={idx}
+                className="border-none bg-transparent"
+                duration={circle.duration}
+                delay={(idx * circle.duration) / circle.icons.length}
+                radius={
+                  getDynamicRadius(circle.radius) > circle.radiusThreshold
+                    ? circle.radiusThreshold
+                    : getDynamicRadius(circle.radius)
+                }
+              >
+                {createElement(icon.element, {
+                  className:
+                    "aspect-square h-8 w-8 overflow-hidden rounded-full object-contain md:h-10 md:w-10 lg:h-12 lg:w-12",
+                  style: {
+                    color: icon.color,
+                    ...(icon.invert && {
+                      filter: "invert(1)",
+                    }),
+                  },
+                })}
+              </OrbitingCircles>
+            )),
+          )}
         </div>
       </section>
     </div>
   );
-}
+};
+
+export default TechStack;

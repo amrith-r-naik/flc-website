@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import {CLOUDINARY} from "./constant"
+
+import { CLOUDINARY } from "./constant";
 
 // Define the shape of the response from Cloudinary
 interface CloudinaryResource {

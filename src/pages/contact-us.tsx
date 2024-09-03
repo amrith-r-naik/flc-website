@@ -7,10 +7,12 @@ const ContactUs: FC = () => {
         {/* Header Section */}
         <header className="py-4 shadow-md">
           <div className="container mx-auto px-4">
-            <h1 className="heading font-title text-center font-bold">
+            <h1 className="heading text-center font-title font-bold">
               INSPIRANTE TECHNOLOGIES PRIVATE LIMITED
             </h1>
-            <p className="subheading font-sub-heading  mt-2 text-center">Contact Us</p>
+            <p className="subheading mt-2  text-center font-sub-heading">
+              Contact Us
+            </p>
             <p className="caption mt-1 text-center text-gray-600">
               Last updated on Oct 20th 2022
             </p>

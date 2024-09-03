@@ -1,4 +1,4 @@
-import { CalendarDays, ChartColumn, GalleryHorizontal, Home, Image, StickyNote, UsersRound } from "lucide-react";
+import { CalendarDays, ChartColumn, Home, UsersRound } from "lucide-react";
 import { type ReactElement } from "react";
 
 type NavItem = {
@@ -12,38 +12,26 @@ export const userNavItems: NavItem[] = [
   {
     type: "both",
     name: "Home",
-    Icon:<Home />,
+    Icon: <Home />,
     link: "/",
   },
-  // {
-  //  type: "both",
-  //  name: "Gallery",
-  //  link: "/gallery",
-  //  Icon:<Image />
-  // },
   {
     type: "both",
     name: "Events",
     link: "/events",
-    Icon:<CalendarDays />
+    Icon: <CalendarDays />,
   },
-  // {
-  //  type: "both",
-  //  name: "Blogs",
-  //  link: "/blogs",
-  //  Icon:<StickyNote />,
-  // },
   {
     type: "both",
     name: "Leaderboard",
     link: "/leaderboard",
-    Icon:<ChartColumn />
+    Icon: <ChartColumn />,
   },
   {
     type: "both",
     name: "Team",
     link: "/team",
-    Icon:<UsersRound />
+    Icon: <UsersRound />,
   },
 ];
 

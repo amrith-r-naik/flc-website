@@ -53,7 +53,7 @@ const EventCard: FunctionComponent<{
           <div className="flex flex-row items-center justify-between px-4">
             <div className="relative size-8">
               <Image
-                src="/assets/images/flc_logo_crop.png"
+                src="/images/flc-logo-crop.png"
                 alt={"Incridea Logo"}
                 fill
                 className="object-cover object-center"
@@ -69,7 +69,7 @@ const EventCard: FunctionComponent<{
                   src={
                     event.imgSrc && event.imgSrc.length > 0
                       ? event.imgSrc
-                      : "/assets/images/eventFallback.png"
+                      : "/images/eventFallback.png"
                   }
                   alt="Event image"
                   fill

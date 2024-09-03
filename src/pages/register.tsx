@@ -1,5 +1,5 @@
+import { SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { type NextPage } from "next";
-import Image from "next/image";
 import React from "react";
 
 import RegisterForm from "~/components/forms/register";
@@ -15,13 +15,7 @@ const Register: NextPage = () => {
             </h1>
 
             <div className="mt-6 lg:mt-12">
-              <Image
-                className="ml-1"
-                src="/assets/github.png"
-                alt="GitHub Logo"
-                width={40}
-                height={40}
-              />
+              <SiGithub className="size-10" />
               <h1 className="pt-2 text-lg font-bold text-cyan-50">Github</h1>
               <p className="text-gray-300">
                 Join Finiteloop Club on GitHub for collaborative coding and
@@ -30,13 +24,7 @@ const Register: NextPage = () => {
               </p>
             </div>
             <div className="mt-6 lg:mt-12">
-              <Image
-                className="ml-2"
-                src="/assets/discord.png"
-                alt="Discord Logo"
-                width={40}
-                height={40}
-              />
+              <SiDiscord className="size-10" />
               <h1 className="pt-1 text-lg font-bold text-cyan-50">Discord</h1>
               <p className="text-gray-300">
                 Connect with Finiteloop Club on Discord to engage in lively tech
@@ -48,7 +36,7 @@ const Register: NextPage = () => {
           </div>
         </div>
 
-        <div className="order-1 mx-8  w-4/5 flex-col justify-center items-center rounded-lg  p-4 sm:mt-16 sm:w-2/3 lg:order-2 lg:w-1/2">
+        <div className="order-1 mx-8  w-4/5 flex-col items-center justify-center rounded-lg  p-4 sm:mt-16 sm:w-2/3 lg:order-2 lg:w-1/2">
           <div className="m-3">
             <RegisterForm />
           </div>

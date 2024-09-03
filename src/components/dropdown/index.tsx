@@ -17,7 +17,7 @@ const DropDown = ({ trigger }: { trigger: ReactNode }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>{trigger}</DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-gradient-to-br from-violet-900 via-blue-900 to-black z-[100]">
+      <DropdownMenuContent className="z-[100] bg-gradient-to-br from-violet-900 via-blue-900 to-black">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Link href="/profile">

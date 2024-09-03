@@ -2,8 +2,10 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { LuArrowRight } from "react-icons/lu";
+
 import AnimatedShinyText from "~/components/magicui/animated-shiny-text";
 import { api } from "~/utils/api";
+
 import { Button } from "../ui/button";
 
 function Hero() {

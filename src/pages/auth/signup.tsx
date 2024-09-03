@@ -12,7 +12,7 @@ const SignUp: NextPage = () => {
           <div className="order-2 w-full flex-col md:w-4/5 lg:order-1 lg:w-1/2">
             <Image
               className="ml-2 h-auto w-full rounded-lg object-cover p-2 sm:p-0 "
-              src="/assets/login.png"
+              src="/images/ui/login.png"
               alt="Login Logo"
               layout="responsive"
               width={1600}

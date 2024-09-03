@@ -32,7 +32,7 @@ function Events() {
       <div className="line-break"></div>
       <div className="h-full w-full text-white">
         <div className="flex justify-center">
-          <h1 className=" font-title mt-8 text-7xl font-bold">Events</h1>
+          <h1 className=" mt-8 font-title text-7xl font-bold">Events</h1>
         </div>
 
         <ul className="flex flex-wrap items-center justify-center gap-4 py-12">

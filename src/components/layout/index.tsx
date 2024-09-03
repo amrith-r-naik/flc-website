@@ -14,8 +14,7 @@ import { useLoading } from "~/hooks";
 import { cn } from "~/lib/utils";
 
 const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
-  const { pathname } = useRouter();
-  const router = useRouter();
+  const { pathname, push: routerPush } = useRouter();
   const { status, data: session } = useSession();
   const { theme, systemTheme } = useTheme();
   const loading = useLoading();
@@ -37,7 +36,6 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     return <SignIn />;
 
   // Protected routes with special previlages
-
   if (
     status === "authenticated" &&
     ((pathname.startsWith("/dashboard/organiser") &&
@@ -51,8 +49,9 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   if (pathname.startsWith("/dashboard"))
     return <DashboardLayout>{children}</DashboardLayout>;
 
+  // Redirect to profile if authenticated
   if (status === "authenticated" && pathname.startsWith("/auth"))
-    router.push("/profile");
+    void routerPush("/profile");
 
   return (
     <div

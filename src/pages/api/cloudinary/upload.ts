@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-
 import { IncomingForm } from "formidable";
 import type { NextApiRequest, NextApiResponse } from "next";
-import {CLOUDINARY} from "./constant"
+
+import { CLOUDINARY } from "./constant";
+
 export const config = {
   api: {
     bodyParser: false, // Disable the default body parser

@@ -16,22 +16,22 @@ export default function Dashboard() {
   const [rootPath, setRootPath] = useState<string>("/");
   const [pathArray, setPathArray] = useState<string[]>([]);
   const [images, setImages] = useState<CloudinaryResource[]>([]);
-  const [imageLoadPermisiion,setIMageLoadPermision]= useState<boolean>(true)
+  const [imageLoadPermisiion, setIMageLoadPermision] = useState<boolean>(true);
   const router = useRouter();
 
   const handleRefresh = () => {
-    void router.push("/dashboard/cloudinary")
+    void router.push("/dashboard/cloudinary");
   };
 
   useEffect(() => {
     const endpoint =
       rootPath === "/" ? "/api/cloudinary/listDir" : "/api/cloudinary/findDir";
     fetch(endpoint, {
-      method: "POST", 
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ path: rootPath }), 
+      body: JSON.stringify({ path: rootPath }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -50,9 +50,9 @@ export default function Dashboard() {
         console.error("There was a problem with the fetch operation:", error);
       });
 
-      imageLoadPermisiion?void fetchImagesByPathOfFolder("/"):""
-      setIMageLoadPermision(false)
-  }, [rootPath,imageLoadPermisiion]);
+    imageLoadPermisiion ? void fetchImagesByPathOfFolder("/") : "";
+    setIMageLoadPermision(false);
+  }, [rootPath, imageLoadPermisiion]);
 
   const fetchImagesByPathOfFolder = async (path: string) => {
     try {
@@ -61,7 +61,7 @@ export default function Dashboard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ path }), 
+        body: JSON.stringify({ path }),
       });
 
       if (!response.ok) throw new Error("Network response was not ok");

@@ -183,7 +183,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
             render={({ field }) => (
               <FormItem className="w-full sm:min-w-[200px]">
                 <FormLabel className="text-white dark:text-white">
-                   Year of Graduation
+                  Year of Graduation
                 </FormLabel>
                 <FormControl>
                   <Select onValueChange={field.onChange} value={field.value}>

@@ -89,21 +89,21 @@ const paymentRouter = createTRPCRouter({
       const whoPaidWhat =
         input.paymentType === "EVENT"
           ? {
-            amount: input.amount,
-            Team: {
-              connect: {
-                id: input.teamId,
+              amount: input.amount,
+              Team: {
+                connect: {
+                  id: input.teamId,
+                },
               },
-            },
-          }
+            }
           : {
-            amount: 400,
-            User: {
-              connect: {
-                id: ctx.session.user.id,
+              amount: 400,
+              User: {
+                connect: {
+                  id: ctx.session.user.id,
+                },
               },
-            },
-          };
+            };
 
       const payment = await ctx.db.payment.create({
         data: {
@@ -148,19 +148,14 @@ const paymentRouter = createTRPCRouter({
 
   getAllPayments: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.payment.findMany({
-      where: {
-        verified: true,
-      },
       orderBy: {
-        createdAt: 'desc'
+        createdAt: "desc",
       },
       include: {
-        User: true, 
+        User: true,
       },
-    })
-  })
-
-
+    });
+  }),
 });
 
 export default paymentRouter;

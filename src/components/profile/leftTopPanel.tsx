@@ -1,9 +1,10 @@
 import { Pencil } from "lucide-react";
 import { signOut } from "next-auth/react";
 import React, { forwardRef } from "react";
+import { BsPatchCheckFill } from "react-icons/bs";
 import { LuLogOut, LuShare2 } from "react-icons/lu";
 import { toast } from "sonner";
-import { BsPatchCheckFill } from "react-icons/bs";
+
 import NotFound from "~/pages/404";
 
 import { Button } from "~/components/ui/button";
@@ -63,18 +64,25 @@ const InnerLeftPanel = forwardRef<
         <div className="flex w-full flex-col items-center justify-center gap-6">
           <div className="text-center text-2xl">
             <div>
-
-           
-            <p className="inline text-center text-4xl font-semibold ">{user.name}</p>
-            {!notMine && (
-              <EditUserForm>
-                <Pencil className="ml-2 size-5"></Pencil>
-              </EditUserForm>
-            )}
-          </div>
-          <p className="text-base opacity-60 flex flex-row items-center justify-center gap-2">
-            {user.memberSince ? <>{user.position}<BsPatchCheckFill className="text-green-500 mt-[0.3px]" /></>  : "Unofficial Member"}
-          </p>
+              <p className="inline text-center text-4xl font-semibold ">
+                {user.name}
+              </p>
+              {!notMine && (
+                <EditUserForm>
+                  <Pencil className="ml-2 size-5"></Pencil>
+                </EditUserForm>
+              )}
+            </div>
+            <p className="flex flex-row items-center justify-center gap-2 text-base opacity-60">
+              {user.memberSince ? (
+                <>
+                  {user.position}
+                  <BsPatchCheckFill className="mt-[0.3px] text-green-500" />
+                </>
+              ) : (
+                "Unofficial Member"
+              )}
+            </p>
           </div>
 
           <div className="flex gap-5">

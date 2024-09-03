@@ -4,8 +4,6 @@ import React from "react";
 import { Card, CardContent } from "~/components/ui/card";
 import { AvatarGroup } from "~/components/ui/custom/avatar-group";
 
-import sampleImage from "~/assets/images/sample.jpg";
-
 import styles from "./styles.module.css";
 
 interface EventCardProps {
@@ -27,7 +25,7 @@ const EventCard = ({
     <Card className={`${styles.card} h-[345px] w-[275px] pb-4 sm:px-0`}>
       <CardContent className="h-full w-full p-2">
         <div className="relative mb-2 h-[50%] w-full">
-          <Image src={sampleImage} fill alt="title" />
+          <Image src="/images/ui/event-fallback.png" fill alt="title" />
         </div>
         <div className="mb-4 flex items-center justify-between text-ellipsis">
           <h1 className="font-inter my-4 max-w-[60%] overflow-hidden  text-ellipsis whitespace-nowrap text-xl font-bold">

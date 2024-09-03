@@ -50,15 +50,17 @@ const AlreadyMember: FunctionComponent<{
 }> = ({ user }) => {
   const router = useRouter();
   return (
-    <Card className="bg-gradient-to-bl from-[#1e1333] via-[#0a001c] to-[#0e0a2a] mt-14 flex flex-col justify-center items-center  border-none py-4">
+    <Card className="mt-14 flex flex-col items-center justify-center border-none bg-gradient-to-bl from-[#1e1333] via-[#0a001c]  to-[#0e0a2a] py-4">
       <CardHeader>
-        <CardTitle className="text-center text-3xl">You&apos;re already a member!</CardTitle>
+        <CardTitle className="text-center text-3xl">
+          You&apos;re already a member!
+        </CardTitle>
       </CardHeader>
       <CardContent className="flex max-w-prose flex-col gap-3">
         <div className="text-center">
-        Hey there! Looks like you&apos;re already part of the club.
+          Hey there! Looks like you&apos;re already part of the club.
         </div>
-        
+
         <div className="text-center">
           You are currently signed in as{" "}
           <span className="font-bold">{user.name}</span> (

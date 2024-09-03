@@ -1,6 +1,10 @@
 import { TRPCError } from "@trpc/server";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 
 import { somethingWentWrong } from "~/utils/error";
 import {

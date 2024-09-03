@@ -60,7 +60,12 @@ const InnerBottomPanel = forwardRef<
           <CarouselNext />
         </Carousel>
       ) : (
-        <p className=" opacity-60 text-center">You&apos;re missing out!<br/>Register for events to get started and make the most of your experience!</p>
+        <p className=" text-center opacity-60">
+          You&apos;re missing out!
+          <br />
+          Register for events to get started and make the most of your
+          experience!
+        </p>
       )}
     </RadialCard>
   );

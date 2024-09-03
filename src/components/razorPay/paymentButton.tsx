@@ -34,7 +34,8 @@ const PaymentButton = forwardRef<
       paymentType,
       amountInINR,
       teamId,
-      onFailure,
+      // TODO(Omkar): Implement this
+      // onFailure,
       onSuccess,
       ...props
     },
@@ -76,7 +77,7 @@ const PaymentButton = forwardRef<
               currency: paymentOrder.orderCurrency,
               name: "FiniteLoop Club",
               description: description,
-              image: `${env.NEXT_PUBLIC_CANONICAL_URL}assets/images/flc_logo_crop.png`,
+              image: `${env.NEXT_PUBLIC_CANONICAL_URL}images/flc-logo-crop.png`,
               notes: {
                 address: "NMAM Institute of Technology, Nitte, Karkala",
               },

@@ -57,7 +57,7 @@ const EventsSlug: NextPage = () => {
               src={
                 event.imgSrc && event.imgSrc.length > 0
                   ? event.imgSrc
-                  : "/assets/images/eventFallback.png"
+                  : "/images/ui/event-fallback.png"
               }
               alt="event"
               fill

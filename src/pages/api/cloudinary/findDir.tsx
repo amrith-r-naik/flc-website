@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import {CLOUDINARY} from "./constant"
 
-
+import { CLOUDINARY } from "./constant";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,8 +9,6 @@ export default async function handler(
   const { path } = req.body as { path: string };
 
   try {
-    
-    
     const { folders } = (await CLOUDINARY.api.sub_folders(path)) as {
       folders: { name: string; path: "string"; external_id: "string" };
     };

@@ -47,9 +47,7 @@ async function main() {
         nickName: nickName,
       })),
     })
-    .then(() => {
-      console.log("Branches seeded successfully");
-    })
+    .then(() => console.log("Branches seeded successfully"))
     .catch(console.error);
 }
 

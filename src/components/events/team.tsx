@@ -67,43 +67,39 @@ const TeamDialog: FunctionComponent<{
   }, [teamData]);
 
   useEffect(() => {
-    if (teamData && isTeamLeader) {
-      if (!teamData.isConfirmed) {
-        const flcMembersCount = teamData?.Members?.filter(
-          (member) => member.memberSince !== null,
-        ).length;
-        const nonFlcMembersCount = teamData?.Members?.filter(
-          (member) => member.memberSince === null,
-        ).length;
-        const amountToPay =
-          flcMembersCount * flcAmount + nonFlcMembersCount * nonFlcAmount;
-        setFlcMembersCount(flcMembersCount);
-        setNonFlcMembersCount(nonFlcMembersCount);
-        setAmount(amountToPay);
-      }
+    if (teamData && isTeamLeader && !teamData.isConfirmed) {
+      const flcMembersCount = teamData?.Members?.filter(
+        (member) => member.memberSince !== null,
+      ).length;
+      const nonFlcMembersCount = teamData?.Members?.filter(
+        (member) => member.memberSince === null,
+      ).length;
+      const amountToPay =
+        flcMembersCount * flcAmount + nonFlcMembersCount * nonFlcAmount;
+      setFlcMembersCount(flcMembersCount);
+      setNonFlcMembersCount(nonFlcMembersCount);
+      setAmount(amountToPay);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTeamLeader]);
 
   useEffect(() => {
-    if (paymentId) {
-      void refetchPaymentStatus();
-    }
+    if (paymentId) void refetchPaymentStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paymentId]);
 
   useEffect(() => {
-    if (paymentStatus) {
-      if (teamData?.id) {
-        confirmTeam.mutate(
-          { teamId: teamData.id },
-          {
-            onSuccess: () => {
-              toast.success("Team Confirmed");
-              setTeamConfirmed(true);
-            },
+    if (paymentStatus && teamData?.id)
+      confirmTeam.mutate(
+        { teamId: teamData.id },
+        {
+          onSuccess: () => {
+            toast.success("Team Confirmed");
+            setTeamConfirmed(true);
           },
-        );
-      }
-    }
+        },
+      );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paymentStatus]);
 
   return (

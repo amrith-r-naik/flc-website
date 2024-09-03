@@ -97,9 +97,7 @@ export default function Images({
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button  onClick={() => setOptions(false)}>
-                Cancel
-              </Button>
+              <Button onClick={() => setOptions(false)}>Cancel</Button>
             </DialogClose>
             <Button
               className="bg-red-500"

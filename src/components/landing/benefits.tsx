@@ -51,7 +51,7 @@ const Benefits: NextPage = () => {
       <div className="line-break "></div>
       <div className="event-bg "></div>
       <p
-        className=" absolute bottom-auto left-1/2 right-0 top-28 w-max -translate-x-1/2 px-2 text-center text-[2rem] text-transparent sm:top-24 md:top-14 md:block md:text-[5.25rem] lg:visible lg:text-8xl xl:text-9xl"
+        className="absolute bottom-auto left-1/2 right-0 top-28 w-max -translate-x-1/2 px-2 text-center text-[2rem] text-transparent sm:top-24 md:top-14 md:block md:text-[5.25rem] lg:visible lg:text-8xl xl:text-9xl"
         style={{
           WebkitTextStroke: "1.5px #201E43",
         }}
@@ -71,7 +71,7 @@ const Benefits: NextPage = () => {
         >
           <div className="grid-card flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl p-4 px-2 ">
             <Image
-              src="/grid_bg.png"
+              src="/images/ui/grid_bg.png"
               alt=""
               fill
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
@@ -90,14 +90,14 @@ const Benefits: NextPage = () => {
         >
           <div className="grid-static flex h-full w-full items-center justify-center rounded-2xl p-1 px-2 text-lg ">
             <Image
-              src="/grid_bg_yellow.png"
+              src="/images/ui/grid_bg_yellow.png"
               alt=""
               fill
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
             />
             <div className="grid-card-content">
               <Image
-                src="/logo.webp"
+                src="/images/hackfest-logo.webp"
                 alt=""
                 fill
                 className="object-contain object-center"
@@ -121,7 +121,7 @@ const Benefits: NextPage = () => {
               Projects
             </p>
             <Image
-              src="/grid_bg_right.png"
+              src="/images/ui/grid_bg_right.png"
               alt=""
               fill
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
@@ -136,7 +136,7 @@ const Benefits: NextPage = () => {
         >
           <div className="grid-card flex h-full w-full items-center justify-center">
             <Image
-              src="/grid_bg_topdown.png"
+              src="/images/ui/grid_bg_topdown.png"
               alt=""
               fill
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
@@ -153,7 +153,7 @@ const Benefits: NextPage = () => {
         >
           <div className="grid-card flex h-full w-full flex-col items-center justify-center rounded-2xl px-2 sm:py-2 md:py-4">
             <Image
-              src="/grid_bg_topdown.png"
+              src="/images/ui/grid_bg_topdown.png"
               fill
               alt=""
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
@@ -180,7 +180,7 @@ const Benefits: NextPage = () => {
         >
           <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
             <Image
-              src="/grid_bg_topdown.png"
+              src="/images/ui/grid_bg_topdown.png"
               alt=""
               fill
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
@@ -197,7 +197,7 @@ const Benefits: NextPage = () => {
         >
           <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
             <Image
-              src="/grid_bg_topdown.png"
+              src="/images/ui/grid_bg_topdown.png"
               alt=""
               fill
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
@@ -215,7 +215,7 @@ const Benefits: NextPage = () => {
         >
           <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 text-center font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
             <Image
-              src="/grid_bg.png"
+              src="/images/ui/grid_bg.png"
               alt=""
               fill
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
@@ -233,14 +233,14 @@ const Benefits: NextPage = () => {
           <div className="grid-static flex h-full w-full flex-col items-center justify-center gap-y-4 rounded-2xl p-4 text-center font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
             <div className="relative aspect-[3/4] w-3/4 xl:w-2/4 2xl:w-4/5">
               <Image
-                src="/assets/magazinecover.png"
+                src="/images/magazine-cover.png"
                 alt=""
                 fill
                 className="object-contain object-center"
               />
             </div>
             <a
-              href="/assets/pdf/inFiniteInsider.pdf"
+              href="/docs/inFiniteInsider.pdf"
               target="_blank"
               className="z-50"
             >
@@ -251,7 +251,7 @@ const Benefits: NextPage = () => {
             </a>
 
             <Image
-              src="/grid_bg_right.png"
+              src="/images/ui/grid_bg_right.png"
               alt=""
               fill
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
@@ -264,7 +264,7 @@ const Benefits: NextPage = () => {
         >
           <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 font-bebas-neue text-xl tracking-widest sm:text-2xl sm:tracking-wide md:text-3xl md:tracking-wider lg:tracking-widest xl:text-4xl">
             <Image
-              src="/grid_bg_topdown.png"
+              src="/images/ui/grid_bg_topdown.png"
               alt=""
               fill
               className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
@@ -281,7 +281,7 @@ const Benefits: NextPage = () => {
         >
           <div className="grid-card flex h-full w-full items-center justify-center rounded-2xl px-2 text-lg ">
             <Image
-              src="/grid_bg.png"
+              src="/images/ui/grid_bg.png"
               alt=""
               fill
               className="z-40l absolute bottom-0 left-0 right-0 top-0 opacity-50"
@@ -300,14 +300,14 @@ const Benefits: NextPage = () => {
         >
           <div className="grid-card flex h-full w-full items-center justify-center overflow-hidden rounded-2xl px-2 text-lg ">
             <Image
-              src="/grid_bg_yellow.png"
+              src="/images/ui/grid_bg_yellow.png"
               alt=""
               fill
               className="z-40l absolute bottom-0 left-0 right-0 top-0 opacity-50"
             />
             <div className=" grid-card-content relative h-[70%] w-[95%] sm:h-[40%] sm:w-[97%]">
               <Image
-                src="/assets/images/flc_logo.png"
+                src="/images/flc-logo.png"
                 alt=""
                 fill
                 className="object-contain object-center"

@@ -60,7 +60,7 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
       <div className="line-break "></div>
       <div className="absolute inset-0 z-0">
         <Image
-          src="/grid_bg.png"
+          src="/images/ui/grid_bg.png"
           alt="Footer Background"
           fill
           className="opacity-50"
@@ -70,11 +70,7 @@ const Footer: FunctionComponent<{ className?: string }> = ({ className }) => {
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="flex flex-col items-center md:items-start">
             <div className="relative size-28">
-              <Image
-                src="/assets/images/flc_logo_crop.png"
-                alt="flc_logo"
-                fill
-              />
+              <Image src="/images/flc-logo-crop.png" alt="flc_logo" fill />
             </div>
             <p className="events-heading mb-3 mt-3 flex items-center font-sub-heading text-lg md:text-xl">
               Finite Loop Club

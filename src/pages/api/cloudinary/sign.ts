@@ -1,6 +1,8 @@
 import { type SignApiOptions } from "cloudinary";
 import type { NextApiRequest, NextApiResponse } from "next";
-import {CLOUDINARY} from "./constant"
+
+import { CLOUDINARY } from "./constant";
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,

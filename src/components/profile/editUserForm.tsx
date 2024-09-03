@@ -118,7 +118,7 @@ const InnerEditUserForm: FunctionComponent<{
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 px-4 md:px-0 bg-[#0f0421]"
+            className="space-y-8 bg-[#0f0421] px-4 md:px-0"
           >
             <DialogDrawerHeader>
               <DialogDrawerTitle>Edit User</DialogDrawerTitle>
@@ -170,9 +170,17 @@ const InnerEditUserForm: FunctionComponent<{
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <InputOTP maxLength={10} {...field} className="bg-[#494949]">
+                    <InputOTP
+                      maxLength={10}
+                      {...field}
+                      className="bg-[#494949]"
+                    >
                       {Array.from({ length: 10 }).map((_, idx) => (
-                        <InputOTPSlot key={idx} index={idx} className="bg-[#494949]" />
+                        <InputOTPSlot
+                          key={idx}
+                          index={idx}
+                          className="bg-[#494949]"
+                        />
                       ))}
                     </InputOTP>
                   </FormControl>
