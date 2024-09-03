@@ -100,19 +100,24 @@ const InnerLeftPanel = forwardRef<
           </div>
         </div>
       </div>
-      <div className="mx-0 flex flex-col gap-3 self-start text-lg first:*:*:opacity-60 md:mx-10">
-        <div>
+      <div className="grid w-full grid-cols-2 gap-3 self-start text-lg *:col-span-2 first:*:*:opacity-60 md:mx-10">
+        <div className="md:col-span-1">
           <p>Phone</p>
           <p>{user.phone}</p>
         </div>
-        <div>
-          <p>Email</p>
-          <p>{user.email}</p>
+        <div className="md:col-span-1">
+          <p>USN</p>
+          <p>{user.usn}</p>
         </div>
         <div>
           <p>Branch</p>
           <p>{user.Branch.name}</p>
         </div>
+        <div>
+          <p>Email</p>
+          <p>{user.email}</p>
+        </div>
+
         <div>
           <p>Bio</p>
           <p>{user.bio.length > 0 ? user.bio : "-"}</p>

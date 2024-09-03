@@ -1,3 +1,10 @@
+import {
+  SiGithub,
+  SiLinkedin,
+  SiInstagram,
+  SiLeetcode,
+  SiPusher,
+} from "@icons-pack/react-simple-icons";
 import Image from "next/image";
 import Link from "next/link";
 import React, { forwardRef, useState } from "react";
@@ -77,7 +84,7 @@ const InnerRightTopPanel = forwardRef<
         <div className="col-span-2">
           <p>Year of Graduation & Branch</p>
           <p>
-            {user.year} - {user.Branch.name}
+            {user.year} - {user.Branch.nickName}
           </p>
         </div>
         <div>
@@ -96,25 +103,33 @@ const InnerRightTopPanel = forwardRef<
           {user.UserLink.map((link, idx) => (
             <div
               key={idx}
-              className="flex w-full gap-1 rounded-lg border border-gray-600 p-2"
+              className="flex w-full gap-1 rounded-lg border border-gray-600"
             >
-              <button className="flex w-full justify-between ">
-                <Link href={link.url}>
-                  <div className=" flex w-full  flex-row items-center justify-center  gap-4 p-1 shadow-2xl">
-                    <Image
-                      src={`/${link.linkName.toLowerCase()}${link.linkName.toLowerCase() === "instagram" ? ".jpg" : ".png"}`}
-                      alt={link.linkName}
-                      width={50}
-                      height={50}
-                      className="rounded-md"
-                    />
-                    {link.linkName}
-                  </div>
-                </Link>
-              </button>
+              <Link href={link.url} className="flex w-full" target="_blank">
+                <Button
+                  variant="ghost"
+                  isShimmer={false}
+                  className="flex w-full items-center justify-center gap-4 shadow-2xl"
+                >
+                  {link.linkName.toLowerCase() === "github" ? (
+                    <SiGithub className="size-6 text-white" />
+                  ) : link.linkName.toLowerCase() === "linkedin" ? (
+                    <SiLinkedin className="size-6 text-white" />
+                  ) : link.linkName.toLowerCase() === "instagram" ? (
+                    <SiInstagram className="size-6 text-white" />
+                  ) : link.linkName.toLowerCase() === "leetcode" ? (
+                    <SiLeetcode className="size-6 text-white" />
+                  ) : (
+                    <SiPusher className="size-6 text-white" />
+                  )}
+                  {link.linkName}
+                </Button>
+              </Link>
               {!notMine && (
-                <button
-                  className="p-2"
+                <Button
+                  isShimmer={false}
+                  variant="ghost"
+                  className="px-2 sm:px-2 md:px-2 lg:px-2"
                   onClick={() => {
                     toast.loading("Removing Link...");
                     removeUserLink.mutate(
@@ -136,7 +151,7 @@ const InnerRightTopPanel = forwardRef<
                   }}
                 >
                   <LuTrash2 className="size-5 text-red-500" />
-                </button>
+                </Button>
               )}
             </div>
           ))}
@@ -150,10 +165,7 @@ const InnerRightTopPanel = forwardRef<
               }
             >
               <SelectTrigger className="w-1/2 bg-[#140a28]">
-                <SelectValue
-                  placeholder="Social Links"
-                  className="placeholder:font-semibold"
-                />
+                <SelectValue placeholder="Social link" />
               </SelectTrigger>
               <SelectContent>
                 {userLinkNames
