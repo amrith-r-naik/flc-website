@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 import React, { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -24,6 +25,8 @@ interface Props {
 }
 
 const SendVerifyEmailForm: FunctionComponent<Props> = ({ className }) => {
+  const router = useRouter();
+
   const sendVerificationEmail = api.auth.sendVerifyEmail.useMutation();
 
   const formSchema = sendVerifyEmailZ;
@@ -45,6 +48,7 @@ const SendVerifyEmailForm: FunctionComponent<Props> = ({ className }) => {
         onSuccess: () => {
           toast.dismiss();
           toast.success("Verification email sent! Please check your email");
+          setTimeout(() => void router.push("/sent-verify-email"), 1000);
         },
         onError: ({ message }) => {
           toast.dismiss();

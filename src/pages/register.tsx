@@ -7,7 +7,7 @@ import RegisterForm from "~/components/forms/register";
 const Register: NextPage = () => {
   return (
     <div className="flex min-h-screen gap-10 bg-gradient-to-bl from-[#1e1333] via-[#0a001c] to-[#0e0a2a] ">
-      <div className="sm:my-15 my-10 flex w-full flex-col  gap-8 sm:gap-16 lg:mx-24 lg:flex-row">
+      <div className="sm:my-15 my-10 flex w-full flex-col items-center justify-center gap-8 sm:gap-16 lg:mx-24 lg:flex-row">
         <div className="order-2 w-full flex-col md:w-4/5 lg:order-1 lg:w-1/2">
           <div className="my-20 px-6 sm:px-10">
             <h1 className="flex justify-start text-2xl text-white sm:text-4xl">
@@ -36,7 +36,7 @@ const Register: NextPage = () => {
           </div>
         </div>
 
-        <div className="order-1 mx-8  w-4/5 flex-col items-center justify-center rounded-lg  p-4 sm:mt-16 sm:w-2/3 lg:order-2 lg:w-1/2">
+        <div className="order-1 mx-8 w-4/5 flex-col items-center justify-center rounded-lg  p-4 sm:mt-16 sm:w-2/3 lg:order-2 lg:w-1/2">
           <div className="m-3">
             <RegisterForm />
           </div>

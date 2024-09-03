@@ -93,6 +93,7 @@ const InnerRegisterForm: FunctionComponent<{
   const formSchema = z.object({
     name: z.string(),
     email: z.string(),
+    usn: z.string(),
     phone: z.string(),
     branch: z.string(),
     year: z.string(),
@@ -104,6 +105,7 @@ const InnerRegisterForm: FunctionComponent<{
     defaultValues: {
       name: user.name,
       email: user.email,
+      usn: user.usn,
       phone: user.phone,
       branch: user.Branch.name,
       year: user.year,
@@ -144,9 +146,8 @@ const InnerRegisterForm: FunctionComponent<{
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, "space-y-4")}
       >
-        <FormMessage className="flex justify-center text-4xl text-white/90">
-          Register
-        </FormMessage>
+        <h1 className="flex justify-center text-4xl text-white/90">Register</h1>
+
         <FormField
           control={form.control}
           name="name"
@@ -165,7 +166,6 @@ const InnerRegisterForm: FunctionComponent<{
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="email"
@@ -178,6 +178,24 @@ const InnerRegisterForm: FunctionComponent<{
                 <Input
                   className="bg-[#494949]"
                   placeholder="Email"
+                  {...field}
+                  disabled
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="usn"
+          render={({ field }) => (
+            <FormItem className="flex-1">
+              <FormLabel className="text-white dark:text-white">USN</FormLabel>
+              <FormControl>
+                <Input
+                  className="bg-[#494949]"
+                  placeholder="USN"
                   {...field}
                   disabled
                 />

@@ -18,7 +18,11 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { InputOTP, InputOTPSlot } from "~/components/ui/input-otp";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "~/components/ui/input-otp";
 import {
   Select,
   SelectContent,
@@ -49,6 +53,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
     defaultValues: {
       name: "",
       email: "",
+      usn: "",
       phone: "",
       branchId: "",
       year: "",
@@ -64,6 +69,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
         branchId: values.branchId,
         confirmPassword: values.confirmPassword,
         email: values.email,
+        usn: values.usn,
         name: values.name,
         password: values.password,
         phone: values.phone,
@@ -74,7 +80,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
           toast.dismiss();
           if (emailSent) {
             toast.success("Verification email sent! Please check your inbox");
-            setTimeout(() => void router.push("/auth/sent-verify-email"), 1000);
+            setTimeout(() => void router.push("/sent-verify-email"), 1000);
           } else {
             toast.success("Signed up successfully! Please verify your email");
             setTimeout(() => void router.push("/send-verify-email"), 1000);
@@ -123,10 +129,23 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
               </FormLabel>
               <FormControl>
                 <Input
-                  className="bg-[#494949] "
+                  className="bg-[#494949]"
                   placeholder="Email"
                   {...field}
                 />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="usn"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-white dark:text-white">USN</FormLabel>
+              <FormControl>
+                <Input className="bg-[#494949]" placeholder="USN" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -142,13 +161,15 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
               </FormLabel>
               <FormControl>
                 <InputOTP className="bg-[#494949]" maxLength={10} {...field}>
-                  {Array.from({ length: 10 }).map((_, idx) => (
-                    <InputOTPSlot
-                      key={idx}
-                      index={idx}
-                      className="size-6 bg-[#494949] sm:size-10"
-                    />
-                  ))}
+                  <InputOTPGroup>
+                    {Array.from({ length: 10 }).map((_, idx) => (
+                      <InputOTPSlot
+                        key={idx}
+                        index={idx}
+                        className="size-6 bg-[#494949] sm:size-10"
+                      />
+                    ))}
+                  </InputOTPGroup>
                 </InputOTP>
               </FormControl>
               <FormMessage />

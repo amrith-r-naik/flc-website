@@ -1,12 +1,10 @@
 import { TRPCError } from "@trpc/server";
-import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { razorPay } from "~/server/razorpay";
 
-import { env } from "~/env";
 import { createOrderZ, verifyAndSavePaymentZ } from "~/zod/paymentZ";
 
 const paymentRouter = createTRPCRouter({
@@ -78,14 +76,9 @@ const paymentRouter = createTRPCRouter({
       }
     }),
 
-  verifyAndSavePayment: protectedProcedure
+  savePayment: protectedProcedure
     .input(verifyAndSavePaymentZ)
     .mutation(async ({ ctx, input }) => {
-      const generatedSignature = crypto
-        .createHmac("sha256", env.RAZORPAY_API_KEY_ID)
-        .update(input.razorpayOrderId + "|" + input.razorpayPaymentId)
-        .digest("hex");
-
       const whoPaidWhat =
         input.paymentType === "EVENT"
           ? {
@@ -112,7 +105,6 @@ const paymentRouter = createTRPCRouter({
           razorpayOrderId: input.razorpayOrderId,
           razorpayPaymentId: input.razorpayPaymentId,
           razorpaySignature: input.razorpaySignature,
-          verified: generatedSignature === input.razorpaySignature,
           ...whoPaidWhat,
           User: {
             connect: {
@@ -125,11 +117,10 @@ const paymentRouter = createTRPCRouter({
       return {
         paymentDbId: payment.id,
         paymentRazopayId: payment.razorpayPaymentId,
-        paymentVerified: payment.verified,
       };
     }),
 
-  // FIXME: this wont work anymore
+  // FIXME(omkar): this wont work anymore
   checkEventPayment: protectedProcedure
     .input(z.object({ eventName: z.string(), paymentId: z.string() }))
     .query(async ({ ctx, input }) => {

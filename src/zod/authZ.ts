@@ -15,6 +15,9 @@ const signUpZ = z
         message: "Use your personal email",
       }),
     phone: z.string().regex(/^\d{10}$/, { message: "Invalid phone number" }),
+    usn: z.string().min(1, {
+      message: "USN is required",
+    }),
     year: z.string(),
     branchId: z.string().min(1, {
       message: "Please select a branch",

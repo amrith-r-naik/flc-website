@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -21,6 +22,8 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 const SendResetForm = ({ className }: { className?: string }) => {
+  const router = useRouter();
+
   const sendPasswordResetEmail = api.auth.sendPasswordResetEmail.useMutation();
 
   const formSchema = sendPasswordResetZ;
@@ -33,7 +36,7 @@ const SendResetForm = ({ className }: { className?: string }) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    toast.loading("Sending verification email...");
+    toast.loading("Sending reset password email...");
     sendPasswordResetEmail.mutate(
       {
         email: values.email,
@@ -42,6 +45,7 @@ const SendResetForm = ({ className }: { className?: string }) => {
         onSuccess: () => {
           toast.dismiss();
           toast.success("Reset email sent! Please check your email");
+          setTimeout(() => void router.push("/sent-reset-email"), 1000);
         },
         onError: ({ message }) => {
           toast.dismiss();

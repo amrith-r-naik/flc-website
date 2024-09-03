@@ -5,24 +5,21 @@ import jwt, {
   TokenExpiredError,
 } from "jsonwebtoken";
 
+import { sendVerificationEmailMutation } from "~/server/api/shared/auth";
+
 import { env } from "~/env";
 import {
   addPasswordResetTokenToWhitelist,
-  addVerificationTokenToWhitelist,
   revokeVerificationToken,
 } from "~/services/auth.service";
 import { getUserByEmail, getUserById, hashPassword } from "~/utils/auth/auth";
 import {
   findVerificationTokenById,
   generatePasswordResetToken,
-  generateVerificationToken,
   secrets,
 } from "~/utils/auth/jwt";
 import { somethingWentWrong } from "~/utils/error";
-import {
-  sendPasswordResetEmail,
-  sendVerificationEmail,
-} from "~/utils/nodemailer";
+import { sendPasswordResetEmail } from "~/utils/nodemailer";
 import {
   signUpZ,
   resetPasswordZ,
@@ -70,6 +67,7 @@ const authRouter = createTRPCRouter({
         data: {
           name: input.name,
           email: input.email,
+          usn: input.usn,
           password: hashedPassword!,
           phone: input.phone,
           year: input.year,
@@ -287,33 +285,5 @@ const authRouter = createTRPCRouter({
       });
     }),
 });
-
-const sendVerificationEmailMutation: (email: string) => Promise<void> = async (
-  email,
-) => {
-  const existingUser = await getUserByEmail(email);
-
-  if (!existingUser)
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "User not found",
-    });
-
-  if (existingUser.emailVerified)
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "User already verified",
-    });
-
-  const { id: token } = await addVerificationTokenToWhitelist({
-    userId: existingUser.id,
-  });
-
-  const verificationToken = generateVerificationToken(existingUser, token);
-
-  const url = `${env.NEXTAUTH_URL}/auth/verify-email?token=${verificationToken}`;
-
-  await sendVerificationEmail(existingUser.email, url, existingUser.name);
-};
 
 export default authRouter;

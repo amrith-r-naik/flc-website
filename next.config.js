@@ -49,8 +49,23 @@ const config = {
       permanent: true,
     },
     {
+      source: "/verify-email",
+      destination: "/auth/verify-email",
+      permanent: true,
+    },
+    {
       source: "/send-verify-email",
       destination: "/auth/send-verify-email",
+      permanent: true,
+    },
+    {
+      source: "/sent-verify-email",
+      destination: "/auth/sent-verify-email",
+      permanent: true,
+    },
+    {
+      source: "/reset-password",
+      destination: "/auth/reset-password",
       permanent: true,
     },
     {
@@ -59,13 +74,8 @@ const config = {
       permanent: true,
     },
     {
-      source: "/verify-email",
-      destination: "/auth/verify-email",
-      permanent: true,
-    },
-    {
-      source: "/reset-password",
-      destination: "/auth/reset-password",
+      source: "/sent-reset-email",
+      destination: "/auth/sent-reset-email",
       permanent: true,
     },
   ],
