@@ -14,7 +14,7 @@ const Profile: FunctionComponent<{ notMine?: boolean }> = ({
   const rightPanelRef = useRef<HTMLDivElement>(null);
 
   return (
-    <main className="my-10 h-auto min-h-screen w-full p-3 md:container md:h-screen">
+    <main className="h-auto min-h-screen w-full p-3 md:container md:my-10 md:h-screen">
       <RadialCardWrapper className="flex size-full flex-col gap-5">
         <div className="flex h-2/3 w-full flex-col gap-5 md:flex-row">
           <LeftTopPanel

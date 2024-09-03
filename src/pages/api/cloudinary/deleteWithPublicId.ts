@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { CLOUDINARY } from "./constant";
+import { cloudinary } from "./constant";
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,7 +18,7 @@ export default async function handler(
     }
 
     // Destroy the image on Cloudinary
-    const result = (await CLOUDINARY.uploader.destroy(public_id)) as {
+    const result = (await cloudinary.uploader.destroy(public_id)) as {
       result: string;
     };
 

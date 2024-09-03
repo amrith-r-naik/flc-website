@@ -2,7 +2,7 @@
 import { IncomingForm } from "formidable";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { CLOUDINARY } from "./constant";
+import { cloudinary } from "./constant";
 
 export const config = {
   api: {
@@ -45,12 +45,12 @@ export default async function handler(
         timestamp: Math.floor(Date.now() / 1000),
       };
 
-      const signature = CLOUDINARY.utils.api_sign_request(
+      const signature = cloudinary.utils.api_sign_request(
         paramsToSign,
         process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET!,
       );
 
-      const uploadResult = await CLOUDINARY.uploader.upload(file.filepath, {
+      const uploadResult = await cloudinary.uploader.upload(file.filepath, {
         folder: folder != "/" ? folder : "",
         public_id: signature, //signed url now safe
         secure: true,

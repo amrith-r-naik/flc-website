@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { CLOUDINARY } from "./constant";
+import { cloudinary } from "./constant";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,7 +9,7 @@ export default async function handler(
   const { path } = req.body as { path: string };
 
   try {
-    const { folders } = (await CLOUDINARY.api.sub_folders(path)) as {
+    const { folders } = (await cloudinary.api.sub_folders(path)) as {
       folders: { name: string; path: "string"; external_id: "string" };
     };
     console.log(folders);

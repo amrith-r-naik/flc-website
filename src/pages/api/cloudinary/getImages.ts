@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { CLOUDINARY } from "./constant";
+import { cloudinary } from "./constant";
 
 // Define the shape of the response from Cloudinary
 interface CloudinaryResource {
@@ -28,7 +28,7 @@ export default async function handler(
 
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const result = await CLOUDINARY.api.resources({
+    const result = await cloudinary.api.resources({
       type: "upload",
       prefix: path !== "/" ? path : "", // Specify the folder path here
       resource_type: "image", // Only fetch images

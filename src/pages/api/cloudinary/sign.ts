@@ -1,7 +1,7 @@
 import { type SignApiOptions } from "cloudinary";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { CLOUDINARY } from "./constant";
+import { cloudinary } from "./constant";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,7 +9,7 @@ export default async function handler(
 ) {
   const { paramsToSign } = req.body as SignApiOptions;
 
-  const signature = CLOUDINARY.utils.api_sign_request(
+  const signature = cloudinary.utils.api_sign_request(
     paramsToSign as SignApiOptions,
     process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET!,
   );
