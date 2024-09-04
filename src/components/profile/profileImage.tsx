@@ -66,7 +66,7 @@ const InnerProfileImage = forwardRef<
             <div className="relative size-full">
               {user.image && (
                 <Image
-                  src={user.image}
+                  src={user.image ?? "https://github.com/shadcn.png"}
                   alt={"Profile Image"}
                   fill
                   className="rounded-full object-cover object-center"

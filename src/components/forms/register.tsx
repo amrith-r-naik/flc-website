@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type inferProcedureOutput } from "@trpc/server";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { type FunctionComponent } from "react";
+import { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { LuLogOut } from "react-icons/lu";
 import { toast } from "sonner";
@@ -112,6 +112,7 @@ const InnerRegisterForm: FunctionComponent<{
       reasonToJoin: "",
       expectations: "",
       contribution: "",
+      githubLink: "",
       paymentId:
         user.Payment?.paymentType === "MEMBERSHIP" ? user.Payment.id : "",
     },
@@ -124,6 +125,7 @@ const InnerRegisterForm: FunctionComponent<{
         reasonToJoin: values.reasonToJoin,
         expectations: values.expectations,
         contribution: values.contribution,
+        githubLink: values.githubLink,
         paymentId: values.paymentId,
       },
       {
@@ -277,6 +279,27 @@ const InnerRegisterForm: FunctionComponent<{
 
         <FormField
           control={form.control}
+          name="githubLink"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-white dark:text-white">
+                Github Link
+              </FormLabel>
+              <FormControl>
+                <Input
+                  onFocus={form.handleSubmit(onSubmit)}
+                  className="bg-[#494949]"
+                  placeholder="Github Link"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="reasonToJoin"
           render={({ field }) => (
             <FormItem>
@@ -367,7 +390,8 @@ const InnerRegisterForm: FunctionComponent<{
                         !form.formState.touchedFields.contribution ||
                         form.getFieldState("contribution").invalid ||
                         form.getFieldState("expectations").invalid ||
-                        form.getFieldState("reasonToJoin").invalid
+                        form.getFieldState("reasonToJoin").invalid ||
+                        form.getFieldState("githubLink").invalid
                       }
                       type="submit"
                     />

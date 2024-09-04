@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import Layout from "~/components/layout";
 import SEOLayout from "~/components/layout/seo";
 import { siteMetaData } from "~/constants";
-import { ThemeProvider } from "~/context/themeContext";
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
@@ -29,23 +28,23 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return (
     <SessionProvider session={session}>
-      <ThemeProvider
+      {/*<ThemeProvider
         attribute="class"
         defaultTheme="dark"
         enableSystem
         themes={["light", "dark"]}
-      >
-        <Head>
-          <title>{title}</title>
-        </Head>
-        <SEOLayout>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </SEOLayout>
-        <Analytics />
-        <SpeedInsights />
-      </ThemeProvider>
+      >*/}
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <SEOLayout>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </SEOLayout>
+      <Analytics />
+      <SpeedInsights />
+      {/*</ThemeProvider >*/}
     </SessionProvider>
   );
 };

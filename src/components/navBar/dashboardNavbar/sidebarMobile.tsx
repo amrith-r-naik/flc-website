@@ -20,7 +20,7 @@ const MobileNav = () => {
         <SheetTrigger asChild>
           <IconMenu className="cursor-pointer sm:hidden" />
         </SheetTrigger>
-        <SheetContent side="left" className="border-none">
+        <SheetContent side="left" className="border-none text-white">
           <div className="mt-4 flex items-center justify-between p-2">
             <Link href="/" className="flex cursor-pointer items-center">
               <p className="ml-3 text-sm font-bold md:block md:text-2xl">
@@ -36,7 +36,7 @@ const MobileNav = () => {
                   <div key={index}>
                     <SheetClose asChild key={link.name}>
                       <Link
-                        className="group space-y-0.5 text-foreground "
+                        className="group space-y-0.5 !text-white"
                         href={link.link}
                       >
                         <p className="rounded-l-none border-b border-l-2 border-border p-4 px-1 text-sm font-bold md:text-base">

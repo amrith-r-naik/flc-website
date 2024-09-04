@@ -281,6 +281,19 @@ const authRouter = createTRPCRouter({
           reasonToJoin: input.reasonToJoin,
           expectations: input.expectations,
           contribution: input.contribution,
+          githubLink: input.githubLink,
+        },
+      });
+
+      await ctx.db.userLink.create({
+        data: {
+          linkName: "GitHub",
+          url: input.githubLink,
+          User: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
         },
       });
     }),

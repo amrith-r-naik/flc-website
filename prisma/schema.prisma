@@ -29,7 +29,7 @@ model User {
   email String @unique
 
   emailVerified DateTime?
-  usn           String
+  usn           String    @unique
   password      String
 
   phone String
@@ -45,6 +45,7 @@ model User {
   reasonToJoin String?
   expectations String?
   contribution String?
+  githubLink   String?
 
   branchId String
   Branch   Branch @relation(fields: [branchId], references: [id])

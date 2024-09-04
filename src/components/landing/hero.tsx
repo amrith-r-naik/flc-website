@@ -34,7 +34,7 @@ function Hero() {
           </AnimatedShinyText>
         </div>
         <p className="mx-auto max-w-lg px-4 text-center font-sub-heading font-thin sm:text-lg md:max-w-xl md:text-xl lg:max-w-5xl lg:text-3xl ">
-          NMAMIT&apos;s premier coding community Realizing ideas, inspiring the
+          NMAMIT&apos;s premier coding community. Realizing ideas, inspiring the
           next.
         </p>
         {!user?.paymentId && (

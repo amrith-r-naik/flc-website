@@ -69,6 +69,7 @@ const userRouter = createTRPCRouter({
         name: true,
         email: true,
         image: true,
+        usn: true,
         totalActivityPoints: true,
         _count: {
           select: {

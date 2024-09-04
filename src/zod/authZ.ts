@@ -50,6 +50,7 @@ const registerZ = z.object({
   paymentId: z.string().min(1, {
     message: "Payment ID is required",
   }),
+  githubLink: z.string().url().refine((url)=> url.includes('github.com')),
 });
 
 const sendVerifyEmailZ = z.object({

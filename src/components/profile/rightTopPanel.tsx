@@ -167,7 +167,7 @@ const InnerRightTopPanel = forwardRef<
               <SelectTrigger className="w-1/2 bg-[#140a28]">
                 <SelectValue placeholder="Social link" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="text-white">
                 {userLinkNames
                   .filter(
                     (userLinkName) =>

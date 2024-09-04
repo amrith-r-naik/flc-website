@@ -1,10 +1,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import MemberCard from "~/components/team/memberCard";
-import { years } from "~/constants";
-import { teamTabs } from "~/constants";
+import { teamTabs, years } from "~/constants";
 import { api } from "~/utils/api";
 
 function Team() {
@@ -63,7 +62,7 @@ function Team() {
 
   return (
     <>
-      <div className="mainDiv top-0 flex flex-col items-center pt-48">
+      <div className="mainDiv top-0 flex min-h-screen flex-col items-center pt-48">
         <div className="my-10 flex w-full flex-col items-center">
           <div className="titleContainer flex items-center justify-center gap-4 font-title">
             <h1 className="meet mb-3 h-full bg-gradient-to-r from-amber-200 to-[#E98F81] bg-clip-text text-2xl font-bold text-transparent md:text-4xl">

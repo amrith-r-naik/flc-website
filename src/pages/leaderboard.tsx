@@ -47,7 +47,7 @@ const Leaderboard: NextPage = () => {
   });
 
   return (
-    <div className="w-full space-y-8 bg-[#100020] pb-20">
+    <div className="min-h-screen w-full space-y-8 bg-[#100020] pb-20">
       <header
         style={{
           background:
@@ -107,7 +107,7 @@ const Leaderboard: NextPage = () => {
                     </Avatar>
                     {user.name}
                   </td>
-                  <td>{user.email.split("@")[0]?.toUpperCase() ?? "N/A"}</td>
+                  <td>{user.usn}</td>
                   <td>{user._count.Team}</td>
                   <td>{user.totalActivityPoints}xp</td>
                 </tr>

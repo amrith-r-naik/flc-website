@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { type FunctionComponent } from "react";
+import { type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
@@ -10,9 +10,9 @@ import { Button } from "~/components/ui/button";
 import { ComboBox } from "~/components/ui/custom/combobox";
 import { Password } from "~/components/ui/custom/password";
 import {
-  FormField,
   Form,
   FormControl,
+  FormField,
   FormItem,
   FormLabel,
   FormMessage,
@@ -213,7 +213,11 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
                     </SelectTrigger>
                     <SelectContent>
                       {getGraduationYears().map((year, idx) => (
-                        <SelectItem key={idx} value={`${year}`}>
+                        <SelectItem
+                          key={idx}
+                          value={`${year}`}
+                          className="text-white"
+                        >
                           {year} (
                           {idx === 0
                             ? "4th B.Tech, 2nd MCA"

@@ -59,7 +59,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         theme === "light" || (theme === "system" && systemTheme === "light")
           ? "bg-yellow-50"
           : "bg-[#0b011d]",
-        "relative h-fit min-h-screen w-full overflow-clip transition-all",
+        "relative h-fit min-h-screen w-full overflow-clip transition-all dark !text-white",
       )}
     >
       <NavBar />

@@ -31,7 +31,14 @@ const ProfileWrapper: FunctionComponent = () => {
   useEffect(() => {
     addAsyncRefetch(refetchUser);
   }, [refetchUser, addAsyncRefetch]);
-  if (status === "pending") return <Loader />;
+  if (status === "pending")
+    return (
+      <>
+        <div className="flex min-h-screen items-center justify-center">
+          <Loader />
+        </div>
+      </>
+    );
   if (!user) return <NotFound />;
   return <InnerProfile />;
 };

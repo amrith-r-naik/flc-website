@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { useRouter } from "next/router";
 import { QRCodeSVG } from "qrcode.react";
-import React, { type FunctionComponent } from "react";
+import { type FunctionComponent } from "react";
 import { LuQrCode, LuUserCircle } from "react-icons/lu";
 
 import { Button } from "~/components/ui/button";
@@ -53,8 +53,8 @@ const InnerQRCode: FunctionComponent<{
         </Button>
       </DialogDrawerTrigger>
       <DialogDrawerContent>
-        <DialogDrawerHeader className="space-y-4">
-          <DialogDrawerTitle className="text-center">
+        <DialogDrawerHeader className="space-y-4 text-white">
+          <DialogDrawerTitle className="text-center text-white">
             Your QR Code
           </DialogDrawerTitle>
           <DialogDrawerDescription className="text-center">

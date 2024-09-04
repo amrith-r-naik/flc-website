@@ -22,7 +22,7 @@ function MobileNav() {
   const activePath = null;
   const { data: session } = useSession();
   return (
-    <section className="flex w-full items-center gap-3 ">
+    <section className="flex w-full items-center gap-3">
       <Sheet>
         <SheetTrigger asChild>
           <HiMenuAlt3 className="cursor-pointer text-2xl sm:hidden" />
@@ -34,8 +34,8 @@ function MobileNav() {
           <div className="mt-4 flex items-center justify-between p-2 ">
             <SheetClose asChild>
               <Link href="/" className="flex cursor-pointer items-center">
-                <p className="ml-3  text-lg font-extrabold md:block md:text-2xl">
-                  Finite-Loop-Club
+                <p className="ml-3  text-center text-lg font-extrabold text-white md:block md:text-2xl">
+                  Finite Loop Club
                 </p>
               </Link>
             </SheetClose>
@@ -46,7 +46,10 @@ function MobileNav() {
               <div className=" flex flex-col gap-2 pt-2 text-sm font-bold text-foreground">
                 <SheetClose asChild>
                   {session && (
-                    <Link href="/profile" className="flex items-center gap-2">
+                    <Link
+                      href="/profile"
+                      className="flex items-center gap-2 text-white"
+                    >
                       <AvatarIcon
                         src={
                           session.user?.image ?? "https://github.com/shadcn.png"
@@ -65,7 +68,7 @@ function MobileNav() {
                       className="group space-y-0.5 text-foreground"
                       href={link.link}
                     >
-                      <p className="flex items-center gap-2 px-0.5 text-sm font-bold md:text-base">
+                      <p className="flex items-center gap-2 px-0.5 text-sm font-bold text-white md:text-base">
                         {link.Icon}
                         {link.name}
                       </p>
