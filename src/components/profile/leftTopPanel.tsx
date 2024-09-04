@@ -43,7 +43,7 @@ const InnerLeftPanel = forwardRef<
       ref={ref}
       className={cn(
         className,
-        "relative flex flex-col items-center justify-evenly gap-3 rounded-lg bg-card p-10 pt-14",
+        "relative flex flex-col items-center justify-evenly gap-3 overflow-auto rounded-lg bg-card p-10 pt-14",
       )}
     >
       <Button
