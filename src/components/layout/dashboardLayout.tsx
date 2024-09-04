@@ -23,7 +23,7 @@ const AdminLayout: FunctionComponent<{
       <AdminSidebar />
       <div className="w-full">
         <DashboardNavBar />
-        <main className="flex h-full w-full flex-col pt-[calc(4rem_+_1rem)]">
+        <main className="flex h-full w-full flex-col pt-[calc(4rem_+_1rem)] !text-white">
           {children}
         </main>
       </div>

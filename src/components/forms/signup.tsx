@@ -166,7 +166,7 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
                       <InputOTPSlot
                         key={idx}
                         index={idx}
-                        className="size-6 bg-[#494949] sm:size-10"
+                        className="size-9 bg-[#494949] sm:size-10"
                       />
                     ))}
                   </InputOTPGroup>

@@ -7,10 +7,10 @@ import { adminNavItems } from "~/constants";
 const AdminSidebar: FunctionComponent = () => {
   return (
     <>
-      <div className="fixed left-0 right-0 top-[13%] z-50 w-full bg-gray-500 p-4 sm:hidden">
+      <div className="fixed left-0 right-0 top-[13%] z-50 w-full bg-gray-500 p-4 text-white sm:hidden">
         <DashboardMobileNav />
       </div>
-      <div className="hidden w-1/6 space-y-3 border-r px-4 shadow-md sm:block">
+      <div className="hidden w-1/6 space-y-3 border-r px-4 text-white shadow-md sm:block">
         <h1 className="subheading mt-4 border-b text-left font-extrabold tracking-wide">
           Admin Dashboard
         </h1>

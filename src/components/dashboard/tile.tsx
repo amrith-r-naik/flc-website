@@ -8,7 +8,7 @@ const Tile: FunctionComponent<{
   href: string;
 }> = ({ title, href }) => {
   return (
-    <Link href={href}>
+    <Link href={href} className="text-white">
       <Button>{title}</Button>
     </Link>
   );

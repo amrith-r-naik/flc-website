@@ -51,7 +51,7 @@ const PaymentTable: FunctionComponent = () => {
           <SelectTrigger className="w-44">
             <SelectValue placeholder="Payment Type" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="text-white">
             <SelectItem value="ALL">Payment Type</SelectItem>
             {Object.values(PaymentType).map((type) => (
               <SelectItem key={type} value={type}>
@@ -64,7 +64,7 @@ const PaymentTable: FunctionComponent = () => {
           <SelectTrigger className="w-44">
             <SelectValue placeholder="Year" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="text-white">
             {/* TODO(Omkar): wow harcoded, noice */}
             <SelectItem value="ALL">Year </SelectItem>
             <SelectItem value="2024">2024</SelectItem>
