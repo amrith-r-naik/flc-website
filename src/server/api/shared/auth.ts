@@ -29,7 +29,7 @@ export const sendVerificationEmailMutation: (
 
   const verificationToken = generateVerificationToken(existingUser, token);
 
-  const url = `${env.NEXTAUTH_URL}/auth/verify-email?token=${verificationToken}`;
+  const url = `https://www.finiteloop.co.in/auth/verify-email?token=${verificationToken}`;
 
   await sendVerificationEmail(existingUser.email, url, existingUser.name);
 };
