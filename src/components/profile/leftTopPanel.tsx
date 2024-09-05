@@ -87,16 +87,18 @@ const InnerLeftPanel = forwardRef<
 
           <div className="flex gap-5">
             <QRCode />
-            <Button
-              onClick={() =>
-                signOut({
-                  redirect: false,
-                })
-              }
-            >
-              Sign out
-              <LuLogOut className="ml-2 size-5" />
-            </Button>
+            {!notMine && (
+              <Button
+                onClick={() =>
+                  signOut({
+                    redirect: false,
+                  })
+                }
+              >
+                Sign out
+                <LuLogOut className="ml-2 size-5" />
+              </Button>
+            )}
           </div>
         </div>
       </div>
