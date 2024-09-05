@@ -15,7 +15,7 @@ function Team() {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
 
     const vw = window.innerWidth * 0.01;
-    const fontSize = `${vw + 5}vmin`;
+    const fontSize = `${vw}vmin`;
 
     if (mediaQuery.matches) {
       gsap.from([".meet", ".the", ".team"], {
@@ -62,10 +62,10 @@ function Team() {
 
   return (
     <>
-      <div className="mainDiv top-0 flex min-h-screen flex-col items-center pt-48">
+      <div className="mainDiv top-0 flex min-h-screen flex-col items-center lg:pt-48">
         <div className="my-10 flex w-full flex-col items-center">
           <div className="titleContainer flex items-center justify-center gap-4 font-title">
-            <h1 className="meet mb-3 h-full bg-gradient-to-r from-amber-200 to-[#E98F81] bg-clip-text text-2xl font-bold text-transparent md:text-4xl">
+            <h1 className="meet mb-3 h-full bg-gradient-to-r from-amber-200 to-[#E98F81] bg-clip-text text-2xl font-bold text-transparent md:text-4xl xl:text-6xl">
               MEET THE TEAM
             </h1>
           </div>
