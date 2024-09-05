@@ -3,12 +3,13 @@ import gsap from "gsap";
 import { useRef, useState } from "react";
 
 import MemberCard from "~/components/team/memberCard";
-import { teamTabs, years } from "~/constants";
+import { teamTabs } from "~/constants";
 import { api } from "~/utils/api";
 
 function Team() {
-  const [toggleState, setToggleState] = useState(5); //Default year is 2024-25
-  const { data: core } = api.core.getCore.useQuery();
+  const [toggleState, setToggleState] = useState<string>("2024"); //Default year is 2024-25
+  const { data: core } = api.core.getCoreByYear.useQuery(toggleState);
+  const { data: faculty } = api.core.getFacultyCoords.useQuery();
 
   useGSAP(() => {
     // Title animation when screen width > 1024px
@@ -73,21 +74,23 @@ function Team() {
         </div>
 
         <ul className="hidden flex-wrap justify-center md:flex">
-          {teamTabs.map((tab, idx) => (
-            <li key={idx}>
+          {teamTabs.map((tab) => (
+            <li key={tab}>
               <a
                 onClick={() => {
-                  setToggleState(idx);
+                  setToggleState(tab);
                   onYearChange();
                 }}
                 className="relative block cursor-pointer p-4"
               >
-                {toggleState === idx ? (
+                {toggleState === tab ? (
                   <span className="absolute inset-x-0 -bottom-px h-px w-full bg-primary"></span>
                 ) : null}
                 <div className="flex items-center justify-center">
                   <span className="ml-3 text-xs font-light text-foreground lg:text-sm lg:font-medium">
-                    {tab.replace("Year", "").replace("to", " - ")}
+                    {tab !== "Faculty"
+                      ? `${parseInt(tab)}-${parseInt(tab) + 1}`
+                      : tab}
                   </span>
                 </div>
               </a>
@@ -100,17 +103,19 @@ function Team() {
             className="rounded-md border-2 border-border bg-card px-3 py-1 text-white"
             value={toggleState}
           >
-            {teamTabs.map((year, idx) => (
+            {teamTabs.map((year) => (
               <option
                 className="text-center text-xs text-white"
-                key={idx}
+                key={year}
                 onClick={() => {
-                  setToggleState(idx);
+                  setToggleState(year);
                   onYearChange();
                 }}
-                value={idx}
+                value={year}
               >
-                {year.replace("Year", "").replace("to", " - ")}
+                {year !== "Faculty"
+                  ? `${parseInt(year)}-${parseInt(year) + 1}`
+                  : year}
               </option>
             ))}
           </select>
@@ -121,34 +126,29 @@ function Team() {
           className="mt-8 flex w-full justify-center pb-24"
         >
           <div className="grid gap-4 gap-y-24 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {toggleState === 6
-              ? core?.faculty?.map((member, idx) => (
+            {toggleState === "Faculty"
+              ? faculty?.map((member, idx) => (
                   <MemberCard
                     key={idx}
-                    name={member.name}
+                    name={member.User.name}
                     role={member.position}
-                    src={member.image}
-                    github={member.github}
-                    linkedin={member.linkedin}
-                    instagram={member.instagram}
+                    src={member.User.image ?? ""}
+                    github={undefined}
+                    linkedin={undefined}
+                    instagram={undefined}
                   />
                 ))
-              : core?.officeBearers
-                  ?.filter(
-                    (member) =>
-                      years[toggleState]?.toString() === member.year.toString(),
-                  )
-                  .map((member, idx) => (
-                    <MemberCard
-                      key={idx}
-                      name={member.name}
-                      role={member.position}
-                      src={member.image}
-                      github={member.github}
-                      linkedin={member.linkedin}
-                      instagram={member.instagram}
-                    />
-                  ))}
+              : core?.map((member, idx) => (
+                  <MemberCard
+                    key={idx}
+                    name={member.User.name}
+                    role={member.position}
+                    src={member.User.image ?? ""}
+                    github={undefined}
+                    linkedin={undefined}
+                    instagram={undefined}
+                  />
+                ))}
           </div>
         </div>
       </div>

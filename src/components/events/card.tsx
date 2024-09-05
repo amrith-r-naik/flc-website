@@ -107,20 +107,15 @@ const EventCard: FunctionComponent<{
                   <IoIosPlayCircle />
                   <span className="z-50 text-white brightness-100">
                     {" "}
-                    Register
+                    {new Date() > (event.deadline ?? new Date())
+                      ? "View Event"
+                      : "Register "}
                   </span>
                 </button>
               </Link>
             </div>
           </div>
         </div>
-        <Image
-          src="/card_bottom.png"
-          alt=""
-          height={50}
-          width={50}
-          className="absolute bottom-0 left-0 right-0 top-auto w-[100%] opacity-50"
-        />
       </div>
     </>
   );

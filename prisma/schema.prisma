@@ -19,8 +19,13 @@ model Cms {
 model Core {
   id String @id @default(cuid())
 
-  faculty       Json[] // facultyZ
-  officeBearers Json[] // officeBearerZ
+  User   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  type     CoreType @default(OFFICE_BEARER)
+  position String
+  year     String
+  priority Int
 }
 
 model User {
@@ -38,7 +43,6 @@ model User {
   role  Role    @default(USER)
 
   bio                 String    @default("")
-  position            String?
   memberSince         DateTime?
   totalActivityPoints Int       @default(0)
 
@@ -72,6 +76,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Core      Core[]
 }
 
 model VerificationToken {
@@ -436,4 +441,9 @@ enum QuizState {
 enum BlogState {
   DRAFT
   PUBLISHED
+}
+
+enum CoreType {
+  OFFICE_BEARER
+  FACULTY_COORDINATOR
 }

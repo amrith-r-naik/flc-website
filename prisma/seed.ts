@@ -35,11 +35,6 @@ async function main() {
     .then(() => console.log("CMS seeded successfully"))
     .catch(console.error);
 
-  prisma.core
-    .create({ data: {} })
-    .then(() => console.log("Core seeded successfully"))
-    .catch(console.error);
-
   prisma.branch
     .createMany({
       data: Array.from(BRANCHES, ([nickName, name]) => ({

@@ -120,12 +120,6 @@ const Benefits: NextPage = () => {
             <p className="z-[50] duration-300 ease-in-out hover:text-5xl hover:text-yellow-400">
               Projects
             </p>
-            <Image
-              src="/images/ui/grid_bg_right.png"
-              alt=""
-              fill
-              className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
-            />
           </div>
         </FadeIn>
 
@@ -249,13 +243,6 @@ const Benefits: NextPage = () => {
                 Free Guide
               </Button>
             </a>
-
-            <Image
-              src="/images/ui/grid_bg_right.png"
-              alt=""
-              fill
-              className="absolute bottom-0 left-0 right-0 top-0 z-40 opacity-50"
-            />
           </div>
         </FadeIn>
         <FadeIn

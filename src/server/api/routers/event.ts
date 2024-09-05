@@ -169,7 +169,7 @@ const eventRouter = createTRPCRouter({
     });
   }),
 
-  getAllEventsForUser: protectedProcedure
+  getAllEventsForUser: publicProcedure
     .input(z.object({ year: z.string() }))
     .query(async ({ input, ctx }) => {
       const { year } = input;

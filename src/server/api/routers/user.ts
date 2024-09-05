@@ -1,6 +1,7 @@
 import { TRPCError } from "@trpc/server";
 
 import {
+  adminProcedure,
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
@@ -65,6 +66,11 @@ const userRouter = createTRPCRouter({
 
   getLeaderboard: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.user.findMany({
+      where: {
+        totalActivityPoints: {
+          gt: 0,
+        },
+      },
       select: {
         name: true,
         email: true,
@@ -81,6 +87,7 @@ const userRouter = createTRPCRouter({
           },
         },
       },
+      take: 50,
       orderBy: {
         totalActivityPoints: "desc",
       },
@@ -136,6 +143,10 @@ const userRouter = createTRPCRouter({
     }
     const userEvents = user.Team.map((team) => team.Event);
     return userEvents;
+  }),
+
+  getAllUsers: adminProcedure.query(async ({ ctx }) => {
+    return await ctx.db.user.findMany();
   }),
 });
 

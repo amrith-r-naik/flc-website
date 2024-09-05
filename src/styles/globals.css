@@ -82,7 +82,11 @@
   }
 }
 
-@layer components {
+body{
+  background-color: #0b011d;
+}
+
+ @layer components {
   .title {
     @apply text-5xl font-bold lg:text-7xl;
   }

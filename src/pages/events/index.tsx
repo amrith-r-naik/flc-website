@@ -8,17 +8,7 @@ import { api } from "~/utils/api";
 
 function Events() {
   const [selectedYear, setSelectedYear] = useState<string>("2024");
-  const years: string[] = [
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-  ];
+  const years: string[] = ["2020", "2021", "2022", "2023", "2024"];
 
   const handleYearClick = (year: string) => setSelectedYear(year);
 
@@ -42,7 +32,7 @@ function Events() {
               onClick={() => handleYearClick(year)}
               className={`cursor-pointer ${year === selectedYear ? "border-b-2 border-white p-1 text-white" : "events-heading"}`}
             >
-              {year}
+              {`${year}-${parseInt(year) + 1}`}
             </li>
           ))}
         </ul>

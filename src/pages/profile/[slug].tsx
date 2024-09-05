@@ -37,7 +37,14 @@ const ProfileWrapper: NextPage = () => {
   useEffect(() => {
     addAsyncRefetch(refetchUser);
   }, [refetchUser, addAsyncRefetch]);
-  if (status === "pending") return <Loader />;
+  if (status === "pending")
+    return (
+      <>
+        <div className="flex h-screen w-full items-center justify-center">
+          <Loader />
+        </div>
+      </>
+    );
   if (!user) return <NotFound />;
   return <InnerProfile notMine />;
 };

@@ -98,14 +98,22 @@ const Leaderboard: NextPage = () => {
                   key={idx}
                   className="text-center text-xs *:border-y-2 *:border-border *:py-4 first:*:rounded-l-lg first:*:border-l last:*:rounded-r-lg last:*:border-r md:text-lg"
                 >
-                  <td className="flex items-center justify-center gap-2">
+                  <td className="flex max-w-sm items-center justify-between gap-2 px-4">
                     <Avatar className="hidden md:block">
                       <AvatarImage
                         src={user.image ?? "https://github.com/shadcn.png"}
                       />
                       <AvatarFallback>PP</AvatarFallback>
                     </Avatar>
-                    {user.name}
+                    <p>
+                      {user.name.startsWith("NNM") ||
+                      user.name.startsWith("nnm") ||
+                      user.name.startsWith("nu") ||
+                      user.name.startsWith("NU") ||
+                      user.name.startsWith("4nm")
+                        ? user.name.split(" ").slice(1).join(" ")
+                        : user.name}
+                    </p>
                   </td>
                   <td>{user.usn}</td>
                   <td>{user._count.Team}</td>

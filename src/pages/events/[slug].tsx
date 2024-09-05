@@ -74,12 +74,14 @@ const EventsSlug: NextPage = () => {
           </p>
 
           <p className="text-base font-medium">Venue : {event.venue}</p>
-          <p className="text-sm font-medium sm:text-base">
-            Organisers :{" "}
-            {event.Organiser?.map((organiser) => organiser.User.name).join(
-              ", ",
-            )}
-          </p>
+          {event.Organiser.length !== 0 ? (
+            <p className="text-sm font-medium sm:text-base">
+              Organisers :{" "}
+              {event.Organiser?.map((organiser) => organiser.User.name).join(
+                ", ",
+              )}
+            </p>
+          ) : null}
 
           <div className="mt-4 flex items-center gap-8">
             {!user?.memberSince && (
@@ -128,24 +130,28 @@ const EventsSlug: NextPage = () => {
             dangerouslySetInnerHTML={{ __html: event.description ?? "" }}
           />
         </div>
-        <div className="b" style={{ flex: 1 }}>
-          <h1 className="text-xl font-medium">
-            {event.teamCount > 0
-              ? `Registered (${event.teamCount})`
-              : "Register Now!"}
-          </h1>
-          <AvatarGroup images={event.selectedImages} />
-          <h1 className="mb-2 mt-8 text-xl font-medium">Share with a friend</h1>
-          <div className="flex gap-2 ">
-            <Input
-              className="card-attributes flex-1 rounded-lg text-xs"
-              type="text"
-              value={url}
-              disabled
-            />
-            <CopyBtn value={url} />
+        {new Date() < (event.deadline ?? new Date()) ? (
+          <div className="b" style={{ flex: 1 }}>
+            <h1 className="text-xl font-medium">
+              {event.teamCount > 0
+                ? `Registered (${event.teamCount})`
+                : "Register Now!"}
+            </h1>
+            <AvatarGroup images={event.selectedImages} />
+            <h1 className="mb-2 mt-8 text-xl font-medium">
+              Share with a friend
+            </h1>
+            <div className="flex gap-2 ">
+              <Input
+                className="card-attributes flex-1 rounded-lg text-xs"
+                type="text"
+                value={url}
+                disabled
+              />
+              <CopyBtn value={url} />
+            </div>
           </div>
-        </div>
+        ) : null}
       </section>
     </main>
   );

@@ -1,5 +1,3 @@
-import { TRPCError } from "@trpc/server";
-import { facultyZ, officeBearerZ } from "prisma/schemaZ";
 import { z } from "zod";
 
 import {
@@ -8,79 +6,74 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
-import { addOfficeBearerZ } from "~/zod/core";
+import { addCoreZ, updateCoreZ } from "~/zod/core";
 
 const coreRouter = createTRPCRouter({
-  // Create
-  addOfficeBearer: adminProcedure
-    .input(addOfficeBearerZ)
+  addCore: adminProcedure.input(addCoreZ).mutation(async ({ ctx, input }) => {
+    await ctx.db.core.create({
+      data: {
+        position: input.position,
+        priority: parseInt(input.priority),
+        year: input.year,
+        User: {
+          connect: {
+            id: parseInt(input.userId),
+          },
+        },
+        type: input.type,
+      },
+    });
+  }),
+
+  deleteCore: adminProcedure
+    .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      const core = await ctx.db.core.findFirst({});
-
-      if (core) {
-        const updatedOfficeBearers = [...core.officeBearers, input];
-        type OfficeBearerType = z.infer<typeof officeBearerZ>;
-
-        await ctx.db.core.updateMany({
-          data: {
-            officeBearers: updatedOfficeBearers as OfficeBearerType[],
-          },
-        });
-
-        console.log(
-          "Successfully added the office bearer to the existing record.",
-        );
-      } else {
-        await ctx.db.core.create({
-          data: {
-            faculty: [],
-            officeBearers: [input],
-          },
-        });
-
-        console.log(
-          "Core record not found. Created a new core record with the input data.",
-        );
-      }
+      await ctx.db.core.delete({
+        where: { id: input },
+      });
     }),
 
-  // Retrieve
-  getCore: publicProcedure.query(async ({ ctx }) => {
-    const unparsedCore = await ctx.db.core.findFirstOrThrow();
-
-    const {
-      success: facultySuccess,
-      data: parsedFaculty,
-      error: facultyParsingError,
-    } = z.array(facultyZ).safeParse(unparsedCore.faculty);
-
-    if (!facultySuccess)
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: `Failed to parse faculties: ${facultyParsingError?.message}`,
+  updateCore: adminProcedure
+    .input(updateCoreZ)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.core.update({
+        where: { id: input.id },
+        data: {
+          position: input.position,
+          priority: input.priority,
+          year: input.year,
+          type: input.type,
+        },
       });
+    }),
 
-    console.log(parsedFaculty);
-
-    const {
-      success: officeBearer,
-      data: parsedOfficeBearers,
-      error: officeBearersParsingError,
-    } = z.array(officeBearerZ).safeParse(unparsedCore.officeBearers);
-
-    if (!officeBearer) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: `Failed to parse office bearers: ${officeBearersParsingError?.message}`,
+  getCoreByYear: publicProcedure
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.core.findMany({
+        where: { year: input, type: "OFFICE_BEARER" },
+        include: {
+          User: {
+            include: {
+              UserLink: true,
+            },
+          },
+        },
+        orderBy: {
+          priority: "asc",
+        },
       });
-    }
+    }),
 
-    return {
-      ...unparsedCore,
-      faculty: parsedFaculty,
-      officeBearers: parsedOfficeBearers,
-    };
+  getFacultyCoords: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.db.core.findMany({
+      where: {
+        type: "FACULTY_COORDINATOR",
+      },
+      include: {
+        User: true,
+      },
+    });
   }),
 });
-
 export default coreRouter;

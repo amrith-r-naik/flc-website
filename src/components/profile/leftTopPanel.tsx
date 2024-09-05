@@ -43,7 +43,7 @@ const InnerLeftPanel = forwardRef<
       ref={ref}
       className={cn(
         className,
-        "relative flex flex-col items-center justify-evenly gap-3 overflow-auto rounded-lg bg-card p-10 pt-14",
+        "relative flex flex-col items-center justify-evenly gap-3 overflow-auto overflow-x-clip rounded-lg bg-card p-10 pt-14",
       )}
     >
       <Button
@@ -76,7 +76,7 @@ const InnerLeftPanel = forwardRef<
             <p className="flex flex-row items-center justify-center gap-2 text-base opacity-60">
               {user.memberSince ? (
                 <>
-                  {user.position}
+                  Member
                   <BsPatchCheckFill className="mt-[0.3px] text-green-500" />
                 </>
               ) : (
