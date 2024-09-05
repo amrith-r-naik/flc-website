@@ -29,7 +29,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   if (
     status === "unauthenticated" &&
     (pathname.startsWith("/dashboard") ||
-      pathname.startsWith("/profile") ||
+      (pathname.startsWith("/profile") && !pathname.startsWith("/profile/")) ||
       pathname.startsWith("/register"))
   )
     void routerPush("/auth/login");
@@ -41,7 +41,8 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
       session.user.role !== "ORGANISER" &&
       session.user.role !== "ADMIN") ||
       (pathname.startsWith("/dashboard/admin") &&
-        session.user.role !== "ADMIN"))
+        session.user.role !== "ADMIN") ||
+      pathname.startsWith("/dashboard"))
   )
     return <Unauthorized user={session.user} />;
 
@@ -58,7 +59,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         theme === "light" || (theme === "system" && systemTheme === "light")
           ? "bg-yellow-50"
           : "bg-[#0b011d]",
-        "relative h-fit min-h-screen w-full overflow-clip transition-all dark !text-white",
+        "dark relative h-fit min-h-screen w-full overflow-clip !text-white transition-all",
       )}
     >
       <NavBar />
