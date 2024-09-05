@@ -37,7 +37,8 @@ const MemberCard: React.FC<MemberCardProps> = ({
         alt={`${name}'s Profile Image`}
         fill
         objectFit="cover"
-        className="absolute rounded-lg"
+        objectPosition="top"
+        className="absolute rounded-lg object-contain"
       />
 
       <div
