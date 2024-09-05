@@ -1,4 +1,4 @@
-<!doctype html>
+export const passwordResetTemplate = `<!doctype html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width" />
@@ -575,3 +575,4 @@
     </table>
   </body>
 </html>
+`;
