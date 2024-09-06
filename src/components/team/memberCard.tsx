@@ -29,8 +29,6 @@ const MemberCard: React.FC<MemberCardProps> = ({
     <Tilt
       className={` ${styles.baseCard} ${className} mainCard h-[80vw] max-h-[300px] w-[80vw] max-w-[300px]`}
       tiltReverse={true}
-      gyroscope={true}
-      glareEnable={true}
     >
       <Image
         src={src}
