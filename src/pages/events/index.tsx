@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 
 import EventCard from "~/components/events/card";
+import Loader from "~/components/loader";
 import { RadialCard, RadialCardWrapper } from "~/components/utils/radialCard";
 import { api } from "~/utils/api";
 
@@ -12,7 +13,7 @@ function Events() {
 
   const handleYearClick = (year: string) => setSelectedYear(year);
 
-  const { data: events } = api.event.getAllEventsForUser.useQuery({
+  const { data: events, isLoading } = api.event.getAllEventsForUser.useQuery({
     year: selectedYear,
   });
 
@@ -37,7 +38,11 @@ function Events() {
           ))}
         </ul>
 
-        {events && events.length > 0 ? (
+        {isLoading ? (
+          <div className="flex w-full items-center justify-center">
+            <Loader />
+          </div>
+        ) : events && events.length > 0 ? (
           <RadialCardWrapper className="mx-auto mb-4 grid max-w-7xl grid-cols-1 gap-10 px-5 md:grid-cols-2 xl:grid-cols-3">
             {events.map((event, idx) => (
               <RadialCard
@@ -50,7 +55,7 @@ function Events() {
             ))}
           </RadialCardWrapper>
         ) : (
-          <div className=" flex justify-center">No events available</div>
+          <div className="flex justify-center">No events available</div>
         )}
       </div>
     </div>

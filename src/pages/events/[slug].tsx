@@ -133,10 +133,13 @@ const EventsSlug: NextPage = () => {
         {new Date() < (event.deadline ?? new Date()) ? (
           <div className="b" style={{ flex: 1 }}>
             <h1 className="text-xl font-medium">
-              {event.teamCount > 0
-                ? `Registered (${event.teamCount})`
-                : "Register Now!"}
+              {event.state === "COMPLETED"
+                ? "Registration Closed"
+                : event.teamCount > 0
+                  ? `Registered (${event.teamCount})`
+                  : "Register Now!"}
             </h1>
+
             <AvatarGroup images={event.selectedImages} />
             <h1 className="mb-2 mt-8 text-xl font-medium">
               Share with a friend
