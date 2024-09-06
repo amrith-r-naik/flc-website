@@ -50,7 +50,7 @@ const paymentRouter = createTRPCRouter({
       }
 
       const AMOUNT_IN_INR =
-        input.paymentType === "EVENT" ? input.amountInINR : 409;
+        input.paymentType === "EVENT" ? input.amountInINR : 1;
       const CURRENCY = "INR";
       const RECEIPT = input.paymentType.charAt(0) + "_" + uuidv4();
       const PAYMENT_CAPTURE = true;
@@ -90,7 +90,7 @@ const paymentRouter = createTRPCRouter({
               },
             }
           : {
-              amount: 409,
+              amount: 1,
               User: {
                 connect: {
                   id: ctx.session.user.id,

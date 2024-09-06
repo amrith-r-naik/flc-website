@@ -57,7 +57,7 @@ const LoginForm: FunctionComponent<Props> = ({ className }) => {
         if (s?.ok) {
           toast.success("Logged in successfully");
           const { data: user } = await refetchUser();
-          if (user?.paymentId)
+          if (user?.memberSince)
             setTimeout(() => void router.push(`/profile`), 1000);
           else setTimeout(() => void router.push(`/register`), 1000);
         } else {
