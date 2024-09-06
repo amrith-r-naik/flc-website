@@ -65,7 +65,7 @@ export default function UploadForm({oldImage,buttonText}: UploadFormProps) {
       const data = (await response.json()) as UploadApiResponse;
       if (response.ok) {
         // toast.success("uploaded succesfully");
-        setImageUrl(data.url); // Set the URL to state for displaying
+        setImageUrl(data.url); 
         editUserImage.mutate(
           {
             image: data.url,

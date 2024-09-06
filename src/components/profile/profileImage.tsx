@@ -1,16 +1,8 @@
-
 import { useSession } from "next-auth/react";
 import UploadForm from "../cloudinary/upload";
 import Image from "next/image";
 import React, { forwardRef } from "react";
-
-
-import { useRefetchContext } from "~/context/refetchContext";
-import { cn } from "~/lib/utils";
 import { type User, useUser } from "~/store";
-import { api } from "~/utils/api";
-
-
 const ProfileImage = forwardRef<HTMLDivElement, { notMine: boolean }>(
   ({ notMine }, ref) => {
     const { user } = useUser();
@@ -33,10 +25,6 @@ const InnerProfileImage = forwardRef<
       ref={ref}
       className="relative size-36 min-h-36 min-w-36 rounded-full border-4 border-white text-foreground drop-shadow-md"
     >
-    
-    
-      
-    
      {user?.image &&( 
          <div >
              < Image
