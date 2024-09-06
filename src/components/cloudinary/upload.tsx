@@ -190,6 +190,7 @@ export default function UploadForm({oldImage,buttonText}: UploadFormProps) {
         <Button
           onClick={() => {
             setImageUrl("");
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             preview ? URL.revokeObjectURL(preview) : ""; // free up memory
             setPreview(null);
           }}
