@@ -16,10 +16,8 @@ const InnerProfileImage = forwardRef<
   { user: User; notMine: boolean }
 >(({ user, notMine }, ref) => {
  
-
-  const { data: session, status } = useSession();
-  console.log(session?.user.id)
-
+  const { data: session } = useSession();
+  
   return (
     <div
       ref={ref}
