@@ -1,14 +1,16 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import Loader from "~/components/loader";
 import MemberCard from "~/components/team/memberCard";
 import { teamTabs } from "~/constants";
 import { api } from "~/utils/api";
 
 function Team() {
   const [toggleState, setToggleState] = useState<string>("2024"); //Default year is 2024-25
-  const { data: core } = api.core.getCoreByYear.useQuery(toggleState);
+  const { data: core, isLoading } =
+    api.core.getCoreByYear.useQuery(toggleState);
   const { data: faculty } = api.core.getFacultyCoords.useQuery();
 
   useGSAP(() => {
@@ -126,8 +128,9 @@ function Team() {
           className="mt-8 flex w-full justify-center pb-24"
         >
           <div className="grid gap-4 gap-y-24 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {toggleState === "Faculty"
-              ? faculty?.map((member, idx) => (
+            {!isLoading ? (
+              toggleState === "Faculty" ? (
+                faculty?.map((member, idx) => (
                   <MemberCard
                     key={idx}
                     name={member.User.name}
@@ -138,7 +141,8 @@ function Team() {
                     instagram={undefined}
                   />
                 ))
-              : core?.map((member, idx) => (
+              ) : (
+                core?.map((member, idx) => (
                   <MemberCard
                     key={idx}
                     name={member.User.name}
@@ -148,7 +152,15 @@ function Team() {
                     linkedin={undefined}
                     instagram={undefined}
                   />
-                ))}
+                ))
+              )
+            ) : (
+              <>
+                <div className="flex w-full items-center justify-center">
+                  <Loader />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ const SEOLayout: FunctionComponent<{
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <meta
           property="twitter:image"
           content={`${env.NEXT_PUBLIC_CANONICAL_URL}api/og?page=${path}`}
@@ -33,7 +33,7 @@ const SEOLayout: FunctionComponent<{
         <meta property="og:title" content="Link preview title" />
         <meta property="og:description" content="Link preview description" />
         <meta property="og:url" content="Canonical link preview URL" />
-      </Head>
+      </Head> */}
       {children}
     </>
   );

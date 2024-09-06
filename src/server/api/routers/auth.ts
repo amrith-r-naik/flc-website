@@ -180,7 +180,7 @@ const authRouter = createTRPCRouter({
           token,
         );
 
-        const url = `${env.NEXTAUTH_URL}/auth/reset-password?token=${passwordResetToken}`;
+        const url = `https://www.finiteloop.co.in/auth/reset-password?token=${passwordResetToken}`;
 
         await sendPasswordResetEmail(
           existingUser.email,
@@ -280,7 +280,6 @@ const authRouter = createTRPCRouter({
           reasonToJoin: input.reasonToJoin,
           expectations: input.expectations,
           contribution: input.contribution,
-          githubLink: input.githubLink,
         },
       });
 

@@ -1,4 +1,4 @@
-<!doctype html>
+export const emailVerificationTemplate = `<!doctype html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width" />
@@ -577,3 +577,4 @@
     </table>
   </body>
 </html>
+`;

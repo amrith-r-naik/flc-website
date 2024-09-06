@@ -10,7 +10,6 @@ const signUpZ = z
       .email({
         message: "Email is required",
       })
-      // NOTE: please change in userZ.ts as well
       .refine((email) => !email.endsWith("@nmamit.in"), {
         message: "Use your personal email",
       }),
@@ -50,7 +49,10 @@ const registerZ = z.object({
   paymentId: z.string().min(1, {
     message: "Payment ID is required",
   }),
-  githubLink: z.string().url().refine((url)=> url.includes('github.com')),
+  githubLink: z
+    .string()
+    .url()
+    .refine((url) => url.includes("github.com")),
 });
 
 const sendVerifyEmailZ = z.object({

@@ -2,6 +2,9 @@ import fs from "fs";
 import handlebars from "handlebars";
 import nodemailer from "nodemailer";
 
+import { emailVerificationTemplate } from "~/templates/emailVerification";
+import { passwordResetTemplate } from "~/templates/passwordReset";
+
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
@@ -28,7 +31,8 @@ const sendVerificationEmail = async (
   name: string,
   expiry?: number,
 ) => {
-  const html = fs.readFileSync("src/templates/emailVerification.html", "utf-8");
+  // const html = fs.readFileSync("src/templates/emailVerification.html", "utf-8");
+  const html = emailVerificationTemplate;
   const template = handlebars.compile(html);
   const htmlToSend = template({
     verify_url: url,
@@ -57,7 +61,8 @@ const sendPasswordResetEmail = async (
   name: string,
   expiry?: number,
 ) => {
-  const html = fs.readFileSync("src/templates/passwordReset.html", "utf-8");
+  // const html = fs.readFileSync("src/templates/passwordReset.html", "utf-8");
+  const html = passwordResetTemplate;
   const template = handlebars.compile(html);
   const htmlToSend = template({
     verify_url: url,
