@@ -1,8 +1,6 @@
 import { type UploadApiResponse } from "cloudinary";
 import Image from "next/image";
 import React, { useState } from "react";
-import { FaCopy } from "react-icons/fa";
-import { MdCloudUpload } from "react-icons/md";
 import { FaUpload } from "react-icons/fa6";
 import { toast } from "sonner";
 import { useRefetchContext } from "~/context/refetchContext";
@@ -153,70 +151,68 @@ export default function UploadForm({oldImage,buttonText}: UploadFormProps) {
     }}
   >
     <input type="file" name="file" accept="image/*" required />
-    {preview && (
-      <div className="mt-6 ml-19">
-        <h2 className="mb-14 md:mb-28">Preview Image:</h2> 
-        
-        <div className="m-auto w-[200px] h-[200px]">
-          <Image
-            src={preview}
-            className="m-auto rounded-full border-4 border-white object-fill object-center"
-            alt="Uploaded"
-            fill
-            style={{ maxWidth: "200px", maxHeight: "200px" }}
-          />
+    <div>
+      {preview && (
+        <div className="mt-4 mb-4 "> 
+          <h2 className="mb-12 md:mb-14">
+            Preview Image:
+          </h2> 
+          <div className="m-auto w-[200px] h-[200px] relative bottom-[20px]">
+            <Image
+              src={preview}
+              className="m-auto rounded-full border-4 border-white object-fill object-center"
+              alt="Uploaded"
+              fill
+              style={{ maxWidth: "200px", maxHeight: "200px" }}
+            />
+          </div>
         </div>
-      </div>
-    )}
-    {imageUrl && (
-      <div className="mt-6">
-        <h2 className="mb-14 md:mb-28">Uploaded Image:</h2> 
-        
-        <div className="m-auto w-[200px] h-[200px]">
-          <Image
-            src={imageUrl}
-            className="m-auto border-4 border-white rounded-full object-fill object-center"
-            alt="Uploaded"
-            fill
-            style={{ maxWidth: "200px", maxHeight: "200px" }}
-          />
+      )}
+      {imageUrl && (
+        <div className="mt-4 mb-4"> 
+          <h2 className="mb-12 md:mb-14"> 
+            Uploaded Image:
+          </h2> 
+          <div className="m-auto w-[200px] h-[200px] relative bottom-[15px]">
+            <Image
+              src={imageUrl}
+              className="m-auto border-4 border-white rounded-full object-fill object-center"
+              alt="Uploaded"
+              fill
+              style={{ maxWidth: "200px", maxHeight: "200px" }}
+            />
+          </div>
         </div>
-      </div>
-    )}
-
-<DialogFooter className="mt-2 flex flex-col sm:flex-row sm:gap-2 md:justify-between sm:items-center  w-full">
-    
-    <DialogClose asChild>
-    <Button
-      onClick={() => {
-        setImageUrl("");
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        preview ? URL.revokeObjectURL(preview) : ""; // free up memory
-        setPreview(null);
-      }}
-      className="mt-1 sm:mt-0"
-    >
-      Cancel
-    </Button>
-  </DialogClose>
-    
-  
-
-    <Button type="submit" disabled={isLoading} className="mt-1 sm:mt-0">
-    {isLoading ? (
-      <div className="flex items-center">
-        <VscLoading className="animate-spin mr-2" />
-        Uploading...
-      </div>
-    ) : (
-      "Upload"
-    )}
-  </Button>
-  
-</DialogFooter>
-
+      )}
+    </div>
+    <DialogFooter className="mt-6 flex flex-col sm:flex-row sm:gap-2 md:justify-between sm:items-center w-full"> {/* Adjusted margin-top */}
+      <DialogClose asChild>
+        <Button
+          onClick={() => {
+            setImageUrl("");
+            preview ? URL.revokeObjectURL(preview) : ""; // free up memory
+            setPreview(null);
+          }}
+          className="mt-1 sm:mt-0"
+        >
+          Cancel
+        </Button>
+      </DialogClose>
+      <Button type="submit" disabled={isLoading} className="mt-1 sm:mt-0">
+        {isLoading ? (
+          <div className="flex items-center">
+            <VscLoading className="animate-spin mr-2" />
+            Uploading...
+          </div>
+        ) : (
+          "Upload"
+        )}
+      </Button>
+    </DialogFooter>
   </form>
 </div>
+
+
 
 </DialogContent>
 
