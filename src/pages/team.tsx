@@ -104,15 +104,15 @@ function Team() {
           <select
             className="rounded-md border-2 border-border bg-card px-3 py-1 text-white"
             value={toggleState}
+            onChange={(e) => {
+              setToggleState(e.target.value);
+              onYearChange();
+            }}
           >
             {teamTabs.map((year) => (
               <option
                 className="text-center text-xs text-white"
                 key={year}
-                onClick={() => {
-                  setToggleState(year);
-                  onYearChange();
-                }}
                 value={year}
               >
                 {year !== "Faculty"
@@ -123,45 +123,43 @@ function Team() {
           </select>
         </div>
 
+
         <div
           ref={cardsContainer}
           className="mt-8 flex w-full justify-center pb-24"
         >
           <div className="grid gap-4 gap-y-24 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {!isLoading ? (
-              toggleState === "Faculty" ? (
-                faculty?.map((member, idx) => (
-                  <MemberCard
-                    key={idx}
-                    name={member.User.name}
-                    role={member.position}
-                    src={member.User.image ?? ""}
-                    github={undefined}
-                    linkedin={undefined}
-                    instagram={undefined}
-                  />
-                ))
-              ) : (
-                core?.map((member, idx) => (
-                  <MemberCard
-                    key={idx}
-                    name={member.User.name}
-                    role={member.position}
-                    src={member.User.image ?? ""}
-                    github={undefined}
-                    linkedin={undefined}
-                    instagram={undefined}
-                  />
-                ))
-              )
+            {isLoading ? (
+              <div className="col-span-full flex items-center justify-center min-h-[300px]">
+                <Loader />
+              </div>
+            ) : toggleState === "Faculty" ? (
+              faculty?.map((member, idx) => (
+                <MemberCard
+                  key={idx}
+                  name={member.User.name}
+                  role={member.position}
+                  src={member.User.image ?? ""}
+                  github={undefined}
+                  linkedin={undefined}
+                  instagram={undefined}
+                />
+              ))
             ) : (
-              <>
-                <div className="flex w-full items-center justify-center">
-                  <Loader />
-                </div>
-              </>
+              core?.map((member, idx) => (
+                <MemberCard
+                  key={idx}
+                  name={member.User.name}
+                  role={member.position}
+                  src={member.User.image ?? ""}
+                  github={undefined}
+                  linkedin={undefined}
+                  instagram={undefined}
+                />
+              ))
             )}
           </div>
+
         </div>
       </div>
     </>

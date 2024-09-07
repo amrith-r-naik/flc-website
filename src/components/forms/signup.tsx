@@ -212,12 +212,14 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
                       <SelectValue placeholder="Choose Year" />
                     </SelectTrigger>
                     <SelectContent>
-                      {getGraduationYears().map((year, idx) => (
+                      {/* {getGraduationYears().map((year, idx) => ( */}
                         <SelectItem
-                          key={idx}
-                          value={`${year}`}
+                          // key={idx}
+                          value="2028"
                           className="text-white"
                         >
+                          "2028 (1st year B.Tech)"
+{/*                          
                           {year} (
                           {idx === 0
                             ? "4th B.Tech, 2nd MCA"
@@ -228,12 +230,16 @@ const SignUpForm: FunctionComponent<Props> = ({ className }) => {
                                 : idx === 3
                                   ? "1st B.Tech"
                                   : ""}
-                          )
+                          ) */}
                         </SelectItem>
-                      ))}
+                      {/* ))} */}
                     </SelectContent>
                   </Select>
                 </FormControl>
+
+
+
+
                 <FormMessage />
               </FormItem>
             )}

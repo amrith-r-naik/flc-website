@@ -14,6 +14,7 @@ import Loader from "../loader";
 import { RadialCard } from "../utils/radialCard";
 
 function Events() {
+
   const {
     data: events,
     isLoading,
@@ -52,12 +53,11 @@ function Events() {
         <div className="flex h-screen w-full items-center justify-center">
           <Loader />
         </div>
-
-        <Button className="hoverable mx-auto hover:bg-white">
-          <Link href="/events" className="text-white">
-            View All
-          </Link>
-        </Button>
+        <Link href="/events" passHref>
+    <Button className="mx-auto hover:bg-white">
+      View All
+    </Button>
+  </Link>
       </section>
     );
   }
@@ -90,9 +90,11 @@ function Events() {
         ) : (
           <div className="flex justify-center">No events available</div>
         )}
-        <Button className="mx-auto">
-          <Link href="/events">View All</Link>
-        </Button>
+           <Link href="/events" passHref>
+    <Button className="mx-auto hover:bg-white">
+      View All
+    </Button>
+  </Link>
       </section>
     );
   }
@@ -113,9 +115,11 @@ function Events() {
           <Loader />
         </div>
 
-        <Button className="mx-auto">
-          <Link href="/events">View All</Link>
-        </Button>
+        <Link href="/events" passHref>
+    <Button className="mx-auto hover:bg-white">
+      View All
+    </Button>
+  </Link>
       </section>
     );
   }
