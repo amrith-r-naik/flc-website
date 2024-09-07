@@ -13,8 +13,7 @@ import { api } from "~/utils/api";
 import Loader from "../loader";
 import { RadialCard } from "../utils/radialCard";
 
-function Events() {
-
+const Events = () => {
   const {
     data: events,
     isLoading,
@@ -53,11 +52,9 @@ function Events() {
         <div className="flex h-screen w-full items-center justify-center">
           <Loader />
         </div>
-        <Link href="/events" passHref>
-    <Button className="mx-auto hover:bg-white">
-      View All
-    </Button>
-  </Link>
+        <Link href="/events">
+          <Button className="mx-auto hover:bg-white">View All</Button>
+        </Link>
       </section>
     );
   }
@@ -90,11 +87,9 @@ function Events() {
         ) : (
           <div className="flex justify-center">No events available</div>
         )}
-           <Link href="/events" passHref>
-    <Button className="mx-auto hover:bg-white">
-      View All
-    </Button>
-  </Link>
+        <Link href="/events">
+          <Button className="mx-auto hover:bg-white">View All</Button>
+        </Link>
       </section>
     );
   }
@@ -108,21 +103,19 @@ function Events() {
           Events & WorkShop
         </h1>
 
-        <p className="text-center font-sub-heading ">
+        <p className="text-center font-sub-heading">
           Enrich your skills and knowledge with tons of events and workshops
         </p>
         <div className="flex h-screen w-full items-center justify-center">
           <Loader />
         </div>
 
-        <Link href="/events" passHref>
-    <Button className="mx-auto hover:bg-white">
-      View All
-    </Button>
-  </Link>
+        <Link href="/events">
+          <Button className="mx-auto hover:bg-white">View All</Button>
+        </Link>
       </section>
     );
   }
-}
+};
 
 export default Events;

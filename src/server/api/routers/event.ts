@@ -179,7 +179,9 @@ const eventRouter = createTRPCRouter({
 
       const fetchedEvents = await ctx.db.event.findMany({
         where: {
-          state: "PUBLISHED",
+          state: {
+            not: "DRAFT",
+          },
           fromDate: {
             gte: startDate,
             lt: endDate,

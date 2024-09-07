@@ -86,7 +86,7 @@ const InnerLeftPanel = forwardRef<
           </div>
 
           <div className="flex gap-5">
-            <QRCode notMine={notMine} />
+            {!notMine && <QRCode />}
             {!notMine && (
               <Button
                 onClick={() =>

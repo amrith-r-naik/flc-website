@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
+import { ComboBox } from "~/components/ui/custom/combobox";
 import {
   DialogDrawer,
   DialogDrawerContent,
@@ -56,6 +57,8 @@ const InnerEditUserForm: FunctionComponent<{
 
   const [open, setOpen] = useState(false);
 
+  const { data: branches } = api.branch.getAllBranch.useQuery();
+
   const editUser = api.user.editUser.useMutation();
 
   const formSchema = editUserZ;
@@ -78,6 +81,7 @@ const InnerEditUserForm: FunctionComponent<{
         id: values.id,
         name: values.name,
         email: values.email,
+        branchId: values.branchId,
         bio: values.bio,
         phone: values.phone,
       },
@@ -145,6 +149,27 @@ const InnerEditUserForm: FunctionComponent<{
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="Email" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="branchId"
+              render={({ field }) => (
+                <FormItem className="w-full sm:min-w-[200px]">
+                  <FormLabel className="text-white dark:text-white">
+                    Branch
+                  </FormLabel>
+                  <FormControl>
+                    <ComboBox
+                      className="w-full rounded-lg bg-[#494949] py-2"
+                      data={branches ?? []}
+                      value={field.value}
+                      setValue={field.onChange}
+                      placeholder="Search branch..."
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

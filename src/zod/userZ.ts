@@ -12,6 +12,9 @@ const editUserZ = z.object({
   email: z.string().email({
     message: "Email is required",
   }),
+  branchId: z.string().min(1, {
+    message: "Please select a branch",
+  }),
   bio: z.string().optional(),
   phone: z.string(),
 });

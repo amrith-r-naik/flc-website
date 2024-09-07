@@ -1,19 +1,16 @@
-import Head from "next/head";
-import { usePathname } from "next/navigation";
+// import Head from "next/head";
 import React, { type FunctionComponent, type ReactNode } from "react";
-
-import { env } from "~/env";
 
 const SEOLayout: FunctionComponent<{
   children: ReactNode;
 }> = ({ children }) => {
-  const pathname = usePathname();
-  const routes = pathname?.split("/");
-  let path = null;
-  if (routes?.[1])
-    path = routes[1]
-      ? routes[1].charAt(0).toUpperCase() + routes[1].slice(1)
-      : null;
+  // const pathname = usePathname();
+  // const routes = pathname?.split("/");
+  // let path = null;
+  // if (routes?.[1])
+  //   path = routes[1]
+  //     ? routes[1].charAt(0).toUpperCase() + routes[1].slice(1)
+  //     : null;
 
   return (
     <>

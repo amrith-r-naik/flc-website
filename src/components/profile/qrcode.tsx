@@ -19,18 +19,16 @@ import { idToPid } from "~/utils/id";
 
 const QRCode: FunctionComponent<{
   className?: string;
-  notMine?:boolean;
-}> = ({ className,notMine }) => {
+}> = ({ className }) => {
   const { user } = useUser();
   if (!user) return null;
-  return <InnerQRCode user={user} className={className} notMine={notMine} />;
+  return <InnerQRCode user={user} className={className} />;
 };
 
 const InnerQRCode: FunctionComponent<{
   user: User;
   className?: string;
-  notMine?:boolean;
-}> = ({ user, className,notMine }) => {
+}> = ({ user, className }) => {
   const router = useRouter();
 
   if (!user.memberSince)

@@ -27,6 +27,11 @@ const userRouter = createTRPCRouter({
           email: input.email,
           bio: input.bio,
           phone: input.phone,
+          Branch: {
+            connect: {
+              id: input.branchId,
+            },
+          },
         },
       });
     }),

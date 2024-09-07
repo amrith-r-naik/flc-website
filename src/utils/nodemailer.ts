@@ -1,4 +1,3 @@
-import fs from "fs";
 import handlebars from "handlebars";
 import nodemailer from "nodemailer";
 

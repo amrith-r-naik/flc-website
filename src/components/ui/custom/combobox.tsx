@@ -77,6 +77,7 @@ const ComboBox: React.FunctionComponent<Props> = ({
                         setValue(currentValue === value ? "" : ele.id);
                       setOpen(false);
                     }}
+                    className="text-white"
                     // By default, command searches in the values provided
                     // Since we want to uniquely identify each item we have passed the id
                     // But we are not searching indexed on the id, rather indexed on the name

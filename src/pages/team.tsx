@@ -1,6 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import Loader from "~/components/loader";
 import MemberCard from "~/components/team/memberCard";
@@ -123,14 +123,13 @@ function Team() {
           </select>
         </div>
 
-
         <div
           ref={cardsContainer}
           className="mt-8 flex w-full justify-center pb-24"
         >
           <div className="grid gap-4 gap-y-24 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {isLoading ? (
-              <div className="col-span-full flex items-center justify-center min-h-[300px]">
+              <div className="col-span-full flex min-h-[300px] items-center justify-center">
                 <Loader />
               </div>
             ) : toggleState === "Faculty" ? (
@@ -159,7 +158,6 @@ function Team() {
               ))
             )}
           </div>
-
         </div>
       </div>
     </>

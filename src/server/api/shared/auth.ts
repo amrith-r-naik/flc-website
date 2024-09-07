@@ -1,6 +1,5 @@
 import { TRPCError } from "@trpc/server";
 
-import { env } from "~/env";
 import { addVerificationTokenToWhitelist } from "~/services/auth.service";
 import { getUserByEmail } from "~/utils/auth/auth";
 import { generateVerificationToken } from "~/utils/auth/jwt";

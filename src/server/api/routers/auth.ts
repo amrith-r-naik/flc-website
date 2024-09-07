@@ -7,7 +7,6 @@ import jwt, {
 
 import { sendVerificationEmailMutation } from "~/server/api/shared/auth";
 
-import { env } from "~/env";
 import {
   addPasswordResetTokenToWhitelist,
   revokeVerificationToken,

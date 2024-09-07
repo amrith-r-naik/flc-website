@@ -1,8 +1,7 @@
-import { User } from "@prisma/client";
 import { LogIn } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { useEffect, useState, type FunctionComponent } from "react";
+import React, { type FunctionComponent } from "react";
 
 import { Button } from "~/components/ui/button";
 
