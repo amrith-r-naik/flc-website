@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { type FunctionComponent } from "react";
 import {
   AiOutlineInstagram,
+  AiOutlineGithub, 
   AiOutlineFacebook,
   AiOutlineLinkedin,
   AiOutlineMail,
@@ -18,17 +19,22 @@ export const social = [
     name: "Instagram",
   },
   {
+    link: "https://github.com/Finite-Loop-Club-NMAMIT",
+    icon: <AiOutlineGithub className="h-7 w-7 hover:-translate-y-1" />,
+    name: "Github",
+  },
+  {
     link: "https://www.facebook.com/FiniteLoopClub.Nmamit/",
     icon: <AiOutlineFacebook className="h-7 w-7 hover:-translate-y-1" />,
     name: "Facebook",
   },
   {
-    link: "https://www.linkedin.com/showcase/finite-loop-club",
+    link: "https://www.linkedin.com/company/finite-loop-club/",
     icon: <AiOutlineLinkedin className="h-7 w-7 hover:-translate-y-1" />,
     name: "LinkedIn",
   },
   {
-    link: "mailto:finiteloopclub@gmail.com",
+    link: "mailto:finiteloopclub@nmamit.in",
     icon: <AiOutlineMail className="h-7 w-7 hover:-translate-y-1" />,
     name: "E-mail",
   },
@@ -41,9 +47,9 @@ export const social = [
 
 export const links = [
   { name: "Home", link: "/" },
-  { name: "Gallery", link: "/gallery" },
   { name: "Events", link: "/events" },
-  { name: "Blogs", link: "/blogs" },
+  { name: "Leaderboard", link: "/leaderboard" },
+  { name: "Team", link: "/team" },
 ];
 
 export const footLinks = [
