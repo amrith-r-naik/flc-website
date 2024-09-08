@@ -283,13 +283,13 @@ const InnerRegisterForm: FunctionComponent<{
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-white dark:text-white">
-                Github Link
+                Github Profile Link
               </FormLabel>
               <FormControl>
                 <Input
                   onFocus={form.handleSubmit(onSubmit)}
                   className="bg-[#494949]"
-                  placeholder="Github Link"
+                  placeholder="Github Profile URL"
                   {...field}
                 />
               </FormControl>
